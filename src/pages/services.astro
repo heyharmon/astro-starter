@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getEntry, getCollection, render } from "astro:content";
+
+const page = await getEntry("pages", "services");
+const { Content: PageContent } = await render(page);
+
+const services = (await getCollection("services")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<BaseLayout title={page.data.title} description={page.data.description}>
+  <!-- Hero -->
+  <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+    <h1 class="max-w-3xl">{page.data.headline}</h1>
+    {page.data.subheadline && (
+      <p class="mt-6 max-w-2xl text-lg text-neutral-500">
+        {page.data.subheadline}
+      </p>
+    )}
+    <div class="prose mt-8">
+      <PageContent />
+    </div>
+  </section>
+
+  <!-- Service cards -->
+  <section class="mx-auto max-w-5xl px-6 pb-24">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        services.map(async (service) => {
+          const { Content } = await render(service);
+          return (
+            <div class="rounded-xl border border-neutral-200 p-8 transition-colors hover:border-neutral-300 hover:bg-neutral-50">
+              <div class="mb-4 text-2xl">{service.data.icon}</div>
+              <h3 class="mb-2">{service.data.title}</h3>
+              <p class="text-sm">{service.data.description}</p>
+              <div class="prose mt-6 text-sm">
+                <Content />
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </section>
+</BaseLayout>

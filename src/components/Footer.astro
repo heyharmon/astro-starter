@@ -1,0 +1,32 @@
+---
+import site from "../data/site.json";
+
+const socialLinks = Object.entries(site.social).filter(([_, url]) => url);
+---
+
+<footer class="border-t border-neutral-200 bg-neutral-50">
+  <div class="mx-auto max-w-5xl px-6 py-12">
+    <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+      <div>
+        <p class="text-sm text-neutral-500">{site.footer.copyright}</p>
+      </div>
+
+      {
+        socialLinks.length > 0 && (
+          <div class="flex items-center gap-6">
+            {socialLinks.map(([platform, url]) => (
+              <a
+                href={url as string}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sm capitalize text-neutral-500 no-underline transition-colors hover:text-neutral-900"
+              >
+                {platform}
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getEntry, render } from "astro:content";
+
+const page = await getEntry("pages", "home");
+const { Content } = await render(page);
+---
+
+<BaseLayout title={page.data.title} description={page.data.description}>
+  <!-- Hero -->
+  <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+    <h1 class="max-w-3xl">{page.data.headline}</h1>
+    {page.data.subheadline && (
+      <p class="mt-6 max-w-2xl text-lg text-neutral-500">
+        {page.data.subheadline}
+      </p>
+    )}
+    <div class="mt-8 flex gap-4">
+      <a
+        href="/contact"
+        class="inline-flex items-center rounded-lg bg-neutral-900 px-6 py-3 text-sm font-medium text-white no-underline transition-colors hover:bg-neutral-800"
+      >
+        Get in touch
+      </a>
+      <a
+        href="/services"
+        class="inline-flex items-center rounded-lg border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-700 no-underline transition-colors hover:bg-neutral-50"
+      >
+        Our services
+      </a>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="mx-auto max-w-5xl px-6 pb-24">
+    <div class="prose">
+      <Content />
+    </div>
+  </section>
+</BaseLayout>

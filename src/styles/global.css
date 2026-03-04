@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+  --color-neutral-950: #0a0a0a;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-white text-neutral-900 font-sans;
+  }
+
+  h1 {
+    @apply text-4xl font-semibold tracking-tight sm:text-5xl;
+  }
+
+  h2 {
+    @apply text-2xl font-semibold tracking-tight sm:text-3xl;
+  }
+
+  h3 {
+    @apply text-xl font-medium;
+  }
+
+  p {
+    @apply leading-relaxed text-neutral-600;
+  }
+
+  a {
+    @apply text-neutral-900 underline-offset-4 hover:underline;
+  }
+}
+
+/* Prose styling for rendered markdown content */
+.prose {
+  @apply max-w-none;
+}
+
+.prose h2 {
+  @apply mt-12 mb-4;
+}
+
+.prose h3 {
+  @apply mt-8 mb-3;
+}
+
+.prose p {
+  @apply mb-6;
+}
+
+.prose ul {
+  @apply list-disc pl-6 mb-6 space-y-2 text-neutral-600;
+}
+
+.prose ol {
+  @apply list-decimal pl-6 mb-6 space-y-2 text-neutral-600;
+}
+
+.prose blockquote {
+  @apply border-l-2 border-neutral-200 pl-6 italic text-neutral-500 my-6;
+}
+
+.prose strong {
+  @apply font-semibold text-neutral-900;
+}
+
+.prose code {
+  @apply bg-neutral-100 px-1.5 py-0.5 rounded text-sm font-mono;
+}

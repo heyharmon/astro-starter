@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactForm from "../components/ContactForm.vue";
+import { getEntry, render } from "astro:content";
+import site from "../data/site.json";
+
+const page = await getEntry("pages", "contact");
+const { Content } = await render(page);
+---
+
+<BaseLayout title={page.data.title} description={page.data.description}>
+  <!-- Hero -->
+  <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+    <h1 class="max-w-3xl">{page.data.headline}</h1>
+    {page.data.subheadline && (
+      <p class="mt-6 max-w-2xl text-lg text-neutral-500">
+        {page.data.subheadline}
+      </p>
+    )}
+  </section>
+
+  <!-- Form section -->
+  <section class="mx-auto max-w-5xl px-6 pb-24">
+    <div class="grid gap-16 lg:grid-cols-2">
+      <div class="prose">
+        <Content />
+      </div>
+      <div>
+        <ContactForm client:idle formspreeId={site.formspreeId} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
