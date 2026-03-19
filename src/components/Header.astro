@@ -1,18 +1,20 @@
 ---
-import site from "../data/site.json";
+import nav from "../data/nav.json";
+import siteMeta from "../data/site-meta.json";
 
 const pathname = Astro.url.pathname;
+const sortedNav = [...nav].sort((a, b) => a.order - b.order);
 ---
 
 <header class="border-b border-neutral-200">
   <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
     <a href="/" class="text-lg font-semibold tracking-tight no-underline">
-      {site.name}
+      {siteMeta.name}
     </a>
 
     <ul class="flex items-center gap-8">
       {
-        site.nav.map((item) => {
+        sortedNav.map((item) => {
           const isActive =
             item.href === "/"
               ? pathname === "/"

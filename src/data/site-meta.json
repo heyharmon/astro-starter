@@ -1,0 +1,14 @@
+{
+  "name": "Acme Studio",
+  "tagline": "We build digital experiences that matter",
+  "description": "Acme Studio is a digital agency specializing in web design, SEO, and consulting.",
+  "url": "https://example.com",
+  "ogImage": "/images/og-default.png",
+  "copyright": "© 2026 Acme Studio. All rights reserved.",
+  "social": {
+    "twitter": "https://twitter.com",
+    "linkedin": "https://linkedin.com",
+    "github": "https://github.com"
+  },
+  "formspreeId": "YOUR_FORM_ID"
+}

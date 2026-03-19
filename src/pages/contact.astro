@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ContactForm from "../components/ContactForm.vue";
 import { getEntry, render } from "astro:content";
-import site from "../data/site.json";
+import siteMeta from "../data/site-meta.json";
 
 const page = await getEntry("pages", "contact");
 const { Content } = await render(page);
@@ -26,7 +26,7 @@ const { Content } = await render(page);
         <Content />
       </div>
       <div>
-        <ContactForm client:idle formspreeId={site.formspreeId} />
+        <ContactForm client:idle formspreeId={siteMeta.formspreeId} />
       </div>
     </div>
   </section>

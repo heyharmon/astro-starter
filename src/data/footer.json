@@ -1,0 +1,16 @@
+[
+  {
+    "section": "Company",
+    "links": [
+      { "label": "About", "href": "/about" },
+      { "label": "Services", "href": "/services" },
+      { "label": "Contact", "href": "/contact" }
+    ]
+  },
+  {
+    "section": "Resources",
+    "links": [
+      { "label": "Blog", "href": "/blog" }
+    ]
+  }
+]
