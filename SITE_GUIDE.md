@@ -1,290 +1,335 @@
-# Site Guide
+# Site Guide — CMS Operations Manual
 
-This is an Astro starter template for building small client websites (5-10 pages). It uses Vue for interactive components, Tailwind CSS for styling, and Astro Content Collections for all editable content.
+## 1. Project Overview
 
-**Designed for Claude Code** — all content lives in structured Markdown and JSON files. Content updates never require touching component code.
+Astro static site for a digital agency ("Acme Studio"). Built with Astro 5, Tailwind CSS 4, and Vue 3 (contact form only). All content is managed via Markdown files and JSON config — no CMS UI, no database.
 
----
-
-## File Structure
-
-```
-astro-starter/
-├── astro.config.mjs              # Astro config (integrations, Tailwind, output mode)
-├── package.json
-├── tsconfig.json
-├── SITE_GUIDE.md                  # This file
-├── public/
-│   └── favicon.svg                # Site favicon
-├── src/
-│   ├── content.config.ts         # ← Content collection schemas (DO NOT DELETE)
-│   ├── styles/
-│   │   └── global.css             # Tailwind imports + base styles + prose styling
-│   ├── data/
-│   │   └── site.json              # ← Global site config (name, nav, footer, socials, Formspree ID)
-│   ├── content/                   # ← ALL EDITABLE CONTENT LIVES HERE
-│   │   ├── pages/                 # Page content (one .md per page)
-│   │   │   ├── home.md
-│   │   │   ├── about.md
-│   │   │   ├── services.md
-│   │   │   └── contact.md
-│   │   ├── services/              # Service entries (one .md per service)
-│   │   │   ├── web-design.md
-│   │   │   ├── seo.md
-│   │   │   └── consulting.md
-│   │   └── blog/                  # Blog posts (one .md per post)
-│   │       ├── welcome-to-our-blog.md
-│   │       └── _template.md       # Template for new posts (draft: true)
-│   ├── layouts/
-│   │   └── BaseLayout.astro       # Main layout (head, header, footer, SEO)
-│   ├── components/
-│   │   ├── Head.astro             # SEO meta tags (title, OG, Twitter)
-│   │   ├── Header.astro           # Navigation bar (reads nav from site.json)
-│   │   ├── Footer.astro           # Site footer (reads footer/social from site.json)
-│   │   └── ContactForm.vue        # Vue contact form → Formspree
-│   └── pages/                     # Route files (fetch content from collections)
-│       ├── index.astro            # → /
-│       ├── about.astro            # → /about
-│       ├── services.astro         # → /services
-│       ├── contact.astro          # → /contact
-│       └── blog/
-│           ├── index.astro        # → /blog
-│           └── [...slug].astro    # → /blog/{post-slug}
+```bash
+npm run dev          # Dev server at localhost:4321
+npm run build        # Build static site to dist/
+npm run preview      # Preview built site
+npm run validate     # Full validation (config checks + build)
 ```
 
 ---
 
-## How to Edit Content
+## 2. Directory Map
 
-### Edit page content
+```
+src/
+├── content.config.ts    → Content collection schemas (Zod validation)
+├── content/
+│   ├── pages/           → Static page content (home, about, services, contact)
+│   ├── services/        → Service offerings (one .md per service)
+│   └── blog/            → Blog posts + _template.md
+├── data/
+│   ├── nav.json         → Navigation links with order
+│   ├── footer.json      → Footer link sections
+│   └── site-meta.json   → Site identity, SEO defaults, social links
+├── layouts/
+│   └── BaseLayout.astro → Main page wrapper (head, header, footer)
+├── components/
+│   ├── Head.astro       → SEO meta tags (title, OG, Twitter)
+│   ├── Header.astro     → Navigation bar (reads nav.json)
+│   ├── Footer.astro     → Footer (reads footer.json + site-meta.json)
+│   └── ContactForm.vue  → Vue contact form → Formspree
+├── pages/               → Astro route files
+│   ├── index.astro      → / (home)
+│   ├── about.astro      → /about
+│   ├── services.astro   → /services
+│   ├── contact.astro    → /contact
+│   └── blog/
+│       ├── index.astro      → /blog
+│       └── [...slug].astro  → /blog/{slug}
+├── styles/
+│   └── global.css       → Tailwind theme, base styles, prose styling
+public/
+├── images/              → Static images (referenced as /images/filename.ext)
+└── favicon.svg
+```
 
-Each page pulls its content from a Markdown file in `src/content/pages/`. Edit the corresponding file:
+---
 
-| Page     | Content file                      |
-| -------- | --------------------------------- |
-| Home     | `src/content/pages/home.md`       |
-| About    | `src/content/pages/about.md`      |
-| Services | `src/content/pages/services.md`   |
-| Contact  | `src/content/pages/contact.md`    |
+## 3. Configuration Reference
 
-**Frontmatter fields** (between `---` markers):
+### `src/data/nav.json`
+
+Array of navigation links. Header renders these sorted by `order`.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| label | string | Display text |
+| href | string | URL path (e.g., "/about") |
+| order | number | Sort position (lower = first) |
+
+### `src/data/footer.json`
+
+Array of link groups rendered as columns in the footer.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| section | string | Group heading (e.g., "Company") |
+| links | array | Array of `{ label, href }` objects |
+
+### `src/data/site-meta.json`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| name | string | Site name — shown in header and page titles |
+| tagline | string | Short tagline — used in branding |
+| description | string | Default meta description — SEO fallback |
+| url | string | Production URL — used for canonical URLs and OG tags |
+| ogImage | string | Default OG image path (e.g., "/images/og-default.png") |
+| copyright | string | Footer copyright text |
+| social | object | Social links: `{ twitter, linkedin, github }` — empty string hides the link |
+| formspreeId | string | Formspree form ID for the contact form |
+
+---
+
+## 4. Content Schemas
+
+### Pages (`src/content/pages/*.md`)
+
+Static page content. The filename (without `.md`) is the page ID used with `getEntry()`.
+
+| Field | Type | Required | Default | Description |
+|-------|------|----------|---------|-------------|
+| title | string | yes | — | Page title for `<title>` tag and SEO |
+| description | string | yes | — | Meta description for search results and social sharing |
+| headline | string | yes | — | Hero heading — large text at top of page |
+| subheadline | string | no | — | Supporting text below the headline |
+| featuredImage | object | no | — | `{ src: "/images/...", alt: "..." }` — hero image and social sharing |
 
 ```yaml
 ---
-title: "Page Title"           # Used in browser tab and SEO
-description: "Meta desc..."   # Used in search results and social sharing
-headline: "Hero Heading"      # Large text shown at top of page
-subheadline: "Supporting..."  # Optional smaller text below headline
-featuredImage:                 # Optional hero/social image
-  src: "/images/hero.jpg"
-  alt: "Description"
+title: "About Us"
+description: "Learn about our team and mission."
+headline: "We build things that matter"
+subheadline: "A small team with big ambitions."
+featuredImage:
+  src: "/images/about-hero.jpg"
+  alt: "Team working together"
 ---
-
-Markdown body content goes here. This is rendered below the hero section.
 ```
 
-### Edit the site name, navigation, or footer
+### Services (`src/content/services/*.md`)
 
-Edit `src/data/site.json`:
+Each file is a service offering. Auto-listed on `/services`, sorted by `order`.
 
-```json
-{
-  "name": "Your Company",
-  "tagline": "Your tagline",
-  "url": "https://yourdomain.com",
-  "nav": [
-    { "label": "Home", "href": "/" },
-    { "label": "About", "href": "/about" }
-  ],
-  "footer": {
-    "copyright": "© 2026 Your Company. All rights reserved."
-  },
-  "social": {
-    "twitter": "https://twitter.com/you",
-    "linkedin": "",
-    "github": ""
-  },
-  "formspreeId": "YOUR_FORM_ID"
-}
-```
+| Field | Type | Required | Default | Description |
+|-------|------|----------|---------|-------------|
+| title | string | yes | — | Service name — card title |
+| description | string | yes | — | Short summary for listing page |
+| icon | string | yes | — | Emoji or icon character (e.g., "◆") |
+| order | number | yes | — | Sort position (lower = first) |
 
+```yaml
 ---
-
-## How to Add a New Service
-
-1. Create a new `.md` file in `src/content/services/`:
-
-```markdown
----
-title: "Service Name"
-description: "A one-sentence summary of this service."
+title: "Web Design"
+description: "Beautiful, responsive websites built for results."
 icon: "◆"
-order: 4
+order: 1
 ---
-
-Detailed description of the service in Markdown.
-
-### What's included
-
-- Feature one
-- Feature two
-- Feature three
 ```
 
-2. The service automatically appears on the `/services` page, sorted by the `order` field.
+### Blog (`src/content/blog/*.md`)
 
-**Available icons**: Use any emoji or Unicode symbol (◆ ◇ ○ ● ■ □ ▲ △ ★ ☆). Or change to text-based icon identifiers if you integrate an icon library later.
+Blog posts. Filename becomes URL slug. Template at `src/content/blog/_template.md`.
 
+| Field | Type | Required | Default | Description |
+|-------|------|----------|---------|-------------|
+| title | string | yes | — | Post title |
+| description | string | yes | — | Post summary for listings and meta |
+| date | date | yes | — | Publish date (YYYY-MM-DD) |
+| author | string | no | "Team" | Author name |
+| tags | string[] | no | [] | Tags for categorization |
+| image | object | no | — | `{ src: "/images/...", alt: "..." }` — cover image |
+| draft | boolean | no | false | `true` hides from listings |
+
+```yaml
 ---
-
-## How to Write a New Blog Post
-
-1. Copy `src/content/blog/_template.md` or create a new `.md` file in `src/content/blog/`.
-2. The filename becomes the URL slug (e.g., `my-new-post.md` → `/blog/my-new-post`).
-
-```markdown
----
-title: "Your Post Title"
-description: "A brief summary (1-2 sentences). Shown in listings and meta tags."
-date: 2026-03-04
-author: "Your Name"
-tags: ["design", "development"]
-# image:
-#   src: "/images/blog/cover.jpg"
-#   alt: "Cover image description"
+title: "Getting Started with Web Design"
+description: "Tips for launching your first website project."
+date: 2026-03-19
+author: "Jane Doe"
+tags: ["design", "tips"]
+image:
+  src: "/images/blog/web-design-tips.jpg"
+  alt: "Design workspace"
 draft: false
 ---
-
-Your post content in Markdown.
 ```
 
-3. Set `draft: false` to publish. Posts with `draft: true` are hidden from the blog listing.
+---
+
+## 5. CMS Operations — Standard Procedures
+
+### Create a new page
+
+1. Create content file at `src/content/pages/{slug}.md` with required frontmatter (`title`, `description`, `headline`)
+2. Create route file at `src/pages/{slug}.astro`:
+   ```astro
+   ---
+   import BaseLayout from "../layouts/BaseLayout.astro";
+   import { getEntry, render } from "astro:content";
+
+   const page = await getEntry("pages", "{slug}");
+   const { Content } = await render(page);
+   ---
+
+   <BaseLayout title={page.data.title} description={page.data.description}>
+     <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+       <h1 class="max-w-3xl">{page.data.headline}</h1>
+       {page.data.subheadline && (
+         <p class="mt-6 max-w-2xl text-lg text-neutral-500">
+           {page.data.subheadline}
+         </p>
+       )}
+     </section>
+     <section class="mx-auto max-w-5xl px-6 pb-24">
+       <div class="prose">
+         <Content />
+       </div>
+     </section>
+   </BaseLayout>
+   ```
+3. If the page should appear in navigation, add an entry to `src/data/nav.json`
+4. Run validation: `npm run validate`
+
+### Edit page content
+
+1. Locate the file in `src/content/` (pages, services, or blog)
+2. Edit the markdown body content
+3. Do NOT modify frontmatter fields unless specifically asked to
+4. Run validation: `npm run validate`
+
+### Update SEO metadata
+
+1. Edit the page's frontmatter fields:
+   - `title` — max 60 characters
+   - `description` — max 155 characters
+   - `featuredImage` or `image` — for social sharing
+2. For site-wide SEO defaults, edit `src/data/site-meta.json` (`description`, `ogImage`)
+3. Run validation: `npm run validate`
+
+### Modify navigation
+
+1. Edit `src/data/nav.json`
+2. Each entry needs `label`, `href`, and `order`
+3. Ensure `order` values are sequential and non-conflicting
+4. Run validation: `npm run validate`
+
+### Modify footer links
+
+1. Edit `src/data/footer.json`
+2. Add/remove link groups or individual links within groups
+3. Run validation: `npm run validate`
+
+### Create a new blog post
+
+1. Copy `src/content/blog/_template.md` to `src/content/blog/{slug}.md`
+2. Set `title`, `description`, `date` (today: YYYY-MM-DD)
+3. Write the post body in markdown
+4. Set `draft: false` to publish (or `true` to keep hidden)
+5. Run validation: `npm run validate`
+
+### Change site-wide styles
+
+1. Identify whether the change is a **token change** or a **component change**
+2. For design tokens (colors, fonts, spacing): edit `src/styles/global.css` `@theme` block
+3. For base element styles: edit `src/styles/global.css` `@layer base` block
+4. For component-specific styles: edit the Tailwind classes in the relevant `.astro` component
+5. Do NOT add inline `<style>` blocks to components
+6. Run validation: `npm run validate`
 
 ---
 
-## How to Add a New Page
+## 6. Styling Reference
 
-1. **Create the content file** — Add a new `.md` file in `src/content/pages/`:
+- **Framework**: Tailwind CSS 4 — configured entirely in `src/styles/global.css` (no `tailwind.config` file)
+- **Theme block**: `@theme` in `global.css` defines CSS custom properties
 
-```markdown
----
-title: "New Page"
-description: "What this page is about."
-headline: "Page Headline"
-subheadline: "Optional supporting text."
----
+### Fonts
+- Sans: Inter (`--font-sans`)
+- Mono: JetBrains Mono (`--font-mono`)
 
-Page body content in Markdown.
-```
+### Color Palette (Neutral scale)
+| Token | Value | Usage |
+|-------|-------|-------|
+| neutral-50 | #fafafa | Footer background |
+| neutral-100 | #f5f5f5 | Code block background |
+| neutral-200 | #e5e5e5 | Borders, dividers |
+| neutral-300 | #d4d4d4 | — |
+| neutral-400 | #a3a3a3 | — |
+| neutral-500 | #737373 | Secondary text, muted content |
+| neutral-600 | #525252 | Body paragraph text |
+| neutral-700 | #404040 | — |
+| neutral-800 | #262626 | — |
+| neutral-900 | #171717 | Primary text, headings |
+| neutral-950 | #0a0a0a | — |
 
-2. **Create the route file** — Add a new `.astro` file in `src/pages/`:
+### Typography Scale
+- **h1**: `text-4xl sm:text-5xl font-semibold tracking-tight`
+- **h2**: `text-2xl sm:text-3xl font-semibold tracking-tight`
+- **h3**: `text-xl font-medium`
+- **p**: `leading-relaxed text-neutral-600`
 
-```astro
----
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { getEntry, render } from "astro:content";
+### Layout Conventions
+- Max width: `max-w-5xl`
+- Horizontal padding: `px-6`
+- Section vertical padding: `py-24 sm:py-32`
+- Cards: `rounded-xl border border-neutral-200 p-8`
+- Buttons: `rounded-lg px-6 py-3`
 
-const page = await getEntry("pages", "new-page");
-const { Content } = await render(page);
----
-
-<BaseLayout title={page.data.title} description={page.data.description}>
-  <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-    <h1 class="max-w-3xl">{page.data.headline}</h1>
-    {page.data.subheadline && (
-      <p class="mt-6 max-w-2xl text-lg text-neutral-500">
-        {page.data.subheadline}
-      </p>
-    )}
-  </section>
-
-  <section class="mx-auto max-w-5xl px-6 pb-24">
-    <div class="prose">
-      <Content />
-    </div>
-  </section>
-</BaseLayout>
-```
-
-3. **Add to navigation** — Add an entry to the `nav` array in `src/data/site.json`.
+### What NOT to change without explicit instruction
+- Font families
+- The neutral color scale values
+- Base typography sizes
+- Max width constraint
 
 ---
 
-## How to Deploy
+## 7. SEO Conventions
 
-### Vercel (recommended)
+### Frontmatter → Meta Tag Mapping
 
-1. Push to GitHub
-2. Import the repo in Vercel dashboard
-3. Vercel auto-detects Astro — no special config needed
-4. Deploys as static HTML
+| Frontmatter field | Meta tag | Notes |
+|-------------------|----------|-------|
+| title | `<title>`, `og:title`, `twitter:title` | Format: "Title \| Site Name" (except Home = just site name) |
+| description | `meta[name=description]`, `og:description`, `twitter:description` | Falls back to `site-meta.json > description > tagline` |
+| featuredImage.src / image.src | `og:image`, `twitter:image` | Falls back to `site-meta.json > ogImage` |
 
-### Any static host
+### Canonical URLs
+- Auto-generated from `site-meta.json > url` + current pathname
+- Override with `canonicalURL` prop on Head component
 
-Run `npm run build` and upload the `dist/` folder to any static hosting provider (Netlify, Cloudflare Pages, GitHub Pages, etc.).
-
----
-
-## Content Schema Reference
-
-Schemas are defined in `src/content.config.ts`. If you add a field to a schema, all entries in that collection must include it (unless marked optional with `.optional()` or given a default with `.default()`).
-
-### Pages schema
-
-| Field          | Type   | Required | Description                        |
-| -------------- | ------ | -------- | ---------------------------------- |
-| title          | string | yes      | Page title for SEO                 |
-| description    | string | yes      | Meta description                   |
-| headline       | string | yes      | Hero heading text                  |
-| subheadline    | string | no       | Supporting text below headline     |
-| featuredImage  | object | no       | `{ src: string, alt: string }`     |
-
-### Services schema
-
-| Field       | Type   | Required | Description                         |
-| ----------- | ------ | -------- | ----------------------------------- |
-| title       | string | yes      | Service name                        |
-| description | string | yes      | Short summary for listings          |
-| icon        | string | yes      | Emoji or icon identifier            |
-| order       | number | yes      | Sort order (lower = first)          |
-
-### Blog schema
-
-| Field       | Type     | Required | Default | Description                     |
-| ----------- | -------- | -------- | ------- | ------------------------------- |
-| title       | string   | yes      |         | Post title                      |
-| description | string   | yes      |         | Post summary                    |
-| date        | date     | yes      |         | Publish date (YYYY-MM-DD)       |
-| author      | string   | no       | "Team"  | Author name                     |
-| tags        | string[] | no       | []      | Tags for categorization         |
-| image       | object   | no       |         | `{ src: string, alt: string }`  |
-| draft       | boolean  | no       | false   | Hide from listings when true    |
+### OG Image Conventions
+- Default fallback: `site-meta.json > ogImage`
+- Place images in `public/images/`
+- Reference as `/images/filename.ext` (no `public/` prefix)
 
 ---
 
-## Development Commands
+## 8. Validation Checklist
+
+After every content or config change, run:
 
 ```bash
-npm run dev       # Start dev server at localhost:4321
-npm run build     # Build static site to dist/
-npm run preview   # Preview the built site locally
+npm run validate
+# or
+./scripts/validate.sh
 ```
 
----
+This checks:
+1. All data files (`nav.json`, `footer.json`, `site-meta.json`) are valid JSON
+2. Required fields exist in `site-meta.json` (`name`, `url`, `description`)
+3. `nav.json` is a non-empty array
+4. Full Astro build passes (catches schema errors, broken references, missing assets)
 
-## Setting Up Formspree
+**Do not consider a task complete until validation passes.**
 
-1. Create a free account at [formspree.io](https://formspree.io)
-2. Create a new form and copy the form ID (looks like `xyzabcde`)
-3. Replace `"YOUR_FORM_ID"` in `src/data/site.json` with your form ID
-4. The contact form will now submit to your Formspree endpoint
-
----
-
-## Architecture Decisions
-
-- **`.astro` for static, `.vue` for interactive** — Only `ContactForm.vue` uses Vue. Everything else is zero-JS Astro components.
-- **Content Collections** — All editable content is in `src/content/` with Zod schemas for validation.
-- **No CSS framework components** — Pure Tailwind utility classes. No UI library dependency.
-- **Static output** — Pre-rendered HTML at build time. No server required.
-- **Flat structure** — No nested abstractions. Each page is a single file that fetches its own content.
+If validation fails:
+1. Read the error message carefully
+2. Fix the identified issue (usually a frontmatter typo or missing field)
+3. Re-run validation
+4. Repeat until clean
