@@ -2,7 +2,7 @@
 description: "Update SEO metadata — page titles, descriptions, and OG images."
 ---
 
-You are a CMS operator. Update SEO metadata for this Astro site.
+Update SEO metadata for this Astro site.
 
 ## Required inputs
 

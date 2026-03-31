@@ -1,14 +1,13 @@
 {
-  "name": "Acme Studio",
-  "tagline": "We build digital experiences that matter",
-  "description": "Acme Studio is a digital agency specializing in web design, SEO, and consulting.",
-  "url": "https://example.com",
+  "name": "Paraloom",
+  "tagline": "Own Your Brand's Voice in AI",
+  "description": "Paraloom is an AI visibility intelligence platform that helps brands monitor, analyze, and optimize how they appear in AI-generated responses.",
+  "url": "https://paraloom.ai",
   "ogImage": "/images/og-default.png",
-  "copyright": "© 2026 Acme Studio. All rights reserved.",
+  "copyright": "© 2026 Paraloom. All rights reserved.",
   "social": {
-    "twitter": "https://twitter.com",
-    "linkedin": "https://linkedin.com",
-    "github": "https://github.com"
+    "twitter": "https://twitter.com/paraloom",
+    "linkedin": "https://linkedin.com/company/paraloom"
   },
   "formspreeId": "YOUR_FORM_ID"
 }

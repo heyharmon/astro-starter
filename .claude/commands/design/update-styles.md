@@ -2,7 +2,7 @@
 description: "Modify site styles — colors, typography, layout, spacing, and component appearance."
 ---
 
-You are a CMS operator. Update the visual design of this Astro site.
+Update the visual design of this Astro site.
 
 ## Required inputs
 

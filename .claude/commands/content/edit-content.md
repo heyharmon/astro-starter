@@ -2,7 +2,7 @@
 description: "Edit existing content — pages, blog posts, services, or site config."
 ---
 
-You are a CMS operator. Edit existing content on this Astro site.
+Edit existing content on this Astro site.
 
 ## Required inputs
 

@@ -4,34 +4,48 @@
 
 Astro 5 static site ("Acme Studio") with Tailwind CSS 4 and Vue 3 (contact form only). Content Collections with Zod schemas. Static output — no SSR.
 
-## Two Modes
+## Agents
 
-Determine which mode applies based on the user's request, then follow that mode's rules.
+This project uses four specialist agents. Route every user request to the correct agent based on the task domain. If a request spans multiple domains, break it into sub-tasks and invoke agents sequentially — foundational changes first.
 
-### CMS Operator
+### Content Agent → `content`
 
-**When:** The task involves content, navigation, footer links, site metadata, SEO, styling tokens, or anything a non-developer would do in a traditional CMS.
+**When:** Creating, editing, or removing pages, blog posts, or services. Editing page text, frontmatter body content, or markdown. Managing navigation links, footer links, or site config (nav.json, footer.json, site-meta.json). Any operation a non-developer would do in a CMS.
 
-**Rules:**
-- Read **SITE_GUIDE.md** before acting — it has schemas, procedures, and config reference
-- Content goes in `src/content/` (Markdown), config goes in `src/data/` (JSON)
-- Never edit `.astro` or `.vue` files for content/config changes
-- Follow the step-by-step procedures in SITE_GUIDE.md exactly
-- Run `npm run validate` after every change — task is not done until it passes
-- Use slash commands when they fit: `/create-page`, `/edit-content`, `/update-seo`, `/update-nav`, `/update-styles`, `/audit`
+**Owns:** `src/content/`, `src/data/`, `src/pages/` (route files for new pages only)
 
-### Developer
+**Skills:** `/content:create-page`, `/content:edit-content`, `/content:update-nav`
 
-**When:** The task involves components, layouts, schemas, build configuration, new integrations, bug fixes, refactoring, or any structural change to the codebase.
+### SEO Agent → `seo`
 
-**Rules:**
-- Read the relevant code before modifying it
-- Content still lives in `src/content/` — don't hardcode text into components
-- Schemas are in `src/content.config.ts` — update the schema before adding frontmatter fields
-- Styles are configured in `src/styles/global.css` (`@theme` block for tokens, `@layer base` for defaults)
-- `.astro` for static components, `.vue` only when client-side JS is required
-- Static output only — no SSR, no server endpoints
-- Run `npm run build` after changes to verify nothing breaks
+**When:** Auditing SEO, updating meta titles or descriptions, optimizing OG images, keyword research, competitor analysis, SERP analysis, creating content briefs, or any task focused on search visibility.
+
+**Owns:** SEO frontmatter fields (`title`, `description`, `featuredImage`/`image`, `tags`) and `src/data/site-meta.json` (SEO fields only)
+
+**Skills:** `/seo:update-seo`
+
+### Design Agent → `design`
+
+**When:** Changing colors, typography, fonts, spacing, layout, design tokens, component appearance, Tailwind theme, prose styling, or any visual change.
+
+**Owns:** `src/styles/global.css`, Tailwind classes in `.astro` components and layouts
+
+**Skills:** `/design:update-styles`
+
+### Dev Agent → `dev`
+
+**When:** Bug fixes, new features, component development, schema changes (content.config.ts), build configuration, new integrations, refactoring, performance work, or any structural codebase change.
+
+**Owns:** Everything not owned by Content, SEO, or Design — components, layouts, schemas, build config, scripts, static assets
+
+**Skills:** None (general-purpose developer)
+
+## Routing Rules
+
+1. **Single-domain request** → Delegate directly to that agent.
+2. **Multi-domain request** → Break into sub-tasks. Execute sequentially, starting with the foundational change. Example: "Add a new Pricing page with good SEO and styled like the About page" → Content creates the page → SEO optimizes metadata → Design adjusts styling.
+3. **Ambiguous request** → Ask the user to clarify before delegating.
+4. **Agents do not call each other.** Root Claude orchestrates all inter-agent coordination.
 
 ## Key Paths
 

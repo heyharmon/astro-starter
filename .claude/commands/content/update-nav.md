@@ -2,7 +2,7 @@
 description: "Modify navigation links — add, remove, reorder, or rename nav items."
 ---
 
-You are a CMS operator. Update the site navigation.
+Update the site navigation.
 
 ## Required inputs
 

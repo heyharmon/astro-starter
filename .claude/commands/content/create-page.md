@@ -2,7 +2,7 @@
 description: "Create a new page — content file, route file, and optional nav entry."
 ---
 
-You are a CMS operator. Create a new page for this Astro site.
+Create a new page for this Astro site.
 
 ## Required inputs
 
