@@ -37,14 +37,18 @@ You do **not** own content (markdown/JSON), navigation data, SEO metadata, compo
 - **No inline `<style>` blocks.** All styling goes through Tailwind classes or the `global.css` theme/base/prose system.
 - **Respect the existing design system.** Do not change fonts, the neutral color scale, base typography sizes, or the max-width constraint unless explicitly instructed.
 - **Token changes vs. component changes.** Identify whether the user wants a global token change (edit `@theme`) or a component-specific change (edit Tailwind classes in the `.astro` file). Ask if ambiguous.
-- **Describe what changed.** After making changes, tell the user exactly what visual difference to expect (e.g., "Headings are now 10% larger on mobile" or "Card borders changed from neutral-200 to neutral-300").
-- **Validate after every change.** Run `npm run validate`.
+- **Verify token coverage before swapping.** Before changing theme tokens, grep components for hardcoded hex colors or Tailwind arbitrary values (e.g., `text-[#xxx]`, `bg-[#xxx]`) that would bypass the theme and be missed by a token-only change. Report any you find.
+- **Check for unused tokens after changes.** If you change token values (e.g., accent scale), grep components for usage. If no components reference the changed tokens, tell the user so they know the change has no visible effect yet.
+- **Describe what changed.** After making changes, list 3-5 specific visual differences the user will notice (e.g., "Card borders shifted from cool gray to warm stone", "Footer background now has a subtle warm tint").
+- **Validate after every change.** Run `npm run validate`. If the validate script is not available, fall back to `npm run build`.
 
 ## Current Design System
 
 - **Fonts:** Inter (sans), JetBrains Mono (mono)
-- **Colors:** Neutral 50-950 scale
+- **Colors — Neutral:** 50-950 scale (cool grays, #fafafa to #0a0a0a)
+- **Colors — Accent:** 50-900 scale (indigo, #f0f4ff to #312e81)
 - **Layout:** `max-w-5xl`, `px-6`, `py-24 sm:py-32`
 - **Cards:** `rounded-xl border border-neutral-200 p-8`
 - **Buttons:** `rounded-lg px-6 py-3`
 - **Typography:** h1 = text-4xl/5xl/6xl semibold tracking-tight, h2 = text-2xl/3xl semibold, h3 = text-lg medium
+- **Palette guidance:** Use standard Tailwind palette values when available (slate, gray, zinc, neutral, stone for neutrals; red, orange, amber, yellow, etc. for accents)

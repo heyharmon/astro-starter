@@ -17,6 +17,7 @@ You are a developer working on an Astro 5 static site with Tailwind CSS 4 and Vu
 
 1. Read the relevant source code before modifying it.
 2. Reference **SITE_GUIDE.md** for content schemas, directory layout, and conventions.
+3. **Verify actual file structure.** Run `ls` on target directories before assuming filenames. Do not trust documentation paths blindly — use what exists on disk.
 
 ## Ownership Boundaries
 
@@ -39,7 +40,7 @@ You own everything the other agents do not:
 - **Static output only.** No SSR, no server endpoints, no dynamic server-side logic. This site builds to static HTML.
 - **`.astro` for static components, `.vue` only when client-side JS is required.** The only Vue component is `ContactForm.vue` — don't add more unless interactivity demands it.
 - **Schema first.** When adding new frontmatter fields, update `src/content.config.ts` before adding the field to any content file.
-- **Run `npm run build` after changes** to verify nothing breaks. For content-adjacent changes, run `npm run validate` instead.
+- **Run `npm run build` after changes** to verify nothing breaks. For content-adjacent changes, run `npm run validate` if available, otherwise `npm run build`.
 
 ## Architecture Notes
 
@@ -49,3 +50,12 @@ You own everything the other agents do not:
 - **Content collections:** `pages`, `services`, `blog` — all defined in `src/content.config.ts`
 - **Data files:** `nav.json`, `footer.json`, `site-meta.json` in `src/data/` — read by components at build time
 - **Validation:** `scripts/validate.sh` checks JSON validity, required fields, and runs a full Astro build
+- **Site URL:** The `site` property in `astro.config.mjs` is required by integrations like sitemap and RSS. If it's not set, read `src/data/site-meta.json` for the production URL and add it to the Astro config.
+
+## Adding an Astro Integration
+
+1. Install the package: `npm install @astrojs/<name>`
+2. Read `astro.config.mjs` to see existing integration patterns
+3. Import the integration and add it to the `integrations` array
+4. Configure any required Astro-level properties (e.g., `site` for sitemap/RSS)
+5. Run `npm run build` to verify the integration works

@@ -12,42 +12,17 @@ The user should provide: page topic or title, and optionally the slug, descripti
 
 1. **Determine the slug** from the user's input (lowercase, hyphenated). Confirm with the user if ambiguous.
 
-2. **Create the content file** at `src/content/pages/{slug}.md`:
-   - Required frontmatter: `title`, `description`, `headline`
-   - Optional: `subheadline`, `featuredImage`
-   - Write professional, clear body content in markdown
-   - See SITE_GUIDE.md § 4 "Pages" for the full schema
+2. **Read 1-2 existing pages** in `src/content/pages/` to calibrate tone, formatting, and frontmatter patterns.
 
-3. **Create the route file** at `src/pages/{slug}.astro`:
-   ```astro
-   ---
-   import BaseLayout from "../layouts/BaseLayout.astro";
-   import { getEntry, render } from "astro:content";
+3. **Follow SITE_GUIDE.md § "Create a new page"** for the full procedure, schema, and route file template.
 
-   const page = await getEntry("pages", "{slug}");
-   const { Content } = await render(page);
-   ---
+4. **Create the content file** at `src/content/pages/{slug}.md` with required frontmatter (`title`, `description`, `headline`) and professional body content in markdown.
 
-   <BaseLayout title={page.data.title} description={page.data.description}>
-     <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-       <h1 class="max-w-3xl">{page.data.headline}</h1>
-       {page.data.subheadline && (
-         <p class="mt-6 max-w-2xl text-lg text-neutral-500">
-           {page.data.subheadline}
-         </p>
-       )}
-     </section>
-     <section class="mx-auto max-w-5xl px-6 pb-24">
-       <div class="prose">
-         <Content />
-       </div>
-     </section>
-   </BaseLayout>
-   ```
+5. **Create the route file** at `src/pages/{slug}.astro` using the template from SITE_GUIDE.md. Copy the pattern from an existing page route if the template has drifted.
 
-4. **Ask about navigation** — if the user wants it in the nav, add an entry to `src/data/nav.json` with the next available `order` value.
+6. **Ask about navigation** — if the user wants it in the nav, read `src/data/nav.json`, add an entry with the next `order` value, and verify `href` matches the new route.
 
-5. **Validate**: Run `npm run validate` and report results.
+7. **Validate**: Run `npm run validate`. If unavailable, run `npm run build`.
 
 ## What the user said
 
