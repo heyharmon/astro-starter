@@ -1,28 +1,10 @@
 ---
-title: "About"
-description: "Learn about our team and the values that drive everything we do."
-headline: "A team that delivers"
-subheadline: "We're a small, focused team that believes great work comes from clear thinking and honest collaboration."
+title: "About Us"
+description: "Learn about our team, mission, and the values that drive everything we do."
+headline: "We build things that matter"
+subheadline: "A small team with big ambitions, focused on delivering quality work."
 ---
 
-## Our story
+We are a team of professionals dedicated to delivering exceptional results. With a focus on quality, transparency, and collaboration, we partner with our clients to bring their vision to life.
 
-We started this company because we saw a gap between what businesses need and what most providers deliver. Too many companies settle for generic solutions that don't fit. We set out to do things differently.
-
-We keep our team small on purpose. Fewer people means more focus, faster decisions, and direct access to the people doing the work.
-
-## What we do
-
-**Strategy.** We help you define where you're going and how to get there. Every engagement starts with a clear plan built around your goals.
-
-**Execution.** Plans are only as good as the follow-through. We roll up our sleeves and do the work — on time and on budget.
-
-**Support.** We don't disappear after launch. We stick around to make sure things keep running smoothly and adapt as your needs change.
-
-## What we believe
-
-**Quality over quantity.** We'd rather do one thing exceptionally well than five things that are just okay.
-
-**Clarity over complexity.** Simple solutions are usually the best ones. We focus on what actually moves the needle.
-
-**Transparency always.** No jargon, no hidden fees, no surprises. We keep you in the loop at every step.
+Our approach combines proven expertise with modern tools and techniques. Whether you need a simple website or a complex digital solution, we bring the same level of care and attention to every project.

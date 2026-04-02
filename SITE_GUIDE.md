@@ -25,7 +25,10 @@ src/
 ├── data/
 │   ├── nav.json         → Navigation links with order
 │   ├── footer.json      → Footer link sections
-│   └── site-meta.json   → Site identity, SEO defaults, social links
+│   ├── site-meta.json   → Site identity, SEO defaults, social links
+│   ├── design-tokens.json → Design system tokens (colors, typography, patterns)
+│   ├── build-state.json → Stage-gate build progress tracking
+│   └── evaluation-criteria.md → Grading rubric for cohort evaluation
 ├── layouts/
 │   └── BaseLayout.astro → Main page wrapper (head, header, footer)
 ├── components/
@@ -38,13 +41,15 @@ src/
 │   ├── about.astro      → /about
 │   ├── services.astro   → /services
 │   ├── contact.astro    → /contact
+│   ├── style-tile.astro  → /style-tile (design system preview, dev-only)
 │   └── blog/
 │       ├── index.astro      → /blog
 │       └── [...slug].astro  → /blog/{slug}
 ├── styles/
 │   └── global.css       → Tailwind theme, base styles, prose styling
 public/
-├── images/              → Static images (referenced as /images/filename.ext)
+├── images/
+│   └── placeholders/    → SVG placeholder images (16:9, 1:1, 3:4, 4:3)
 └── favicon.svg
 ```
 
@@ -310,7 +315,52 @@ draft: false
 
 ---
 
-## 8. Validation Checklist
+## 8. Style Tile & Design Tokens
+
+### Style Tile Page (`/style-tile`)
+
+A development-only page that previews the full design system. Not included in navigation or SEO. Located at `src/pages/style-tile.astro`.
+
+**Layer 1 (Atomic):** Color swatches, typography samples, buttons, form inputs, borders/effects.
+
+**Layer 2 (Component Patterns):** Hero sections, card variants, CTA bands, section layouts, nav/footer previews. This section grows — when building a new page type, add the new pattern to the style tile.
+
+The style tile does NOT use BaseLayout — it renders nav/footer as specimens, not wrappers. It imports `global.css` directly so it reflects live tokens.
+
+### Design Tokens (`src/data/design-tokens.json`)
+
+Machine-readable design system that agents reference as the source of truth for styling decisions. Contains:
+
+- `colors` — background, text, border, and button color mappings (Tailwind class names)
+- `typography` — font families, heading/body class conventions
+- `spacing` — section padding, container width, grid gaps
+- `effects` — border radius, shadows, overlay opacities
+- `componentPatterns` — named patterns (hero-fullbleed, card-overlay, etc.) with descriptions
+
+**When to update:** After any change to `global.css` tokens or when introducing a new component pattern during page building, update both the CSS and the JSON to stay in sync.
+
+**How agents use it:** Read `design-tokens.json` to know which Tailwind classes to use for backgrounds, text, borders, and component patterns. Read `global.css` for raw CSS variable values.
+
+### Placeholder Images (`public/images/placeholders/`)
+
+SVG placeholder images at standard aspect ratios. Use these wherever a real image hasn't been sourced yet:
+
+| File | Ratio | Use for |
+|------|-------|---------|
+| `hero-16x9.svg` | 16:9 | Hero backgrounds, CTA bands |
+| `square-1x1.svg` | 1:1 | Thumbnails, avatars |
+| `portrait-3x4.svg` | 3:4 | Team photos, tall cards |
+| `landscape-4x3.svg` | 4:3 | Project images, service cards |
+
+Referenced as `/images/placeholders/hero-16x9.svg` from any page.
+
+### Build State (`src/data/build-state.json`)
+
+Tracks progress through the stage-gate site build workflow. Agents and the orchestrator read this at session start. See CLAUDE.md "Site Build Workflow" for stage definitions.
+
+---
+
+## 9. Validation Checklist
 
 After every content or config change, run:
 

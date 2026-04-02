@@ -1,16 +1,8 @@
 ---
-title: "Strategy & Planning"
-description: "We help you define clear goals, identify opportunities, and build a roadmap to get there."
+title: "Web Design"
+description: "Beautiful, responsive websites built for results. We create modern designs that look great on every device."
 icon: "◆"
 order: 1
 ---
 
-Every great outcome starts with a solid plan. We work with you to understand your business, your market, and your goals — then map out a clear path forward.
-
-### What's included
-
-- Discovery and goal-setting workshops
-- Market and competitive analysis
-- Strategic roadmap development
-- Resource and timeline planning
-- Stakeholder alignment sessions
+We design and build modern websites that are fast, accessible, and optimized for conversions. Every project starts with understanding your goals and audience, then crafting a design that delivers results.

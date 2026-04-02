@@ -53,6 +53,37 @@ This project uses four specialist agents. Route every user request to the correc
 4. **Ambiguous request** → Ask the user to clarify before delegating.
 5. **Agents do not call each other.** Root Claude orchestrates all inter-agent coordination.
 
+## Site Build Workflow (Stage-Gate)
+
+When building a new site (not CMS maintenance), follow these stages in order. Read `src/data/build-state.json` for current progress. If the file is missing, infer state from the codebase and create it.
+
+### Stages
+
+| # | Stage | What | Gate |
+|---|-------|------|------|
+| 1 | **Style** | Design agent applies reference aesthetic to the style tile (`/style-tile`). Updates `global.css` tokens and `design-tokens.json`. | Human approves style tile |
+| 2 | **Sitemap** | Orchestrator proposes page list + nav structure based on reference or brief. | Human approves sitemap |
+| 3 | **Content Drafts** | Content agent drafts all page copy in `src/content/pages/*.md` with `draft: true`. No layout work yet. | Human reviews copy (soft gate) |
+| 4 | **Page Building** | Build pages in cohorts of 2–3. Homepage is always cohort 1. | Human reviews after each cohort |
+| 5 | **Final Review** | Full-site visual audit (all pages, desktop + mobile). SEO optimization pass. Design compliance check. | Human final approval |
+
+### Per-Cohort Sequence (Stage 4)
+
+Agents execute in this order for each cohort:
+
+1. **Dev** — structural layout (new sections, grids, HTML in `.astro` route files)
+2. **Content** — places drafted copy into layout, flips `draft: false`
+3. **Design** — styles any new component patterns, updates style tile + `design-tokens.json`
+4. **Content (images)** — sources and places images via Unsplash skill
+5. **Evaluate** — screenshots at 1280px + 375px, grades against `src/data/evaluation-criteria.md`
+6. **Report** — presents screenshots, scores, and flagged issues to human
+
+### State Tracking
+
+Update `src/data/build-state.json` after each stage transition and cohort completion. Include which pages belong to each cohort and their approval status.
+
+**Inference fallback** (if state file is missing): style-tile.astro has non-default content → style done. nav.json has real pages → sitemap done. Content files have body text → drafts exist.
+
 ## Key Paths
 
 | What | Where |
@@ -61,6 +92,11 @@ This project uses four specialist agents. Route every user request to the correc
 | Config | `src/data/nav.json`, `footer.json`, `site-meta.json` |
 | Schemas | `src/content.config.ts` |
 | Styles | `src/styles/global.css` |
+| Design tokens | `src/data/design-tokens.json` |
+| Style tile | `src/pages/style-tile.astro` |
+| Build state | `src/data/build-state.json` |
+| Eval criteria | `src/data/evaluation-criteria.md` |
+| Placeholders | `public/images/placeholders/` |
 | Components | `src/components/` |
 | Layouts | `src/layouts/BaseLayout.astro` |
 | Routes | `src/pages/` |

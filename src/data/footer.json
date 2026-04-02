@@ -1,16 +1,12 @@
 [
   {
-    "section": "Company",
+    "section": "Navigation",
     "links": [
+      { "label": "Home", "href": "/" },
       { "label": "About", "href": "/about" },
       { "label": "Services", "href": "/services" },
+      { "label": "Blog", "href": "/blog" },
       { "label": "Contact", "href": "/contact" }
-    ]
-  },
-  {
-    "section": "Resources",
-    "links": [
-      { "label": "Blog", "href": "/blog" }
     ]
   }
 ]

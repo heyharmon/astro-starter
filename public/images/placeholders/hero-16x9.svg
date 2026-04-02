@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect fill="#292524" width="1600" height="900"/>
+  <text x="800" y="440" text-anchor="middle" font-family="system-ui, sans-serif" font-size="32" font-weight="300" fill="#78716c">16 : 9</text>
+  <text x="800" y="490" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="300" fill="#57534e">1600 x 900</text>
+</svg>

@@ -9,7 +9,7 @@ const { Content } = await render(page);
 <BaseLayout title={page.data.title} description={page.data.description}>
   <!-- Hero -->
   <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-    <h1 class="max-w-3xl">{page.data.headline}</h1>
+    <h1>{page.data.headline}</h1>
     {page.data.subheadline && (
       <p class="mt-6 max-w-2xl text-lg text-neutral-500">
         {page.data.subheadline}
@@ -17,10 +17,21 @@ const { Content } = await render(page);
     )}
   </section>
 
-  <!-- Content -->
-  <section class="mx-auto max-w-5xl px-6 pb-24">
-    <div class="prose">
-      <Content />
+  <!-- About Content -->
+  <section class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+      <div class="grid gap-12 lg:grid-cols-2 items-start">
+        <div class="prose">
+          <Content />
+        </div>
+        <div class="aspect-[4/3] overflow-hidden rounded-xl bg-neutral-200">
+          <img
+            src="/images/placeholders/landscape-4x3.svg"
+            alt="Our team"
+            class="h-full w-full object-cover"
+          />
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>

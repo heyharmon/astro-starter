@@ -28,11 +28,13 @@ The user should describe: what visual change they want (colors, fonts, spacing, 
 
 5. **Check for unused tokens.** After changing tokens, grep components for usage. If no components reference the changed tokens, tell the user so they know the change has no visible effect yet.
 
-6. **Describe what changed** — list 3-5 specific visual differences the user will notice.
+6. **Sync design tokens.** If you changed `global.css` tokens or introduced new component patterns, update `src/data/design-tokens.json` to reflect the changes. This keeps the machine-readable design system in sync with the CSS. Update the relevant sections (`colors`, `typography`, `spacing`, `effects`, or `componentPatterns`).
 
-7. **Validate**: Run `npm run validate`. If unavailable, run `npm run build`.
+7. **Describe what changed** — list 3-5 specific visual differences the user will notice.
 
-8. **Visual verification** — check your work in a real browser before reporting done.
+8. **Validate**: Run `npm run validate`. If unavailable, run `npm run build`.
+
+9. **Visual verification** — check your work in a real browser before reporting done.
 
    a. **Start the dev server** in the background:
       ```bash

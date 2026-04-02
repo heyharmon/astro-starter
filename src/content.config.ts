@@ -34,6 +34,10 @@ const pages = defineCollection({
       })
       .optional()
       .describe("Hero image — shown in hero section and used for social sharing"),
+    draft: z
+      .boolean()
+      .default(false)
+      .describe("Draft content not yet approved — set to true during content drafting stage"),
   }),
 });
 
@@ -54,6 +58,17 @@ const services = defineCollection({
     icon: z
       .string()
       .describe("Emoji or icon identifier — displayed alongside the service title"),
+    image: z
+      .object({
+        src: z
+          .string()
+          .describe("Path to service background image, e.g. /images/services/design.jpg"),
+        alt: z
+          .string()
+          .describe("Accessible alt text describing the image"),
+      })
+      .optional()
+      .describe("Background image — shown as card background on homepage and services page"),
     order: z
       .number()
       .describe("Sort order — lower numbers appear first on the services page"),
@@ -61,47 +76,46 @@ const services = defineCollection({
 });
 
 /**
- * BLOG collection
- * Each .md file in src/content/blog/ is a blog post.
- * Posts with draft: true are excluded from the published listing.
- * The filename (without extension) becomes the URL slug.
+ * PROJECTS collection
+ * Each .md file in src/content/projects/ represents a completed project.
+ * The markdown body is used as the project's detailed description on its individual page.
  */
-const blog = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
+const projects = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
   schema: z.object({
     title: z
       .string()
-      .describe("Post title — shown as heading and in listings"),
+      .describe("Project name — displayed as the card title"),
     description: z
       .string()
-      .describe("Post summary — shown in listings and used as meta description"),
-    date: z
-      .coerce.date()
-      .describe("Publish date — used for sorting (newest first). Format: YYYY-MM-DD"),
-    author: z
+      .describe("Short summary — shown on project cards"),
+    client: z
       .string()
-      .default("Team")
-      .describe("Author name — defaults to 'Team' if not specified"),
-    tags: z
-      .array(z.string())
-      .default([])
-      .describe("Tags for categorization — used for filtering and display"),
+      .optional()
+      .describe("Client name — shown on the project detail page"),
+    location: z
+      .string()
+      .optional()
+      .describe("Project location — shown on the project detail page"),
     image: z
       .object({
         src: z
           .string()
-          .describe("Path to cover image, e.g. /images/blog/post-cover.jpg"),
+          .describe("Path to project image, e.g. /images/projects/hospital.jpg"),
         alt: z
           .string()
-          .describe("Accessible alt text describing the cover image"),
+          .describe("Accessible alt text describing the image"),
       })
       .optional()
-      .describe("Cover image — shown at top of post and in listings"),
-    draft: z
+      .describe("Project image — shown on card and detail page"),
+    order: z
+      .number()
+      .describe("Sort order — lower numbers appear first"),
+    featured: z
       .boolean()
       .default(false)
-      .describe("Set to true to hide from published listings"),
+      .describe("Set to true to show on the homepage featured projects section"),
   }),
 });
 
-export const collections = { pages, services, blog };
+export const collections = { pages, services, projects };

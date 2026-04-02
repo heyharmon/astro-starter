@@ -1,8 +1,8 @@
 ---
-title: "Contact"
-description: "Get in touch with our team. We'd love to hear from you."
+title: "Contact Us"
+description: "Get in touch with our team. We would love to hear about your project."
 headline: "Get in touch"
-subheadline: "Have a question or want to work together? Send us a message and we'll get back to you within 24 hours."
+subheadline: "We would love to hear from you"
 ---
 
-Whether you're exploring options or ready to get started, we're here to help. Fill out the form and tell us what you're looking for — the more detail, the better.
+Have a question or ready to start a project? Fill out the form below and we will get back to you as soon as possible.

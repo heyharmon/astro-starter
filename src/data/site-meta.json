@@ -1,13 +1,14 @@
 {
   "name": "Starter",
-  "tagline": "Your tagline goes here",
-  "description": "A modern website template ready to be customized for any business or project.",
+  "tagline": "A modern starting point for your next project",
+  "description": "A clean, minimal starter template built with Astro, Tailwind CSS, and Vue. Ready to customize for any business or project.",
   "url": "https://example.com",
   "ogImage": "/images/og-default.png",
-  "copyright": "© 2026 Company Name. All rights reserved.",
+  "copyright": "© 2026 Starter. All rights reserved.",
   "social": {
-    "twitter": "https://twitter.com/yourhandle",
-    "linkedin": "https://linkedin.com/company/yourcompany"
+    "twitter": "https://twitter.com/example",
+    "linkedin": "https://linkedin.com/company/example",
+    "github": "https://github.com/example"
   },
   "formspreeId": "YOUR_FORM_ID"
 }

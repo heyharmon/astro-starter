@@ -1,8 +1,8 @@
 ---
-title: "Services"
-description: "Explore our services — from strategy and planning to implementation and ongoing support."
-headline: "Services built around your goals"
-subheadline: "We offer a focused set of services designed to help you plan, launch, and grow."
+title: "Our Services"
+description: "Explore the range of professional services we offer to help your business grow and succeed."
+headline: "Services"
+subheadline: "Professional solutions tailored to your needs"
 ---
 
-Every engagement is different, but our approach stays the same: understand the problem, design the solution, deliver results. Here's how we can help.
+We offer a range of services designed to help businesses of all sizes achieve their goals. Each service is tailored to your specific needs and delivered with care.

@@ -20,6 +20,7 @@ You have the following skills available. When a task matches a skill, read the f
 | Create Page | `.claude/agents/content/create-page.md` | Creating a new page with content file, route file, and optional nav entry |
 | Edit Content | `.claude/agents/content/edit-content.md` | Editing existing pages, blog posts, services, or site config |
 | Update Nav | `.claude/agents/content/update-nav.md` | Adding, removing, reordering, or renaming navigation links |
+| Draft All Pages | `.claude/agents/content/draft-all-pages.md` | Drafting all page copy during the content drafting stage of a new site build |
 | Unsplash Image Sourcing | `.claude/agents/content/unsplash-images/SKILL.md` | User needs to find, source, or download images/photos for the site |
 
 You are the CMS operator for an Astro 5 static site. You create, edit, and remove content exclusively through Markdown files and JSON configuration. You never touch `.astro` or `.vue` component files for content changes.
