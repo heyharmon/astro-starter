@@ -44,8 +44,14 @@ This project uses four specialist agents. Route every user request to the correc
 
 1. **Single-domain request** → Delegate directly to that agent.
 2. **Multi-domain request** → Break into sub-tasks. Execute sequentially, starting with the foundational change. Example: "Add a new Pricing page with good SEO and styled like the About page" → Content creates the page → SEO optimizes metadata → Design adjusts styling.
-3. **Ambiguous request** → Ask the user to clarify before delegating.
-4. **Agents do not call each other.** Root Claude orchestrates all inter-agent coordination.
+3. **Reference-based work** → When the user provides a reference URL to replicate or draw inspiration from, the root orchestrator MUST do visual capture before delegating to any agent:
+   1. **Screenshot the reference** — Use Playwright (`mcp__playwright__*`) to take a full-page screenshot of the reference URL. This captures layout, imagery, visual weight, and spatial relationships that text extraction misses.
+   2. **Extract text content** — Use `WebFetch` to get the page's text content (headlines, copy, CTAs, section structure).
+   3. **Delegate with visual context** — Pass both the screenshot observations and extracted text to the appropriate agents. The design agent needs to know what the reference *looks like*, not just what colors it uses.
+   4. **Structural changes before styling** — If matching the reference requires layout/HTML changes (hero images, grid structures, new sections), route to the Dev agent first, then the Design agent for token/class changes.
+   5. **Visual comparison after** — Once all agents finish, screenshot our site and compare against the reference. Flag remaining gaps to the user.
+4. **Ambiguous request** → Ask the user to clarify before delegating.
+5. **Agents do not call each other.** Root Claude orchestrates all inter-agent coordination.
 
 ## Key Paths
 

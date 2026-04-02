@@ -8,30 +8,52 @@ Agents are bad at judging their own subjective output. The article found that se
 
 ---
 
-## Improvement 1: Visual Feedback Loop for Design Agent (DOING NOW)
+## Improvement 1: Visual Feedback Loop for Design Agent — DONE
 
 **What:** Give the design agent browser tools and add a "visual check" step to the `update-styles` skill. After making CSS/token changes, the agent starts the dev server, screenshots the affected page(s), and verifies the result matches intent.
 
-**Why:** The design agent currently validates only that the build compiles (`npm run validate`). It has zero visual verification. This is like a designer editing CSS with their monitor off.
+**Changes made:**
+- Added `mcp__playwright__*` to design agent's tool list in `.claude/agents/design.md`
+- Added step 8 "Visual verification" to `.claude/agents/design/update-styles.md` — agent starts dev server, screenshots at desktop + mobile, reviews, can iterate up to 3 times
 
-**Changes required:**
-- Add Playwright browser tools to the design agent's tool list
-- Add a visual verification step to `update-styles.md` after the validate step
-- The agent screenshots the page, checks visual coherence, and iterates if something looks off
+**Lesson from testing:** The visual check step works for verifying changes the agent made, but it's not enough when the task is "match this reference site." The agent needs to see the reference too.
 
 ---
 
-## Improvement 2: Separate Evaluator for Multi-Agent Tasks (FUTURE)
+## Improvement 2: Reference Visual Capture at Orchestration Level — DONE
+
+**What:** When a user provides a reference URL, the root orchestrator must screenshot it with Playwright BEFORE delegating to any agent. `WebFetch` extracts text content (good for copy); Playwright screenshots capture visual design (layout, imagery, spacing, visual weight). Both are needed.
+
+**Changes made:**
+- Added "Reference-Based Work" routing rule to `CLAUDE.md` with explicit orchestration sequence
+- Root orchestrator now screenshots reference sites and passes visual context to agents
+
+**Why this matters:** In our first test, the orchestrator used `WebFetch` only, which returned text descriptions of colors and section names. The design agent got "dark charcoal, gold accent" but never saw the hero image, the project photography grid, or the visual weight of the layout. Result: correct colors applied to the wrong structure.
+
+---
+
+## Improvement 3: Design Reference Comparison Skill — DONE
+
+**What:** A new skill for the design agent that takes reference screenshots and compares them against the current site, identifying specific visual gaps and iterating to close them.
+
+**Changes made:**
+- Created `.claude/agents/design/match-reference.md` — a comparison-driven design skill
+- Agent receives reference screenshots from the orchestrator, starts the dev server, screenshots own site, compares side-by-side, and iterates on differences
+- Registered in `.claude/agents/design.md` skill table
+
+**Key difference from update-styles:** The `update-styles` skill works from verbal descriptions ("make the accent color gold"). The `match-reference` skill works from visual comparison ("the reference has a full-bleed hero image with gradient overlay; ours has plain text on dark background").
+
+---
+
+## Improvement 4: Separate Evaluator for Multi-Agent Tasks (FUTURE)
 
 **What:** After all agents finish a multi-domain task (e.g., "create a new page with good design"), the root orchestrator spawns a lightweight evaluation pass using browser tools. It screenshots the final result and flags issues before reporting to the user.
 
 **Why:** When content, SEO, and design agents each do their part sequentially, nobody checks the combined result. A final visual + content review catches mismatches between what each agent produced.
 
-**Implementation idea:** A new evaluation skill or a simple orchestrator-level check that runs after multi-agent workflows complete.
-
 ---
 
-## Improvement 3: Design Grading Criteria (FUTURE)
+## Improvement 5: Design Grading Criteria (FUTURE)
 
 **What:** Define explicit evaluation criteria tailored to static site design, used by the visual check step or a future evaluator agent.
 
@@ -41,30 +63,26 @@ Proposed criteria:
 - **Responsive behavior** — Does the page look correct at mobile, tablet, and desktop widths?
 - **Brand coherence** — Does the change fit the overall site personality?
 
-**Why:** Without explicit criteria, evaluation is "does this look okay?" which is too vague. Named criteria give the evaluator (or evaluation step) something concrete to check against.
-
 ---
 
-## Improvement 4: Content Quality Review (FUTURE)
+## Improvement 6: Content Quality Review (FUTURE)
 
 **What:** Add a lightweight content review step — a fresh agent context reads the rendered page and flags tone inconsistencies, readability issues, or copy that contradicts SEO metadata.
 
-**Why:** The content agent has the same self-evaluation bias as the design agent. Pages can end up with mismatched tones, marketing fluff, or body copy that doesn't support the meta description.
-
 ---
 
-## Improvement 5: Context Reset Protocol for Full Site Builds (FUTURE)
+## Improvement 7: Context Reset Protocol for Full Site Builds (FUTURE)
 
 **What:** Formalize the handoff format between agents during multi-domain tasks. Each agent produces a structured summary of what it did, and the next agent gets a clean context with just that summary plus current file state.
-
-**Why:** The article found context resets with structured handoffs beat compaction for sustained quality on long tasks. Our agent architecture already gives each agent a fresh context, but the handoff between them (what the orchestrator tells the next agent) could be more structured.
 
 ---
 
 ## Priority Order
 
-1. Visual feedback loop for design agent (highest ROI, smallest change)
-2. Design grading criteria (gives the visual check teeth)
-3. Separate evaluator for multi-agent tasks
-4. Content quality review
-5. Context reset protocol
+1. ~~Visual feedback loop for design agent~~ — DONE
+2. ~~Reference visual capture at orchestration level~~ — DONE
+3. ~~Design reference comparison skill~~ — DONE
+4. Design grading criteria
+5. Separate evaluator for multi-agent tasks
+6. Content quality review
+7. Context reset protocol
