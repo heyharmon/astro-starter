@@ -1,5 +1,5 @@
 ---
-title: "Paraloom — AI Visibility Intelligence"
+title: "AI Visibility Intelligence Platform"
 description: "Monitor, analyze, and optimize how your brand appears in AI-generated responses across ChatGPT, Claude, Perplexity, and more."
 headline: "Own your brand's voice in AI"
 subheadline: "Monitor and optimize how your brand appears across ChatGPT, Claude, Perplexity, Google AI Overviews, and every AI platform that matters."

@@ -1,6 +1,6 @@
 ---
 title: "Services"
-description: "Explore our services — from web design and development to SEO and strategic consulting."
+description: "Paraloom services — AI visibility monitoring, SEO and content strategy, and digital consulting for brands."
 headline: "Services built around your goals"
 subheadline: "We offer a focused set of services designed to help you launch, grow, and optimize your digital presence."
 ---
