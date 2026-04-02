@@ -1,5 +1,5 @@
 ---
-import site from "../data/site.json";
+import siteMeta from "../data/site-meta.json";
 
 interface Props {
   title: string;
@@ -9,15 +9,20 @@ interface Props {
 }
 
 const { title, description, image, canonicalURL } = Astro.props;
-const pageTitle = title === "Home" ? site.name : `${title} | ${site.name}`;
-const metaDescription = description || site.tagline;
-const ogImage = image || "";
-const canonical = canonicalURL || new URL(Astro.url.pathname, site.url).href;
+const pageTitle = title === "Home" ? siteMeta.name : `${title} | ${siteMeta.name}`;
+const metaDescription = description || siteMeta.description || siteMeta.tagline;
+const ogImage = image || siteMeta.ogImage || "";
+const canonical = canonicalURL || new URL(Astro.url.pathname, siteMeta.url).href;
 ---
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="generator" content={Astro.generator} />
+
+<!-- Google Fonts: Inter -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
 <title>{pageTitle}</title>
 <meta name="description" content={metaDescription} />

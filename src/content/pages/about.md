@@ -1,22 +1,10 @@
 ---
-title: "About"
-description: "Learn about our team, our values, and what drives us to build great digital experiences."
-headline: "We're a small team that does big work"
-subheadline: "Founded with the belief that the best digital products come from focused teams with clear thinking."
+title: "About Us"
+description: "Learn about our team, mission, and the values that drive everything we do."
+headline: "We build things that matter"
+subheadline: "A small team with big ambitions, focused on delivering quality work."
 ---
 
-## Our story
+We are a team of professionals dedicated to delivering exceptional results. With a focus on quality, transparency, and collaboration, we partner with our clients to bring their vision to life.
 
-We started because we saw too many companies struggling with bloated agencies and overcomplicated processes. We believe great work comes from small, focused teams who care deeply about craft.
-
-## What we believe
-
-**Simplicity wins.** The best solutions are the ones that feel obvious in hindsight. We strip away complexity to find the core of every problem.
-
-**Quality over quantity.** We take on fewer projects so we can give each one the attention it deserves. Every project gets our full focus.
-
-**Transparency always.** No black boxes. You'll always know what we're working on, why we're doing it, and what's coming next.
-
-## The team
-
-We're a distributed team of designers, developers, and strategists who've worked together for years. We bring experience from startups, agencies, and enterprise — but we prefer the pace and focus of a small studio.
+Our approach combines proven expertise with modern tools and techniques. Whether you need a simple website or a complex digital solution, we bring the same level of care and attention to every project.

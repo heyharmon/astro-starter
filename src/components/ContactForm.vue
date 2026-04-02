@@ -49,7 +49,7 @@ async function handleSubmit() {
   <!-- Success state -->
   <div
     v-if="status === 'success'"
-    class="rounded-lg border border-neutral-200 bg-neutral-50 p-8 text-center"
+    class="rounded-xl border border-neutral-200 bg-white p-8 text-center"
   >
     <p class="text-lg font-medium text-neutral-900">Message sent</p>
     <p class="mt-2 text-neutral-500">
@@ -57,7 +57,7 @@ async function handleSubmit() {
     </p>
     <button
       type="button"
-      class="mt-6 text-sm text-neutral-500 underline underline-offset-4 hover:text-neutral-900"
+      class="mt-6 text-sm text-indigo-600 underline underline-offset-4 hover:text-indigo-700"
       @click="status = 'idle'"
     >
       Send another message
@@ -76,7 +76,7 @@ async function handleSubmit() {
         type="text"
         required
         placeholder="Your name"
-        class="mt-2 block w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-900 placeholder-neutral-400 transition-colors focus:border-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-900"
+        class="mt-2 block w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-900 placeholder-neutral-400 transition-colors focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
       />
     </div>
 
@@ -90,7 +90,7 @@ async function handleSubmit() {
         type="email"
         required
         placeholder="you@example.com"
-        class="mt-2 block w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-900 placeholder-neutral-400 transition-colors focus:border-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-900"
+        class="mt-2 block w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-900 placeholder-neutral-400 transition-colors focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
       />
     </div>
 
@@ -103,8 +103,8 @@ async function handleSubmit() {
         v-model="message"
         required
         rows="5"
-        placeholder="Tell us about your project..."
-        class="mt-2 block w-full resize-none rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-900 placeholder-neutral-400 transition-colors focus:border-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-900"
+        placeholder="How can we help?"
+        class="mt-2 block w-full resize-none rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-900 placeholder-neutral-400 transition-colors focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
       />
     </div>
 
@@ -116,7 +116,7 @@ async function handleSubmit() {
     <button
       type="submit"
       :disabled="status === 'submitting'"
-      class="inline-flex items-center rounded-lg bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-800 disabled:opacity-50"
+      class="btn-primary disabled:opacity-50"
     >
       <span v-if="status === 'submitting'">Sending...</span>
       <span v-else>Send message</span>

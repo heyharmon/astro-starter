@@ -1,66 +1,111 @@
-# Astro Starter — Claude Code CMS
+# Claude Code — Project Instructions
 
-This project is an Astro static site starter designed to be managed entirely through Claude Code. Claude Code replaces the traditional CMS — all content, design, and media are managed via slash commands and direct file editing.
+## Project
 
-## Project Overview
+Astro 5 static site ("Acme Studio") with Tailwind CSS 4 and Vue 3 (contact form only). Content Collections with Zod schemas. Static output — no SSR.
 
-- **Framework**: Astro 5 with static output
-- **Styling**: Tailwind CSS 4 (utility classes, no component library)
-- **Interactive**: Vue 3 (used only for `ContactForm.vue`)
-- **Content**: Astro Content Collections with Zod schemas
+## Agents
 
-## Key Architecture Rules
+This project uses four specialist agents. Route every user request to the correct agent based on the task domain. If a request spans multiple domains, break it into sub-tasks and invoke agents sequentially — foundational changes first.
 
-1. **Content lives in `src/content/`** — never hardcode text into `.astro` page files
-2. **Schemas are in `src/content.config.ts`** — if you add a frontmatter field, update the schema first
-3. **Site config lives in `src/data/site.json`** — name, nav, footer, socials, Formspree ID
-4. **Styles live in `src/styles/global.css`** — Tailwind theme, base styles, prose styling
-5. **`.astro` for static, `.vue` for interactive** — only add Vue components when client-side JS is required
-6. **Static output** — no SSR, no server. Everything pre-renders at build time
+### Content Agent → `content`
 
-## Content Collections
+**When:** Creating, editing, or removing pages, blog posts, or services. Editing page text, frontmatter body content, or markdown. Managing navigation links, footer links, or site config (nav.json, footer.json, site-meta.json). Any operation a non-developer would do in a CMS.
 
-| Collection | Directory | Schema fields |
-|------------|-----------|---------------|
-| pages | `src/content/pages/` | title, description, headline, subheadline?, featuredImage? |
-| services | `src/content/services/` | title, description, icon, order |
-| blog | `src/content/blog/` | title, description, date, author?, tags?, image?, draft? |
+**Owns:** `src/content/`, `src/data/`, `src/pages/` (route files for new pages only)
 
-## File Conventions
+**Skills:** `/content:create-page`, `/content:edit-content`, `/content:update-nav`
 
-- **Page content**: `src/content/pages/{slug}.md` — one file per page
-- **Page routes**: `src/pages/{slug}.astro` — fetches content via `getEntry("pages", "{slug}")`
-- **Services**: `src/content/services/{slug}.md` — auto-listed on `/services`, sorted by `order`
-- **Blog posts**: `src/content/blog/{slug}.md` — filename becomes URL slug, `draft: true` hides from listing
-- **Blog template**: `src/content/blog/_template.md` — copy this for new posts
+### SEO Agent → `seo`
 
-## Adding a New Page
+**When:** Auditing SEO, updating meta titles or descriptions, optimizing OG images, keyword research, competitor analysis, SERP analysis, creating content briefs, or any task focused on search visibility.
 
-1. Create `src/content/pages/{slug}.md` with required frontmatter (title, description, headline)
-2. Create `src/pages/{slug}.astro` that imports BaseLayout and fetches the content entry
-3. Add nav entry to `src/data/site.json` if the page should appear in navigation
+**Owns:** SEO frontmatter fields (`title`, `description`, `featuredImage`/`image`, `tags`) and `src/data/site-meta.json` (SEO fields only)
 
-## Design System
+**Skills:** `/seo:update-seo`
 
-- **Font**: Inter (sans), JetBrains Mono (mono)
-- **Color palette**: Neutral scale (50–950) defined in `src/styles/global.css` `@theme` block
-- **Layout**: Max width `max-w-5xl`, horizontal padding `px-6`, vertical padding `py-24 sm:py-32`
-- **Typography**: h1 = `text-4xl sm:text-5xl font-semibold tracking-tight`, h2 = `text-2xl sm:text-3xl`, h3 = `text-xl font-medium`
-- **Components**: Cards use `rounded-xl border border-neutral-200 p-8`, buttons use `rounded-lg px-6 py-3`
+### Design Agent → `design`
 
-## Commands
+**When:** Changing colors, typography, fonts, spacing, layout, design tokens, component appearance, Tailwind theme, prose styling, or any visual change.
+
+**Owns:** `src/styles/global.css`, Tailwind classes in `.astro` components and layouts
+
+**Skills:** `/design:update-styles`
+
+### Dev Agent → `dev`
+
+**When:** Bug fixes, new features, component development, schema changes (content.config.ts), build configuration, new integrations, refactoring, performance work, or any structural codebase change.
+
+**Owns:** Everything not owned by Content, SEO, or Design — components, layouts, schemas, build config, scripts, static assets
+
+**Skills:** None (general-purpose developer)
+
+## Routing Rules
+
+1. **Single-domain request** → Delegate directly to that agent.
+2. **Multi-domain request** → Break into sub-tasks. Execute sequentially, starting with the foundational change. Example: "Add a new Pricing page with good SEO and styled like the About page" → Content creates the page → SEO optimizes metadata → Design adjusts styling.
+3. **Reference-based work** → When the user provides a reference URL to replicate or draw inspiration from, the root orchestrator MUST do visual capture before delegating to any agent:
+   1. **Screenshot the reference** — Use Playwright (`mcp__playwright__*`) to take a full-page screenshot of the reference URL. This captures layout, imagery, visual weight, and spatial relationships that text extraction misses.
+   2. **Extract text content** — Use `WebFetch` to get the page's text content (headlines, copy, CTAs, section structure).
+   3. **Delegate with visual context** — Pass both the screenshot observations and extracted text to the appropriate agents. The design agent needs to know what the reference *looks like*, not just what colors it uses.
+   4. **Structural changes before styling** — If matching the reference requires layout/HTML changes (hero images, grid structures, new sections), route to the Dev agent first, then the Design agent for token/class changes.
+   5. **Visual comparison after** — Once all agents finish, screenshot our site and compare against the reference. Flag remaining gaps to the user.
+4. **Ambiguous request** → Ask the user to clarify before delegating.
+5. **Agents do not call each other.** Root Claude orchestrates all inter-agent coordination.
+
+## Site Build Workflow (Stage-Gate)
+
+When building a new site (not CMS maintenance), follow these stages in order. Read `src/data/build-state.json` for current progress. If the file is missing, infer state from the codebase and create it.
+
+### Stages
+
+| # | Stage | What | Gate |
+|---|-------|------|------|
+| 1 | **Style** | Design agent applies reference aesthetic to the style tile (`/style-tile`). Updates `global.css` tokens and `design-tokens.json`. | Human approves style tile |
+| 2 | **Sitemap** | Orchestrator proposes page list + nav structure based on reference or brief. | Human approves sitemap |
+| 3 | **Content Drafts** | Content agent drafts all page copy in `src/content/pages/*.md` with `draft: true`. No layout work yet. | Human reviews copy (soft gate) |
+| 4 | **Page Building** | Build pages in cohorts of 2–3. Homepage is always cohort 1. | Human reviews after each cohort |
+| 5 | **Final Review** | Full-site visual audit (all pages, desktop + mobile). SEO optimization pass. Design compliance check. | Human final approval |
+
+### Per-Cohort Sequence (Stage 4)
+
+Agents execute in this order for each cohort:
+
+1. **Dev** — structural layout (new sections, grids, HTML in `.astro` route files)
+2. **Content** — places drafted copy into layout, flips `draft: false`
+3. **Design** — styles any new component patterns, updates style tile + `design-tokens.json`
+4. **Content (images)** — sources and places images via Unsplash skill
+5. **Evaluate** — screenshots at 1280px + 375px, grades against `src/data/evaluation-criteria.md`
+6. **Report** — presents screenshots, scores, and flagged issues to human
+
+### State Tracking
+
+Update `src/data/build-state.json` after each stage transition and cohort completion. Include which pages belong to each cohort and their approval status.
+
+**Inference fallback** (if state file is missing): style-tile.astro has non-default content → style done. nav.json has real pages → sitemap done. Content files have body text → drafts exist.
+
+## Key Paths
+
+| What | Where |
+|------|-------|
+| Content | `src/content/{pages,services,blog}/*.md` |
+| Config | `src/data/nav.json`, `footer.json`, `site-meta.json` |
+| Schemas | `src/content.config.ts` |
+| Styles | `src/styles/global.css` |
+| Design tokens | `src/data/design-tokens.json` |
+| Style tile | `src/pages/style-tile.astro` |
+| Build state | `src/data/build-state.json` |
+| Eval criteria | `src/data/evaluation-criteria.md` |
+| Placeholders | `public/images/placeholders/` |
+| Components | `src/components/` |
+| Layouts | `src/layouts/BaseLayout.astro` |
+| Routes | `src/pages/` |
+| CMS manual | `SITE_GUIDE.md` |
+
+## Build
 
 ```bash
-npm run dev       # Start dev server at localhost:4321
-npm run build     # Build static site to dist/
-npm run preview   # Preview built site locally
+npm run dev          # Dev server at localhost:4321
+npm run build        # Production build to dist/
+npm run validate     # Config checks + build (use after CMS changes)
 ```
-
-## When Editing This Project
-
-- Always read the target file before editing it
-- When creating content, follow the existing frontmatter schema exactly
-- When modifying styles, edit `src/styles/global.css` — do not add inline `<style>` blocks to components
-- When adding Tailwind classes, use the neutral color scale and existing spacing patterns
-- Run `npm run build` after structural changes to verify the site compiles
-- Images go in `public/images/` and are referenced as `/images/filename.ext`

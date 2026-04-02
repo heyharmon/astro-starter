@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect fill="#292524" width="800" height="600"/>
+  <text x="400" y="290" text-anchor="middle" font-family="system-ui, sans-serif" font-size="32" font-weight="300" fill="#78716c">4 : 3</text>
+  <text x="400" y="340" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="300" fill="#57534e">800 x 600</text>
+</svg>

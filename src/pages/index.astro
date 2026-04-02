@@ -1,9 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getEntry, render } from "astro:content";
+import { getEntry, getCollection, render } from "astro:content";
 
 const page = await getEntry("pages", "home");
 const { Content } = await render(page);
+
+const services = (await getCollection("services")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 ---
 
 <BaseLayout title={page.data.title} description={page.data.description}>
@@ -16,25 +20,98 @@ const { Content } = await render(page);
       </p>
     )}
     <div class="mt-8 flex gap-4">
-      <a
-        href="/contact"
-        class="inline-flex items-center rounded-lg bg-neutral-900 px-6 py-3 text-sm font-medium text-white no-underline transition-colors hover:bg-neutral-800"
-      >
-        Get in touch
-      </a>
-      <a
-        href="/services"
-        class="inline-flex items-center rounded-lg border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-700 no-underline transition-colors hover:bg-neutral-50"
-      >
-        Our services
-      </a>
+      <a href="/contact" class="btn-primary">Get started</a>
+      <a href="/services" class="btn-ghost">Our services</a>
     </div>
   </section>
 
-  <!-- Content -->
-  <section class="mx-auto max-w-5xl px-6 pb-24">
-    <div class="prose">
-      <Content />
+  <!-- Features / Intro -->
+  <section class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+      <h2>Why work with us</h2>
+      <p class="mt-4 max-w-2xl text-neutral-500">
+        We combine modern tools with proven practices to deliver results that matter.
+      </p>
+      <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-xl border border-neutral-200 bg-white p-8">
+          <div class="text-2xl">&#9670;</div>
+          <h3 class="mt-4">Fast & Modern</h3>
+          <p class="mt-2 text-sm">
+            Built with the latest technology for speed, security, and scalability.
+          </p>
+        </div>
+        <div class="rounded-xl border border-neutral-200 bg-white p-8">
+          <div class="text-2xl">&#9650;</div>
+          <h3 class="mt-4">Easy to Customize</h3>
+          <p class="mt-2 text-sm">
+            Clean code and clear structure make it simple to adapt to any project.
+          </p>
+        </div>
+        <div class="rounded-xl border border-neutral-200 bg-white p-8">
+          <div class="text-2xl">&#9679;</div>
+          <h3 class="mt-4">Production Ready</h3>
+          <p class="mt-2 text-sm">
+            SEO optimized, accessible, and designed for real-world use from day one.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="border-t border-neutral-200">
+    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+      <h2>Services</h2>
+      <p class="mt-4 max-w-2xl text-neutral-500">
+        Professional solutions to help your business grow.
+      </p>
+      <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map((service) => (
+          <div class="rounded-xl border border-neutral-200 p-8">
+            <div class="text-2xl">{service.data.icon}</div>
+            <h3 class="mt-4">{service.data.title}</h3>
+            <p class="mt-2 text-sm">{service.data.description}</p>
+          </div>
+        ))}
+      </div>
+      <div class="mt-12">
+        <a href="/services" class="btn-ghost">View all services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Preview -->
+  <section class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+      <div class="grid gap-12 lg:grid-cols-2 items-center">
+        <div>
+          <h2>About us</h2>
+          <p class="mt-4">
+            We are a team of professionals dedicated to delivering exceptional results. With a focus on quality and collaboration, we partner with our clients to bring their vision to life.
+          </p>
+          <a href="/about" class="btn-ghost mt-8">Learn more</a>
+        </div>
+        <div class="aspect-[4/3] overflow-hidden rounded-xl bg-neutral-200">
+          <img
+            src="/images/placeholders/landscape-4x3.svg"
+            alt="Team at work"
+            class="h-full w-full object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="border-t border-neutral-200">
+    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32 text-center">
+      <h2>Ready to get started?</h2>
+      <p class="mx-auto mt-4 max-w-xl text-neutral-500">
+        Get in touch to discuss your project. We would love to hear from you.
+      </p>
+      <div class="mt-8">
+        <a href="/contact" class="btn-primary">Contact us</a>
+      </div>
     </div>
   </section>
 </BaseLayout>

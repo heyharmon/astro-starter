@@ -13,35 +13,43 @@ const services = (await getCollection("services")).sort(
 <BaseLayout title={page.data.title} description={page.data.description}>
   <!-- Hero -->
   <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-    <h1 class="max-w-3xl">{page.data.headline}</h1>
+    <h1>{page.data.headline}</h1>
     {page.data.subheadline && (
       <p class="mt-6 max-w-2xl text-lg text-neutral-500">
         {page.data.subheadline}
       </p>
     )}
-    <div class="prose mt-8">
-      <PageContent />
+  </section>
+
+  <!-- Services intro -->
+  <section class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+      <div class="prose max-w-3xl">
+        <PageContent />
+      </div>
     </div>
   </section>
 
   <!-- Service cards -->
-  <section class="mx-auto max-w-5xl px-6 pb-24">
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        services.map(async (service) => {
-          const { Content } = await render(service);
-          return (
-            <div class="rounded-xl border border-neutral-200 p-8 transition-colors hover:border-neutral-300 hover:bg-neutral-50">
-              <div class="mb-4 text-2xl">{service.data.icon}</div>
-              <h3 class="mb-2">{service.data.title}</h3>
-              <p class="text-sm">{service.data.description}</p>
-              <div class="prose mt-6 text-sm">
-                <Content />
+  <section class="border-t border-neutral-200">
+    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          services.map(async (service) => {
+            const { Content } = await render(service);
+            return (
+              <div class="rounded-xl border border-neutral-200 p-8">
+                <div class="text-2xl">{service.data.icon}</div>
+                <h3 class="mt-4">{service.data.title}</h3>
+                <p class="mt-2 text-sm text-neutral-500">{service.data.description}</p>
+                <div class="prose mt-6 text-sm">
+                  <Content />
+                </div>
               </div>
-            </div>
-          );
-        })
-      }
+            );
+          })
+        }
+      </div>
     </div>
   </section>
 </BaseLayout>

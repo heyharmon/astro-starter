@@ -1,0 +1,14 @@
+{
+  "name": "Starter",
+  "tagline": "A modern starting point for your next project",
+  "description": "A clean, minimal starter template built with Astro, Tailwind CSS, and Vue. Ready to customize for any business or project.",
+  "url": "https://example.com",
+  "ogImage": "/images/og-default.png",
+  "copyright": "© 2026 Starter. All rights reserved.",
+  "social": {
+    "twitter": "https://twitter.com/example",
+    "linkedin": "https://linkedin.com/company/example",
+    "github": "https://github.com/example"
+  },
+  "formspreeId": "YOUR_FORM_ID"
+}

@@ -15,6 +15,18 @@
   --color-neutral-800: #262626;
   --color-neutral-900: #171717;
   --color-neutral-950: #0a0a0a;
+
+  --color-indigo-50: #eef2ff;
+  --color-indigo-100: #e0e7ff;
+  --color-indigo-200: #c7d2fe;
+  --color-indigo-300: #a5b4fc;
+  --color-indigo-400: #818cf8;
+  --color-indigo-500: #6366f1;
+  --color-indigo-600: #4f46e5;
+  --color-indigo-700: #4338ca;
+  --color-indigo-800: #3730a3;
+  --color-indigo-900: #312e81;
+  --color-indigo-950: #1e1b4b;
 }
 
 @layer base {
@@ -28,15 +40,18 @@
   }
 
   h1 {
-    @apply text-4xl font-semibold tracking-tight sm:text-5xl;
+    @apply font-sans font-semibold tracking-tight text-neutral-900 text-4xl sm:text-5xl;
+    line-height: 1.1;
   }
 
   h2 {
-    @apply text-2xl font-semibold tracking-tight sm:text-3xl;
+    @apply font-sans font-semibold tracking-tight text-neutral-900 text-2xl sm:text-3xl;
+    line-height: 1.15;
   }
 
   h3 {
-    @apply text-xl font-medium;
+    @apply font-sans font-medium text-neutral-900 text-xl;
+    line-height: 1.2;
   }
 
   p {
@@ -44,8 +59,29 @@
   }
 
   a {
-    @apply text-neutral-900 underline-offset-4 hover:underline;
+    @apply text-indigo-600 underline-offset-4 hover:underline;
   }
+
+  hr {
+    @apply border-neutral-200;
+  }
+}
+
+/* Primary button utility */
+.btn-primary {
+  @apply inline-block rounded-lg bg-indigo-600 px-6 py-3 text-sm font-medium text-white no-underline transition-colors;
+}
+.btn-primary:hover {
+  @apply bg-indigo-700;
+}
+
+/* Ghost button utility */
+.btn-ghost {
+  @apply inline-block rounded-lg border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-900 no-underline transition-colors;
+  background: transparent;
+}
+.btn-ghost:hover {
+  @apply border-neutral-900 bg-neutral-900 text-white;
 }
 
 /* Prose styling for rendered markdown content */
@@ -62,7 +98,7 @@
 }
 
 .prose p {
-  @apply mb-6;
+  @apply mb-6 text-neutral-600;
 }
 
 .prose ul {
@@ -74,7 +110,7 @@
 }
 
 .prose blockquote {
-  @apply border-l-2 border-neutral-200 pl-6 italic text-neutral-500 my-6;
+  @apply border-l-2 border-neutral-300 pl-6 italic text-neutral-500 my-6;
 }
 
 .prose strong {
@@ -82,5 +118,9 @@
 }
 
 .prose code {
-  @apply bg-neutral-100 px-1.5 py-0.5 rounded text-sm font-mono;
+  @apply bg-neutral-100 px-1.5 py-0.5 rounded text-sm font-mono text-neutral-800;
+}
+
+.prose a {
+  @apply text-indigo-600 underline;
 }

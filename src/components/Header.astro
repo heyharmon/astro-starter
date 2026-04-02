@@ -1,18 +1,20 @@
 ---
-import site from "../data/site.json";
+import nav from "../data/nav.json";
+import siteMeta from "../data/site-meta.json";
 
 const pathname = Astro.url.pathname;
+const sortedNav = [...nav].sort((a, b) => a.order - b.order);
 ---
 
-<header class="border-b border-neutral-200">
+<header class="border-b border-neutral-200 bg-white">
   <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-    <a href="/" class="text-lg font-semibold tracking-tight no-underline">
-      {site.name}
+    <a href="/" class="text-lg font-semibold tracking-tight text-neutral-900 no-underline">
+      {siteMeta.name}
     </a>
 
-    <ul class="flex items-center gap-8">
+    <ul class="flex items-center gap-6">
       {
-        site.nav.map((item) => {
+        sortedNav.map((item) => {
           const isActive =
             item.href === "/"
               ? pathname === "/"
@@ -22,10 +24,10 @@ const pathname = Astro.url.pathname;
               <a
                 href={item.href}
                 class:list={[
-                  "text-sm no-underline transition-colors",
+                  "text-sm font-medium no-underline transition-colors",
                   isActive
-                    ? "text-neutral-900 font-medium"
-                    : "text-neutral-500 hover:text-neutral-900",
+                    ? "text-indigo-600"
+                    : "text-neutral-600 hover:text-neutral-900",
                 ]}
               >
                 {item.label}

@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "version": "1.0",
+    "description": "Machine-readable design system. Agents read this as the source of truth for where and how to use design tokens."
+  },
+  "colors": {
+    "background": {
+      "primary": "white",
+      "secondary": "neutral-50",
+      "tertiary": "neutral-100",
+      "card": "white"
+    },
+    "text": {
+      "primary": "neutral-900",
+      "body": "neutral-600",
+      "muted": "neutral-500",
+      "subtle": "neutral-400",
+      "accent": "indigo-600"
+    },
+    "border": {
+      "default": "neutral-200",
+      "card": "neutral-200",
+      "input": "neutral-300",
+      "focus": "indigo-500"
+    },
+    "accent": {
+      "base": "indigo-600",
+      "hover": "indigo-700",
+      "light": "indigo-50",
+      "scale": ["indigo-50", "indigo-100", "indigo-200", "indigo-300", "indigo-400", "indigo-500", "indigo-600", "indigo-700", "indigo-800", "indigo-900", "indigo-950"]
+    },
+    "button": {
+      "primary": {
+        "bg": "indigo-600",
+        "text": "white",
+        "hoverBg": "indigo-700"
+      },
+      "ghost": {
+        "bg": "transparent",
+        "text": "neutral-900",
+        "border": "neutral-300",
+        "hoverBg": "neutral-900",
+        "hoverText": "white",
+        "hoverBorder": "neutral-900"
+      }
+    }
+  },
+  "typography": {
+    "fonts": {
+      "heading": "Inter",
+      "body": "Inter",
+      "mono": "JetBrains Mono"
+    },
+    "headings": {
+      "h1": {
+        "classes": "font-sans font-semibold tracking-tight text-neutral-900 text-4xl sm:text-5xl",
+        "lineHeight": "1.1"
+      },
+      "h2": {
+        "classes": "font-sans font-semibold tracking-tight text-neutral-900 text-2xl sm:text-3xl",
+        "lineHeight": "1.15"
+      },
+      "h3": {
+        "classes": "font-sans font-medium text-neutral-900 text-xl",
+        "lineHeight": "1.2"
+      }
+    },
+    "body": {
+      "classes": "leading-relaxed text-neutral-600"
+    },
+    "small": {
+      "classes": "text-sm text-neutral-400"
+    },
+    "label": {
+      "classes": "text-sm font-medium uppercase tracking-wider text-neutral-500"
+    }
+  },
+  "spacing": {
+    "sectionPadding": "py-24 sm:py-32",
+    "containerMax": "max-w-5xl",
+    "containerPx": "px-6",
+    "gridGap": "gap-8",
+    "cardPadding": "p-8"
+  },
+  "effects": {
+    "borderRadius": {
+      "card": "rounded-xl",
+      "button": "rounded-lg",
+      "input": "rounded-lg",
+      "small": "rounded"
+    },
+    "shadows": {
+      "subtle": "shadow-sm",
+      "note": "Use sparingly — prefer flat borders for most components"
+    }
+  },
+  "componentPatterns": {
+    "hero-text": {
+      "description": "Text-only hero with headline, subheadline, and dual CTA buttons (primary + ghost). White background.",
+      "reference": "index.astro hero section"
+    },
+    "card-grid": {
+      "description": "Grid of bordered cards (rounded-xl, border-neutral-200, p-8) with icon, title, and description. 3-column on lg, 2-column on sm.",
+      "reference": "index.astro features section, services.astro cards"
+    },
+    "cta-centered": {
+      "description": "Centered text section with heading, description, and primary button. neutral-50 or white background.",
+      "reference": "index.astro CTA section"
+    },
+    "section-2col": {
+      "description": "Two-column grid — one side text content with ghost button, other side image (aspect-4/3, rounded-xl).",
+      "reference": "index.astro about section, about.astro content"
+    },
+    "section-alternating-bg": {
+      "description": "Sections alternate between bg-white and bg-neutral-50, separated by border-t border-neutral-200.",
+      "reference": "All page sections"
+    }
+  }
+}
