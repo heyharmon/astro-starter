@@ -1,0 +1,107 @@
+{
+  "businessName": "Paraloom",
+  "generatedDate": "2024-01-15",
+  "targetGeography": "United States",
+  "website": "https://paraloom.com",
+  "pillars": [
+    {
+      "pillarKeyword": "AI visibility analytics",
+      "type": "Offering",
+      "rationale": "Core product category - establishes authority in the AI visibility space",
+      "clusters": [
+        {
+          "keyword": "what is AI visibility analytics",
+          "searchIntent": "Informational",
+          "contentType": "Blog Post",
+          "priority": "Tier 2",
+          "competitorInsights": [
+            {
+              "insight": "No competitors have comprehensive content explaining AI visibility analytics",
+              "competitor": "No competitors",
+              "opportunity": "Content gap - opportunity to define and own this category",
+              "competitorUrl": null
+            }
+          ],
+          "notes": "Foundation piece for establishing category understanding"
+        },
+        {
+          "keyword": "AI visibility analytics platform",
+          "searchIntent": "Commercial Investigation",
+          "contentType": "Product Page",
+          "priority": "Tier 1",
+          "competitorInsights": [
+            {
+              "insight": "Semrush ranks for this keyword but focuses on traditional SEO analytics",
+              "competitor": "Semrush",
+              "opportunity": "Weak coverage - their content doesn't address AI-specific visibility, opportunity to differentiate",
+              "competitorUrl": "https://semrush.com/blog/visibility-analytics"
+            }
+          ],
+          "notes": "High commercial intent - core product keyword"
+        },
+        {
+          "keyword": "best AI visibility analytics tools",
+          "searchIntent": "Commercial Investigation",
+          "contentType": "Comparison Page",
+          "priority": "Tier 1",
+          "competitorInsights": [
+            {
+              "insight": "Ahrefs ranks #1 but only covers traditional SEO tools, not AI-specific visibility",
+              "competitor": "Ahrefs",
+              "opportunity": "Content gap - no tool focuses specifically on AI visibility, opportunity to create comprehensive comparison",
+              "competitorUrl": "https://ahrefs.com/blog/seo-tools"
+            }
+          ],
+          "notes": "Comparison content with high conversion potential"
+        },
+        {
+          "keyword": "how to track AI visibility",
+          "searchIntent": "Informational",
+          "contentType": "Guide",
+          "priority": "Tier 2",
+          "competitorInsights": [],
+          "notes": "Educational content to build authority"
+        }
+      ]
+    },
+    {
+      "pillarKeyword": "AI search optimization",
+      "type": "Problem",
+      "rationale": "Addresses the core problem businesses face - optimizing for AI search results",
+      "clusters": [
+        {
+          "keyword": "how to optimize for AI search",
+          "searchIntent": "Informational",
+          "contentType": "Guide",
+          "priority": "Tier 1",
+          "competitorInsights": [
+            {
+              "insight": "Clearscope has a blog post on this topic but it's from 2023 and lacks depth",
+              "competitor": "Clearscope",
+              "opportunity": "Weak coverage - opportunity to create more comprehensive, up-to-date guide",
+              "competitorUrl": "https://clearscope.io/blog/ai-search-optimization"
+            }
+          ],
+          "notes": "High-value educational content"
+        },
+        {
+          "keyword": "AI search optimization best practices",
+          "searchIntent": "Informational",
+          "contentType": "Blog Post",
+          "priority": "Tier 2",
+          "competitorInsights": [],
+          "notes": "Supporting content for the main guide"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "totalPillars": 2,
+    "totalClusters": 6,
+    "tier1Count": 3,
+    "tier2Count": 3,
+    "tier3Count": 0,
+    "keywordsWithInsights": 3
+  }
+}
+

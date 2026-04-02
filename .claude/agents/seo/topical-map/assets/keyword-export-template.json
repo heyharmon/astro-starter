@@ -1,0 +1,39 @@
+{
+  "businessName": "[Business Name]",
+  "generatedDate": "[ISO 8601 date format: YYYY-MM-DD]",
+  "targetGeography": "[Geography]",
+  "website": "[URL or null]",
+  "pillars": [
+    {
+      "pillarKeyword": "[Pillar keyword]",
+      "type": "[Offering/Problem/Category/Geographic]",
+      "rationale": "[Why this pillar matters]",
+      "clusters": [
+        {
+          "keyword": "[Cluster keyword]",
+          "searchIntent": "[Informational/Navigational/Commercial Investigation/Transactional]",
+          "contentType": "[Blog Post/Guide/Landing Page/Comparison Page/Product Page/Resource Page/FAQ Page]",
+          "priority": "[Tier 1/Tier 2/Tier 3]",
+          "competitorInsights": [
+            {
+              "insight": "[Specific insight about this keyword]",
+              "competitor": "[Competitor name or 'Multiple competitors' or 'No competitors']",
+              "opportunity": "[What opportunity this represents - e.g., 'Content gap - no competitor coverage', 'Weak coverage - opportunity to create deeper content', 'Format opportunity - competitors use text, video could win']",
+              "competitorUrl": "[URL of competitor content if applicable, or null]"
+            }
+          ],
+          "notes": "[Any additional notes about this keyword]"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "totalPillars": 0,
+    "totalClusters": 0,
+    "tier1Count": 0,
+    "tier2Count": 0,
+    "tier3Count": 0,
+    "keywordsWithInsights": 0
+  }
+}
+
