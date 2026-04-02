@@ -1,16 +1,16 @@
 ---
-title: "Digital Strategy & Consulting"
-description: "Strategic guidance to help you make better decisions about your digital presence and technology stack."
+title: "Support & Growth"
+description: "Ongoing partnership to keep things running smoothly and help you scale when you're ready."
 icon: "○"
 order: 3
 ---
 
-Not sure where to start? We help teams make sense of their digital landscape and chart a clear path forward. From technology selection to roadmap planning, we bring clarity to complexity.
+Launch is just the beginning. We provide ongoing support to keep things on track and help you adapt as your business evolves.
 
 ### What's included
 
-- Digital presence audit
-- Technology stack recommendations
-- Product roadmap planning
-- Competitive analysis
-- Ongoing advisory retainer
+- Ongoing maintenance and updates
+- Performance monitoring and reporting
+- Optimization recommendations
+- Scaling strategy and planning
+- Priority support and advisory

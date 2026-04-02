@@ -1,16 +1,16 @@
 ---
-title: "SEO & Content Strategy"
-description: "Data-driven SEO and content strategy to help your site rank higher and reach the right audience."
+title: "Implementation"
+description: "From plan to reality — we execute with precision, on time and on budget."
 icon: "◇"
 order: 2
 ---
 
-We help you get found. Our SEO and content strategy services are grounded in data, focused on sustainable growth, and designed to bring the right people to your site.
+Strategy without execution is just a wish list. We take the plan and bring it to life — managing every detail so you can focus on running your business.
 
 ### What's included
 
-- Technical SEO audit and fixes
-- Keyword research and content planning
-- On-page optimization
-- Content writing and editing
-- Monthly performance reporting
+- Project scoping and kickoff
+- End-to-end project management
+- Regular progress updates and check-ins
+- Quality assurance and testing
+- Launch coordination and handoff

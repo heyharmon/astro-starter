@@ -1,13 +1,13 @@
 {
-  "name": "Paraloom",
-  "tagline": "Own Your Brand's Voice in AI",
-  "description": "Paraloom is an AI visibility intelligence platform that helps brands monitor, analyze, and optimize how they appear in AI-generated responses.",
-  "url": "https://paraloom.ai",
+  "name": "Starter",
+  "tagline": "Your tagline goes here",
+  "description": "A modern website template ready to be customized for any business or project.",
+  "url": "https://example.com",
   "ogImage": "/images/og-default.png",
-  "copyright": "© 2026 Paraloom. All rights reserved.",
+  "copyright": "© 2026 Company Name. All rights reserved.",
   "social": {
-    "twitter": "https://twitter.com/paraloom",
-    "linkedin": "https://linkedin.com/company/paraloom"
+    "twitter": "https://twitter.com/yourhandle",
+    "linkedin": "https://linkedin.com/company/yourcompany"
   },
   "formspreeId": "YOUR_FORM_ID"
 }

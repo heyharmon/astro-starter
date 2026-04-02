@@ -1,18 +1,18 @@
 ---
-title: "AI Visibility Intelligence Platform"
-description: "Monitor, analyze, and optimize how your brand appears in AI-generated responses across ChatGPT, Claude, Perplexity, and more."
-headline: "Own your brand's voice in AI"
-subheadline: "Monitor and optimize how your brand appears across ChatGPT, Claude, Perplexity, Google AI Overviews, and every AI platform that matters."
+title: "Home"
+description: "Welcome to our website. We help businesses grow with solutions tailored to their needs."
+headline: "Solutions that grow with your business"
+subheadline: "We work with companies of all sizes to solve complex problems, streamline operations, and deliver results that matter."
 ---
 
-## The AI visibility problem
+## The challenge
 
-Your customers are asking AI for recommendations — and AI is answering. The question is whether those answers include your brand, represent it accurately, and position you ahead of competitors. Most brands have no idea what AI is saying about them.
+Every business faces unique obstacles — whether it's reaching new customers, improving efficiency, or staying ahead of the competition. The right partner makes the difference between spinning your wheels and moving forward with purpose.
 
-## How Paraloom works
+## Our approach
 
-Paraloom continuously monitors how your brand is mentioned and represented across major AI platforms. We surface actionable insights so you can understand your AI presence, track changes over time, and take steps to improve your visibility where it counts.
+We start by listening. Every engagement begins with understanding your goals, your constraints, and what success looks like for you. From there, we build a plan and execute it — no fluff, no wasted effort.
 
-## Why it matters now
+## Why now
 
-AI-generated answers are rapidly replacing traditional search for product research, recommendations, and decision-making. Brands that understand and optimize their AI visibility today will own the conversation tomorrow. Those that don't will be invisible.
+Markets move fast. The companies that invest in the right solutions today are the ones that lead tomorrow. Whether you're just getting started or ready to scale, there's no better time to take the next step.

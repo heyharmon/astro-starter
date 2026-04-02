@@ -1,22 +1,22 @@
 ---
 title: "Welcome to Our Blog"
-description: "Introducing our blog — where we share insights on design, development, and building better digital products."
+description: "Introducing our blog — a place to share ideas, updates, and things we've learned along the way."
 date: 2026-03-01
 author: "Team"
-tags: ["announcements", "company"]
+tags: ["announcements"]
 draft: false
 ---
 
-We're excited to launch our blog. This is where we'll share what we're learning, thinking about, and building.
+We're excited to launch our blog. This is where we'll share what we're learning, thinking about, and working on.
 
 ## What to expect
 
 We'll be writing about the things we care about most:
 
-- **Design thinking** — How we approach problems and craft solutions
-- **Development practices** — Tools, techniques, and workflows that work
-- **Industry insights** — Trends and observations from the digital landscape
-- **Case studies** — Deep dives into projects and what we learned
+- **Ideas and perspectives** — Our take on topics that matter to our work and our clients
+- **Lessons learned** — What's worked, what hasn't, and what we'd do differently
+- **Company updates** — News from our team as we grow and evolve
+- **Useful resources** — Tools, frameworks, and approaches we've found valuable
 
 ## Why we're writing
 

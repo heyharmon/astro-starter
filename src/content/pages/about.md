@@ -1,28 +1,28 @@
 ---
 title: "About"
-description: "Learn about Paraloom — the team building AI visibility intelligence to help brands own their voice in AI."
-headline: "We're a small team that does big work"
-subheadline: "Founded with the belief that the best digital products come from focused teams with clear thinking."
+description: "Learn about our team and the values that drive everything we do."
+headline: "A team that delivers"
+subheadline: "We're a small, focused team that believes great work comes from clear thinking and honest collaboration."
 ---
 
 ## Our story
 
-Paraloom was founded on a simple observation: brands spend millions optimizing how they appear in search engines, but have zero visibility into how AI represents them. As AI-generated answers replace traditional search results for more and more decisions, that blind spot is becoming a business risk.
+We started this company because we saw a gap between what businesses need and what most providers deliver. Too many companies settle for generic solutions that don't fit. We set out to do things differently.
 
-We built Paraloom to close that gap — giving brands the intelligence they need to monitor, understand, and improve their presence across every major AI platform.
+We keep our team small on purpose. Fewer people means more focus, faster decisions, and direct access to the people doing the work.
 
 ## What we do
 
-**AI visibility monitoring.** We continuously track how your brand is mentioned, described, and positioned in responses from ChatGPT, Claude, Perplexity, Google AI Overviews, and other AI platforms.
+**Strategy.** We help you define where you're going and how to get there. Every engagement starts with a clear plan built around your goals.
 
-**Competitive intelligence.** See how you stack up against competitors in AI-generated recommendations and understand what drives the differences.
+**Execution.** Plans are only as good as the follow-through. We roll up our sleeves and do the work — on time and on budget.
 
-**Actionable insights.** We don't just surface data — we translate it into clear steps you can take to improve how AI talks about your brand.
+**Support.** We don't disappear after launch. We stick around to make sure things keep running smoothly and adapt as your needs change.
 
 ## What we believe
 
-**Visibility is the new SEO.** The brands that understand their AI presence today will define their categories tomorrow.
+**Quality over quantity.** We'd rather do one thing exceptionally well than five things that are just okay.
 
-**Clarity over complexity.** We make AI visibility understandable and actionable, not another dashboard full of noise.
+**Clarity over complexity.** Simple solutions are usually the best ones. We focus on what actually moves the needle.
 
-**Transparency always.** Your AI presence shouldn't be a black box. We give you a clear, honest picture of where you stand and what you can do about it.
+**Transparency always.** No jargon, no hidden fees, no surprises. We keep you in the loop at every step.

@@ -103,7 +103,7 @@ async function handleSubmit() {
         v-model="message"
         required
         rows="5"
-        placeholder="Tell us about your project..."
+        placeholder="How can we help?"
         class="mt-2 block w-full resize-none rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-900 placeholder-neutral-400 transition-colors focus:border-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-900"
       />
     </div>
