@@ -4,7 +4,7 @@ description: >
   Use for any visual or styling task: changing colors, typography, fonts, spacing,
   layout, design tokens, component appearance, Tailwind theme configuration, prose
   styling, or any change to how the site looks.
-tools: Read, Write, Edit, Glob, Grep, Bash
+tools: Read, Write, Edit, Glob, Grep, Bash, mcp__playwright__*
 model: inherit
 ---
 
