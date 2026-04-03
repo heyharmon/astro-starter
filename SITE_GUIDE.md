@@ -48,7 +48,7 @@ src/
 ├── styles/
 │   └── global.css       → Tailwind theme, base styles, prose styling
 public/
-├── images/
+├── images/              → Site images (owned by Images agent)
 │   └── placeholders/    → SVG placeholder images (16:9, 1:1, 3:4, 4:3)
 └── favicon.svg
 ```

@@ -32,11 +32,17 @@ This project uses four specialist agents. Route every user request to the correc
 
 **Skills:** `/design:update-styles`
 
+### Images Agent → `images`
+
+**When:** Sourcing, downloading, or placing images. Stock photo search, reference site image pulling, or any task involving finding or managing visual assets for the site.
+
+**Owns:** `public/images/` (except `placeholders/`), image frontmatter fields (`featuredImage`, `image`)
+
 ### Dev Agent → `dev`
 
 **When:** Bug fixes, new features, component development, schema changes (content.config.ts), build configuration, new integrations, refactoring, performance work, or any structural codebase change.
 
-**Owns:** Everything not owned by Content, SEO, or Design — components, layouts, schemas, build config, scripts, static assets
+**Owns:** Everything not owned by Content, SEO, Design, or Images — components, layouts, schemas, build config, scripts, static assets
 
 **Skills:** None (general-purpose developer)
 
@@ -74,7 +80,7 @@ Agents execute in this order for each cohort:
 1. **Dev** — structural layout (new sections, grids, HTML in `.astro` route files)
 2. **Content** — places drafted copy into layout, flips `draft: false`
 3. **Design** — styles any new component patterns, updates style tile + `design-tokens.json`
-4. **Content (images)** — sources and places images via Unsplash skill
+4. **Images** — Images agent sources and places images via `source-page-images` skill
 5. **Polish** — Design agent runs the `polish-page` skill. Compares the built page section-by-section against the reference (if one exists) or against the approved homepage + style tile (if no reference). Fixes spacing, sizing, text placement, visual weight, and layout details to reach 90–95% quality. See `.claude/agents/design/polish-page.md`.
 6. **Evaluate** — screenshots at 1280px + 375px, grades against `src/data/evaluation-criteria.md`
 7. **Report** — presents screenshots, scores, and flagged issues to human
