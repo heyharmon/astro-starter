@@ -157,18 +157,20 @@ After each cohort, run evaluation with explicit grading criteria:
 
 ## Phase 3: Specialist Agents & Capabilities
 
-### 3a. Image Sourcing Specialist Agent
+### 3a. Image Sourcing Specialist Agent — DONE
 
 **Problem:** Every page in the test needed placeholder images. Image sourcing is curatorial work — brand, mood, aspect ratios, visual consistency. Real sites need real photos.
 
-**Solution:** A dedicated image sourcing agent with:
-- **Stock photo sourcing** — Unsplash, Pexels, with brand-aware queries
-- **AI image generation** — custom illustrations, backgrounds, imagery that doesn't exist in stock
-- **Reference site image pulling** — if the reference site exists, the agent can download and use images from it (with appropriate attribution/licensing consideration)
-- **Quality standards** — minimum resolution, correct aspect ratios per placement, consistent visual style
-- **Placement context** — hero background (wide, atmospheric) vs card thumbnail (square, focused) vs portrait (headshot)
+**Solution:** Created a dedicated 5th agent (`images`) that owns all image sourcing, downloading, and placement.
 
-**Integration:** Called after each page cohort. Human approves image selections before placement.
+**Changes made:**
+- Created `.claude/agents/images.md` — agent definition with Playwright + Bash tools
+- Moved Unsplash skill from content agent to `.claude/agents/images/unsplash/` (scripts, API reference, updated SKILL.md)
+- Created `source-page-images.md` — per-cohort workflow that inventories all image placements, sources from Unsplash or reference site, downloads to `public/images/{category}/`, updates frontmatter, and verifies visually
+- Created `pull-reference-images.md` — reference site image extraction with licensing disclaimers
+- Updated CLAUDE.md — added Images agent to roster, changed Stage 4 step 4 to reference Images agent
+- Updated content agent — removed Unsplash skill, added "does not own images" rule
+- Updated SITE_GUIDE.md — directory map notes Images agent ownership
 
 ### 3b. Content Quality Review
 
