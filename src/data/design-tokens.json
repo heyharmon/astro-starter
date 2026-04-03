@@ -1,119 +1,152 @@
 {
   "meta": {
-    "version": "1.0",
-    "description": "Machine-readable design system. Agents read this as the source of truth for where and how to use design tokens."
+    "version": "2.0",
+    "description": "Machine-readable design system inspired by The Little Campus (littlecampus.ca). Warm, premium, nurturing aesthetic with pastel palette and modern geometric typography.",
+    "reference": "littlecampus.ca"
   },
   "colors": {
     "background": {
       "primary": "white",
-      "secondary": "neutral-50",
-      "tertiary": "neutral-100",
-      "card": "white"
+      "secondary": "lavender-50 (#F6F6FD — soft lavender tint)",
+      "tertiary": "lavender-100 (#E9E8FB — visible lavender)",
+      "card": "white",
+      "gradient": "from lavender-100 to sky-50 (features/testimonials sections)"
     },
     "text": {
-      "primary": "neutral-900",
-      "body": "neutral-600",
-      "muted": "neutral-500",
-      "subtle": "neutral-400",
-      "accent": "indigo-600"
+      "primary": "neutral-950 (#111 — headings, strong emphasis)",
+      "body": "neutral-900 (#222 — body copy)",
+      "muted": "neutral-600 (#525252 — secondary info)",
+      "subtle": "neutral-500 (#737373 — captions, dates)",
+      "accent": "lavender-800 (#2C0E8C — links, logo color)"
     },
     "border": {
       "default": "neutral-200",
-      "card": "neutral-200",
+      "card": "transparent (cards rely on bg contrast, not borders)",
       "input": "neutral-300",
-      "focus": "indigo-500"
+      "focus": "lavender-400"
     },
     "accent": {
-      "base": "indigo-600",
-      "hover": "indigo-700",
-      "light": "indigo-50",
-      "scale": ["indigo-50", "indigo-100", "indigo-200", "indigo-300", "indigo-400", "indigo-500", "indigo-600", "indigo-700", "indigo-800", "indigo-900", "indigo-950"]
+      "base": "gold-300 (#FFE381 — primary action color)",
+      "hover": "gold-400",
+      "light": "gold-50",
+      "scale": ["gold-50", "gold-100", "gold-200", "gold-300", "gold-400", "gold-500", "gold-600", "gold-700", "gold-800", "gold-900"]
+    },
+    "pastels": {
+      "lavender": { "base": "pastel-lavender (#CBC5F7)", "light": "pastel-lavender-light (#E9E8FB)" },
+      "blue": { "base": "pastel-blue (#C9F1FD)", "light": "pastel-blue-light (#E9FBFE)" },
+      "green": { "base": "pastel-green (#DDF3B7)", "light": "pastel-green-light (#F1FEDD)" },
+      "yellow": { "base": "pastel-yellow (#FFEDC0)", "light": "pastel-yellow-light (#FFF6E6)" },
+      "pink": { "base": "pastel-pink (#FDCBCB)", "light": "pastel-pink-light (#FEF0F0)" }
     },
     "button": {
       "primary": {
-        "bg": "indigo-600",
+        "bg": "gold-300",
+        "text": "neutral-950",
+        "hoverBg": "gold-400"
+      },
+      "secondary": {
+        "bg": "neutral-950",
         "text": "white",
-        "hoverBg": "indigo-700"
+        "hoverBg": "neutral-800"
       },
       "ghost": {
         "bg": "transparent",
-        "text": "neutral-900",
-        "border": "neutral-300",
-        "hoverBg": "neutral-900",
-        "hoverText": "white",
-        "hoverBorder": "neutral-900"
+        "text": "neutral-950",
+        "border": "neutral-950",
+        "hoverBg": "neutral-950",
+        "hoverText": "white"
       }
     }
   },
   "typography": {
     "fonts": {
-      "heading": "Inter",
-      "body": "Inter",
+      "heading": "DM Sans (geometric sans-serif, Google Fonts alternative to Agrandir)",
+      "body": "Lora (elegant serif, Google Fonts alternative to Tiempostext)",
       "mono": "JetBrains Mono"
     },
     "headings": {
       "h1": {
-        "classes": "font-sans font-semibold tracking-tight text-neutral-900 text-4xl sm:text-5xl",
-        "lineHeight": "1.1"
+        "classes": "font-sans font-normal tracking-tight text-neutral-950 text-5xl sm:text-6xl lg:text-7xl",
+        "lineHeight": "1.05",
+        "note": "Very large display size. font-normal because DM Sans geometric design naturally appears bold."
       },
       "h2": {
-        "classes": "font-sans font-semibold tracking-tight text-neutral-900 text-2xl sm:text-3xl",
-        "lineHeight": "1.15"
+        "classes": "font-sans font-normal tracking-tight text-neutral-950 text-3xl sm:text-4xl",
+        "lineHeight": "1.1"
       },
       "h3": {
-        "classes": "font-sans font-medium text-neutral-900 text-xl",
-        "lineHeight": "1.2"
+        "classes": "font-sans font-medium text-neutral-950 text-xl sm:text-2xl",
+        "lineHeight": "1.15"
       }
     },
     "body": {
-      "classes": "leading-relaxed text-neutral-600"
+      "classes": "font-serif leading-relaxed text-neutral-900",
+      "note": "Lora serif for warmth and readability. Use italic for emphasis."
     },
     "small": {
-      "classes": "text-sm text-neutral-400"
+      "classes": "text-sm text-neutral-500"
     },
     "label": {
-      "classes": "text-sm font-medium uppercase tracking-wider text-neutral-500"
+      "classes": "section-label (pill badge: rounded-full bg-white px-4 py-1.5 text-xs font-sans uppercase tracking-wider)",
+      "note": "Section labels appear as subtle pill badges, not plain uppercase text."
     }
   },
   "spacing": {
     "sectionPadding": "py-24 sm:py-32",
-    "containerMax": "max-w-5xl",
+    "containerMax": "max-w-6xl",
     "containerPx": "px-6",
     "gridGap": "gap-8",
     "cardPadding": "p-8"
   },
   "effects": {
     "borderRadius": {
-      "card": "rounded-xl",
-      "button": "rounded-lg",
-      "input": "rounded-lg",
-      "small": "rounded"
+      "card": "rounded-2xl",
+      "button": "rounded-xl",
+      "input": "rounded-xl",
+      "image": "rounded-2xl to rounded-3xl",
+      "small": "rounded",
+      "pill": "rounded-full"
     },
     "shadows": {
       "subtle": "shadow-sm",
-      "note": "Use sparingly — prefer flat borders for most components"
+      "note": "Minimal shadows — flat design. Rely on background color contrast between sections and cards rather than borders or shadows."
+    },
+    "borders": {
+      "note": "Cards generally have NO visible borders. They sit on colored section backgrounds (lavender-50, gradient) for contrast. Section dividers are removed in favor of background color transitions."
     }
   },
   "componentPatterns": {
-    "hero-text": {
-      "description": "Text-only hero with headline, subheadline, and dual CTA buttons (primary + ghost). White background.",
-      "reference": "index.astro hero section"
+    "hero-image": {
+      "description": "Full-width hero with background image/video. Large display heading (h1, text-7xl) overlaid on left, subheading + CTA on right side. Generous padding (py-32+). Button is gold primary.",
+      "reference": "littlecampus.ca hero section"
     },
-    "card-grid": {
-      "description": "Grid of bordered cards (rounded-xl, border-neutral-200, p-8) with icon, title, and description. 3-column on lg, 2-column on sm.",
-      "reference": "index.astro features section, services.astro cards"
+    "section-label": {
+      "description": "Small uppercase text inside a pill badge (section-label class: bg-white rounded-full px-4 py-1.5). Placed above section heading. Used to categorize sections.",
+      "reference": "littlecampus.ca section intros"
     },
-    "cta-centered": {
-      "description": "Centered text section with heading, description, and primary button. neutral-50 or white background.",
-      "reference": "index.astro CTA section"
+    "card-feature": {
+      "description": "White bg, rounded-2xl, p-8, NO visible border. Small colored emoji icon at top. Sits on lavender/blue gradient background for contrast. Used for programs/pillars/features.",
+      "reference": "littlecampus.ca pillars section"
     },
-    "section-2col": {
-      "description": "Two-column grid — one side text content with ghost button, other side image (aspect-4/3, rounded-xl).",
-      "reference": "index.astro about section, about.astro content"
+    "testimonial-card": {
+      "description": "White bg, rounded-2xl, p-8. Opens with large quotation mark icon. Quote text in serif italic. Attribution below with name and source (e.g., Google Reviews). No border.",
+      "reference": "littlecampus.ca testimonials"
+    },
+    "cta-split": {
+      "description": "Two columns: one side is a rounded-2xl image, other side has heading (h2) + body text + gold primary button. Used for enrolment/action sections.",
+      "reference": "littlecampus.ca enrol section"
+    },
+    "section-2col-narrative": {
+      "description": "Two columns: large heading (h2) on left taking up more width, body text (serif) on right. Used for founder/about sections. White or soft background.",
+      "reference": "littlecampus.ca founder section"
     },
     "section-alternating-bg": {
-      "description": "Sections alternate between bg-white and bg-neutral-50, separated by border-t border-neutral-200.",
-      "reference": "All page sections"
+      "description": "Sections alternate between white, lavender-50 (#F6F6FD), and gradient backgrounds (lavender-100 to sky-50). NO border-t separators — background color transitions provide visual separation.",
+      "reference": "littlecampus.ca full page"
+    },
+    "pastel-badge": {
+      "description": "Small pill badge with pastel background color. Used for pillar/category labels. Each category gets its own pastel (green, yellow, pink, lavender, blue). rounded-full px-3 py-1 text-xs font-sans.",
+      "reference": "littlecampus.ca pillar labels"
     }
   }
 }

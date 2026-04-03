@@ -1,9 +1,30 @@
 {
-  "stage": "not-started",
-  "completedStages": [],
-  "currentCohort": 0,
-  "cohorts": {},
-  "sitemapApproved": false,
-  "styleTileApproved": false,
-  "notes": ""
+  "stage": "page-building",
+  "completedStages": ["style", "sitemap"],
+  "currentCohort": 1,
+  "cohorts": {
+    "1": {
+      "pages": ["home"],
+      "status": "in-progress",
+      "description": "Homepage — hero, brain stat, founder intro, whole child pillars, curriculum, features, testimonials, CTAs"
+    },
+    "2": {
+      "pages": ["about", "approach"],
+      "status": "pending",
+      "description": "About Us (founder story, team, facilities) + Our Approach (whole child, five pillars, curriculum)"
+    },
+    "3": {
+      "pages": ["programs", "admissions"],
+      "status": "pending",
+      "description": "Programs (age-group listings) + Admissions & Enrollment"
+    },
+    "4": {
+      "pages": ["faq", "contact", "book-a-tour"],
+      "status": "pending",
+      "description": "FAQ + Contact + Book a Tour"
+    }
+  },
+  "sitemapApproved": true,
+  "styleTileApproved": true,
+  "notes": "Style tile approved 2026-04-02. Sitemap approved 2026-04-02. Cohort 1 (homepage) in progress."
 }

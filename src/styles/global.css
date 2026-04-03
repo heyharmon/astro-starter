@@ -1,32 +1,67 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: "Lora", ui-serif, Georgia, "Times New Roman", serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
+  /* Neutral scale — warm grays to complement the pastel palette */
   --color-neutral-50: #fafafa;
   --color-neutral-100: #f5f5f5;
-  --color-neutral-200: #e5e5e5;
+  --color-neutral-200: #e8e8e8;
   --color-neutral-300: #d4d4d4;
   --color-neutral-400: #a3a3a3;
   --color-neutral-500: #737373;
   --color-neutral-600: #525252;
   --color-neutral-700: #404040;
   --color-neutral-800: #262626;
-  --color-neutral-900: #171717;
-  --color-neutral-950: #0a0a0a;
+  --color-neutral-900: #222222;
+  --color-neutral-950: #111111;
 
-  --color-indigo-50: #eef2ff;
-  --color-indigo-100: #e0e7ff;
-  --color-indigo-200: #c7d2fe;
-  --color-indigo-300: #a5b4fc;
-  --color-indigo-400: #818cf8;
-  --color-indigo-500: #6366f1;
-  --color-indigo-600: #4f46e5;
-  --color-indigo-700: #4338ca;
-  --color-indigo-800: #3730a3;
-  --color-indigo-900: #312e81;
-  --color-indigo-950: #1e1b4b;
+  /* Gold accent scale — warm yellow/gold for primary actions */
+  --color-gold-50: #fffdf5;
+  --color-gold-100: #fff9e0;
+  --color-gold-200: #ffedc0;
+  --color-gold-300: #ffe381;
+  --color-gold-400: #ffd84a;
+  --color-gold-500: #f5c518;
+  --color-gold-600: #d4a010;
+  --color-gold-700: #a67c0a;
+  --color-gold-800: #7a5c08;
+  --color-gold-900: #5c4506;
+
+  /* Lavender scale — soft purple for section backgrounds */
+  --color-lavender-50: #f6f6fd;
+  --color-lavender-100: #e9e8fb;
+  --color-lavender-200: #cbc5f7;
+  --color-lavender-300: #a89ef0;
+  --color-lavender-400: #8577e8;
+  --color-lavender-500: #6b5ce0;
+  --color-lavender-600: #5244c8;
+  --color-lavender-700: #3d30a0;
+  --color-lavender-800: #2c0e8c;
+  --color-lavender-900: #1e0a60;
+
+  /* Sky scale — soft blue for feature backgrounds */
+  --color-sky-50: #e9fbfe;
+  --color-sky-100: #c9f1fd;
+  --color-sky-200: #a0e4fa;
+  --color-sky-300: #6dd3f5;
+  --color-sky-400: #3bbfed;
+  --color-sky-500: #1ba5d4;
+  --color-sky-600: #1488b0;
+
+  /* Pastel accents — for cards, badges, pillar labels */
+  --color-pastel-green: #ddf3b7;
+  --color-pastel-green-light: #f1fedd;
+  --color-pastel-yellow: #ffedc0;
+  --color-pastel-yellow-light: #fff6e6;
+  --color-pastel-pink: #fdcbcb;
+  --color-pastel-pink-light: #fef0f0;
+  --color-pastel-lavender: #cbc5f7;
+  --color-pastel-lavender-light: #e9e8fb;
+  --color-pastel-blue: #c9f1fd;
+  --color-pastel-blue-light: #e9fbfe;
 }
 
 @layer base {
@@ -36,30 +71,30 @@
   }
 
   body {
-    @apply bg-white text-neutral-900 font-sans;
+    @apply bg-white text-neutral-900 font-serif;
   }
 
   h1 {
-    @apply font-sans font-semibold tracking-tight text-neutral-900 text-4xl sm:text-5xl;
-    line-height: 1.1;
+    @apply font-sans font-normal tracking-tight text-neutral-950 text-5xl sm:text-6xl lg:text-7xl;
+    line-height: 1.05;
   }
 
   h2 {
-    @apply font-sans font-semibold tracking-tight text-neutral-900 text-2xl sm:text-3xl;
-    line-height: 1.15;
+    @apply font-sans font-normal tracking-tight text-neutral-950 text-3xl sm:text-4xl;
+    line-height: 1.1;
   }
 
   h3 {
-    @apply font-sans font-medium text-neutral-900 text-xl;
-    line-height: 1.2;
+    @apply font-sans font-medium text-neutral-950 text-xl sm:text-2xl;
+    line-height: 1.15;
   }
 
   p {
-    @apply leading-relaxed text-neutral-600;
+    @apply leading-relaxed text-neutral-900;
   }
 
   a {
-    @apply text-indigo-600 underline-offset-4 hover:underline;
+    @apply text-lavender-800 underline-offset-4 hover:underline;
   }
 
   hr {
@@ -67,26 +102,39 @@
   }
 }
 
-/* Primary button utility */
+/* Primary button utility — warm gold */
 .btn-primary {
-  @apply inline-block rounded-lg bg-indigo-600 px-6 py-3 text-sm font-medium text-white no-underline transition-colors;
+  @apply inline-block rounded-xl bg-gold-300 px-6 py-3.5 text-base font-sans font-medium text-neutral-950 no-underline transition-colors;
 }
 .btn-primary:hover {
-  @apply bg-indigo-700;
+  @apply bg-gold-400;
 }
 
-/* Ghost button utility */
+/* Secondary button utility — solid black */
+.btn-secondary {
+  @apply inline-block rounded-xl bg-neutral-950 px-6 py-3.5 text-base font-sans font-medium text-white no-underline transition-colors;
+}
+.btn-secondary:hover {
+  @apply bg-neutral-800;
+}
+
+/* Ghost button utility — outline */
 .btn-ghost {
-  @apply inline-block rounded-lg border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-900 no-underline transition-colors;
+  @apply inline-block rounded-xl border border-neutral-950 px-6 py-3.5 text-base font-sans font-medium text-neutral-950 no-underline transition-colors;
   background: transparent;
 }
 .btn-ghost:hover {
-  @apply border-neutral-900 bg-neutral-900 text-white;
+  @apply bg-neutral-950 text-white;
+}
+
+/* Section label pill badge */
+.section-label {
+  @apply inline-block rounded-full bg-white px-4 py-1.5 text-xs font-sans font-medium uppercase tracking-wider text-neutral-600;
 }
 
 /* Prose styling for rendered markdown content */
 .prose {
-  @apply max-w-none;
+  @apply max-w-none font-serif;
 }
 
 .prose h2 {
@@ -98,29 +146,33 @@
 }
 
 .prose p {
-  @apply mb-6 text-neutral-600;
+  @apply mb-6 text-neutral-900;
 }
 
 .prose ul {
-  @apply list-disc pl-6 mb-6 space-y-2 text-neutral-600;
+  @apply list-disc pl-6 mb-6 space-y-2 text-neutral-900;
 }
 
 .prose ol {
-  @apply list-decimal pl-6 mb-6 space-y-2 text-neutral-600;
+  @apply list-decimal pl-6 mb-6 space-y-2 text-neutral-900;
 }
 
 .prose blockquote {
-  @apply border-l-2 border-neutral-300 pl-6 italic text-neutral-500 my-6;
+  @apply border-l-2 border-lavender-200 pl-6 italic text-neutral-600 my-6;
 }
 
 .prose strong {
-  @apply font-semibold text-neutral-900;
+  @apply font-semibold text-neutral-950;
 }
 
 .prose code {
-  @apply bg-neutral-100 px-1.5 py-0.5 rounded text-sm font-mono text-neutral-800;
+  @apply bg-lavender-50 px-1.5 py-0.5 rounded text-sm font-mono text-neutral-800;
 }
 
 .prose a {
-  @apply text-indigo-600 underline;
+  @apply text-lavender-800 underline;
+}
+
+.prose em {
+  @apply font-serif italic;
 }

@@ -1,12 +1,35 @@
 [
   {
-    "section": "Navigation",
+    "section": "About Us",
     "links": [
-      { "label": "Home", "href": "/" },
-      { "label": "About", "href": "/about" },
-      { "label": "Services", "href": "/services" },
-      { "label": "Blog", "href": "/blog" },
-      { "label": "Contact", "href": "/contact" }
+      { "label": "Our Founder's Story", "href": "/about" },
+      { "label": "Facilities", "href": "/about#facilities" },
+      { "label": "Team", "href": "/about#team" },
+      { "label": "Reviews & Testimonials", "href": "/#testimonials" },
+      { "label": "Contact Us", "href": "/contact" }
+    ]
+  },
+  {
+    "section": "Programs & Curriculum",
+    "links": [
+      { "label": "The Whole Child Approach", "href": "/approach" },
+      { "label": "Our Curriculum", "href": "/approach#curriculum" },
+      { "label": "Our Programs", "href": "/programs" }
+    ]
+  },
+  {
+    "section": "Resources",
+    "links": [
+      { "label": "Book a Tour", "href": "/book-a-tour" },
+      { "label": "Frequently Asked Questions", "href": "/faq" },
+      { "label": "Admissions & Enrollment", "href": "/admissions" }
+    ]
+  },
+  {
+    "section": "Follow Us",
+    "links": [
+      { "label": "Facebook", "href": "https://facebook.com" },
+      { "label": "Instagram", "href": "https://instagram.com" }
     ]
   }
 ]

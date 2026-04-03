@@ -1,14 +1,17 @@
 {
-  "name": "Starter",
-  "tagline": "A modern starting point for your next project",
-  "description": "A clean, minimal starter template built with Astro, Tailwind CSS, and Vue. Ready to customize for any business or project.",
-  "url": "https://example.com",
+  "name": "The Little Campus",
+  "tagline": "Nurturing whole-child growth",
+  "description": "Etobicoke's uncompromising private early childhood education centre and daycare. Nurturing whole-child growth with specialized educators, early literacy, STEAM, music, physical education and ample green space.",
+  "url": "https://www.littlecampus.ca",
   "ogImage": "/images/og-default.png",
-  "copyright": "© 2026 Starter. All rights reserved.",
+  "copyright": "© 2026 The Little Campus. All rights reserved.",
+  "phone": "647-372-5437",
+  "email": "info@littlecampus.ca",
+  "address": "48 Rosemeade Ave., Etobicoke, ON M8Y 3A5, Canada",
+  "hours": "Monday–Friday, 7:00 AM – 6:00 PM",
   "social": {
-    "twitter": "https://twitter.com/example",
-    "linkedin": "https://linkedin.com/company/example",
-    "github": "https://github.com/example"
+    "facebook": "https://facebook.com",
+    "instagram": "https://instagram.com"
   },
   "formspreeId": "YOUR_FORM_ID"
 }

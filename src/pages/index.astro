@@ -1,117 +1,329 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getEntry, getCollection, render } from "astro:content";
+import { getEntry } from "astro:content";
 
 const page = await getEntry("pages", "home");
-const { Content } = await render(page);
-
-const services = (await getCollection("services")).sort(
-  (a, b) => a.data.order - b.data.order,
-);
 ---
 
 <BaseLayout title={page.data.title} description={page.data.description}>
-  <!-- Hero -->
-  <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-    <h1 class="max-w-3xl">{page.data.headline}</h1>
-    {page.data.subheadline && (
-      <p class="mt-6 max-w-2xl text-lg text-neutral-500">
-        {page.data.subheadline}
-      </p>
-    )}
-    <div class="mt-8 flex gap-4">
-      <a href="/contact" class="btn-primary">Get started</a>
-      <a href="/services" class="btn-ghost">Our services</a>
-    </div>
-  </section>
 
-  <!-- Features / Intro -->
-  <section class="border-t border-neutral-200 bg-neutral-50">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <h2>Why work with us</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        We combine modern tools with proven practices to deliver results that matter.
-      </p>
-      <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <div class="rounded-xl border border-neutral-200 bg-white p-8">
-          <div class="text-2xl">&#9670;</div>
-          <h3 class="mt-4">Fast & Modern</h3>
-          <p class="mt-2 text-sm">
-            Built with the latest technology for speed, security, and scalability.
-          </p>
-        </div>
-        <div class="rounded-xl border border-neutral-200 bg-white p-8">
-          <div class="text-2xl">&#9650;</div>
-          <h3 class="mt-4">Easy to Customize</h3>
-          <p class="mt-2 text-sm">
-            Clean code and clear structure make it simple to adapt to any project.
-          </p>
-        </div>
-        <div class="rounded-xl border border-neutral-200 bg-white p-8">
-          <div class="text-2xl">&#9679;</div>
-          <h3 class="mt-4">Production Ready</h3>
-          <p class="mt-2 text-sm">
-            SEO optimized, accessible, and designed for real-world use from day one.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services -->
-  <section class="border-t border-neutral-200">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <h2>Services</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        Professional solutions to help your business grow.
-      </p>
-      <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((service) => (
-          <div class="rounded-xl border border-neutral-200 p-8">
-            <div class="text-2xl">{service.data.icon}</div>
-            <h3 class="mt-4">{service.data.title}</h3>
-            <p class="mt-2 text-sm">{service.data.description}</p>
-          </div>
-        ))}
-      </div>
-      <div class="mt-12">
-        <a href="/services" class="btn-ghost">View all services</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- About Preview -->
-  <section class="border-t border-neutral-200 bg-neutral-50">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <div class="grid gap-12 lg:grid-cols-2 items-center">
+  <!-- ========== SECTION 1: Hero ========== -->
+  <section class="relative bg-neutral-800 text-white overflow-hidden h-[70vh] flex flex-col">
+    <div class="mx-auto max-w-6xl px-6 flex-1 flex items-end pb-16 sm:pb-20 lg:pb-24 pt-32">
+      <div class="grid gap-8 lg:grid-cols-2 lg:items-end w-full">
         <div>
-          <h2>About us</h2>
-          <p class="mt-4">
-            We are a team of professionals dedicated to delivering exceptional results. With a focus on quality and collaboration, we partner with our clients to bring their vision to life.
-          </p>
-          <a href="/about" class="btn-ghost mt-8">Learn more</a>
+          <h1 class="text-white !text-6xl sm:!text-7xl lg:!text-8xl xl:!text-[6.5rem] !leading-[0.95]">{page.data.headline}</h1>
         </div>
-        <div class="aspect-[4/3] overflow-hidden rounded-xl bg-neutral-200">
+        <div class="lg:pb-2">
+          <p class="text-base sm:text-lg text-white/80 font-serif leading-relaxed">{page.data.subheadline}</p>
+          <a href="/approach" class="btn-primary mt-8">Explore our approach</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Brain Stat Bar ========== -->
+  <section class="bg-gradient-to-br from-lavender-100 via-sky-50 to-lavender-50 py-20 sm:py-28">
+    <div class="mx-auto max-w-6xl px-6 text-center">
+      <div class="text-5xl text-lavender-200 font-serif mb-6">&ldquo;</div>
+      <p class="font-sans text-2xl sm:text-3xl lg:text-4xl text-neutral-950 leading-snug">The brain develops to 90%<br />of its adult size by age 5.</p>
+      <p class="mt-6 text-lg sm:text-xl text-neutral-600">We make every moment count.</p>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 2: Founder's Story ========== -->
+  <section class="py-24 sm:py-32">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid gap-12 lg:grid-cols-5">
+        <!-- Left column — sticky on scroll -->
+        <div class="lg:col-span-2 lg:sticky lg:top-24 lg:self-start">
+          <span class="section-label">Our Raison d'&Ecirc;tre</span>
+          <h2 class="mt-4 !text-5xl sm:!text-6xl lg:!text-7xl !leading-[1.0]">Childhood doesn't wait</h2>
+        </div>
+        <!-- Right column -->
+        <div class="lg:col-span-3 space-y-6">
+          <h3 class="!text-2xl sm:!text-3xl">The first five years shape a lifetime</h3>
+
+          <p class="text-lg">The first five years move quickly, but their impact lasts a lifetime. During this formative window, children build <em>the foundation for learning, confidence, and emotional well-being</em>. That's why finding care that truly honors this critical stage — a place that feels not just safe, but like a <em>nurturing second home</em> — matters so much.</p>
+
+          <p class="text-lg">Our founder, <em>Tami Zuckerman</em>, experienced it firsthand. As both an educator and a mother searching <em>for the right care for her daughter, Addison</em>, she saw the challenges up close: burnout-driven turnover, understaffed classrooms, and <em>environments</em> that felt cold instead of <em>warm, curious, and enriching</em>.</p>
+
+          <p class="text-lg">The <em>calm, nurturing space</em> she imagined simply didn't exist. So, fueled by a mother's love and a desire to create something different, she built it. <strong>That's the heart of The Little Campus.</strong></p>
+        </div>
+      </div>
+
+      <!-- Founder quote -->
+      <blockquote class="mt-16 max-w-3xl mx-auto text-center">
+        <p class="text-xl sm:text-2xl font-serif italic text-neutral-800 leading-relaxed">"When I searched for a place that truly honored my child's potential, I couldn't find it &mdash; so I built it. At The Little Campus, care isn't one-size-fits-all. We create a second home where every child is seen, heard, and encouraged to grow, explore, and thrive in their own unique way"</p>
+        <footer class="mt-6">
+          <p class="font-sans font-medium text-neutral-950">Tami Zuckerman, B.Ed.</p>
+          <p class="text-sm text-neutral-600">President &amp; Founder</p>
+        </footer>
+      </blockquote>
+
+      <div class="mt-8 text-center">
+        <a href="/about" class="btn-primary">Read Tami's story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 3: Whole Child Approach ========== -->
+  <section class="py-24 sm:py-32">
+    <div class="mx-auto max-w-6xl px-6">
+      <!-- Top: 2-column heading left, body text right -->
+      <div class="grid gap-12 lg:grid-cols-5">
+        <div class="lg:col-span-2">
+          <span class="section-label">Holistic Approach</span>
+          <h2 class="mt-4 !text-5xl sm:!text-6xl lg:!text-7xl !leading-[1.0]">Nurturing the whole child</h2>
+        </div>
+        <div class="lg:col-span-3 lg:pt-12">
+          <p class="text-lg leading-relaxed">Children don't learn in silos. Their emotions, relationships, bodies, and imaginations are all <em>deeply connected</em> to how they grow, explore, and understand the world. The Whole Child Approach recognizes this simple truth and puts it at the center of everything we do. By honoring the whole child, we help them build not just knowledge, but confidence, curiosity, resilience, and joy; the true foundation for a lifelong love of learning.</p>
+        </div>
+      </div>
+
+      <!-- Pillar images grid -->
+      <div class="mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div class="text-center">
+          <div class="aspect-[3/4] rounded-2xl bg-neutral-200 overflow-hidden">
+            <img src="/images/placeholders/portrait-3x4.svg" alt="Safe" class="h-full w-full object-cover" />
+          </div>
+          <span class="mt-3 inline-block rounded-full bg-pastel-blue-light px-3 py-1 text-xs font-sans font-medium text-neutral-800">Safe</span>
+        </div>
+        <div class="text-center sm:mt-12">
+          <div class="aspect-[3/4] rounded-2xl bg-neutral-200 overflow-hidden">
+            <img src="/images/placeholders/portrait-3x4.svg" alt="Engaged" class="h-full w-full object-cover" />
+          </div>
+          <span class="mt-3 inline-block rounded-full bg-pastel-lavender-light px-3 py-1 text-xs font-sans font-medium text-neutral-800">Engaged</span>
+        </div>
+        <div class="text-center">
+          <div class="aspect-[3/4] rounded-2xl bg-neutral-200 overflow-hidden">
+            <img src="/images/placeholders/portrait-3x4.svg" alt="Healthy" class="h-full w-full object-cover" />
+          </div>
+          <span class="mt-3 inline-block rounded-full bg-pastel-green-light px-3 py-1 text-xs font-sans font-medium text-neutral-800">Healthy</span>
+        </div>
+        <div class="text-center sm:mt-12">
+          <div class="aspect-[3/4] rounded-2xl bg-neutral-200 overflow-hidden">
+            <img src="/images/placeholders/portrait-3x4.svg" alt="Challenged" class="h-full w-full object-cover" />
+          </div>
+          <span class="mt-3 inline-block rounded-full bg-pastel-yellow-light px-3 py-1 text-xs font-sans font-medium text-neutral-800">Challenged</span>
+        </div>
+        <div class="text-center">
+          <div class="aspect-[3/4] rounded-2xl bg-neutral-200 overflow-hidden">
+            <img src="/images/placeholders/portrait-3x4.svg" alt="Supported" class="h-full w-full object-cover" />
+          </div>
+          <span class="mt-3 inline-block rounded-full bg-pastel-pink-light px-3 py-1 text-xs font-sans font-medium text-neutral-800">Supported</span>
+        </div>
+      </div>
+
+      <!-- Central statement + CTA -->
+      <div class="mt-20 text-center max-w-3xl mx-auto">
+        <p class="font-sans text-2xl sm:text-3xl lg:text-4xl text-neutral-950 leading-snug">At The Little Campus, we take a personalized, nurturing approach that supports each child across five essential pillars of development</p>
+        <a href="/approach" class="btn-primary mt-8">Learn about our approach</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 4: Enriched Learning Experiences ========== -->
+  <section class="bg-lavender-50 py-24 sm:py-32">
+    <div class="mx-auto max-w-6xl px-6">
+      <span class="section-label">Expanded Horizons</span>
+      <h2 class="mt-4 max-w-3xl">Enriched learning experiences</h2>
+      <p class="mt-6 max-w-3xl text-lg">At The Little Campus, we believe that a well-rounded education extends beyond traditional academics. Our enriched curriculum, led by specialist educators, offers a diverse range of subjects designed to stimulate young minds, bodies, and spirits.</p>
+
+      <!-- Two-column: subject blocks left, image collage right -->
+      <div class="mt-12 grid gap-8 lg:grid-cols-2">
+        <!-- Left: stacked subject headings in colored blocks -->
+        <div class="space-y-4">
+          <div class="rounded-2xl bg-pastel-lavender-light p-6 sm:p-8">
+            <h3 class="!text-3xl sm:!text-4xl !font-normal">STEAM</h3>
+            <p class="mt-3 text-sm">Science, Technology, Engineering, Arts, and Mathematics: Encouraging critical thinking and creativity through interdisciplinary projects</p>
+          </div>
+          <div class="rounded-2xl bg-pastel-blue-light p-6 sm:p-8">
+            <h3 class="!text-3xl sm:!text-4xl !font-normal">Music</h3>
+          </div>
+          <div class="rounded-2xl bg-pastel-green-light p-6 sm:p-8">
+            <h3 class="!text-3xl sm:!text-4xl !font-normal">Physical education</h3>
+          </div>
+          <div class="rounded-2xl bg-pastel-yellow-light p-6 sm:p-8">
+            <h3 class="!text-3xl sm:!text-4xl !font-normal">Early literacy</h3>
+          </div>
+        </div>
+        <!-- Right: single image -->
+        <div class="hidden lg:flex items-center">
+          <div class="rounded-2xl bg-neutral-200 overflow-hidden w-full aspect-[4/5]">
+            <img src="/images/placeholders/portrait-3x4.svg" alt="Children learning with educator" class="h-full w-full object-cover" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 5: Beyond the Curriculum ========== -->
+  <section class="bg-gradient-to-r from-lavender-100 to-sky-50 py-24 sm:py-32">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid gap-12 lg:grid-cols-3">
+        <!-- Left: heading -->
+        <div>
+          <span class="section-label">Features</span>
+          <h2 class="mt-4 !text-5xl sm:!text-6xl !leading-[1.05]">Beyond the curriculum</h2>
+        </div>
+        <!-- Right: 2x2 card grid -->
+        <div class="lg:col-span-2 grid gap-6 sm:grid-cols-2">
+          <div class="rounded-2xl bg-white p-8">
+            <div class="text-3xl mb-4">&#x1F48E;</div>
+            <h3>A place they love</h3>
+            <p class="mt-3">It's our core promise. Young children need <em>comfort, attention, and consistent care</em>, and we provide it. No child is ever left to "cry it out." Our responsive approach builds <em>trust</em> and emotional security.</p>
+          </div>
+          <div class="rounded-2xl bg-white p-8">
+            <div class="text-3xl mb-4">&#x1F497;</div>
+            <h3>Tender loving care</h3>
+            <p class="mt-3">Less like a facility, more like a <em>second home</em>. Bright, calm classrooms and expansive green spaces invite <em>exploration</em> and joy. Never overstimulation.</p>
+          </div>
+          <div class="rounded-2xl bg-white p-8">
+            <div class="text-3xl mb-4">&#x2728;</div>
+            <h3>Respecting their journey</h3>
+            <p class="mt-3">Every child develops at their <em>own pace</em>. Whether it's walking, toilet independence, reading, or writing, we support <em>natural milestones</em> with patience, not pressure.</p>
+          </div>
+          <div class="rounded-2xl bg-white p-8">
+            <div class="text-3xl mb-4">&#x1F393;</div>
+            <h3>Experienced, loving educators</h3>
+            <p class="mt-3">We invest in our team: qualified, caring educators whose strong bonds with children provide the stability and connection young learners need to thrive.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 6: Programs ========== -->
+  <section class="py-24 sm:py-32">
+    <div class="mx-auto max-w-6xl px-6 text-center">
+      <span class="section-label">Our Programs</span>
+      <h2 class="mt-4 mx-auto max-w-3xl">Enriched learning experiences</h2>
+      <p class="mt-6 mx-auto max-w-2xl text-lg">Children leave The Little Campus not just ready for kindergarten, but ready for the world, as curious, confident, and kind individuals. They carry with them a love of learning, the social skills to build meaningful relationships, and the resilience to face new challenges.</p>
+      <div class="mt-8">
+        <a href="/programs" class="btn-secondary">Explore our programs</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 7: Testimonials ========== -->
+  <section id="testimonials" class="bg-lavender-50 py-24 sm:py-32">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="text-center">
+        <span class="section-label">Testimonials</span>
+        <h2 class="mt-4">What our families say</h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="rounded-2xl bg-white p-8">
+          <span class="text-4xl font-serif text-lavender-200">&ldquo;</span>
+          <p class="mt-2 font-serif italic text-neutral-800">At The Little Campus, children are treated as individuals, with respect and compassion.</p>
+          <footer class="mt-6">
+            <p class="font-sans font-medium text-neutral-950 text-sm">Virginia Graham</p>
+            <p class="text-xs"><span class="text-[#4285F4]">G</span><span class="text-[#EA4335]">o</span><span class="text-[#FBBC05]">o</span><span class="text-[#4285F4]">g</span><span class="text-[#34A853]">l</span><span class="text-[#EA4335]">e</span></p>
+          </footer>
+        </article>
+        <article class="rounded-2xl bg-white p-8">
+          <span class="text-4xl font-serif text-lavender-200">&ldquo;</span>
+          <p class="mt-2 font-serif italic text-neutral-800">TLC is hands down the best daycare in the city.</p>
+          <footer class="mt-6">
+            <p class="font-sans font-medium text-neutral-950 text-sm">Kathleen Good</p>
+            <p class="text-xs"><span class="text-[#4285F4]">G</span><span class="text-[#EA4335]">o</span><span class="text-[#FBBC05]">o</span><span class="text-[#4285F4]">g</span><span class="text-[#34A853]">l</span><span class="text-[#EA4335]">e</span></p>
+          </footer>
+        </article>
+        <article class="rounded-2xl bg-white p-8">
+          <span class="text-4xl font-serif text-lavender-200">&ldquo;</span>
+          <p class="mt-2 font-serif italic text-neutral-800">You would be giving your child the most amazing gift by sending them to TLC.</p>
+          <footer class="mt-6">
+            <p class="font-sans font-medium text-neutral-950 text-sm">Sarah</p>
+            <p class="text-xs"><span class="text-[#4285F4]">G</span><span class="text-[#EA4335]">o</span><span class="text-[#FBBC05]">o</span><span class="text-[#4285F4]">g</span><span class="text-[#34A853]">l</span><span class="text-[#EA4335]">e</span></p>
+          </footer>
+        </article>
+        <article class="rounded-2xl bg-white p-8">
+          <span class="text-4xl font-serif text-lavender-200">&ldquo;</span>
+          <p class="mt-2 font-serif italic text-neutral-800">If you're considering TLC for your child, you can't go wrong. It will be the best decision you make for your child.</p>
+          <footer class="mt-6">
+            <p class="font-sans font-medium text-neutral-950 text-sm">Alessandra Fazio</p>
+            <p class="text-xs"><span class="text-[#4285F4]">G</span><span class="text-[#EA4335]">o</span><span class="text-[#FBBC05]">o</span><span class="text-[#4285F4]">g</span><span class="text-[#34A853]">l</span><span class="text-[#EA4335]">e</span></p>
+          </footer>
+        </article>
+        <article class="rounded-2xl bg-white p-8">
+          <span class="text-4xl font-serif text-lavender-200">&ldquo;</span>
+          <p class="mt-2 font-serif italic text-neutral-800">They literally treat your kid as their own, ensuring they're loved and cared for as they learn and grow.</p>
+          <footer class="mt-6">
+            <p class="font-sans font-medium text-neutral-950 text-sm">Nisha Borshe</p>
+            <p class="text-xs"><span class="text-[#4285F4]">G</span><span class="text-[#EA4335]">o</span><span class="text-[#FBBC05]">o</span><span class="text-[#4285F4]">g</span><span class="text-[#34A853]">l</span><span class="text-[#EA4335]">e</span></p>
+          </footer>
+        </article>
+        <article class="rounded-2xl bg-white p-8">
+          <span class="text-4xl font-serif text-lavender-200">&ldquo;</span>
+          <p class="mt-2 font-serif italic text-neutral-800">TLC is the best decision we have ever made for our child.</p>
+          <footer class="mt-6">
+            <p class="font-sans font-medium text-neutral-950 text-sm">Catherine Pan</p>
+            <p class="text-xs"><span class="text-[#4285F4]">G</span><span class="text-[#EA4335]">o</span><span class="text-[#FBBC05]">o</span><span class="text-[#4285F4]">g</span><span class="text-[#34A853]">l</span><span class="text-[#EA4335]">e</span></p>
+          </footer>
+        </article>
+      </div>
+
+      <div class="mt-8 text-center">
+        <a href="/#testimonials" class="btn-secondary">More reviews and testimonials</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 8: Discover TLC ========== -->
+  <section class="py-24 sm:py-32">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid gap-12 lg:grid-cols-2 lg:items-start">
+        <div>
+          <span class="section-label">Discover TLC</span>
+          <h2 class="mt-4 !text-4xl sm:!text-5xl !leading-[1.1]">See if The Little Campus is right for your family</h2>
+        </div>
+        <div>
+          <p class="text-lg">Choosing the right environment for your <em>child's early years</em> is one of the most important decisions you'll make. If our thoughtful approach, built on <em>calm, curiosity, and genuine care</em>, resonates with your vision, we'd love to connect.</p>
+        </div>
+      </div>
+
+      <!-- Full-width image placeholder with overlay -->
+      <div class="relative mt-12 rounded-2xl bg-neutral-200 overflow-hidden aspect-[16/7]">
+        <img
+          src="/images/placeholders/hero-16x9.svg"
+          alt="The Little Campus campus"
+          class="h-full w-full object-cover"
+        />
+        <div class="absolute inset-0 bg-neutral-950/40 flex flex-col items-center justify-center px-8 text-center">
+          <p class="max-w-2xl text-xl sm:text-2xl font-sans text-white leading-snug">Explore what makes The Little Campus special and see if we're the right partner for your family's journey</p>
+          <a href="/approach" class="btn-primary mt-8">Learn about our approach</a>
+        </div>
+      </div>
+
+      <p class="mt-8 text-center text-lg text-neutral-600">We create an environment where children feel safe, supported, and confident to be themselves.</p>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 9: Join Our Community ========== -->
+  <section class="bg-lavender-50 py-24 sm:py-32">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="rounded-2xl overflow-hidden bg-white grid lg:grid-cols-2">
+        <!-- Left: image -->
+        <div class="aspect-[4/3] lg:aspect-auto bg-neutral-200">
           <img
             src="/images/placeholders/landscape-4x3.svg"
-            alt="Team at work"
+            alt="Children learning and playing"
             class="h-full w-full object-cover"
           />
         </div>
+        <!-- Right: content -->
+        <div class="flex flex-col justify-center p-8 sm:p-12 lg:p-16">
+          <span class="section-label">The Best Start</span>
+          <h2 class="mt-4 !text-4xl sm:!text-5xl !leading-[1.1]">Join our community</h2>
+          <p class="mt-6 text-lg">Ready to give your child the best start in life? Take the first step toward your child's bright future.</p>
+          <div class="mt-8">
+            <a href="/admissions" class="btn-secondary">Enroll today</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="border-t border-neutral-200">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32 text-center">
-      <h2>Ready to get started?</h2>
-      <p class="mx-auto mt-4 max-w-xl text-neutral-500">
-        Get in touch to discuss your project. We would love to hear from you.
-      </p>
-      <div class="mt-8">
-        <a href="/contact" class="btn-primary">Contact us</a>
-      </div>
-    </div>
-  </section>
 </BaseLayout>

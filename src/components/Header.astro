@@ -4,38 +4,130 @@ import siteMeta from "../data/site-meta.json";
 
 const pathname = Astro.url.pathname;
 const sortedNav = [...nav].sort((a, b) => a.order - b.order);
+const regularLinks = sortedNav.filter((item) => item.href !== "/" && !item.cta);
+const ctaLink = sortedNav.find((item) => item.cta);
 ---
 
-<header class="border-b border-neutral-200 bg-white">
-  <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-    <a href="/" class="text-lg font-semibold tracking-tight text-neutral-900 no-underline">
+<header class="bg-white">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+    <!-- Logo -->
+    <a
+      href="/"
+      class="text-lg font-sans font-medium tracking-tight text-lavender-800 no-underline"
+    >
       {siteMeta.name}
     </a>
 
-    <ul class="flex items-center gap-6">
+    <!-- Desktop nav -->
+    <div class="hidden lg:flex items-center gap-8">
       {
-        sortedNav.map((item) => {
-          const isActive =
-            item.href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(item.href);
+        regularLinks.map((item) => {
+          const isActive = pathname.startsWith(item.href);
           return (
-            <li>
-              <a
-                href={item.href}
-                class:list={[
-                  "text-sm font-medium no-underline transition-colors",
-                  isActive
-                    ? "text-indigo-600"
-                    : "text-neutral-600 hover:text-neutral-900",
-                ]}
-              >
-                {item.label}
-              </a>
-            </li>
+            <a
+              href={item.href}
+              class:list={[
+                "text-sm font-sans font-medium no-underline transition-colors",
+                isActive
+                  ? "text-lavender-800"
+                  : "text-neutral-950 hover:text-lavender-800",
+              ]}
+            >
+              {item.label}
+            </a>
           );
         })
       }
-    </ul>
+
+      {ctaLink && (
+        <a href={ctaLink.href} class="btn-secondary text-sm">
+          {ctaLink.label}
+        </a>
+      )}
+
+      <!-- Phone icon -->
+      <a
+        href={`tel:+1${siteMeta.phone.replace(/[^0-9]/g, "")}`}
+        class="flex h-10 w-10 items-center justify-center rounded-full text-neutral-950 no-underline transition-colors hover:bg-neutral-100"
+        aria-label="Call us"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- Mobile hamburger button -->
+    <button
+      id="mobile-menu-toggle"
+      class="lg:hidden flex h-10 w-10 items-center justify-center rounded-lg text-neutral-950 transition-colors hover:bg-neutral-100"
+      aria-label="Open menu"
+      aria-expanded="false"
+    >
+      <svg id="hamburger-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+      <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
   </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-neutral-100 bg-white px-6 py-6">
+    <div class="flex flex-col gap-4">
+      {
+        regularLinks.map((item) => {
+          const isActive = pathname.startsWith(item.href);
+          return (
+            <a
+              href={item.href}
+              class:list={[
+                "text-base font-sans font-medium no-underline transition-colors py-1",
+                isActive
+                  ? "text-lavender-800"
+                  : "text-neutral-950 hover:text-lavender-800",
+              ]}
+            >
+              {item.label}
+            </a>
+          );
+        })
+      }
+      {ctaLink && (
+        <a href={ctaLink.href} class="btn-secondary text-sm text-center mt-2">
+          {ctaLink.label}
+        </a>
+      )}
+      <a
+        href={`tel:+1${siteMeta.phone.replace(/[^0-9]/g, "")}`}
+        class="flex items-center gap-2 text-base font-sans font-medium text-neutral-950 no-underline py-1"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+        </svg>
+        {siteMeta.phone}
+      </a>
+    </div>
+  </div>
 </header>
+
+<script>
+  const toggle = document.getElementById("mobile-menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  const hamburgerIcon = document.getElementById("hamburger-icon");
+  const closeIcon = document.getElementById("close-icon");
+
+  if (toggle && menu && hamburgerIcon && closeIcon) {
+    toggle.addEventListener("click", () => {
+      const isOpen = !menu.classList.contains("hidden");
+      menu.classList.toggle("hidden");
+      hamburgerIcon.classList.toggle("hidden");
+      closeIcon.classList.toggle("hidden");
+      toggle.setAttribute("aria-expanded", String(!isOpen));
+    });
+  }
+</script>
