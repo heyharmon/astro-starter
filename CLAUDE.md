@@ -75,8 +75,9 @@ Agents execute in this order for each cohort:
 2. **Content** — places drafted copy into layout, flips `draft: false`
 3. **Design** — styles any new component patterns, updates style tile + `design-tokens.json`
 4. **Content (images)** — sources and places images via Unsplash skill
-5. **Evaluate** — screenshots at 1280px + 375px, grades against `src/data/evaluation-criteria.md`
-6. **Report** — presents screenshots, scores, and flagged issues to human
+5. **Polish** — Design agent runs the `polish-page` skill. Compares the built page section-by-section against the reference (if one exists) or against the approved homepage + style tile (if no reference). Fixes spacing, sizing, text placement, visual weight, and layout details to reach 90–95% quality. See `.claude/agents/design/polish-page.md`.
+6. **Evaluate** — screenshots at 1280px + 375px, grades against `src/data/evaluation-criteria.md`
+7. **Report** — presents screenshots, scores, and flagged issues to human
 
 ### State Tracking
 

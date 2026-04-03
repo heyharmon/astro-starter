@@ -159,7 +159,7 @@ After each cohort, run evaluation with explicit grading criteria:
 
 ### 3a. Image Sourcing Specialist Agent
 
-**Problem:** Every page in the test needed placeholder images. Image sourcing is curatorial work — brand, mood, aspect ratios, visual consistency. Stock photos for a specific welder's shop look generic. Real sites need real photos.
+**Problem:** Every page in the test needed placeholder images. Image sourcing is curatorial work — brand, mood, aspect ratios, visual consistency. Real sites need real photos.
 
 **Solution:** A dedicated image sourcing agent with:
 - **Stock photo sourcing** — Unsplash, Pexels, with brand-aware queries
