@@ -76,7 +76,7 @@ npm install
 npm run build
 ```
 
-If conflicts occur, resolve them following the merge conflict strategy in `CLIENT_WORKFLOW.md`.
+If conflicts occur, resolve them following the merge conflict strategy in `docs/client-management.md`.
 
 To sync all clients at once:
 ```bash

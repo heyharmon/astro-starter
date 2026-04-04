@@ -219,9 +219,25 @@ The build workflow (Stage-Gate) applies **per client branch**. Each client has i
 | Components | `src/components/` |
 | Layouts | `src/layouts/BaseLayout.astro` |
 | Routes | `src/pages/` |
-| CMS manual | `SITE_GUIDE.md` |
+| CMS reference | `SITE_GUIDE.md` |
 | Client scripts | `scripts/new-client.sh`, `sync-client.sh`, `list-clients.sh` |
 | Deploy workflow | `.github/workflows/deploy-client.yml` |
+| Documentation | `docs/` |
+
+## Documentation
+
+Detailed documentation lives in `docs/`. Agents should reference these for full context:
+
+| Document | What it covers |
+|----------|---------------|
+| `docs/project-structure.md` | Directory layout, key files, architecture |
+| `docs/content-schemas.md` | Zod schemas, frontmatter fields, content collections |
+| `docs/design-system.md` | Tailwind theme, tokens, style tile, colors, typography |
+| `docs/agent-system.md` | Agent definitions, routing, skills, how they coordinate |
+| `docs/build-workflow.md` | Stage-gate process, cohort sequence, evaluation criteria |
+| `docs/client-management.md` | Branches, worktrees, concept branches, syncing, scaling |
+| `docs/deployment.md` | Vercel setup, automated deploys, concept previews |
+| `docs/cms-operations.md` | Day-to-day CMS tasks: create pages, edit content, manage nav |
 
 ## Build
 
