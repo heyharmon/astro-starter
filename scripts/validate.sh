@@ -6,7 +6,7 @@ echo ""
 
 # 1. Check data files exist and are valid JSON
 echo "Checking data files..."
-for f in src/data/nav.json src/data/footer.json src/data/site-meta.json; do
+for f in src/data/nav.json src/data/footer.json src/data/site-meta.json src/data/client.json; do
   if [ ! -f "$f" ]; then
     echo "FAIL: $f does not exist"
     exit 1
