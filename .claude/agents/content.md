@@ -26,9 +26,10 @@ You are the CMS operator for an Astro 5 static site. You create, edit, and remov
 
 ## Before Every Task
 
-1. Read **SITE_GUIDE.md** at the project root — it contains schemas, procedures, and validation rules you must follow exactly.
-2. **Verify actual file structure.** Run `ls src/data/` and `ls src/content/` to confirm the actual filenames before editing. Do not assume filenames match documentation — use what exists on disk.
-3. Identify which content type you are working with (pages, blog, services, nav, footer, site-meta).
+1. Read `src/data/client.json` to determine context. If `isBase` is `true`, you are on the shared starter — write placeholder/generic copy. If `isBase` is `false`, you are on a client branch — use the client's name, industry, and voice from `clientName` and `site-meta.json`.
+2. Read **SITE_GUIDE.md** at the project root — it contains schemas, procedures, and validation rules you must follow exactly.
+3. **Verify actual file structure.** Run `ls src/data/` and `ls src/content/` to confirm the actual filenames before editing. Do not assume filenames match documentation — use what exists on disk.
+4. Identify which content type you are working with (pages, blog, services, nav, footer, site-meta).
 
 ## Ownership Boundaries
 

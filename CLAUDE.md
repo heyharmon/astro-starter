@@ -91,12 +91,95 @@ Update `src/data/build-state.json` after each stage transition and cohort comple
 
 **Inference fallback** (if state file is missing): style-tile.astro has non-default content → style done. nav.json has real pages → sitemap done. Content files have body text → drafts exist.
 
+## Client Management
+
+This repo serves as the **base** for all client websites. The `main` branch holds the starter template, shared components, agent definitions, and build infrastructure. Each client gets a **long-lived branch** (`client/<slug>`) that diverges from main with client-specific content, design, and configuration.
+
+### Architecture: Base Layer vs. Client Layer
+
+Read `src/data/client.json` at the start of every session to determine context.
+
+| Field | `main` (base) | Client branch |
+|-------|---------------|---------------|
+| `isBase` | `true` | `false` |
+| `clientId` | `null` | `"little-campus"` |
+| `branch` | `"main"` | `"client/little-campus"` |
+
+### Layer Separation Rules
+
+When working on **main** (base layer):
+
+- Changes must be **generic and client-agnostic**. No client names, branding, or content.
+- Components should use data from content collections and `src/data/` JSON — never hardcode text.
+- New components should have sensible defaults and be **overridable** by client-layer CSS tokens.
+- Design tokens in `global.css` should use the neutral starter palette.
+- All changes to main will eventually be merged into every client branch, so **avoid breaking changes** to content schemas, component props, or data file structures.
+- When changing schemas (`content.config.ts`), add new optional fields with defaults — never remove or rename existing fields without a migration note.
+
+When working on a **client branch**:
+
+- **Extend, don't fork.** Prefer overriding design tokens, adding content, and configuring `src/data/` files over rewriting base components.
+- Keep structural component changes minimal. If a client needs a layout pattern that could benefit other clients, consider whether it belongs in the base.
+- Client-specific images go in `public/images/` (the base only has `public/images/placeholders/`).
+- The files that are **always client-specific**: `src/data/client.json`, `src/data/site-meta.json`, `src/data/build-state.json`, `src/data/design-tokens.json`, `src/content/`, `src/styles/global.css` (token overrides), `public/images/` (non-placeholder).
+
+### Workspace Strategy: Git Worktrees
+
+Each client gets its own **directory** via git worktrees — no branch switching needed.
+
+```
+project-root/              ← main branch (base development)
+../clients/little-campus/  ← worktree for client/little-campus
+../clients/acme-corp/      ← worktree for client/acme-corp
+```
+
+Each worktree is a full working directory with its own `node_modules/`. Agents working in a client worktree never see or affect other clients.
+
+### Client Lifecycle Scripts
+
+```bash
+# Create a new client branch + initialize client.json
+bash scripts/new-client.sh <slug> [--ref <url>]
+
+# Merge latest main into a client branch
+bash scripts/sync-client.sh <slug>
+
+# List all client branches and worktree status
+bash scripts/list-clients.sh
+```
+
+After creating a client branch, set up its worktree:
+
+```bash
+git worktree add ../clients/<slug> client/<slug>
+cd ../clients/<slug>
+npm install
+```
+
+### Merge Strategy: Main → Client
+
+When main is updated (new components, bug fixes, agent improvements), sync into client branches:
+
+1. Run `bash scripts/sync-client.sh <slug>`
+2. If conflicts occur, they will typically be in client-specific files (`global.css`, `site-meta.json`, `design-tokens.json`). Resolve by keeping client values for design/content and base values for structural changes.
+3. Run `npm run build` in the client worktree to verify.
+
+### Agent Behavior by Context
+
+Agents must read `src/data/client.json` to determine their context:
+
+- **On main (`isBase: true`):** Work is generic. Content uses placeholder copy. Design uses neutral tokens. Components must be reusable.
+- **On a client branch (`isBase: false`):** Work is client-specific. Use the client name, branding, reference URL, and approved design tokens.
+
+The build workflow (Stage-Gate) applies **per client branch**. Each client has its own `build-state.json` tracking independent progress through stages.
+
 ## Key Paths
 
 | What | Where |
 |------|-------|
 | Content | `src/content/{pages,services,blog}/*.md` |
 | Config | `src/data/nav.json`, `footer.json`, `site-meta.json` |
+| Client identity | `src/data/client.json` |
 | Schemas | `src/content.config.ts` |
 | Styles | `src/styles/global.css` |
 | Design tokens | `src/data/design-tokens.json` |
@@ -108,6 +191,7 @@ Update `src/data/build-state.json` after each stage transition and cohort comple
 | Layouts | `src/layouts/BaseLayout.astro` |
 | Routes | `src/pages/` |
 | CMS manual | `SITE_GUIDE.md` |
+| Client scripts | `scripts/new-client.sh`, `sync-client.sh`, `list-clients.sh` |
 
 ## Build
 
