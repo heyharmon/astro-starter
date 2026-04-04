@@ -53,7 +53,43 @@ npm install
 
 Open the client worktree in Cursor. The agent system reads `src/data/client.json` to detect that this is a client workspace and follows the Stage-Gate workflow in `CLAUDE.md`.
 
-### 3. Sync base updates
+### 3. Create concept options (optional)
+
+Present multiple design directions for the client to choose from:
+
+```bash
+# From the main workspace
+bash scripts/new-client.sh acme-corp --concept modern --ref https://modern-example.com
+bash scripts/new-client.sh acme-corp --concept classic
+bash scripts/new-client.sh acme-corp --concept bold
+
+# Set up worktrees for each
+git worktree add ../clients/acme-corp--modern client/acme-corp/concept/modern
+git worktree add ../clients/acme-corp--classic client/acme-corp/concept/classic
+git worktree add ../clients/acme-corp--bold client/acme-corp/concept/bold
+
+# Install deps in each
+cd ../clients/acme-corp--modern && npm install
+cd ../clients/acme-corp--classic && npm install
+cd ../clients/acme-corp--bold && npm install
+```
+
+Each concept is an independent workspace. Open each in Cursor to have agents build the style tile (Stage 1) with different aesthetics. Deploy as Vercel previews for the client to compare.
+
+When the client picks one:
+
+```bash
+cd ../clients/acme-corp
+git merge client/acme-corp/concept/modern
+
+# Clean up rejected concepts
+git worktree remove ../clients/acme-corp--classic
+git worktree remove ../clients/acme-corp--bold
+git branch -d client/acme-corp/concept/classic
+git branch -d client/acme-corp/concept/bold
+```
+
+### 4. Sync base updates
 
 When `main` gets new components or bug fixes:
 
@@ -64,7 +100,11 @@ npm install  # if dependencies changed
 npm run build  # verify
 ```
 
-### 4. List all clients
+### 5. Deploy to Vercel
+
+See the [Deployment](#deployment) section below.
+
+### 6. List all clients
 
 ```bash
 bash scripts/list-clients.sh
@@ -157,37 +197,105 @@ If you need an agent to work across clients (e.g., apply the same base fix to al
 2. Commit and push
 3. Run `bash scripts/sync-client.sh <slug>` for each client
 
-## Scaling Considerations
+## Deployment
 
-### Worktree limits
+### Per-Client Vercel Projects
 
-Git worktrees are lightweight — they share the `.git` directory with the main repo. You can have dozens of client worktrees without significant disk overhead (beyond each client's `node_modules/` and built `dist/`).
+Each client gets its own Vercel project. The production branch is `client/<slug>`.
 
-### CI/CD
-
-Each client branch can have its own deployment pipeline. The `client/<slug>` naming convention makes it easy to set up branch-pattern-based deployments (e.g., Netlify, Vercel, Cloudflare Pages all support branch deploys).
-
-### Archiving clients
-
-When a client project is complete and in maintenance mode:
+**First-time setup (via Deploy agent or manually):**
 
 ```bash
-# Remove the worktree (branch is preserved)
-git worktree remove ../clients/<slug>
+cd ../clients/<slug>
+vercel link --yes
+# Note the project ID from .vercel/project.json
+# Update src/data/client.json deploy.projectId
+```
 
-# The branch stays in the repo for future maintenance
-# Re-create the worktree anytime:
-git worktree add ../clients/<slug> client/<slug>
+**Manual deploy:**
+
+```bash
+cd ../clients/<slug>
+npm run build
+vercel deploy --prod
+```
+
+**Automated deploys via GitHub Actions:**
+
+The workflow at `.github/workflows/deploy-client.yml` automatically deploys when you push to any `client/**` branch. It reads `client.json` to determine the Vercel project ID and whether it's a production or preview deploy.
+
+Required GitHub repository secrets:
+- `VERCEL_TOKEN` — Vercel API token
+- `VERCEL_ORG_ID` — Your Vercel org/team ID
+
+The project ID comes from `client.json` (set per-branch), so no per-client secrets are needed.
+
+### Concept Branch Previews
+
+Concept branches (`client/<slug>/concept/<name>`) are deployed as Vercel **preview** deployments, not production. This gives each concept its own URL for the client to review.
+
+```
+acme-corp.vercel.app                              ← production (client/acme-corp)
+acme-corp-concept-modern-abc123.vercel.app         ← preview (concept/modern)
+acme-corp-concept-classic-def456.vercel.app        ← preview (concept/classic)
+```
+
+### Vercel CLI and Worktrees
+
+The Vercel CLI has a known bug with git worktrees (`.git` is a file, not a directory in worktrees). As of early 2026 there are patches in progress. Workarounds:
+
+1. **GitHub Actions** (recommended): Push and let CI handle deploys — no worktree issue.
+2. **`vercel deploy --prebuilt`**: Build locally first, then deploy the pre-built output.
+3. **Deploy from main repo**: Check out the client branch in the main repo directory for the deploy, then switch back.
+
+## Scaling Considerations
+
+### Will this scale to hundreds of clients?
+
+**Git: yes.** Git handles hundreds of branches without performance issues. Worktrees share the `.git` directory and object database — there's no per-worktree storage overhead beyond the checked-out files. Since Git 2.37, `git fetch` performance is constant regardless of worktree count.
+
+**Disk: manageable.** Each active worktree needs ~50-100MB for source + `node_modules`. A machine with 100GB of disk can handle 100+ active worktrees. Inactive clients can be archived (worktree removed, branch preserved) and reactivated on demand.
+
+**Practical limits are operational, not technical:**
+
+- You won't have 200 worktrees active simultaneously. Most clients are either in active build (5-10 at a time) or in maintenance mode (worktree removed, branch preserved).
+- The pattern is: activate 3-5 clients → build them → archive → activate next batch.
+- `bash scripts/list-clients.sh` shows which clients have active worktrees vs. archived branches.
+
+**If you truly hit hundreds of concurrent active clients**, the bottleneck would be the single `.git` directory. At that scale (100+ active worktrees on one machine), consider splitting into multiple repos or using shallow clones. But for a web agency with 10-50 active clients and hundreds archived, the single-repo worktree approach works well.
+
+### Active vs. archived workflow
+
+```bash
+# Active client (has worktree, can receive agent tasks)
+git worktree add ../clients/acme-corp client/acme-corp
+
+# Archive (remove worktree, branch preserved, no disk cost)
+git worktree remove ../clients/acme-corp
+
+# Reactivate anytime
+git worktree add ../clients/acme-corp client/acme-corp
+cd ../clients/acme-corp && npm install
 ```
 
 ### Branch naming convention
 
-All client branches use the `client/` prefix for clean separation:
+All client branches use the `client/` prefix:
 
 ```
 client/little-campus
 client/acme-corp
 client/bobs-plumbing
+client/acme-corp/concept/modern     ← concept branch
+client/acme-corp/concept/classic    ← concept branch
 ```
 
 This keeps them visually grouped and makes glob patterns easy (`client/*`).
+
+### Keeping main clean
+
+The main branch should never have client-specific content. All client work happens on `client/*` branches. This means:
+
+- `git log main` shows only base improvements
+- New team members clone and see the clean starter
+- CI on main validates the base template, not any specific client

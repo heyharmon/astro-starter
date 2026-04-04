@@ -6,7 +6,7 @@ Astro 5 static site ("Acme Studio") with Tailwind CSS 4 and Vue 3 (contact form 
 
 ## Agents
 
-This project uses four specialist agents. Route every user request to the correct agent based on the task domain. If a request spans multiple domains, break it into sub-tasks and invoke agents sequentially — foundational changes first.
+This project uses six specialist agents. Route every user request to the correct agent based on the task domain. If a request spans multiple domains, break it into sub-tasks and invoke agents sequentially — foundational changes first.
 
 ### Content Agent → `content`
 
@@ -42,9 +42,17 @@ This project uses four specialist agents. Route every user request to the correc
 
 **When:** Bug fixes, new features, component development, schema changes (content.config.ts), build configuration, new integrations, refactoring, performance work, or any structural codebase change.
 
-**Owns:** Everything not owned by Content, SEO, Design, or Images — components, layouts, schemas, build config, scripts, static assets
+**Owns:** Everything not owned by Content, SEO, Design, Images, or Deploy — components, layouts, schemas, build config, static assets
 
 **Skills:** None (general-purpose developer)
+
+### Deploy Agent → `deploy`
+
+**When:** Deploying a client site to Vercel, setting up a new Vercel project, managing domains, checking deployment status, creating/syncing/listing client worktrees or branches, creating concept branches, or any CI/CD pipeline work.
+
+**Owns:** `src/data/client.json` (`deploy` field), `vercel.json`, `.github/workflows/deploy-*.yml`, client lifecycle scripts (`scripts/new-client.sh`, `sync-client.sh`, `list-clients.sh`)
+
+**Skills:** `/deploy:vercel-deploy`, `/deploy:worktree-manager`
 
 ## Routing Rules
 
@@ -128,18 +136,39 @@ When working on a **client branch**:
 Each client gets its own **directory** via git worktrees — no branch switching needed.
 
 ```
-project-root/              ← main branch (base development)
-../clients/little-campus/  ← worktree for client/little-campus
-../clients/acme-corp/      ← worktree for client/acme-corp
+project-root/                       ← main branch (base development)
+../clients/little-campus/           ← worktree for client/little-campus
+../clients/acme-corp/               ← worktree for client/acme-corp
+../clients/acme-corp--modern/       ← concept branch worktree
+../clients/acme-corp--classic/      ← concept branch worktree
 ```
 
 Each worktree is a full working directory with its own `node_modules/`. Agents working in a client worktree never see or affect other clients.
+
+### Concept Branches
+
+Concept branches allow presenting multiple design/content options to a client. They branch off the client branch (not main).
+
+```
+main
+  └── client/acme-corp              ← primary client branch
+        ├── client/acme-corp/concept/modern    ← option A
+        ├── client/acme-corp/concept/classic   ← option B
+        └── client/acme-corp/concept/bold      ← option C
+```
+
+Each concept is a full independent workspace. Deploy concepts as Vercel preview URLs for side-by-side client comparison. When the client picks one, merge it into the primary client branch and delete the others.
+
+In `client.json`, concept branches have `isConcept: true` and `parentBranch` pointing to the primary client branch.
 
 ### Client Lifecycle Scripts
 
 ```bash
 # Create a new client branch + initialize client.json
 bash scripts/new-client.sh <slug> [--ref <url>]
+
+# Create a concept branch for design options
+bash scripts/new-client.sh <slug> --concept <name>
 
 # Merge latest main into a client branch
 bash scripts/sync-client.sh <slug>
@@ -192,6 +221,7 @@ The build workflow (Stage-Gate) applies **per client branch**. Each client has i
 | Routes | `src/pages/` |
 | CMS manual | `SITE_GUIDE.md` |
 | Client scripts | `scripts/new-client.sh`, `sync-client.sh`, `list-clients.sh` |
+| Deploy workflow | `.github/workflows/deploy-client.yml` |
 
 ## Build
 
