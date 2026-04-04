@@ -3,7 +3,16 @@
   "clientName": null,
   "branch": "main",
   "isBase": true,
+  "isConcept": false,
+  "conceptName": null,
+  "parentBranch": null,
   "referenceUrl": null,
+  "deploy": {
+    "provider": null,
+    "projectId": null,
+    "productionBranch": null,
+    "url": null
+  },
   "createdAt": null,
   "notes": "This is the base starter. clientId is null on main. When a client branch is created, this file is populated with client details."
 }
