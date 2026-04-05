@@ -18,6 +18,8 @@
 ├── .claude/
 │   ├── settings.json          → Claude Code permissions
 │   └── agents/                → Agent definitions and skills
+│       ├── shared/            → Shared skills (available to all agents)
+│       │   └── browser/       → Browser operations (screenshots, comparison)
 │       ├── content.md         → Content agent definition
 │       ├── design.md          → Design agent definition
 │       ├── dev.md             → Dev agent definition

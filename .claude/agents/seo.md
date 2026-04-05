@@ -4,7 +4,7 @@ description: >
   Use for any SEO-related task: auditing page SEO, updating meta titles and descriptions,
   optimizing OG images, keyword research, competitor analysis, SERP analysis, creating
   content briefs, or any task focused on search engine visibility and optimization.
-tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch, mcp__claude-in-chrome__*
+tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch, mcp__playwright__*, mcp__claude-in-chrome__*
 model: inherit
 ---
 
@@ -18,6 +18,7 @@ You have the following skills available. When a task matches a skill, read the f
 |-------|------|-------------|
 | Update SEO | `.claude/agents/seo/update-seo.md` | Updating meta titles, descriptions, and OG images |
 | SEO Topical Map | `.claude/agents/seo/topical-map/SKILL.md` | User needs a topical map, keyword strategy, pillar keywords, or content roadmap for SEO |
+| Browser | `.claude/agents/shared/browser/SKILL.md` | Any task requiring screenshots, competitor site analysis, or SERP inspection (shared skill) |
 
 You are the SEO specialist for an Astro 5 static site. You optimize metadata, research keywords, analyze competitors, and ensure the site follows SEO best practices.
 

@@ -5,7 +5,7 @@ description: >
   schema changes, build configuration, new integrations, refactoring, performance
   optimization, or any structural change to the codebase that goes beyond content,
   SEO, or styling.
-tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch
+tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch, mcp__playwright__*
 model: inherit
 ---
 
@@ -19,6 +19,7 @@ You have the following skills available. When a task matches a skill, read its S
 |-------|------|-------------|
 | Block Replicator | `.claude/agents/dev/block-replicator/SKILL.md` | User wants to replicate a website block/section pixel-for-pixel |
 | Vue Converter | `.claude/agents/dev/vue-converter/SKILL.md` | User wants to convert HTML/CSS/Tailwind to a Vue component |
+| Browser | `.claude/agents/shared/browser/SKILL.md` | Any task requiring screenshots, visual verification, or DOM inspection (shared skill) |
 
 You are a developer working on an Astro 5 static site with Tailwind CSS 4 and Vue 3 (contact form only). You handle bug fixes, features, component development, schema changes, and build configuration.
 

@@ -122,17 +122,18 @@ Every agent reads `src/data/client.json` as its first step in "Before Every Task
 
 ## Agent File Structure
 
-Each agent has:
-
 ```
 .claude/agents/
-├── <agent>.md              → Agent definition (YAML frontmatter + role description)
+├── shared/                    → Shared skills (available to all agents)
+│   └── browser/
+│       └── SKILL.md           → Browser operations (screenshots, comparison, DOM inspection)
+├── <agent>.md                 → Agent definition (YAML frontmatter + role description)
 └── <agent>/
-    ├── <skill>.md          → Simple skill (procedure description)
+    ├── <skill>.md             → Simple skill (procedure description)
     └── <skill>/
-        ├── SKILL.md        → Complex skill (multi-phase workflow)
-        ├── references/     → Supporting documentation
-        └── scripts/        → Helper scripts (Python, etc.)
+        ├── SKILL.md           → Complex skill (multi-phase workflow)
+        ├── references/        → Supporting documentation
+        └── scripts/           → Helper scripts (Python, etc.)
 ```
 
 ### Agent Definition Format
@@ -149,7 +150,7 @@ model: inherit
 # Content Agent — CMS Operator
 
 ## Skills
-(table of available skills)
+(table of available skills — includes both agent-specific and shared skills)
 
 ## Before Every Task
 (context detection + prerequisite reads)
@@ -161,19 +162,65 @@ model: inherit
 (agent-specific constraints)
 ```
 
-### Skill Format
+### Skill Types
 
-Simple skills are plain Markdown files with a YAML `description:` and a `$ARGUMENTS` placeholder. Complex skills use the `SKILL.md` convention with multi-phase instructions.
+**Agent-specific skills** live inside the agent's own directory (e.g., `.claude/agents/design/polish-page.md`). Only that agent uses them.
+
+**Shared skills** live in `.claude/agents/shared/` and are referenced by multiple agents. Each agent that needs the shared skill adds it to its Skills table with the full path. The skill is read on demand, just like agent-specific skills.
+
+Current shared skills:
+
+| Skill | Path | Used by |
+|-------|------|---------|
+| Browser | `.claude/agents/shared/browser/SKILL.md` | Design, Images, SEO, Dev, Deploy |
+
+### Skill File Formats
+
+**Simple skill** — a plain Markdown file with a YAML `description:` and a `$ARGUMENTS` placeholder at the end:
+
+```markdown
+---
+description: "Short description of what this skill does."
+---
+
+# Skill Name
+
+## Procedure
+1. Step one
+2. Step two
+
+$ARGUMENTS
+```
+
+**Complex skill** — uses the `SKILL.md` convention inside a subdirectory, with supporting files:
+
+```
+<skill>/
+├── SKILL.md           → Multi-phase workflow instructions
+├── references/        → Supporting documentation, guides
+├── assets/            → Templates, examples
+└── scripts/           → Helper scripts (Python, etc.)
+```
 
 ## Adding a New Agent
 
 1. Create `.claude/agents/<name>.md` with YAML frontmatter (`name`, `description`, `tools`, `model: inherit`)
 2. Create `.claude/agents/<name>/` for skills
 3. Add the agent to `CLAUDE.md` in the Agents section with routing rules
-4. Update this documentation
+4. Add shared skills to its Skills table if needed (e.g., Browser)
+5. Update this documentation
 
 ## Adding a New Skill
+
+### Agent-specific skill
 
 1. Create `.claude/agents/<agent>/<skill>.md` (simple) or `.claude/agents/<agent>/<skill>/SKILL.md` (complex)
 2. Add the skill to the agent's Skills table in its definition file
 3. Add supporting references/scripts in subdirectories as needed
+
+### Shared skill
+
+1. Create `.claude/agents/shared/<skill>/SKILL.md`
+2. Add the skill to the Skills table of **every agent** that should have access
+3. Ensure each agent's `tools:` list includes the required MCP tools (e.g., `mcp__playwright__*` for the browser skill)
+4. Document the shared skill in this file's "Current shared skills" table
