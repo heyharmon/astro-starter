@@ -6,7 +6,7 @@ Astro 5 static site ("Acme Studio") with Tailwind CSS 4 and Vue 3 (contact form 
 
 ## Agents
 
-This project uses four specialist agents. Route every user request to the correct agent based on the task domain. If a request spans multiple domains, break it into sub-tasks and invoke agents sequentially — foundational changes first.
+This project uses six specialist agents. Route every user request to the correct agent based on the task domain. If a request spans multiple domains, break it into sub-tasks and invoke agents sequentially — foundational changes first.
 
 ### Content Agent → `content`
 
@@ -42,9 +42,17 @@ This project uses four specialist agents. Route every user request to the correc
 
 **When:** Bug fixes, new features, component development, schema changes (content.config.ts), build configuration, new integrations, refactoring, performance work, or any structural codebase change.
 
-**Owns:** Everything not owned by Content, SEO, Design, or Images — components, layouts, schemas, build config, scripts, static assets
+**Owns:** Everything not owned by Content, SEO, Design, Images, or Deploy — components, layouts, schemas, build config, static assets
 
 **Skills:** None (general-purpose developer)
+
+### Deploy Agent → `deploy`
+
+**When:** Deploying a client site to Vercel, setting up a new Vercel project, managing domains, checking deployment status, creating/syncing/listing client worktrees or branches, creating concept branches, or any CI/CD pipeline work.
+
+**Owns:** `src/data/client.json` (`deploy` field), `vercel.json`, `.github/workflows/deploy-*.yml`, client lifecycle scripts (`scripts/new-client.sh`, `sync-client.sh`, `list-clients.sh`)
+
+**Skills:** `/deploy:vercel-deploy`, `/deploy:worktree-manager`
 
 ## Routing Rules
 
@@ -91,12 +99,116 @@ Update `src/data/build-state.json` after each stage transition and cohort comple
 
 **Inference fallback** (if state file is missing): style-tile.astro has non-default content → style done. nav.json has real pages → sitemap done. Content files have body text → drafts exist.
 
+## Client Management
+
+This repo serves as the **base** for all client websites. The `main` branch holds the starter template, shared components, agent definitions, and build infrastructure. Each client gets a **long-lived branch** (`client/<slug>`) that diverges from main with client-specific content, design, and configuration.
+
+### Architecture: Base Layer vs. Client Layer
+
+Read `src/data/client.json` at the start of every session to determine context.
+
+| Field | `main` (base) | Client branch |
+|-------|---------------|---------------|
+| `isBase` | `true` | `false` |
+| `clientId` | `null` | `"little-campus"` |
+| `branch` | `"main"` | `"client/little-campus"` |
+
+### Layer Separation Rules
+
+When working on **main** (base layer):
+
+- Changes must be **generic and client-agnostic**. No client names, branding, or content.
+- Components should use data from content collections and `src/data/` JSON — never hardcode text.
+- New components should have sensible defaults and be **overridable** by client-layer CSS tokens.
+- Design tokens in `global.css` should use the neutral starter palette.
+- All changes to main will eventually be merged into every client branch, so **avoid breaking changes** to content schemas, component props, or data file structures.
+- When changing schemas (`content.config.ts`), add new optional fields with defaults — never remove or rename existing fields without a migration note.
+
+When working on a **client branch**:
+
+- **Extend, don't fork.** Prefer overriding design tokens, adding content, and configuring `src/data/` files over rewriting base components.
+- Keep structural component changes minimal. If a client needs a layout pattern that could benefit other clients, consider whether it belongs in the base.
+- Client-specific images go in `public/images/` (the base only has `public/images/placeholders/`).
+- The files that are **always client-specific**: `src/data/client.json`, `src/data/site-meta.json`, `src/data/build-state.json`, `src/data/design-tokens.json`, `src/content/`, `src/styles/global.css` (token overrides), `public/images/` (non-placeholder).
+
+### Workspace Strategy: Git Worktrees
+
+Each client gets its own **directory** via git worktrees — no branch switching needed.
+
+```
+project-root/                       ← main branch (base development)
+../clients/little-campus/           ← worktree for client/little-campus
+../clients/acme-corp/               ← worktree for client/acme-corp
+../clients/acme-corp--modern/       ← concept branch worktree
+../clients/acme-corp--classic/      ← concept branch worktree
+```
+
+Each worktree is a full working directory with its own `node_modules/`. Agents working in a client worktree never see or affect other clients.
+
+### Concept Branches
+
+Concept branches allow presenting multiple design/content options to a client. They branch off the client branch (not main).
+
+```
+main
+  └── client/acme-corp              ← primary client branch
+        ├── client/acme-corp/concept/modern    ← option A
+        ├── client/acme-corp/concept/classic   ← option B
+        └── client/acme-corp/concept/bold      ← option C
+```
+
+Each concept is a full independent workspace. Deploy concepts as Vercel preview URLs for side-by-side client comparison. When the client picks one, merge it into the primary client branch and delete the others.
+
+In `client.json`, concept branches have `isConcept: true` and `parentBranch` pointing to the primary client branch.
+
+### Client Lifecycle Scripts
+
+```bash
+# Create a new client branch + initialize client.json
+bash scripts/new-client.sh <slug> [--ref <url>]
+
+# Create a concept branch for design options
+bash scripts/new-client.sh <slug> --concept <name>
+
+# Merge latest main into a client branch
+bash scripts/sync-client.sh <slug>
+
+# List all client branches and worktree status
+bash scripts/list-clients.sh
+```
+
+After creating a client branch, set up its worktree:
+
+```bash
+git worktree add ../clients/<slug> client/<slug>
+cd ../clients/<slug>
+npm install
+```
+
+### Merge Strategy: Main → Client
+
+When main is updated (new components, bug fixes, agent improvements), sync into client branches:
+
+1. Run `bash scripts/sync-client.sh <slug>`
+2. If conflicts occur, they will typically be in client-specific files (`global.css`, `site-meta.json`, `design-tokens.json`). Resolve by keeping client values for design/content and base values for structural changes.
+3. Run `npm run build` in the client worktree to verify.
+
+### Agent Behavior by Context
+
+Agents must read `src/data/client.json` to determine their context:
+
+- **On main (`isBase: true`):** Work is generic. Content uses placeholder copy. Design uses neutral tokens. Components must be reusable.
+- **On a client branch (`isBase: false`):** Work is client-specific. Use the client name, branding, reference URL, and approved design tokens.
+
+The build workflow (Stage-Gate) applies **per client branch**. Each client has its own `build-state.json` tracking independent progress through stages.
+
 ## Key Paths
 
 | What | Where |
 |------|-------|
 | Content | `src/content/{pages,services,blog}/*.md` |
 | Config | `src/data/nav.json`, `footer.json`, `site-meta.json` |
+| Client identity | `src/data/client.json` |
 | Schemas | `src/content.config.ts` |
 | Styles | `src/styles/global.css` |
 | Design tokens | `src/data/design-tokens.json` |
@@ -107,7 +219,25 @@ Update `src/data/build-state.json` after each stage transition and cohort comple
 | Components | `src/components/` |
 | Layouts | `src/layouts/BaseLayout.astro` |
 | Routes | `src/pages/` |
-| CMS manual | `SITE_GUIDE.md` |
+| CMS reference | `SITE_GUIDE.md` |
+| Client scripts | `scripts/new-client.sh`, `sync-client.sh`, `list-clients.sh` |
+| Deploy workflow | `.github/workflows/deploy-client.yml` |
+| Documentation | `docs/` |
+
+## Documentation
+
+Detailed documentation lives in `docs/`. Agents should reference these for full context:
+
+| Document | What it covers |
+|----------|---------------|
+| `docs/project-structure.md` | Directory layout, key files, architecture |
+| `docs/content-schemas.md` | Zod schemas, frontmatter fields, content collections |
+| `docs/design-system.md` | Tailwind theme, tokens, style tile, colors, typography |
+| `docs/agent-system.md` | Agent definitions, routing, skills, how they coordinate |
+| `docs/build-workflow.md` | Stage-gate process, cohort sequence, evaluation criteria |
+| `docs/client-management.md` | Branches, worktrees, concept branches, syncing, scaling |
+| `docs/deployment.md` | Vercel setup, automated deploys, concept previews |
+| `docs/cms-operations.md` | Day-to-day CMS tasks: create pages, edit content, manage nav |
 
 ## Build
 

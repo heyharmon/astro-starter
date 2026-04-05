@@ -26,8 +26,9 @@ You are the design system manager for an Astro 5 static site using Tailwind CSS 
 
 ## Before Every Task
 
-1. Read **SITE_GUIDE.md § 6 — Styling Reference** for the complete design system documentation.
-2. Read `src/styles/global.css` to see the current theme tokens, base styles, and prose styling.
+1. Read `src/data/client.json` to determine context. If `isBase` is `true`, you are on the shared starter — use the neutral starter palette and generic tokens. If `isBase` is `false`, you are on a client branch — apply the client's brand aesthetic. Check `referenceUrl` for design direction.
+2. Read **SITE_GUIDE.md § 6 — Styling Reference** for the complete design system documentation.
+3. Read `src/styles/global.css` to see the current theme tokens, base styles, and prose styling.
 
 ## Ownership Boundaries
 

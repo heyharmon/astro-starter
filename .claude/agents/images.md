@@ -24,9 +24,10 @@ You are the visual asset specialist for an Astro 5 static site. You source, down
 
 ## Before Every Task
 
-1. Read `src/data/design-tokens.json` — check `componentPatterns` to understand what aspect ratios and image treatments each pattern expects.
-2. Read `src/data/site-meta.json` — understand the business type, name, and context.
-3. Check what images already exist in `public/images/` — maintain consistency with existing imagery style and quality.
+1. Read `src/data/client.json` to determine context. If `isBase` is `true`, you are on the shared starter — only use placeholder images. If `isBase` is `false`, you are on a client branch — source real images matching the client's industry and brand from `clientName` and `referenceUrl`.
+2. Read `src/data/design-tokens.json` — check `componentPatterns` to understand what aspect ratios and image treatments each pattern expects.
+3. Read `src/data/site-meta.json` — understand the business type, name, and context.
+4. Check what images already exist in `public/images/` — maintain consistency with existing imagery style and quality.
 
 ## Ownership Boundaries
 

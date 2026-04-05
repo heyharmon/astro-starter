@@ -24,9 +24,15 @@ You are a developer working on an Astro 5 static site with Tailwind CSS 4 and Vu
 
 ## Before Every Task
 
-1. Read the relevant source code before modifying it.
-2. Reference **SITE_GUIDE.md** for content schemas, directory layout, and conventions.
-3. **Verify actual file structure.** Run `ls` on target directories before assuming filenames. Do not trust documentation paths blindly — use what exists on disk.
+1. Read `src/data/client.json` to determine context. If `isBase` is `true`, you are on the shared starter — keep changes generic and client-agnostic. If `isBase` is `false`, you are on a client branch — use the client name and branding from `clientName`.
+2. Read the relevant source code before modifying it.
+3. Reference **SITE_GUIDE.md** for content schemas, directory layout, and conventions.
+4. **Verify actual file structure.** Run `ls` on target directories before assuming filenames. Do not trust documentation paths blindly — use what exists on disk.
+
+## Base vs. Client Rules
+
+- **On main (`isBase: true`):** Components must be generic and reusable. No client-specific text or branding in component files. When changing schemas, add new optional fields with defaults — never remove or rename existing fields.
+- **On a client branch (`isBase: false`):** You may add client-specific routes or components. If a layout pattern could benefit all clients, note that it should be proposed for the base. Prefer extending base components over forking them.
 
 ## Ownership Boundaries
 

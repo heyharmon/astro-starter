@@ -1,36 +1,48 @@
-# Acme Studio
+# Astro Starter
 
-A static website managed entirely through [Claude Code](https://claude.ai/code). No CMS dashboard, no manual editing — just tell Claude what you want.
+A static website starter managed entirely through Claude agents. No CMS dashboard, no manual editing — describe what you want in natural language.
 
-## Getting Started
+This repo serves as the **base template** for multiple client websites. Each client gets a branch and its own working directory via git worktrees.
 
-1. Clone the repo and install dependencies:
-   ```bash
-   npm install
-   ```
+## Quick Start
 
-2. Open the project in Claude Code.
+```bash
+npm install
+npm run dev    # http://localhost:4321
+```
 
-3. Tell Claude what you need. Examples:
-   - "Add a new page about our team"
-   - "Write a blog post about web design trends"
-   - "Change the site name to Apex Digital"
-   - "Add a Careers link to the navigation"
-   - "Update the homepage headline"
+Open the project in Cursor with Claude Code. Tell Claude what you need:
 
-## Slash Commands
+- "Add a team page with bios"
+- "Change the accent color to teal"
+- "Write a blog post about web design trends"
+- "Set up a new client called Bob's Plumbing"
+- "Deploy Little Campus to Vercel"
 
-Use these for common tasks:
+## How It Works
 
-| Command | What it does |
-|---------|-------------|
-| `/create-page` | Create a new page |
-| `/edit-content` | Edit a page, post, or service |
-| `/update-seo` | Update titles, descriptions, OG images |
-| `/update-nav` | Add, remove, or reorder navigation links |
-| `/update-styles` | Change colors, fonts, or layout |
-| `/audit` | Run a full site health check |
+Six specialist agents (content, design, SEO, images, dev, deploy) handle different aspects of the site. A root orchestrator routes your requests to the right agent. See `CLAUDE.md` for routing rules.
 
-## Deployment
+The same codebase serves multiple client websites via git branches and worktrees. The `main` branch is the shared base; `client/<slug>` branches hold client-specific content, design, and images.
 
-Push to GitHub and connect to [Vercel](https://vercel.com) (auto-detects Astro), or run `npm run build` and upload the `dist/` folder to any static host.
+## Documentation
+
+| Document | What it covers |
+|----------|---------------|
+| [Getting Started](docs/getting-started.md) | Setup, first run, how to use the system |
+| [Project Structure](docs/project-structure.md) | Directory layout, key files, architecture |
+| [CMS Operations](docs/cms-operations.md) | Creating pages, editing content, managing navigation |
+| [Client Management](docs/client-management.md) | Multi-client workflow: branches, worktrees, concepts |
+| [Deployment](docs/deployment.md) | Vercel setup, automated deploys, concept previews |
+| [Agent System](docs/agent-system.md) | The six agents, routing rules, how they coordinate |
+| [Build Workflow](docs/build-workflow.md) | Stage-gate process for building new sites |
+| [Content Schemas](docs/content-schemas.md) | Frontmatter fields, Zod validation, content collections |
+| [Design System](docs/design-system.md) | Tailwind theme, tokens, colors, typography |
+
+## Commands
+
+```bash
+npm run dev       # Dev server
+npm run build     # Production build
+npm run validate  # Config checks + build
+```
