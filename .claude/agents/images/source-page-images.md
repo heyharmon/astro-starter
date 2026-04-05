@@ -33,8 +33,7 @@ The orchestrator should provide:
 ### Phase 2: Source images
 
 4. **Check if a reference site exists.** If so:
-   - Use Playwright to navigate to the reference page
-   - Screenshot sections that contain images
+   - Use the **Browser skill** (`.claude/agents/shared/browser/SKILL.md`) to navigate to the reference page and screenshot sections that contain images
    - If the reference has high-quality images that are appropriate, use the `pull-reference-images` skill to download them
    - Flag licensing concerns to the orchestrator
 
@@ -66,7 +65,7 @@ The orchestrator should provide:
 
 9. **Validate.** Run `npm run validate`.
 
-10. **Visual check.** Start the dev server, screenshot the page, and verify:
+10. **Visual check.** Use the browser skill's "Screenshot the Dev Server" procedure to verify:
     - Images load correctly (no broken references)
     - Images fit their containers (correct aspect ratio, no distortion)
     - Images reinforce the page content (a welding hero shows welding, not a sunset)

@@ -34,40 +34,25 @@ The user should describe: what visual change they want (colors, fonts, spacing, 
 
 8. **Validate**: Run `npm run validate`. If unavailable, run `npm run build`.
 
-9. **Visual verification** — check your work in a real browser before reporting done.
+9. **Visual verification** — use the **Browser skill** (`.claude/agents/shared/browser/SKILL.md`) to verify your changes visually. Follow the "Screenshot the Dev Server" procedure.
 
-   a. **Start the dev server** in the background:
-      ```bash
-      npm run dev &
-      ```
-      Wait a few seconds for it to be ready (check for "Local" URL in output, typically `http://localhost:4321`).
-
-   b. **Identify which page(s) to check.** Based on the files you modified:
+   a. **Identify which page(s) to check.** Based on the files you modified:
       - Token/base style changes → check the home page (`/`) and one inner page
       - Component-specific changes → check the page that uses that component
       - Prose style changes → check a content-heavy page (blog post or services)
 
-   c. **Take a desktop screenshot** — navigate to the page and take a full-page screenshot:
-      - Navigate to `http://localhost:4321{path}`
-      - Screenshot the full page
+   b. **Take desktop and mobile screenshots** using the browser skill procedures.
 
-   d. **Take a mobile screenshot** — resize the browser to 375x812 (iPhone) and screenshot again. Resize back to 1280x720 after.
-
-   e. **Review both screenshots.** Check for:
+   c. **Review both screenshots.** Check for:
       - Does the change match what the user asked for?
       - Visual consistency — no orphaned colors, spacing mismatches, or broken layout
       - Typography hierarchy — headings, body text, and links are clearly differentiated
       - Responsive behavior — nothing overflows, overlaps, or collapses at mobile width
       - No obvious regressions — other page elements still look correct
 
-   f. **If something looks wrong**, fix it and re-screenshot. Do not report success if the visual result doesn't match intent. You may iterate up to 3 times.
+   d. **If something looks wrong**, fix it and re-screenshot. Do not report success if the visual result doesn't match intent. You may iterate up to 3 times.
 
-   g. **Stop the dev server** when done:
-      ```bash
-      kill %1 2>/dev/null || true
-      ```
-
-   h. **Include the screenshots in your response** so the user can see the result.
+   e. **Include the screenshots in your response** so the user can see the result.
 
 ## Current design system
 
