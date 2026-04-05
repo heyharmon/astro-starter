@@ -43,8 +43,8 @@ Design system manager. Controls visual appearance through Tailwind tokens and cl
 |------|---------|
 | **When** | Changing colors, typography, fonts, spacing, layout, component appearance |
 | **Owns** | `src/styles/global.css`, Tailwind classes in `.astro` components and layouts |
-| **Skills** | `update-styles`, `apply-style-tile`, `polish-page`, `match-reference`, `style-guide-generator` |
-| **Tools** | Read, Write, Edit, Glob, Grep, Bash, Playwright |
+| **Skills** | `update-styles`, `apply-style-tile`, `polish-page`, `match-reference`, `style-guide-generator`, `browser` (shared) |
+| **Tools** | Read, Write, Edit, Glob, Grep, Bash |
 | **Definition** | `.claude/agents/design.md` |
 
 ### SEO Agent (`seo`)
@@ -55,8 +55,8 @@ Search optimization specialist. Manages metadata, keyword research, and content 
 |------|---------|
 | **When** | SEO auditing, meta titles/descriptions, OG images, keyword research, competitor analysis |
 | **Owns** | SEO frontmatter fields (`title`, `description`, `featuredImage`/`image`, `tags`), `site-meta.json` (SEO fields) |
-| **Skills** | `update-seo`, `seo-topical-map` |
-| **Tools** | Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch, Chrome MCP |
+| **Skills** | `update-seo`, `seo-topical-map`, `browser` (shared) |
+| **Tools** | Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch |
 | **Definition** | `.claude/agents/seo.md` |
 
 ### Images Agent (`images`)
@@ -67,8 +67,8 @@ Visual asset specialist. Sources, downloads, and places images.
 |------|---------|
 | **When** | Stock photo search, reference site image pulling, image selection for pages |
 | **Owns** | `public/images/` (except `placeholders/`), image frontmatter fields |
-| **Skills** | `source-page-images`, `unsplash-search`, `pull-reference-images` |
-| **Tools** | Read, Write, Edit, Glob, Grep, Bash, Playwright |
+| **Skills** | `source-page-images`, `unsplash-search`, `pull-reference-images`, `browser` (shared) |
+| **Tools** | Read, Write, Edit, Glob, Grep, Bash |
 | **Definition** | `.claude/agents/images.md` |
 
 ### Dev Agent (`dev`)
@@ -79,7 +79,7 @@ General-purpose developer. Handles structural code changes, components, schemas,
 |------|---------|
 | **When** | Bug fixes, new features, components, schema changes, build config, refactoring |
 | **Owns** | Everything not owned by other agents — components, layouts, schemas, build config |
-| **Skills** | `block-replicator`, `vue-converter` |
+| **Skills** | `block-replicator`, `vue-converter`, `browser` (shared) |
 | **Tools** | Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch |
 | **Definition** | `.claude/agents/dev.md` |
 
@@ -91,7 +91,7 @@ Deployment and infrastructure specialist. Handles Vercel deploys and client work
 |------|---------|
 | **When** | Deploying to Vercel, setting up projects, managing client branches/worktrees, creating concept branches |
 | **Owns** | `client.json` deploy field, `vercel.json`, `.github/workflows/deploy-*.yml`, lifecycle scripts |
-| **Skills** | `vercel-deploy`, `worktree-manager` |
+| **Skills** | `vercel-deploy`, `worktree-manager`, `browser` (shared) |
 | **Tools** | Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch |
 | **Definition** | `.claude/agents/deploy.md` |
 
@@ -170,9 +170,11 @@ model: inherit
 
 Current shared skills:
 
-| Skill | Path | Used by |
-|-------|------|---------|
-| Browser | `.claude/agents/shared/browser/SKILL.md` | Design, Images, SEO, Dev, Deploy |
+| Skill | Path | Used by | Underlying tool |
+|-------|------|---------|----------------|
+| Browser | `.claude/agents/shared/browser/SKILL.md` | All agents | `playwright-cli` via Bash |
+
+The browser skill is the **only** way agents should interact with browsers. It standardizes screenshots, page comparison, DOM inspection, and dev server lifecycle. It uses `playwright-cli` (a CLI tool designed for coding agents) rather than Playwright MCP or other browser tools — all browser operations run as Bash commands, so no special MCP tool declarations are needed in agent definitions.
 
 ### Skill File Formats
 
@@ -222,5 +224,5 @@ $ARGUMENTS
 
 1. Create `.claude/agents/shared/<skill>/SKILL.md`
 2. Add the skill to the Skills table of **every agent** that should have access
-3. Ensure each agent's `tools:` list includes the required MCP tools (e.g., `mcp__playwright__*` for the browser skill)
+3. If the skill requires a CLI tool, ensure it's installed (the skill itself should document installation steps)
 4. Document the shared skill in this file's "Current shared skills" table
