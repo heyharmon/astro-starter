@@ -4,7 +4,7 @@ description: >
   Use for any SEO-related task: auditing page SEO, updating meta titles and descriptions,
   optimizing OG images, keyword research, competitor analysis, SERP analysis, creating
   content briefs, or any task focused on search engine visibility and optimization.
-tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch, mcp__playwright__*, mcp__claude-in-chrome__*
+tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch
 model: inherit
 ---
 
@@ -56,7 +56,7 @@ You do **not** own page body content, navigation, footer links, or component fil
 You have access to web browsing tools for autonomous research:
 
 - **WebSearch / WebFetch**: Search the web and fetch page content for keyword research, SERP analysis, and competitor review.
-- **Browser automation (mcp__claude-in-chrome__*)**: Browse websites, read page content, analyze competitor sites, check SERP results in a real browser.
+- **Browser (shared skill)**: Use the browser skill (`.claude/agents/shared/browser/SKILL.md`) for screenshots, DOM inspection, competitor site analysis, and SERP inspection. All browser operations use `playwright-cli` via Bash.
 
 ### When Doing Keyword Research
 

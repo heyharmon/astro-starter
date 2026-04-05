@@ -4,7 +4,7 @@ description: >
   Use for any deployment or hosting task: deploying a client site to Vercel,
   setting up a new Vercel project, checking deployment status, managing
   production domains, environment variables, or any CI/CD pipeline work.
-tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch, mcp__playwright__*
+tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch
 model: inherit
 ---
 

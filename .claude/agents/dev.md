@@ -5,7 +5,7 @@ description: >
   schema changes, build configuration, new integrations, refactoring, performance
   optimization, or any structural change to the codebase that goes beyond content,
   SEO, or styling.
-tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch, mcp__playwright__*
+tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch
 model: inherit
 ---
 

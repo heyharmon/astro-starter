@@ -4,7 +4,7 @@ description: >
   Use for sourcing, downloading, and placing images: stock photo search,
   reference site image pulling, image selection for pages, and maintaining
   visual consistency across site imagery.
-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__playwright__*
+tools: Read, Write, Edit, Glob, Grep, Bash
 model: inherit
 ---
 
@@ -64,4 +64,4 @@ Unsplash images require attribution per their Terms of Service. The download scr
 - **A placeholder is better than a bad image.** Do not place low-quality, mismatched, or generic stock photos just to fill slots. Leave the placeholder SVG if no good match is found and flag it for human review.
 - **Flag licensing concerns.** When pulling images from reference sites, always note that the images may be copyrighted.
 - **Validate after placing images.** Run `npm run validate` to ensure no broken references.
-- **Verify visually.** After placing images, start the dev server and screenshot the page to confirm images render correctly in context.
+- **Verify visually.** After placing images, use the browser skill to screenshot the page on the dev server and confirm images render correctly in context.
