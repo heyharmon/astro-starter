@@ -43,8 +43,8 @@ Design system manager. Controls visual appearance through Tailwind tokens and cl
 |------|---------|
 | **When** | Changing colors, typography, fonts, spacing, layout, component appearance |
 | **Owns** | `src/styles/global.css`, Tailwind classes in `.astro` components and layouts |
-| **Skills** | `update-styles`, `apply-style-tile`, `polish-page`, `match-reference`, `style-guide-generator` |
-| **Tools** | Read, Write, Edit, Glob, Grep, Bash, Playwright |
+| **Skills** | `update-styles`, `apply-style-tile`, `polish-page`, `match-reference`, `style-guide-generator`, `browser` (shared) |
+| **Tools** | Read, Write, Edit, Glob, Grep, Bash |
 | **Definition** | `.claude/agents/design.md` |
 
 ### SEO Agent (`seo`)
@@ -55,8 +55,8 @@ Search optimization specialist. Manages metadata, keyword research, and content 
 |------|---------|
 | **When** | SEO auditing, meta titles/descriptions, OG images, keyword research, competitor analysis |
 | **Owns** | SEO frontmatter fields (`title`, `description`, `featuredImage`/`image`, `tags`), `site-meta.json` (SEO fields) |
-| **Skills** | `update-seo`, `seo-topical-map` |
-| **Tools** | Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch, Chrome MCP |
+| **Skills** | `update-seo`, `seo-topical-map`, `browser` (shared) |
+| **Tools** | Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch |
 | **Definition** | `.claude/agents/seo.md` |
 
 ### Images Agent (`images`)
@@ -67,8 +67,8 @@ Visual asset specialist. Sources, downloads, and places images.
 |------|---------|
 | **When** | Stock photo search, reference site image pulling, image selection for pages |
 | **Owns** | `public/images/` (except `placeholders/`), image frontmatter fields |
-| **Skills** | `source-page-images`, `unsplash-search`, `pull-reference-images` |
-| **Tools** | Read, Write, Edit, Glob, Grep, Bash, Playwright |
+| **Skills** | `source-page-images`, `unsplash-search`, `pull-reference-images`, `browser` (shared) |
+| **Tools** | Read, Write, Edit, Glob, Grep, Bash |
 | **Definition** | `.claude/agents/images.md` |
 
 ### Dev Agent (`dev`)
@@ -79,7 +79,7 @@ General-purpose developer. Handles structural code changes, components, schemas,
 |------|---------|
 | **When** | Bug fixes, new features, components, schema changes, build config, refactoring |
 | **Owns** | Everything not owned by other agents — components, layouts, schemas, build config |
-| **Skills** | `block-replicator`, `vue-converter` |
+| **Skills** | `section-replicator`, `browser` (shared) |
 | **Tools** | Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch |
 | **Definition** | `.claude/agents/dev.md` |
 
@@ -91,7 +91,7 @@ Deployment and infrastructure specialist. Handles Vercel deploys and client work
 |------|---------|
 | **When** | Deploying to Vercel, setting up projects, managing client branches/worktrees, creating concept branches |
 | **Owns** | `client.json` deploy field, `vercel.json`, `.github/workflows/deploy-*.yml`, lifecycle scripts |
-| **Skills** | `vercel-deploy`, `worktree-manager` |
+| **Skills** | `vercel-deploy`, `worktree-manager`, `browser` (shared) |
 | **Tools** | Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch |
 | **Definition** | `.claude/agents/deploy.md` |
 
@@ -122,17 +122,18 @@ Every agent reads `src/data/client.json` as its first step in "Before Every Task
 
 ## Agent File Structure
 
-Each agent has:
-
 ```
 .claude/agents/
-├── <agent>.md              → Agent definition (YAML frontmatter + role description)
+├── shared/                    → Shared skills (available to all agents)
+│   └── browser/
+│       └── SKILL.md           → Browser operations (screenshots, comparison, DOM inspection)
+├── <agent>.md                 → Agent definition (YAML frontmatter + role description)
 └── <agent>/
-    ├── <skill>.md          → Simple skill (procedure description)
+    ├── <skill>.md             → Simple skill (procedure description)
     └── <skill>/
-        ├── SKILL.md        → Complex skill (multi-phase workflow)
-        ├── references/     → Supporting documentation
-        └── scripts/        → Helper scripts (Python, etc.)
+        ├── SKILL.md           → Complex skill (multi-phase workflow)
+        ├── references/        → Supporting documentation
+        └── scripts/           → Helper scripts (Python, etc.)
 ```
 
 ### Agent Definition Format
@@ -149,7 +150,7 @@ model: inherit
 # Content Agent — CMS Operator
 
 ## Skills
-(table of available skills)
+(table of available skills — includes both agent-specific and shared skills)
 
 ## Before Every Task
 (context detection + prerequisite reads)
@@ -161,19 +162,67 @@ model: inherit
 (agent-specific constraints)
 ```
 
-### Skill Format
+### Skill Types
 
-Simple skills are plain Markdown files with a YAML `description:` and a `$ARGUMENTS` placeholder. Complex skills use the `SKILL.md` convention with multi-phase instructions.
+**Agent-specific skills** live inside the agent's own directory (e.g., `.claude/agents/design/polish-page.md`). Only that agent uses them.
+
+**Shared skills** live in `.claude/agents/shared/` and are referenced by multiple agents. Each agent that needs the shared skill adds it to its Skills table with the full path. The skill is read on demand, just like agent-specific skills.
+
+Current shared skills:
+
+| Skill | Path | Used by | Underlying tool |
+|-------|------|---------|----------------|
+| Browser | `.claude/agents/shared/browser/SKILL.md` | All agents | `playwright-cli` via Bash |
+
+The browser skill is the **only** way agents should interact with browsers. It standardizes screenshots, page comparison, DOM inspection, and dev server lifecycle. It uses `playwright-cli` (a CLI tool designed for coding agents) rather than Playwright MCP or other browser tools — all browser operations run as Bash commands, so no special MCP tool declarations are needed in agent definitions.
+
+### Skill File Formats
+
+**Simple skill** — a plain Markdown file with a YAML `description:` and a `$ARGUMENTS` placeholder at the end:
+
+```markdown
+---
+description: "Short description of what this skill does."
+---
+
+# Skill Name
+
+## Procedure
+1. Step one
+2. Step two
+
+$ARGUMENTS
+```
+
+**Complex skill** — uses the `SKILL.md` convention inside a subdirectory, with supporting files:
+
+```
+<skill>/
+├── SKILL.md           → Multi-phase workflow instructions
+├── references/        → Supporting documentation, guides
+├── assets/            → Templates, examples
+└── scripts/           → Helper scripts (Python, etc.)
+```
 
 ## Adding a New Agent
 
 1. Create `.claude/agents/<name>.md` with YAML frontmatter (`name`, `description`, `tools`, `model: inherit`)
 2. Create `.claude/agents/<name>/` for skills
 3. Add the agent to `CLAUDE.md` in the Agents section with routing rules
-4. Update this documentation
+4. Add shared skills to its Skills table if needed (e.g., Browser)
+5. Update this documentation
 
 ## Adding a New Skill
+
+### Agent-specific skill
 
 1. Create `.claude/agents/<agent>/<skill>.md` (simple) or `.claude/agents/<agent>/<skill>/SKILL.md` (complex)
 2. Add the skill to the agent's Skills table in its definition file
 3. Add supporting references/scripts in subdirectories as needed
+
+### Shared skill
+
+1. Create `.claude/agents/shared/<skill>/SKILL.md`
+2. Add the skill to the Skills table of **every agent** that should have access
+3. If the skill requires a CLI tool, ensure it's installed (the skill itself should document installation steps)
+4. Document the shared skill in this file's "Current shared skills" table

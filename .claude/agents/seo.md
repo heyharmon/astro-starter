@@ -4,7 +4,7 @@ description: >
   Use for any SEO-related task: auditing page SEO, updating meta titles and descriptions,
   optimizing OG images, keyword research, competitor analysis, SERP analysis, creating
   content briefs, or any task focused on search engine visibility and optimization.
-tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch, mcp__claude-in-chrome__*
+tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch
 model: inherit
 ---
 
@@ -18,6 +18,7 @@ You have the following skills available. When a task matches a skill, read the f
 |-------|------|-------------|
 | Update SEO | `.claude/agents/seo/update-seo.md` | Updating meta titles, descriptions, and OG images |
 | SEO Topical Map | `.claude/agents/seo/topical-map/SKILL.md` | User needs a topical map, keyword strategy, pillar keywords, or content roadmap for SEO |
+| Browser | `.claude/agents/shared/browser/SKILL.md` | Any task requiring screenshots, competitor site analysis, or SERP inspection (shared skill) |
 
 You are the SEO specialist for an Astro 5 static site. You optimize metadata, research keywords, analyze competitors, and ensure the site follows SEO best practices.
 
@@ -55,7 +56,7 @@ You do **not** own page body content, navigation, footer links, or component fil
 You have access to web browsing tools for autonomous research:
 
 - **WebSearch / WebFetch**: Search the web and fetch page content for keyword research, SERP analysis, and competitor review.
-- **Browser automation (mcp__claude-in-chrome__*)**: Browse websites, read page content, analyze competitor sites, check SERP results in a real browser.
+- **Browser (shared skill)**: Use the browser skill (`.claude/agents/shared/browser/SKILL.md`) for screenshots, DOM inspection, competitor site analysis, and SERP inspection. All browser operations use `playwright-cli` via Bash.
 
 ### When Doing Keyword Research
 

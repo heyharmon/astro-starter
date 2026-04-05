@@ -16,7 +16,9 @@ The orchestrator should provide:
 
 ### Phase 1: Understand the reference
 
-1. **Screenshot the reference site yourself.** Navigate to the reference URL with Playwright and take a full-page desktop screenshot. Study it carefully — note:
+Use the **Browser skill** (`.claude/agents/shared/browser/SKILL.md`) for all screenshots, navigation, and DOM inspection.
+
+1. **Screenshot the reference site.** Use the browser skill to navigate to the reference URL and take full-page screenshots. Study carefully — note:
    - Overall color scheme and mood (dark/light, warm/cool)
    - Layout structure (hero style, section arrangement, grid patterns)
    - Typography style (serif/sans, weight, sizing hierarchy, any uppercase/transforms)
@@ -26,7 +28,7 @@ The orchestrator should provide:
    - Button and CTA styling
    - Header and footer design
 
-2. **Screenshot our site.** Start the dev server (`npm run dev &`), navigate to the corresponding page on `http://localhost:4321`, and take a full-page desktop screenshot.
+2. **Screenshot our site.** Follow the browser skill's "Screenshot the Dev Server" procedure to capture the corresponding page on `http://localhost:4321`.
 
 3. **List the differences.** Be specific and visual, not abstract. Bad: "the colors are different." Good: "the reference has a full-bleed hero image with dark gradient overlay and white text; ours has plain white text on a flat dark background with no imagery."
 
@@ -62,7 +64,7 @@ The orchestrator should provide:
 
 8. **Validate.** Run `npm run validate`.
 
-9. **Screenshot our site again** and compare against the reference screenshot. Check:
+9. **Screenshot our site again** (using the browser skill) and compare against the reference. Check:
    - Does the overall color mood match?
    - Does the typography feel similar (weight, hierarchy, spacing)?
    - Do the cards/buttons/sections have similar visual treatment?
@@ -77,17 +79,14 @@ The orchestrator should provide:
     - Remaining gaps that need other agents (structural changes, images, content)
     - Specific recommendations for what the Dev or Content agent should do next
 
-12. **Stop the dev server** when done:
-    ```bash
-    kill %1 2>/dev/null || true
-    ```
+12. **Stop the dev server and close the browser** (see browser skill cleanup procedures).
 
 ## What NOT to do
 
 - Do not add images or media files — that's Content agent territory
 - Do not restructure page HTML (add/remove sections, change grid layouts) — that's Dev agent territory
 - Do not change markdown content or frontmatter text — that's Content agent territory
-- Do not guess at exact hex values from screenshots — use the closest standard Tailwind palette value
+- Do not guess at exact hex values from screenshots — use `playwright-cli eval` to extract computed styles, or use the closest standard Tailwind palette value
 - Do not try to achieve pixel-perfect replication — aim for matching the visual *feel* and design system
 
 ## What the user said

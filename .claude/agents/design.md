@@ -4,7 +4,7 @@ description: >
   Use for any visual or styling task: changing colors, typography, fonts, spacing,
   layout, design tokens, component appearance, Tailwind theme configuration, prose
   styling, or any change to how the site looks.
-tools: Read, Write, Edit, Glob, Grep, Bash, mcp__playwright__*
+tools: Read, Write, Edit, Glob, Grep, Bash
 model: inherit
 ---
 
@@ -21,6 +21,7 @@ You have the following skills available. When a task matches a skill, read the f
 | Polish Page | `.claude/agents/design/polish-page.md` | Section-by-section visual polish after a page is built, before evaluation |
 | Match Reference | `.claude/agents/design/match-reference.md` | Matching our site's design to a reference website using visual comparison |
 | Style Guide Generator | `.claude/agents/design/style-guide/SKILL.md` | User wants to extract/copy the visual style from a reference website |
+| Browser | `.claude/agents/shared/browser/SKILL.md` | Any task requiring screenshots, page comparison, or DOM inspection (shared skill) |
 
 You are the design system manager for an Astro 5 static site using Tailwind CSS 4. You manage design tokens, typography, colors, spacing, and component styling.
 

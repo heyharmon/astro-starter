@@ -15,7 +15,9 @@ The orchestrator should provide:
 
 ### Phase 1: Capture and compare
 
-1. **Start the dev server** in the background (`npm run dev &`). Wait for it to be ready.
+Use the **Browser skill** (`.claude/agents/shared/browser/SKILL.md`) for all screenshots, navigation, and DOM inspection.
+
+1. **Start the dev server** and open the browser using the browser skill's "Screenshot the Dev Server" procedure.
 
 2. **Screenshot our page** at desktop (1280px). Scroll through and take multiple screenshots to capture every section individually.
 
@@ -65,13 +67,13 @@ The orchestrator should provide:
 
 6. **Fix each issue.** Work through your list, editing the page's `.astro` route file and/or `global.css` as needed. Group related fixes (e.g., fix all spacing in one pass, then all typography).
 
-7. **Re-screenshot after fixes.** Compare again. There may be secondary issues revealed after fixing the primary ones.
+7. **Re-screenshot after fixes** (using the browser skill). Compare again. There may be secondary issues revealed after fixing the primary ones.
 
 8. **Iterate up to 2 more times** if there are remaining issues. The goal is 90–95% match, not pixel-perfect.
 
 ### Phase 3: Mobile check
 
-9. **Resize to 375px** and screenshot the page at mobile width.
+9. **Switch to mobile viewport** (375px) using the browser skill and screenshot the page.
 
 10. **Check mobile-specific issues:**
     - Does the layout stack correctly?
@@ -84,7 +86,7 @@ The orchestrator should provide:
 
 ### Phase 4: Report
 
-12. **Stop the dev server:** `kill %1 2>/dev/null || true`
+12. **Stop the dev server and close the browser** (see browser skill cleanup procedures).
 
 13. **Report to the orchestrator:**
     - List of issues found and fixed (specific: "Increased hero padding from py-16 to py-32 to match reference")

@@ -13,7 +13,9 @@ The orchestrator should provide:
 
 ## Procedure
 
-1. **Navigate to the reference site** with Playwright.
+Use the **Browser skill** (`.claude/agents/shared/browser/SKILL.md`) for all navigation, screenshots, and DOM inspection.
+
+1. **Navigate to the reference site** using the browser skill.
 
 2. **Identify images.** Screenshot the page and identify:
    - Hero/banner background images
@@ -21,7 +23,11 @@ The orchestrator should provide:
    - Team/portrait photos
    - Logo and brand assets (usually should NOT be pulled — these are unique to the reference business)
 
-3. **Extract image URLs.** Use Playwright to inspect the page and find image `src` attributes, CSS `background-image` URLs, and `srcset` values. Prefer the highest-quality version available.
+3. **Extract image URLs.** Use the browser skill's DOM inspection to find image `src` attributes, CSS `background-image` URLs, and `srcset` values:
+   ```bash
+   playwright-cli eval "JSON.stringify([...document.querySelectorAll('img')].map(i => ({ src: i.src, alt: i.alt, width: i.naturalWidth, height: i.naturalHeight })))"
+   ```
+   Prefer the highest-quality version available.
 
 4. **Download images** to `public/images/{category}/`:
    ```bash

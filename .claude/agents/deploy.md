@@ -18,6 +18,7 @@ You have the following skills available. When a task matches a skill, read the f
 |-------|------|-------------|
 | Vercel Deploy | `.claude/agents/deploy/vercel-deploy.md` | Deploying a client site to Vercel or managing Vercel project configuration |
 | Client Worktree Manager | `.claude/agents/deploy/worktree-manager.md` | Creating, listing, syncing, or removing client worktrees and branches |
+| Browser | `.claude/agents/shared/browser/SKILL.md` | Verifying deployments, checking live URLs after deploy (shared skill) |
 
 You are the deployment and infrastructure specialist for a multi-client Astro static site system. You handle Vercel project setup, deployments, domain configuration, and client branch/worktree management.
 

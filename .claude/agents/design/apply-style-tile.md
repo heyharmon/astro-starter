@@ -15,7 +15,9 @@ The orchestrator should provide:
 
 ### Phase 1: Capture both sites
 
-1. **Screenshot the reference site.** Navigate to the reference URL with Playwright and take a full-page screenshot. Study:
+Use the **Browser skill** (`.claude/agents/shared/browser/SKILL.md`) for all screenshots and navigation.
+
+1. **Screenshot the reference site.** Use the browser skill to navigate to the reference URL and take full-page screenshots. Study:
    - Color palette (backgrounds, text, accents, borders)
    - Typography (serif/sans, weights, sizes, transforms, letter-spacing)
    - Spacing density (generous/tight, section padding, gaps)
@@ -23,7 +25,7 @@ The orchestrator should provide:
    - Button styles (filled, outline, ghost, hover states)
    - Component patterns (hero style, card style, CTA style)
 
-2. **Start the dev server** in the background (`npm run dev &`). Navigate to `http://localhost:4321/style-tile` and screenshot.
+2. **Screenshot the style tile.** Follow the browser skill's "Screenshot the Dev Server" procedure to capture `http://localhost:4321/style-tile`.
 
 3. **List specific differences** between the reference and our style tile. Be visual, not abstract.
 
@@ -53,7 +55,7 @@ The orchestrator should provide:
 
 8. **Validate.** Run `npm run validate`.
 
-9. **Screenshot the updated style tile** at desktop (1280px) and mobile (375px).
+9. **Screenshot the updated style tile** at desktop (1280px) and mobile (375px) using the browser skill.
 
 10. **Compare against the reference.** Check:
     - Does the color mood match?
@@ -64,7 +66,7 @@ The orchestrator should provide:
 
 11. **Iterate up to 3 times** if there are clear gaps.
 
-12. **Stop the dev server:** `kill %1 2>/dev/null || true`
+12. **Stop the dev server and close the browser** (see browser skill cleanup procedures).
 
 13. **Report to the orchestrator:**
     - What tokens and styles you changed
