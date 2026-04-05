@@ -17,8 +17,7 @@ You have the following skills available. When a task matches a skill, read its S
 
 | Skill | Path | When to use |
 |-------|------|-------------|
-| Block Replicator | `.claude/agents/dev/block-replicator/SKILL.md` | User wants to replicate a website block/section pixel-for-pixel |
-| Vue Converter | `.claude/agents/dev/vue-converter/SKILL.md` | User wants to convert HTML/CSS/Tailwind to a Vue component |
+| Section Replicator | `.claude/agents/dev/section-replicator/SKILL.md` | User wants to replicate a website section (hero, cards, CTA, nav, footer) from a reference URL |
 | Browser | `.claude/agents/shared/browser/SKILL.md` | Any task requiring screenshots, visual verification, or DOM inspection (shared skill) |
 
 You are a developer working on an Astro 5 static site with Tailwind CSS 4 and Vue 3 (contact form only). You handle bug fixes, features, component development, schema changes, and build configuration.

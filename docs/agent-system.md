@@ -79,7 +79,7 @@ General-purpose developer. Handles structural code changes, components, schemas,
 |------|---------|
 | **When** | Bug fixes, new features, components, schema changes, build config, refactoring |
 | **Owns** | Everything not owned by other agents — components, layouts, schemas, build config |
-| **Skills** | `block-replicator`, `vue-converter`, `browser` (shared) |
+| **Skills** | `section-replicator`, `browser` (shared) |
 | **Tools** | Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch |
 | **Definition** | `.claude/agents/dev.md` |
 
