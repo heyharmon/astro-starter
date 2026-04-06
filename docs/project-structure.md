@@ -5,6 +5,7 @@
 ```
 .
 ├── CLAUDE.md                  → Agent routing rules (Claude reads this first)
+├── RESUME.md                  → Agent resume (capabilities, integration, task interface)
 ├── SITE_GUIDE.md              → Condensed CMS reference for agents
 ├── docs/                      → Human + agent documentation (this directory)
 ├── astro.config.mjs           → Astro 5 config (static output, Vue, Tailwind)

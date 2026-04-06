@@ -219,6 +219,7 @@ The build workflow (Stage-Gate) applies **per client branch**. Each client has i
 | Components | `src/components/` |
 | Layouts | `src/layouts/BaseLayout.astro` |
 | Routes | `src/pages/` |
+| Agent resume | `RESUME.md` |
 | CMS reference | `SITE_GUIDE.md` |
 | Client scripts | `scripts/new-client.sh`, `sync-client.sh`, `list-clients.sh` |
 | Deploy workflow | `.github/workflows/deploy-client.yml` |
