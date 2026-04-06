@@ -21,8 +21,15 @@ This directory contains all project documentation, organized by topic.
 | [Content Schemas](content-schemas.md) | Zod schemas, frontmatter fields, content collection reference |
 | [Design System](design-system.md) | Tailwind theme, design tokens, style tile, typography, color palette |
 
+## Specifications
+
+| Document | What it covers |
+|----------|---------------|
+| [Agent Resume Spec](agent-resume-spec.md) | The `agentresume/v1` specification for describing agent capabilities, integration, and compatibility |
+
 ## Quick Links
 
+- **RESUME.md** (project root) — This agent's resume: capabilities, skills, integration, task interface
 - **CLAUDE.md** (project root) — Agent routing rules and orchestration. This is what Claude reads first.
 - **SITE_GUIDE.md** (project root) — Condensed CMS reference for agents. Points here for details.
 - `.claude/agents/` — Individual agent definitions and skills
