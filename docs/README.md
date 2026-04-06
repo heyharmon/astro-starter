@@ -21,12 +21,6 @@ This directory contains all project documentation, organized by topic.
 | [Content Schemas](content-schemas.md) | Zod schemas, frontmatter fields, content collection reference |
 | [Design System](design-system.md) | Tailwind theme, design tokens, style tile, typography, color palette |
 
-## Specifications
-
-| Document | What it covers |
-|----------|---------------|
-| [Agent Resume Spec](agent-resume-spec.md) | The `agentresume/v1` specification for describing agent capabilities, integration, and compatibility |
-
 ## Quick Links
 
 - **RESUME.md** (project root) — This agent's resume: capabilities, skills, integration, task interface
