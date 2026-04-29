@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) =>
+    import.meta.env.PROD ? !data.draft : true,
+  );
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.featuredImage?.src}
+>
+  <article class="mx-auto max-w-3xl px-6 py-24 sm:py-32">
+    <header>
+      <time
+        datetime={post.data.date.toISOString()}
+        class="text-sm text-neutral-500"
+      >
+        {dateFormatter.format(post.data.date)}
+      </time>
+      <h1 class="mt-2">{post.data.title}</h1>
+      {post.data.author && (
+        <p class="mt-4 text-neutral-500">By {post.data.author}</p>
+      )}
+      {post.data.tags.length > 0 && (
+        <ul class="mt-4 flex flex-wrap gap-2">
+          {post.data.tags.map((tag) => (
+            <li class="rounded-full bg-neutral-100 px-3 py-1 text-xs text-neutral-600">
+              {tag}
+            </li>
+          ))}
+        </ul>
+      )}
+      {post.data.featuredImage && (
+        <div class="mt-10 aspect-[16/9] overflow-hidden rounded-xl bg-neutral-200">
+          <img
+            src={post.data.featuredImage.src}
+            alt={post.data.featuredImage.alt}
+            class="h-full w-full object-cover"
+          />
+        </div>
+      )}
+    </header>
+
+    <div class="prose mt-12">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
