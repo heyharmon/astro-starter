@@ -77,11 +77,9 @@ Completed project showcases. The `projects` collection is defined in the schema 
 | `order` | number | yes | — | Sort position (lower = first) |
 | `featured` | boolean | no | `false` | Show on homepage featured section |
 
-## Blog (`src/content/blog/*.md`)
+## Posts (`src/content/posts/*.md`)
 
-Blog posts. The filename becomes the URL slug. A template file at `src/content/blog/_template.md` provides the starting point for new posts.
-
-**Note:** The blog collection is documented in `SITE_GUIDE.md` and content files exist, but the blog collection schema is not currently defined in `content.config.ts`. It should be added if blog functionality is needed.
+Blog posts. The filename becomes the URL slug at `/blog/<slug>`. These are stored in `src/content/posts/{slug}.md` and exposed via the `posts` collection.
 
 | Field | Type | Required | Default | Description |
 |-------|------|----------|---------|-------------|

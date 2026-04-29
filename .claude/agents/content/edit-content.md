@@ -12,7 +12,7 @@ The user should specify: which page/post/service to edit, and what changes to ma
 
 1. **Locate the file**:
    - Pages: `src/content/pages/{slug}.md`
-   - Blog posts: `src/content/blog/{slug}.md`
+   - Blog posts: `src/content/posts/{slug}.md`
    - Services: `src/content/services/{slug}.md`
    - Site config: `src/data/site-meta.json`, `src/data/nav.json`, or `src/data/footer.json`
    - If unsure, run `ls` on the target directory to confirm actual filenames.

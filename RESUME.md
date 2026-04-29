@@ -173,8 +173,8 @@ qualityProcess:
   method: stage-gate
   stages:
     - name: Style
-      description: Apply reference aesthetic to style tile, update design tokens
-      gate: Human approves style tile
+      description: Apply reference aesthetic to styleguide, update design tokens
+      gate: Human approves styleguide
     - name: Sitemap
       description: Propose page list and navigation structure
       gate: Human approves sitemap

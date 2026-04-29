@@ -1,13 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getEntry, getCollection, render } from "astro:content";
+import { getEntry, render } from "astro:content";
 
 const page = await getEntry("pages", "home");
 const { Content } = await render(page);
-
-const services = (await getCollection("services")).sort(
-  (a, b) => a.data.order - b.data.order,
-);
 ---
 
 <BaseLayout title={page.data.title} description={page.data.description}>
@@ -66,13 +62,27 @@ const services = (await getCollection("services")).sort(
         Professional solutions to help your business grow.
       </p>
       <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((service) => (
-          <div class="rounded-xl border border-neutral-200 p-8">
-            <div class="text-2xl">{service.data.icon}</div>
-            <h3 class="mt-4">{service.data.title}</h3>
-            <p class="mt-2 text-sm">{service.data.description}</p>
-          </div>
-        ))}
+        <div class="rounded-xl border border-neutral-200 p-8">
+          <div class="text-2xl">&#9670;</div>
+          <h3 class="mt-4">Web Design</h3>
+          <p class="mt-2 text-sm">
+            Beautiful, responsive websites built for results. We create modern designs that look great on every device.
+          </p>
+        </div>
+        <div class="rounded-xl border border-neutral-200 p-8">
+          <div class="text-2xl">&#9650;</div>
+          <h3 class="mt-4">Development</h3>
+          <p class="mt-2 text-sm">
+            Clean, performant code that brings your vision to life. Built with modern frameworks and best practices.
+          </p>
+        </div>
+        <div class="rounded-xl border border-neutral-200 p-8">
+          <div class="text-2xl">&#9679;</div>
+          <h3 class="mt-4">Strategy</h3>
+          <p class="mt-2 text-sm">
+            Data-driven strategy to help you reach the right audience and grow your business online.
+          </p>
+        </div>
       </div>
       <div class="mt-12">
         <a href="/services" class="btn-ghost">View all services</a>

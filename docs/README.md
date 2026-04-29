@@ -1,29 +1,35 @@
 # Documentation
 
-This directory contains all project documentation, organized by topic.
+This directory contains architectural and functional reference documentation. **Humans don't operate this site directly** — agents do. These docs explain how the system is structured and how it works at a high level, so a human reading them understands the architecture without needing to learn procedural CMS tasks.
 
-## For Humans
+Procedural how-tos for agents live in `.claude/agents/<agent>/*.md` (skills), not here.
+
+## Architecture & Functional Reference
 
 | Document | What it covers |
 |----------|---------------|
-| [Getting Started](getting-started.md) | Setup, first run, how to use the system |
+| [Getting Started](getting-started.md) | Setup, first run, how to talk to the system |
 | [Project Structure](project-structure.md) | Directory layout, key files, architecture overview |
-| [CMS Operations](cms-operations.md) | Creating pages, editing content, managing navigation — the day-to-day CMS tasks |
-| [Client Management](client-management.md) | Multi-client workflow: branches, worktrees, concepts, scaling |
-| [Deployment](deployment.md) | Vercel setup, automated deploys, concept previews |
-
-## For Agents (and curious humans)
-
-| Document | What it covers |
-|----------|---------------|
 | [Agent System](agent-system.md) | The six specialist agents, routing rules, how they coordinate |
 | [Build Workflow](build-workflow.md) | Stage-gate process for building new client sites |
+| [Client Management](client-management.md) | Multi-client workflow: branches, worktrees, concepts, scaling |
+| [Deployment](deployment.md) | Vercel setup, automated deploys, concept previews |
 | [Content Schemas](content-schemas.md) | Zod schemas, frontmatter fields, content collection reference |
-| [Design System](design-system.md) | Tailwind theme, design tokens, style tile, typography, color palette |
+| [Design System](design-system.md) | Tailwind theme, design tokens, styleguide, typography, color palette |
+
+## Where the procedural work lives
+
+| Operation | Skill |
+|-----------|-------|
+| Create a page | `.claude/agents/content/create-page.md` |
+| Edit content | `.claude/agents/content/edit-content.md` |
+| Create a blog post | `.claude/agents/content/create-blog-post.md` |
+| Update navigation | `.claude/agents/content/update-nav.md` |
+| Update SEO | `.claude/agents/seo/update-seo.md` |
 
 ## Quick Links
 
-- **RESUME.md** (project root) — This agent's resume: capabilities, skills, integration, task interface
-- **CLAUDE.md** (project root) — Agent routing rules and orchestration. This is what Claude reads first.
-- **SITE_GUIDE.md** (project root) — Condensed CMS reference for agents. Points here for details.
-- `.claude/agents/` — Individual agent definitions and skills
+- **CLAUDE.md** (project root) — Agent routing rules and orchestration. The first thing Claude reads.
+- **SITE_GUIDE.md** (project root) — Condensed agent-facing reference: schemas, config files, SEO/styling rules, validation.
+- **RESUME.md** (project root) — Agent resume: capabilities, skills, integration, task interface.
+- `.claude/agents/` — Individual agent definitions and skills.

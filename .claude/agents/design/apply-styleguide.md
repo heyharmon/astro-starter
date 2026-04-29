@@ -1,8 +1,8 @@
 ---
-description: "Apply a reference site's aesthetic to the style tile during the style stage of a new site build."
+description: "Apply a reference site's aesthetic to the styleguide during the style stage of a new site build."
 ---
 
-Apply a reference aesthetic to the style tile page, iterating visually until the design system matches.
+Apply a reference aesthetic to the styleguide page, iterating visually until the design system matches.
 
 ## Required inputs
 
@@ -25,16 +25,16 @@ Use the **Browser skill** (`.claude/agents/shared/browser/SKILL.md`) for all scr
    - Button styles (filled, outline, ghost, hover states)
    - Component patterns (hero style, card style, CTA style)
 
-2. **Screenshot the style tile.** Follow the browser skill's "Screenshot the Dev Server" procedure to capture `http://localhost:4321/style-tile`.
+2. **Screenshot the styleguide.** Follow the browser skill's "Screenshot the Dev Server" procedure to capture `http://localhost:4321/styleguide`.
 
-3. **List specific differences** between the reference and our style tile. Be visual, not abstract.
+3. **List specific differences** between the reference and our styleguide. Be visual, not abstract.
 
 ### Phase 2: Update the design system
 
 4. **Read the current files:**
    - `src/styles/global.css` — current tokens and base styles
    - `src/data/design-tokens.json` — current machine-readable tokens
-   - `src/pages/style-tile.astro` — current style tile page
+   - `src/pages/styleguide.astro` — current styleguide page
 
 5. **Update `global.css`:**
    - `@theme` block — change color scale, font families
@@ -42,7 +42,7 @@ Use the **Browser skill** (`.claude/agents/shared/browser/SKILL.md`) for all scr
    - `.btn-ghost` and any other utilities — match button style to reference
    - `.prose` styles — ensure readable on new color scheme
 
-6. **Update Tailwind classes in `style-tile.astro`** — adjust component pattern examples to match reference (overlay opacities, card treatments, section backgrounds, etc.)
+6. **Update Tailwind classes in `styleguide.astro`** — adjust component pattern examples to match reference (overlay opacities, card treatments, section backgrounds, etc.)
 
 7. **Update `design-tokens.json`** — sync all changes:
    - `colors` — update background, text, border, button mappings
@@ -55,7 +55,7 @@ Use the **Browser skill** (`.claude/agents/shared/browser/SKILL.md`) for all scr
 
 8. **Validate.** Run `npm run validate`.
 
-9. **Screenshot the updated style tile** at desktop (1280px) and mobile (375px) using the browser skill.
+9. **Screenshot the updated styleguide** at desktop (1280px) and mobile (375px) using the browser skill.
 
 10. **Compare against the reference.** Check:
     - Does the color mood match?
@@ -70,16 +70,16 @@ Use the **Browser skill** (`.claude/agents/shared/browser/SKILL.md`) for all scr
 
 13. **Report to the orchestrator:**
     - What tokens and styles you changed
-    - Desktop and mobile screenshots of the style tile
-    - Any remaining gaps (e.g., "reference uses a font we don't have" or "reference has a pattern not on the style tile")
+    - Desktop and mobile screenshots of the styleguide
+    - Any remaining gaps (e.g., "reference uses a font we don't have" or "reference has a pattern not on the styleguide")
     - Recommendation for whether the style is ready for human review
 
 ## What NOT to do
 
-- Do not create or modify any page except `style-tile.astro`
+- Do not create or modify any page except `styleguide.astro`
 - Do not create content files or navigation entries
 - Do not add images beyond the existing placeholders
-- Do not change the style tile's structure (Layer 1 / Layer 2 sections) — only change the styling
+- Do not change the styleguide's structure (Layer 1 / Layer 2 sections) — only change the styling
 
 ## What the user said
 

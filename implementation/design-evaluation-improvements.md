@@ -36,13 +36,13 @@ Fixed Playwright MCP config in both `.claude/plugins/.../playwright/.mcp.json` a
 
 The "replicate a site" or "build a site" workflow should NOT be a single orchestrated run. It should be a multi-stage process with human review between stages.
 
-### 2a. Style Tile Page + Design Tokens – DONE
+### 2a. Styleguide Page + Design Tokens – DONE
 
 **Problem:** The first test applied the right colors to the wrong structure. Tokens alone don't make a design system — component patterns do. And the design system can't be fully locked before page building because new pages introduce new layout components.
 
-**Solution:** A dedicated style tile page (`/style-tile`) that presents the design system visually, backed by a machine-readable `design-tokens.json`.
+**Solution:** A dedicated styleguide page (`/styleguide`) that presents the design system visually, backed by a machine-readable `design-tokens.json`.
 
-**The style tile includes two layers:**
+**The styleguide includes two layers:**
 
 **Layer 1 — Atomic tokens (established in style stage, stable):**
 - Color palette swatches (backgrounds, text, accent, borders)
@@ -59,19 +59,19 @@ The "replicate a site" or "build a site" workflow should NOT be a single orchest
 - Nav and footer preview
 
 **The `design-tokens.json` file:**
-- Generated alongside the visual style tile
+- Generated alongside the visual styleguide
 - Contains all atomic tokens (colors, fonts, spacing, radii) as structured data
 - Agents reference this file as the source of truth for the approved design system
 - The design agent updates this file when new component patterns are added during page building
 
-**Key principle: the design system is NOT locked after the style stage.** Atomic tokens (colors, fonts) are stable after approval, but component patterns grow as pages are built. The design agent is looped in during each page cohort to style new section types and update the style tile with new patterns. This prevents the "page 3 problem" where a testimonial carousel or pricing table has no design guidance.
+**Key principle: the design system is NOT locked after the style stage.** Atomic tokens (colors, fonts) are stable after approval, but component patterns grow as pages are built. The design agent is looped in during each page cohort to style new section types and update the styleguide with new patterns. This prevents the "page 3 problem" where a testimonial carousel or pricing table has no design guidance.
 
-**Placeholder images:** The style tile and starter template include generic placeholder images (like lorem ipsum for visuals) at standard aspect ratios (16:9 hero, 1:1 thumbnail, 3:4 portrait). These placeholders appear wherever a real image hasn't been sourced yet. A placeholder image is better than no image — it preserves layout integrity and gives the human a sense of composition.
+**Placeholder images:** The styleguide and starter template include generic placeholder images (like lorem ipsum for visuals) at standard aspect ratios (16:9 hero, 1:1 thumbnail, 3:4 portrait). These placeholders appear wherever a real image hasn't been sourced yet. A placeholder image is better than no image — it preserves layout integrity and gives the human a sense of composition.
 
 **Implementation:**
-- Dev agent creates the style tile page template (one-time, part of the starter)
-- Design agent gets a new skill for applying a reference aesthetic to the style tile
-- Style tile imports from `global.css` tokens — it's a living document, not a mockup
+- Dev agent creates the styleguide page template (one-time, part of the starter)
+- Design agent gets a new skill for applying a reference aesthetic to the styleguide
+- Styleguide imports from `global.css` tokens — it's a living document, not a mockup
 - `design-tokens.json` is generated and maintained alongside the visual page
 
 ### 2b. Content Drafting Stage – DONE
@@ -122,9 +122,9 @@ Approve this sitemap, or tell me what to change?
 **Per cohort, agents are called in this order:**
 1. **Dev agent** — structural layout (new sections, grids, HTML)
 2. **Content agent** — places drafted copy into the layout
-3. **Design agent** — styles any new component patterns introduced by this cohort, updates style tile
+3. **Design agent** — styles any new component patterns introduced by this cohort, updates styleguide
 4. **Image agent** — sources and places images for this cohort
-5. **Evaluation** — screenshots at desktop AND mobile, compares against style tile and reference, grades quality, reports to human
+5. **Evaluation** — screenshots at desktop AND mobile, compares against styleguide and reference, grades quality, reports to human
 
 **Benefits:**
 - New component patterns get designed as they appear (no "page 3 problem")
@@ -200,9 +200,9 @@ Items identified but not prioritized for near-term work:
 ```
 1. STYLE STAGE
    - Orchestrator screenshots reference site (Playwright + WebFetch)
-   - Design agent applies aesthetic to style tile page
+   - Design agent applies aesthetic to styleguide page
    - Generates design-tokens.json (atomic tokens + initial component patterns)
-   - Style tile includes placeholder images at standard aspect ratios
+   - Styleguide includes placeholder images at standard aspect ratios
    - Human reviews → iterates until approved
    - Atomic tokens are stable; component patterns will grow
 
@@ -221,7 +221,7 @@ Items identified but not prioritized for near-term work:
    - Cohort 1: Homepage
      - Dev agent: structural layout (sections, grids, hero)
      - Content agent: places drafted copy into layout
-     - Design agent: styles new component patterns, updates style tile
+     - Design agent: styles new component patterns, updates styleguide
      - Image agent: sources images (stock, AI, or from reference site)
      - Evaluation: graded review at desktop + mobile, uncanny valley check
      - Human review
@@ -245,7 +245,7 @@ Items identified but not prioritized for near-term work:
 2. ~~Reference visual capture at orchestration level~~ — DONE
 3. ~~Design reference comparison skill~~ — DONE
 4. ~~Playwright --isolated fix~~ — DONE
-5. Style tile page + design-tokens.json + placeholder images
+5. Styleguide page + design-tokens.json + placeholder images
 6. Content drafting stage
 7. Stage-gate orchestration in CLAUDE.md (sitemap approval, cohort workflow)
 8. Evaluation + grading criteria (including mobile screenshots + uncanny valley check)

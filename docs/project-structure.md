@@ -41,7 +41,7 @@
 │   ├── content/
 │   │   ├── pages/             → Static page content (home, about, services, contact)
 │   │   ├── services/          → Service offerings (one .md per service)
-│   │   └── blog/              → Blog posts + _template.md
+│   │   └── blog/              → Blog posts 
 │   ├── data/
 │   │   ├── client.json        → Client identity (base vs. client, deploy config)
 │   │   ├── nav.json           → Navigation links with sort order
@@ -62,7 +62,7 @@
 │   │   ├── about.astro        → /about
 │   │   ├── services.astro     → /services
 │   │   ├── contact.astro      → /contact
-│   │   └── style-tile.astro   → /style-tile (design system preview, noindex)
+│   │   └── styleguide.astro   → /styleguide (design system preview, noindex)
 │   └── styles/
 │       └── global.css         → Tailwind 4 theme, base styles, prose styling
 └── public/

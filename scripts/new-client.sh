@@ -163,7 +163,7 @@ cat > "$TEMP_DIR/src/data/build-state.json" <<EOF
   "currentCohort": 0,
   "cohorts": {},
   "sitemapApproved": false,
-  "styleTileApproved": false,
+  "styleguideApproved": false,
   "notes": "Client: ${PRETTY_NAME}$([ -n "$CONCEPT" ] && echo " — Concept: ${PRETTY_CONCEPT}")"
 }
 EOF

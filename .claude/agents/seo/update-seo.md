@@ -14,7 +14,7 @@ The user should specify: which page(s) to update, and what SEO changes to make.
 
 2. **Locate the content file** for the target page:
    - Pages: `src/content/pages/{slug}.md`
-   - Blog posts: `src/content/blog/{slug}.md`
+   - Blog posts: `src/content/posts/{slug}.md`
    - Services: `src/content/services/{slug}.md`
    - Site-wide defaults: `src/data/site-meta.json`
 

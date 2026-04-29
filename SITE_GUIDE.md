@@ -56,31 +56,18 @@ Full schema details: `docs/content-schemas.md`
 
 ---
 
-## Standard Procedures
+## Operation Skills
 
-### Create a page
-1. Create `src/content/pages/{slug}.md` with required frontmatter
-2. Create `src/pages/{slug}.astro` route file
-3. Optionally add to `src/data/nav.json`
-4. `npm run validate`
+Procedural how-tos live in agent skills (each is self-contained):
 
-### Edit content
-1. Locate file in `src/content/`
-2. Edit Markdown body (preserve frontmatter unless identity changed)
-3. `npm run validate`
-
-### Create a blog post
-1. Copy `src/content/blog/_template.md` to `src/content/blog/{slug}.md`
-2. Set `title`, `description`, `date`
-3. Write body, set `draft: false` to publish
-4. `npm run validate`
-
-### Update navigation
-1. Edit `src/data/nav.json`
-2. Ensure `order` values are sequential
-3. `npm run validate`
-
-Full procedures: `docs/cms-operations.md`
+| Operation | Skill |
+|-----------|-------|
+| Create a page | `.claude/agents/content/create-page.md` |
+| Edit content | `.claude/agents/content/edit-content.md` |
+| Create a blog post | `.claude/agents/content/create-blog-post.md` |
+| Update navigation | `.claude/agents/content/update-nav.md` |
+| Draft all pages (build flow) | `.claude/agents/content/draft-all-pages.md` |
+| Update SEO | `.claude/agents/seo/update-seo.md` |
 
 ---
 

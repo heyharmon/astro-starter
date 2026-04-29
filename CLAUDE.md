@@ -75,7 +75,7 @@ When building a new site (not CMS maintenance), follow these stages in order. Re
 
 | # | Stage | What | Gate |
 |---|-------|------|------|
-| 1 | **Style** | Design agent applies reference aesthetic to the style tile (`/style-tile`). Updates `global.css` tokens and `design-tokens.json`. | Human approves style tile |
+| 1 | **Style** | Design agent applies reference aesthetic to the styleguide (`/styleguide`). Updates `global.css` tokens and `design-tokens.json`. | Human approves styleguide |
 | 2 | **Sitemap** | Orchestrator proposes page list + nav structure based on reference or brief. | Human approves sitemap |
 | 3 | **Content Drafts** | Content agent drafts all page copy in `src/content/pages/*.md` with `draft: true`. No layout work yet. | Human reviews copy (soft gate) |
 | 4 | **Page Building** | Build pages in cohorts of 2–3. Homepage is always cohort 1. | Human reviews after each cohort |
@@ -87,9 +87,9 @@ Agents execute in this order for each cohort:
 
 1. **Dev** — structural layout (new sections, grids, HTML in `.astro` route files)
 2. **Content** — places drafted copy into layout, flips `draft: false`
-3. **Design** — styles any new component patterns, updates style tile + `design-tokens.json`
+3. **Design** — styles any new component patterns, updates styleguide + `design-tokens.json`
 4. **Images** — Images agent sources and places images via `source-page-images` skill
-5. **Polish** — Design agent runs the `polish-page` skill. Compares the built page section-by-section against the reference (if one exists) or against the approved homepage + style tile (if no reference). Fixes spacing, sizing, text placement, visual weight, and layout details to reach 90–95% quality. See `.claude/agents/design/polish-page.md`.
+5. **Polish** — Design agent runs the `polish-page` skill. Compares the built page section-by-section against the reference (if one exists) or against the approved homepage + styleguide (if no reference). Fixes spacing, sizing, text placement, visual weight, and layout details to reach 90–95% quality. See `.claude/agents/design/polish-page.md`.
 6. **Evaluate** — screenshots at 1280px + 375px, grades against `src/data/evaluation-criteria.md`
 7. **Report** — presents screenshots, scores, and flagged issues to human
 
@@ -97,7 +97,7 @@ Agents execute in this order for each cohort:
 
 Update `src/data/build-state.json` after each stage transition and cohort completion. Include which pages belong to each cohort and their approval status.
 
-**Inference fallback** (if state file is missing): style-tile.astro has non-default content → style done. nav.json has real pages → sitemap done. Content files have body text → drafts exist.
+**Inference fallback** (if state file is missing): styleguide.astro has non-default content → style done. nav.json has real pages → sitemap done. Content files have body text → drafts exist.
 
 ## Client Management
 
@@ -212,7 +212,7 @@ The build workflow (Stage-Gate) applies **per client branch**. Each client has i
 | Schemas | `src/content.config.ts` |
 | Styles | `src/styles/global.css` |
 | Design tokens | `src/data/design-tokens.json` |
-| Style tile | `src/pages/style-tile.astro` |
+| Styleguide | `src/pages/styleguide.astro` |
 | Build state | `src/data/build-state.json` |
 | Eval criteria | `src/data/evaluation-criteria.md` |
 | Placeholders | `public/images/placeholders/` |
@@ -233,12 +233,13 @@ Detailed documentation lives in `docs/`. Agents should reference these for full 
 |----------|---------------|
 | `docs/project-structure.md` | Directory layout, key files, architecture |
 | `docs/content-schemas.md` | Zod schemas, frontmatter fields, content collections |
-| `docs/design-system.md` | Tailwind theme, tokens, style tile, colors, typography |
+| `docs/design-system.md` | Tailwind theme, tokens, styleguide, colors, typography |
 | `docs/agent-system.md` | Agent definitions, routing, skills, how they coordinate |
 | `docs/build-workflow.md` | Stage-gate process, cohort sequence, evaluation criteria |
 | `docs/client-management.md` | Branches, worktrees, concept branches, syncing, scaling |
 | `docs/deployment.md` | Vercel setup, automated deploys, concept previews |
-| `docs/cms-operations.md` | Day-to-day CMS tasks: create pages, edit content, manage nav |
+
+For day-to-day CMS operations (create page, edit content, create blog post, update nav), agents use the skills in `.claude/agents/content/` rather than docs.
 
 ## Build
 

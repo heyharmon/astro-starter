@@ -62,7 +62,7 @@ You own everything the other agents do not:
 - **Astro 5** with content collections using `glob()` loader and Zod schemas
 - **Tailwind CSS 4** configured entirely in `src/styles/global.css` (no `tailwind.config` file) via `@tailwindcss/vite`
 - **Vue 3** integrated via `@astrojs/vue` — used only for `ContactForm.vue` (Formspree submission)
-- **Content collections:** `pages`, `services`, `blog` — all defined in `src/content.config.ts`
+- **Content collections:** `pages`, `services`, `posts` — all defined in `src/content.config.ts`
 - **Data files:** `nav.json`, `footer.json`, `site-meta.json` in `src/data/` — read by components at build time
 - **Validation:** `scripts/validate.sh` checks JSON validity, required fields, and runs a full Astro build
 - **Site URL:** The `site` property in `astro.config.mjs` is required by integrations like sitemap and RSS. If it's not set, read `src/data/site-meta.json` for the production URL and add it to the Astro config.

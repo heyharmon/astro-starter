@@ -1,13 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getEntry, getCollection, render } from "astro:content";
+import { getEntry, render } from "astro:content";
 
 const page = await getEntry("pages", "services");
 const { Content: PageContent } = await render(page);
-
-const services = (await getCollection("services")).sort(
-  (a, b) => a.data.order - b.data.order,
-);
 ---
 
 <BaseLayout title={page.data.title} description={page.data.description}>
@@ -34,21 +30,42 @@ const services = (await getCollection("services")).sort(
   <section class="border-t border-neutral-200">
     <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
       <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          services.map(async (service) => {
-            const { Content } = await render(service);
-            return (
-              <div class="rounded-xl border border-neutral-200 p-8">
-                <div class="text-2xl">{service.data.icon}</div>
-                <h3 class="mt-4">{service.data.title}</h3>
-                <p class="mt-2 text-sm text-neutral-500">{service.data.description}</p>
-                <div class="prose mt-6 text-sm">
-                  <Content />
-                </div>
-              </div>
-            );
-          })
-        }
+        <div class="rounded-xl border border-neutral-200 p-8">
+          <div class="text-2xl">&#9670;</div>
+          <h3 class="mt-4">Web Design</h3>
+          <p class="mt-2 text-sm text-neutral-500">
+            Beautiful, responsive websites built for results. We create modern designs that look great on every device.
+          </p>
+          <div class="prose mt-6 text-sm">
+            <p>
+              We design and build modern websites that are fast, accessible, and optimized for conversions. Every project starts with understanding your goals and audience, then crafting a design that delivers results.
+            </p>
+          </div>
+        </div>
+        <div class="rounded-xl border border-neutral-200 p-8">
+          <div class="text-2xl">&#9650;</div>
+          <h3 class="mt-4">Development</h3>
+          <p class="mt-2 text-sm text-neutral-500">
+            Clean, performant code that brings your vision to life. Built with modern frameworks and best practices.
+          </p>
+          <div class="prose mt-6 text-sm">
+            <p>
+              Our development process focuses on writing clean, maintainable code that performs well and scales with your business. We use modern frameworks and follow industry best practices to deliver reliable solutions.
+            </p>
+          </div>
+        </div>
+        <div class="rounded-xl border border-neutral-200 p-8">
+          <div class="text-2xl">&#9679;</div>
+          <h3 class="mt-4">Strategy</h3>
+          <p class="mt-2 text-sm text-neutral-500">
+            Data-driven strategy to help you reach the right audience and grow your business online.
+          </p>
+          <div class="prose mt-6 text-sm">
+            <p>
+              We help businesses develop clear digital strategies that drive growth. From market research to content planning, we provide the insights and roadmap you need to succeed online.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </section>

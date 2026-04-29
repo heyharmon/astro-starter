@@ -33,7 +33,7 @@ Screenshot at both 1280px and 375px. Nothing overflows, overlaps, or collapses. 
 - **1** — Broken layout, overlapping elements, unreadable text at mobile
 
 ### Brand Coherence
-Does the page reinforce the established aesthetic from the style tile? Does it feel like it belongs to this brand?
+Does the page reinforce the established aesthetic from the styleguide? Does it feel like it belongs to this brand?
 - **5** — Unmistakably the same brand
 - **3** — On-brand but generic, could be any business
 - **1** — Feels disconnected from the established aesthetic

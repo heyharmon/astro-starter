@@ -31,7 +31,7 @@ Use the **Browser skill** (`.claude/agents/shared/browser/SKILL.md`) for all scr
    **If no reference page exists** (e.g., inner page with no reference equivalent):
    - Screenshot the approved homepage as the consistency baseline
    - Read `src/data/design-tokens.json` for established patterns
-   - Read `src/pages/style-tile.astro` for component pattern specimens
+   - Read `src/pages/styleguide.astro` for component pattern specimens
    - The goal is consistency with the established site, not matching a specific reference
 
 4. **Compare section by section.** For each section, check these details:

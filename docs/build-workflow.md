@@ -6,7 +6,7 @@ When building a new client site (not doing CMS maintenance on an existing one), 
 
 | # | Stage | What Happens | Gate |
 |---|-------|-------------|------|
-| 1 | **Style** | Design agent applies reference aesthetic to the style tile. Updates `global.css` tokens and `design-tokens.json`. | Human approves style tile |
+| 1 | **Style** | Design agent applies reference aesthetic to the styleguide. Updates `global.css` tokens and `design-tokens.json`. | Human approves styleguide |
 | 2 | **Sitemap** | Orchestrator proposes page list + nav structure based on reference or client brief. | Human approves sitemap |
 | 3 | **Content Drafts** | Content agent drafts all page copy in `src/content/pages/*.md` with `draft: true`. No layout work yet. | Human reviews copy (soft gate) |
 | 4 | **Page Building** | Build pages in cohorts of 2-3. Homepage is always cohort 1. | Human reviews after each cohort |
@@ -20,11 +20,11 @@ The design agent takes a reference URL (or a brief describing the desired aesthe
 2. Extracts colors, typography, spacing patterns
 3. Updates `src/styles/global.css` `@theme` block with new tokens
 4. Updates `src/data/design-tokens.json` to match
-5. Builds the style tile at `/style-tile` to preview the full design system
+5. Builds the styleguide at `/styleguide` to preview the full design system
 
-The style tile shows atomic tokens (colors, typography, buttons) and component patterns (hero, cards, CTAs) using the new design language.
+The styleguide shows atomic tokens (colors, typography, buttons) and component patterns (hero, cards, CTAs) using the new design language.
 
-**Gate:** You review the style tile and either approve or request changes.
+**Gate:** You review the styleguide and either approve or request changes.
 
 ## Stage 2: Sitemap
 
@@ -59,7 +59,7 @@ For each cohort, agents execute in this order:
 |------|-------|------|
 | 1 | **Dev** | Structural layout — new sections, grids, HTML in `.astro` route files |
 | 2 | **Content** | Places drafted copy into the layout, flips `draft: false` |
-| 3 | **Design** | Styles any new component patterns, updates style tile + `design-tokens.json` |
+| 3 | **Design** | Styles any new component patterns, updates styleguide + `design-tokens.json` |
 | 4 | **Images** | Sources and places images via the `source-page-images` skill |
 | 5 | **Polish** | Design agent runs `polish-page` — section-by-section visual refinement |
 | 6 | **Evaluate** | Screenshots at 1280px and 375px, grades against evaluation criteria |
@@ -98,7 +98,7 @@ Progress is tracked in `src/data/build-state.json`:
     }
   },
   "sitemapApproved": true,
-  "styleTileApproved": true,
+  "styleguideApproved": true,
   "notes": "Client: Acme Corp"
 }
 ```
@@ -106,7 +106,7 @@ Progress is tracked in `src/data/build-state.json`:
 Agents and the orchestrator read this file at session start to know where the build left off.
 
 **Inference fallback** (if `build-state.json` is missing or reset): The orchestrator can infer state from the codebase:
-- `style-tile.astro` has non-default content → style stage done
+- `styleguide.astro` has non-default content → style stage done
 - `nav.json` has real pages → sitemap done
 - Content files have body text → drafts exist
 

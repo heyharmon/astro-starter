@@ -43,7 +43,7 @@ Design system manager. Controls visual appearance through Tailwind tokens and cl
 |------|---------|
 | **When** | Changing colors, typography, fonts, spacing, layout, component appearance |
 | **Owns** | `src/styles/global.css`, Tailwind classes in `.astro` components and layouts |
-| **Skills** | `update-styles`, `apply-style-tile`, `polish-page`, `match-reference`, `style-guide-generator`, `browser` (shared) |
+| **Skills** | `update-styles`, `apply-styleguide`, `polish-page`, `match-reference`, `style-guide-generator`, `browser` (shared) |
 | **Tools** | Read, Write, Edit, Glob, Grep, Bash |
 | **Definition** | `.claude/agents/design.md` |
 

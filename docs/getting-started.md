@@ -62,6 +62,6 @@ The system detects which mode it's in by reading `src/data/client.json`. No manu
 ## Next Steps
 
 - [Project Structure](project-structure.md) — understand the directory layout
-- [CMS Operations](cms-operations.md) — day-to-day content management
-- [Client Management](client-management.md) — multi-client workflow
 - [Agent System](agent-system.md) — how the specialist agents work
+- [Client Management](client-management.md) — multi-client workflow
+- [Build Workflow](build-workflow.md) — stage-gate process for new sites

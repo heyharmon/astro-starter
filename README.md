@@ -31,7 +31,6 @@ The same codebase serves multiple client websites via git branches and worktrees
 |----------|---------------|
 | [Getting Started](docs/getting-started.md) | Setup, first run, how to use the system |
 | [Project Structure](docs/project-structure.md) | Directory layout, key files, architecture |
-| [CMS Operations](docs/cms-operations.md) | Creating pages, editing content, managing navigation |
 | [Client Management](docs/client-management.md) | Multi-client workflow: branches, worktrees, concepts |
 | [Deployment](docs/deployment.md) | Vercel setup, automated deploys, concept previews |
 | [Agent System](docs/agent-system.md) | The six agents, routing rules, how they coordinate |

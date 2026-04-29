@@ -42,40 +42,6 @@ const pages = defineCollection({
 });
 
 /**
- * SERVICES collection
- * Each .md file in src/content/services/ represents a single service offering.
- * The markdown body is used as the service's detailed description.
- */
-const services = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/services" }),
-  schema: z.object({
-    title: z
-      .string()
-      .describe("Service name — displayed as the card title"),
-    description: z
-      .string()
-      .describe("Short summary — shown on the services listing page"),
-    icon: z
-      .string()
-      .describe("Emoji or icon identifier — displayed alongside the service title"),
-    image: z
-      .object({
-        src: z
-          .string()
-          .describe("Path to service background image, e.g. /images/services/design.jpg"),
-        alt: z
-          .string()
-          .describe("Accessible alt text describing the image"),
-      })
-      .optional()
-      .describe("Background image — shown as card background on homepage and services page"),
-    order: z
-      .number()
-      .describe("Sort order — lower numbers appear first on the services page"),
-  }),
-});
-
-/**
  * PROJECTS collection
  * Each .md file in src/content/projects/ represents a completed project.
  * The markdown body is used as the project's detailed description on its individual page.
@@ -115,16 +81,20 @@ const projects = defineCollection({
       .boolean()
       .default(false)
       .describe("Set to true to show on the homepage featured projects section"),
+    draft: z
+      .boolean()
+      .default(false)
+      .describe("Draft projects are hidden from production builds"),
   }),
 });
 
 /**
- * BLOG collection
- * Each .md file in src/content/blog/ represents a single blog post.
+ * POSTS collection
+ * Each .md file in src/content/posts/ represents a single blog post.
  * The filename (without extension) becomes the URL slug at /blog/<slug>.
  */
-const blog = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
+const posts = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/posts" }),
   schema: z.object({
     title: z
       .string()
@@ -161,4 +131,4 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { pages, services, projects, blog };
+export const collections = { pages, projects, posts };

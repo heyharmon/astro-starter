@@ -36,7 +36,7 @@ You own SEO-related fields only:
 | What | Path | Fields You Own |
 |------|------|----------------|
 | Page SEO | `src/content/pages/*.md` | `title`, `description`, `featuredImage` |
-| Blog SEO | `src/content/blog/*.md` | `title`, `description`, `image`, `tags` |
+| Blog SEO | `src/content/posts/*.md` | `title`, `description`, `image`, `tags` |
 | Service SEO | `src/content/services/*.md` | `title`, `description` |
 | Site SEO defaults | `src/data/site-meta.json` | `description`, `ogImage`, `url`, `name`, `tagline` |
 
@@ -67,7 +67,7 @@ You have access to web browsing tools for autonomous research:
 
 ### When Auditing SEO
 
-1. Read all content files (pages, blog, **and services**) and check title/description character limits
+1. Read all content files (pages, posts, **and services**) and check title/description character limits
 2. Calculate **rendered** title length ("Title | Site Name") — flag any over 60 characters
 3. Check for missing, placeholder, or duplicate meta descriptions across pages
 4. Verify OG image references point to existing files in `public/images/`

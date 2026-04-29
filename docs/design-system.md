@@ -165,15 +165,15 @@ The `componentPatterns` section documents recurring layout patterns with descrip
 | `section-2col` | Two-column grid — text content + image |
 | `section-alternating-bg` | Sections alternate between `bg-white` and `bg-neutral-50` |
 
-## Style Tile
+## Styleguide
 
-The style tile at `/style-tile` (`src/pages/style-tile.astro`) is a development-only page that previews the full design system. It is not included in navigation and has a `noindex` meta tag.
+The styleguide at `/styleguide` (`src/pages/styleguide.astro`) is a development-only page that previews the full design system. It is not included in navigation and has a `noindex` meta tag.
 
 **Layer 1 (Atomic):** Color swatches, typography samples, buttons, form inputs, borders/effects.
 
-**Layer 2 (Component Patterns):** Hero sections, card variants, CTA bands, section layouts, nav/footer previews. This section grows — when building a new page type, add the new pattern to the style tile.
+**Layer 2 (Component Patterns):** Hero sections, card variants, CTA bands, section layouts, nav/footer previews. This section grows — when building a new page type, add the new pattern to the styleguide.
 
-The style tile does not use `BaseLayout` — it renders nav/footer as specimens, not wrappers. It imports `global.css` directly so it reflects live token values.
+The styleguide does not use `BaseLayout` — it renders nav/footer as specimens, not wrappers. It imports `global.css` directly so it reflects live token values.
 
 ## Placeholder Images
 

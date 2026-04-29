@@ -14,15 +14,54 @@ The user should provide: page topic or title, and optionally the slug, descripti
 
 2. **Read 1-2 existing pages** in `src/content/pages/` to calibrate tone, formatting, and frontmatter patterns.
 
-3. **Follow SITE_GUIDE.md § "Create a new page"** for the full procedure, schema, and route file template.
+3. **Create the content file** at `src/content/pages/{slug}.md`:
 
-4. **Create the content file** at `src/content/pages/{slug}.md` with required frontmatter (`title`, `description`, `headline`) and professional body content in markdown.
+   ```yaml
+   ---
+   title: "Team"
+   description: "Meet the people behind Acme Corp."
+   headline: "Our Team"
+   subheadline: "Passionate people building great things."
+   ---
 
-5. **Create the route file** at `src/pages/{slug}.astro` using the template from SITE_GUIDE.md. Copy the pattern from an existing page route if the template has drifted.
+   Page body content in Markdown.
+   ```
 
-6. **Ask about navigation** — if the user wants it in the nav, read `src/data/nav.json`, add an entry with the next `order` value, and verify `href` matches the new route.
+   Required frontmatter: `title` (≤60 chars), `description` (≤155 chars), `headline`. Optional: `subheadline`, `featuredImage: { src, alt }`, `draft`. See `docs/content-schemas.md` if uncertain about a field.
 
-7. **Validate**: Run `npm run validate`. If unavailable, run `npm run build`.
+4. **Create the route file** at `src/pages/{slug}.astro`:
+
+   ```astro
+   ---
+   import BaseLayout from "../layouts/BaseLayout.astro";
+   import { getEntry, render } from "astro:content";
+
+   const page = await getEntry("pages", "{slug}");
+   const { Content } = await render(page);
+   ---
+
+   <BaseLayout title={page.data.title} description={page.data.description}>
+     <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+       <h1 class="max-w-3xl">{page.data.headline}</h1>
+       {page.data.subheadline && (
+         <p class="mt-6 max-w-2xl text-lg text-neutral-500">
+           {page.data.subheadline}
+         </p>
+       )}
+     </section>
+     <section class="mx-auto max-w-5xl px-6 pb-24">
+       <div class="prose">
+         <Content />
+       </div>
+     </section>
+   </BaseLayout>
+   ```
+
+   If an existing page route uses a different layout pattern, prefer copying that pattern over this template.
+
+5. **Ask about navigation** — if the user wants it in the nav, read `src/data/nav.json`, add an entry with the next `order` value, and verify `href` matches the new route.
+
+6. **Validate**: Run `npm run validate`. If unavailable, run `npm run build`.
 
 ## What the user said
 
