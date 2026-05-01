@@ -4,14 +4,17 @@ import ContactForm from "../components/ContactForm.vue";
 import { getEntry, render } from "astro:content";
 import siteMeta from "../data/site-meta.json";
 
-const page = await getEntry("pages", "contact");
+const page = (await getEntry("pages", "contact"))!;
 const { Content } = await render(page);
 ---
 
 <BaseLayout title={page.data.title} description={page.data.description}>
   <!-- Hero -->
   <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-    <h1>{page.data.headline}</h1>
+    <p class="text-sm uppercase tracking-wide text-neutral-500">
+      Tier 2 / 3 — Site config driven
+    </p>
+    <h1 class="mt-4">{page.data.headline}</h1>
     {page.data.subheadline && (
       <p class="mt-6 max-w-2xl text-lg text-neutral-500">
         {page.data.subheadline}
@@ -19,16 +22,71 @@ const { Content } = await render(page);
     )}
   </section>
 
-  <!-- Contact Content + Form -->
+  <!-- Live config panel + Markdown body -->
   <section class="border-t border-neutral-200 bg-neutral-50">
     <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <div class="grid gap-16 lg:grid-cols-2">
+      <div class="grid gap-12 lg:grid-cols-2 items-start">
         <div class="prose">
           <Content />
         </div>
-        <div>
-          <ContactForm client:idle formspreeId={siteMeta.formspreeId} />
+
+        <div class="rounded-xl border border-neutral-200 bg-white p-8">
+          <p class="text-xs uppercase tracking-wide text-neutral-500">
+            Live values from src/data/site-meta.json
+          </p>
+          <dl class="mt-6 space-y-4 text-sm">
+            <div>
+              <dt class="text-neutral-500">name</dt>
+              <dd class="mt-1 font-medium">{siteMeta.name}</dd>
+            </div>
+            <div>
+              <dt class="text-neutral-500">tagline</dt>
+              <dd class="mt-1">{siteMeta.tagline}</dd>
+            </div>
+            <div>
+              <dt class="text-neutral-500">url</dt>
+              <dd class="mt-1 font-mono text-xs">{siteMeta.url}</dd>
+            </div>
+            <div>
+              <dt class="text-neutral-500">social.twitter</dt>
+              <dd class="mt-1 font-mono text-xs"><a href={siteMeta.social.twitter} class="underline">{siteMeta.social.twitter}</a></dd>
+            </div>
+            <div>
+              <dt class="text-neutral-500">social.linkedin</dt>
+              <dd class="mt-1 font-mono text-xs"><a href={siteMeta.social.linkedin} class="underline">{siteMeta.social.linkedin}</a></dd>
+            </div>
+            <div>
+              <dt class="text-neutral-500">social.github</dt>
+              <dd class="mt-1 font-mono text-xs"><a href={siteMeta.social.github} class="underline">{siteMeta.social.github}</a></dd>
+            </div>
+            <div>
+              <dt class="text-neutral-500">formspreeId</dt>
+              <dd class="mt-1 font-mono text-xs">{siteMeta.formspreeId}</dd>
+            </div>
+            <div>
+              <dt class="text-neutral-500">copyright</dt>
+              <dd class="mt-1 text-xs">{siteMeta.copyright}</dd>
+            </div>
+          </dl>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vue island demo -->
+  <section class="border-t border-neutral-200">
+    <div class="mx-auto max-w-3xl px-6 py-24 sm:py-32">
+      <p class="text-xs uppercase tracking-wide text-neutral-500">
+        Vue island — src/components/ContactForm.vue
+      </p>
+      <h2 class="mt-4">Contact form</h2>
+      <p class="mt-4 text-neutral-500">
+        This is the only Vue component in the project. It hydrates on the client (<code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:idle</code>),
+        receives the Formspree ID from <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">site-meta.json</code> as a prop, and submits asynchronously.
+        All other components in this site are <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.astro</code> with zero client-side JavaScript.
+      </p>
+      <div class="mt-8">
+        <ContactForm client:idle formspreeId={siteMeta.formspreeId} />
       </div>
     </div>
   </section>

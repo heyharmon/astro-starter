@@ -1,126 +1,166 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getEntry, render } from "astro:content";
-
-const page = await getEntry("pages", "home");
-const { Content } = await render(page);
+import siteMeta from "../data/site-meta.json";
 ---
 
-<BaseLayout title={page.data.title} description={page.data.description}>
+<BaseLayout
+  title="Home"
+  description={siteMeta.description}
+>
   <!-- Hero -->
   <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-    <h1 class="max-w-3xl">{page.data.headline}</h1>
-    {page.data.subheadline && (
-      <p class="mt-6 max-w-2xl text-lg text-neutral-500">
-        {page.data.subheadline}
-      </p>
-    )}
-    <div class="mt-8 flex gap-4">
-      <a href="/contact" class="btn-primary">Get started</a>
-      <a href="/services" class="btn-ghost">Our services</a>
+    <p class="text-sm uppercase tracking-wide text-neutral-500">
+      Tier 1 / 3 — Inline content
+    </p>
+    <h1 class="mt-4 max-w-3xl">
+      This homepage is hardcoded in <code class="rounded bg-neutral-100 px-2 py-1 text-2xl">src/pages/index.astro</code>
+    </h1>
+    <p class="mt-6 max-w-2xl text-lg text-neutral-500">
+      There is no Markdown file behind it, no <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">getEntry()</code> call,
+      no content collection. Every word and section you see is written directly in the Astro file. Use this pattern for
+      genuinely one-of-a-kind pages — landing pages, marketing pages, anything you only ever need one of.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a href="/about" class="btn-primary">See the hybrid pattern →</a>
+      <a href="/styleguide" class="btn-ghost">Style Guide</a>
     </div>
   </section>
 
-  <!-- Features / Intro -->
+  <!-- The three tiers -->
   <section class="border-t border-neutral-200 bg-neutral-50">
     <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <h2>Why work with us</h2>
+      <h2>Three content tiers, three working demos</h2>
       <p class="mt-4 max-w-2xl text-neutral-500">
-        We combine modern tools with proven practices to deliver results that matter.
+        Every page in this starter exists to demonstrate one of Astro's content patterns. Click through to see each one in action.
       </p>
+
       <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <div class="rounded-xl border border-neutral-200 bg-white p-8">
-          <div class="text-2xl">&#9670;</div>
-          <h3 class="mt-4">Fast & Modern</h3>
-          <p class="mt-2 text-sm">
-            Built with the latest technology for speed, security, and scalability.
+        <a href="/about" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
+          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 1 — Inline + Markdown entry</p>
+          <h3 class="mt-3">/about</h3>
+          <p class="mt-2 text-sm text-neutral-500">
+            Hybrid pattern. The route is at <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/about.astro</code>;
+            the body content lives in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/pages/about.md</code>.
+          </p>
+        </a>
+
+        <a href="/contact" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
+          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Site config driven</p>
+          <h3 class="mt-3">/contact</h3>
+          <p class="mt-2 text-sm text-neutral-500">
+            The page imports <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/site-meta.json</code> and renders
+            its values directly. The Vue contact form picks up the Formspree ID the same way.
+          </p>
+        </a>
+
+        <a href="/blog" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
+          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — Content collection</p>
+          <h3 class="mt-3">/blog</h3>
+          <p class="mt-2 text-sm text-neutral-500">
+            Every card is a Markdown file in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/posts/</code>.
+            Schema in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content.config.ts</code>. Sorted by date.
+          </p>
+        </a>
+
+        <a href="/projects" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
+          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — Second collection</p>
+          <h3 class="mt-3">/projects</h3>
+          <p class="mt-2 text-sm text-neutral-500">
+            A different schema than posts — manual <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">order</code> field
+            and a <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">featured</code> boolean. Demonstrates a non-chronological collection.
+          </p>
+        </a>
+
+        <div class="block rounded-xl border border-dashed border-neutral-300 p-8">
+          <p class="text-xs uppercase tracking-wide text-neutral-500">Build config</p>
+          <h3 class="mt-3">Nav &amp; Footer</h3>
+          <p class="mt-2 text-sm text-neutral-500">
+            The header and footer you see on every page read from
+            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/nav.json</code> and
+            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/footer.json</code>. Edit those files to update site-wide chrome.
           </p>
         </div>
-        <div class="rounded-xl border border-neutral-200 bg-white p-8">
-          <div class="text-2xl">&#9650;</div>
-          <h3 class="mt-4">Easy to Customize</h3>
-          <p class="mt-2 text-sm">
-            Clean code and clear structure make it simple to adapt to any project.
+
+        <a href="/styleguide" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
+          <p class="text-xs uppercase tracking-wide text-neutral-500">Design system</p>
+          <h3 class="mt-3">/styleguide</h3>
+          <p class="mt-2 text-sm text-neutral-500">
+            A live preview of design tokens, typography, components. Backed by
+            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/styles/global.css</code> and
+            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/design-tokens.json</code>.
           </p>
-        </div>
-        <div class="rounded-xl border border-neutral-200 bg-white p-8">
-          <div class="text-2xl">&#9679;</div>
-          <h3 class="mt-4">Production Ready</h3>
-          <p class="mt-2 text-sm">
-            SEO optimized, accessible, and designed for real-world use from day one.
-          </p>
-        </div>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Services -->
+  <!-- Decision rules -->
   <section class="border-t border-neutral-200">
     <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <h2>Services</h2>
+      <h2>Which tier should I use?</h2>
       <p class="mt-4 max-w-2xl text-neutral-500">
-        Professional solutions to help your business grow.
+        The decision tree is short. When in doubt, start inline and promote to a collection the moment you have a second one.
       </p>
-      <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <div class="rounded-xl border border-neutral-200 p-8">
-          <div class="text-2xl">&#9670;</div>
-          <h3 class="mt-4">Web Design</h3>
-          <p class="mt-2 text-sm">
-            Beautiful, responsive websites built for results. We create modern designs that look great on every device.
+
+      <div class="mt-12 grid gap-8 lg:grid-cols-3">
+        <div>
+          <p class="text-sm font-medium">Repeating items sharing a schema</p>
+          <p class="mt-2 text-sm text-neutral-500">
+            Blog posts, projects, products, team bios, testimonials, case studies. Define a Zod schema and add files to
+            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/&lt;collection&gt;/</code>.
           </p>
         </div>
-        <div class="rounded-xl border border-neutral-200 p-8">
-          <div class="text-2xl">&#9650;</div>
-          <h3 class="mt-4">Development</h3>
-          <p class="mt-2 text-sm">
-            Clean, performant code that brings your vision to life. Built with modern frameworks and best practices.
+        <div>
+          <p class="text-sm font-medium">A genuinely unique page</p>
+          <p class="mt-2 text-sm text-neutral-500">
+            Homepage, about, contact, a one-off landing page. Write it directly in
+            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/*.astro</code>, or pair the route file with a single
+            entry in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/pages/</code> for Markdown editing.
           </p>
         </div>
-        <div class="rounded-xl border border-neutral-200 p-8">
-          <div class="text-2xl">&#9679;</div>
-          <h3 class="mt-4">Strategy</h3>
-          <p class="mt-2 text-sm">
-            Data-driven strategy to help you reach the right audience and grow your business online.
+        <div>
+          <p class="text-sm font-medium">Structural data, not content</p>
+          <p class="mt-2 text-sm text-neutral-500">
+            Nav links, footer groups, social handles, pricing tiers, redirects. Put it in
+            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/*.json</code> and import the JSON in your route or component.
           </p>
         </div>
       </div>
-      <div class="mt-12">
-        <a href="/services" class="btn-ghost">View all services</a>
-      </div>
+
+      <p class="mt-12 text-sm text-neutral-500">
+        Full architecture and editing workflow: <a href="https://github.com" class="underline">docs/content-collections.md</a>.
+      </p>
     </div>
   </section>
 
-  <!-- About Preview -->
+  <!-- Lorem fill / visual weight -->
   <section class="border-t border-neutral-200 bg-neutral-50">
     <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <div class="grid gap-12 lg:grid-cols-2 items-center">
+      <div class="grid gap-12 lg:grid-cols-2 items-start">
         <div>
-          <h2>About us</h2>
-          <p class="mt-4">
-            We are a team of professionals dedicated to delivering exceptional results. With a focus on quality and collaboration, we partner with our clients to bring their vision to life.
+          <h2>Replace this section</h2>
+          <p class="mt-4 text-neutral-500">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat.
           </p>
-          <a href="/about" class="btn-ghost mt-8">Learn more</a>
+          <p class="mt-4 text-neutral-500">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <p class="mt-4 text-sm text-neutral-500">
+            <strong>How to remove this:</strong> open
+            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/index.astro</code> and delete this section.
+            The whole homepage is hardcoded — no Markdown to track down.
+          </p>
         </div>
-        <div class="aspect-[4/3] overflow-hidden rounded-xl bg-neutral-200">
+        <div class="aspect-4/3 overflow-hidden rounded-xl bg-neutral-200">
           <img
             src="/images/placeholders/landscape-4x3.svg"
-            alt="Team at work"
+            alt="Placeholder image rendered from public/images/placeholders/landscape-4x3.svg"
             class="h-full w-full object-cover"
           />
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="border-t border-neutral-200">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32 text-center">
-      <h2>Ready to get started?</h2>
-      <p class="mx-auto mt-4 max-w-xl text-neutral-500">
-        Get in touch to discuss your project. We would love to hear from you.
-      </p>
-      <div class="mt-8">
-        <a href="/contact" class="btn-primary">Contact us</a>
       </div>
     </div>
   </section>

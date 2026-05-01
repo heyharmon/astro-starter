@@ -101,7 +101,7 @@
     },
     "card-grid": {
       "description": "Grid of bordered cards (rounded-xl, border-neutral-200, p-8) with icon, title, and description. 3-column on lg, 2-column on sm.",
-      "reference": "index.astro features section, services.astro cards"
+      "reference": "index.astro tier-demonstrations section"
     },
     "cta-centered": {
       "description": "Centered text section with heading, description, and primary button. neutral-50 or white background.",

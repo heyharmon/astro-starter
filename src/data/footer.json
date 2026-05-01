@@ -4,10 +4,27 @@
     "links": [
       { "label": "Home", "href": "/" },
       { "label": "About", "href": "/about" },
-      { "label": "Services", "href": "/services" },
-      { "label": "Projects", "href": "/projects" },
       { "label": "Blog", "href": "/blog" },
+      { "label": "Projects", "href": "/projects" },
       { "label": "Contact", "href": "/contact" }
+    ]
+  },
+  {
+    "section": "Tier demonstrations",
+    "links": [
+      { "label": "Inline content (homepage)", "href": "/" },
+      { "label": "Inline + Markdown entry (about)", "href": "/about" },
+      { "label": "Site config driven (contact)", "href": "/contact" },
+      { "label": "Posts collection (blog)", "href": "/blog" },
+      { "label": "Projects collection", "href": "/projects" }
+    ]
+  },
+  {
+    "section": "Resources",
+    "links": [
+      { "label": "Style Guide", "href": "/styleguide" },
+      { "label": "Astro Docs", "href": "https://docs.astro.build" },
+      { "label": "Tailwind CSS", "href": "https://tailwindcss.com" }
     ]
   }
 ]

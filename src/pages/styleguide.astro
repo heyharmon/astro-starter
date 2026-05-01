@@ -12,6 +12,7 @@
  * Agents: When adding new component patterns during page building,
  * append a new section above the "NEW PATTERNS BELOW" comment at the bottom.
  */
+import Header from "../components/Header.astro";
 import "../styles/global.css";
 ---
 
@@ -30,6 +31,8 @@ import "../styles/global.css";
     />
   </head>
   <body>
+    <Header />
+
     <!-- ============================================ -->
     <!-- LAYER 1: ATOMIC TOKENS                       -->
     <!-- ============================================ -->
