@@ -12,7 +12,7 @@ const { Content } = await render(page);
   <!-- Hero -->
   <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
     <p class="text-sm uppercase tracking-wide text-neutral-500">
-      Tier 2 / 3 — Site config driven
+      Tier 3 / 3 — Site config driven
     </p>
     <h1 class="mt-4">{page.data.headline}</h1>
     {page.data.subheadline && (
@@ -81,9 +81,10 @@ const { Content } = await render(page);
       </p>
       <h2 class="mt-4">Contact form</h2>
       <p class="mt-4 text-neutral-500">
-        This is the only Vue component in the project. It hydrates on the client (<code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:idle</code>),
-        receives the Formspree ID from <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">site-meta.json</code> as a prop, and submits asynchronously.
-        All other components in this site are <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.astro</code> with zero client-side JavaScript.
+        The form below is a Vue island, hydrated with <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:idle</code>. It receives
+        <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">formspreeId</code> as a prop from <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">site-meta.json</code>
+        and handles its own submission state. For the full explanation of when to use islands and what each
+        <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:*</code> directive does, see <a href="/islands" class="underline">/islands</a>.
       </p>
       <div class="mt-8">
         <ContactForm client:idle formspreeId={siteMeta.formspreeId} />

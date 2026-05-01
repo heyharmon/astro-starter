@@ -10,13 +10,14 @@
     ]
   },
   {
-    "section": "Tier demonstrations",
+    "section": "Concept demos",
     "links": [
       { "label": "Inline content (homepage)", "href": "/" },
       { "label": "Inline + Markdown entry (about)", "href": "/about" },
       { "label": "Site config driven (contact)", "href": "/contact" },
       { "label": "Posts collection (blog)", "href": "/blog" },
-      { "label": "Projects collection", "href": "/projects" }
+      { "label": "Projects collection", "href": "/projects" },
+      { "label": "Islands (interactivity)", "href": "/islands" }
     ]
   },
   {

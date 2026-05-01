@@ -30,20 +30,22 @@ Each agent's full skill table lives in its definition file: `.claude/agents/<age
 
 ## Content Architecture
 
-Three tiers — pick the right one, don't default to inline. This drives routing: collection work and `src/data/` config go to Content; schema changes go to Dev; unique-page copy edits go to Content (in the `.astro` route file when no collection exists).
+Three tiers, ordered from simplest to most structured. Pick the right one, don't default to inline. This drives routing: unique-page copy edits go to Content (in the `.astro` route file when no Markdown entry exists); collection work and `src/data/` config also go to Content; schema changes go to Dev.
 
-| Tier | Path | Use for |
-|------|------|---------|
-| Content Collections | `src/content/` | Repeating items sharing a schema — blog posts, projects, products, team bios, testimonials, case studies |
-| Inline content | `src/pages/*.astro` | Genuinely unique pages — homepage, about, contact, bespoke landing pages |
-| Site config | `src/data/*.json` | Structural data that isn't really content — nav, footer, social handles, pricing tiers, redirects |
+| # | Tier | Path | Use for |
+|---|------|------|---------|
+| 1 | **Inline content** | `src/pages/*.astro` (optionally paired with a single entry in `src/content/pages/*.md`) | Genuinely unique pages — homepage, about, contact, bespoke landing pages |
+| 2 | **Content Collections** | `src/content/` | Repeating items sharing a Zod schema — blog posts, projects, products, team bios, testimonials, case studies |
+| 3 | **Site config** | `src/data/*.json` | Structural data that isn't really content — nav, footer, social handles, pricing tiers, redirects |
+
+There's also a separate axis — **interactivity** — covered by Astro's island model (`client:*` directives on Vue/React/Svelte/Solid components). Islands aren't a fourth tier; any tier can include one. The `/islands` route is a working demo.
 
 ### Decision rules
 
-- Repeating shape → `src/content/`
-- One-of-a-kind page → inline in `src/pages/`
-- Config / structural data → `src/data/`
-- Trigger to promote inline → collection: "I'm about to create the second one of these."
+- One-of-a-kind page → **Tier 1** inline in `src/pages/`
+- Repeating shape → **Tier 2** in `src/content/`
+- Config / structural data → **Tier 3** in `src/data/`
+- Trigger to promote Tier 1 → Tier 2: "I'm about to create the second one of these."
 - Never inline a list of 5+ similar items in an `.astro` file — promote to a collection.
 - Never put unique page copy into a collection just to centralize it.
 - Don't create single-entry collections "for consistency." If a unique page later spawns siblings, migrate it then — not preemptively.

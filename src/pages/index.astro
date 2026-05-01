@@ -36,25 +36,16 @@ import siteMeta from "../data/site-meta.json";
 
       <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         <a href="/about" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 1 — Inline + Markdown entry</p>
+          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 1 — Inline (hybrid variant)</p>
           <h3 class="mt-3">/about</h3>
           <p class="mt-2 text-sm text-neutral-500">
-            Hybrid pattern. The route is at <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/about.astro</code>;
-            the body content lives in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/pages/about.md</code>.
-          </p>
-        </a>
-
-        <a href="/contact" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Site config driven</p>
-          <h3 class="mt-3">/contact</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            The page imports <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/site-meta.json</code> and renders
-            its values directly. The Vue contact form picks up the Formspree ID the same way.
+            The other shape of Tier 1: route file in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/about.astro</code> rendering a single
+            Markdown entry from <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/pages/about.md</code>.
           </p>
         </a>
 
         <a href="/blog" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — Content collection</p>
+          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Posts collection</p>
           <h3 class="mt-3">/blog</h3>
           <p class="mt-2 text-sm text-neutral-500">
             Every card is a Markdown file in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/posts/</code>.
@@ -63,7 +54,7 @@ import siteMeta from "../data/site-meta.json";
         </a>
 
         <a href="/projects" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — Second collection</p>
+          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Projects collection</p>
           <h3 class="mt-3">/projects</h3>
           <p class="mt-2 text-sm text-neutral-500">
             A different schema than posts — manual <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">order</code> field
@@ -71,11 +62,20 @@ import siteMeta from "../data/site-meta.json";
           </p>
         </a>
 
+        <a href="/contact" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
+          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — Site config driven</p>
+          <h3 class="mt-3">/contact</h3>
+          <p class="mt-2 text-sm text-neutral-500">
+            The page imports <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/site-meta.json</code> and renders
+            its values directly. The Vue contact form picks up the Formspree ID the same way.
+          </p>
+        </a>
+
         <div class="block rounded-xl border border-dashed border-neutral-300 p-8">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Build config</p>
+          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — More site config</p>
           <h3 class="mt-3">Nav &amp; Footer</h3>
           <p class="mt-2 text-sm text-neutral-500">
-            The header and footer you see on every page read from
+            The header and footer you see on every page also read from Tier 3 —
             <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/nav.json</code> and
             <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/footer.json</code>. Edit those files to update site-wide chrome.
           </p>
@@ -104,14 +104,8 @@ import siteMeta from "../data/site-meta.json";
 
       <div class="mt-12 grid gap-8 lg:grid-cols-3">
         <div>
-          <p class="text-sm font-medium">Repeating items sharing a schema</p>
-          <p class="mt-2 text-sm text-neutral-500">
-            Blog posts, projects, products, team bios, testimonials, case studies. Define a Zod schema and add files to
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/&lt;collection&gt;/</code>.
-          </p>
-        </div>
-        <div>
-          <p class="text-sm font-medium">A genuinely unique page</p>
+          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 1 — Inline</p>
+          <p class="mt-2 text-sm font-medium">A genuinely unique page</p>
           <p class="mt-2 text-sm text-neutral-500">
             Homepage, about, contact, a one-off landing page. Write it directly in
             <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/*.astro</code>, or pair the route file with a single
@@ -119,7 +113,16 @@ import siteMeta from "../data/site-meta.json";
           </p>
         </div>
         <div>
-          <p class="text-sm font-medium">Structural data, not content</p>
+          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Content collection</p>
+          <p class="mt-2 text-sm font-medium">Repeating items sharing a schema</p>
+          <p class="mt-2 text-sm text-neutral-500">
+            Blog posts, projects, products, team bios, testimonials, case studies. Define a Zod schema and add files to
+            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/&lt;collection&gt;/</code>.
+          </p>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — Site config</p>
+          <p class="mt-2 text-sm font-medium">Structural data, not content</p>
           <p class="mt-2 text-sm text-neutral-500">
             Nav links, footer groups, social handles, pricing tiers, redirects. Put it in
             <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/*.json</code> and import the JSON in your route or component.
@@ -133,8 +136,44 @@ import siteMeta from "../data/site-meta.json";
     </div>
   </section>
 
-  <!-- Lorem fill / visual weight -->
+  <!-- Interactivity model — orthogonal axis -->
   <section class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
+      <p class="text-sm uppercase tracking-wide text-neutral-500">
+        A separate axis — not a fourth tier
+      </p>
+      <h2 class="mt-3">Interactivity: when to add JavaScript</h2>
+      <p class="mt-4 max-w-2xl text-neutral-500">
+        The three tiers above answer <em>where the content lives</em>. Islands answer a different question:
+        <em>does this part of the page need to run JavaScript in the browser?</em> The two are orthogonal —
+        any page (collection entry, inline route, config-driven) can include an island when interactivity demands it.
+      </p>
+
+      <div class="mt-12 grid gap-8 lg:grid-cols-3">
+        <a href="/islands" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400 lg:col-span-2">
+          <p class="text-xs uppercase tracking-wide text-neutral-500">Concept demo</p>
+          <h3 class="mt-3">/islands</h3>
+          <p class="mt-2 text-sm text-neutral-500">
+            Live demos of <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:load</code>,
+            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:idle</code>,
+            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:visible</code>. Vue and vanilla-JS examples.
+            Decision rules for when to reach for an island vs. plain <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.astro</code>.
+          </p>
+        </a>
+        <div class="rounded-xl border border-dashed border-neutral-300 p-8">
+          <p class="text-xs uppercase tracking-wide text-neutral-500">Default</p>
+          <h3 class="mt-3">Zero JS</h3>
+          <p class="mt-2 text-sm text-neutral-500">
+            Most components in this starter are <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.astro</code> — they ship as static HTML
+            with no client-side runtime. Keep it that way unless interactivity demands otherwise.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lorem fill / visual weight -->
+  <section class="border-t border-neutral-200">
     <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
       <div class="grid gap-12 lg:grid-cols-2 items-start">
         <div>
