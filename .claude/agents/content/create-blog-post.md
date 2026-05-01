@@ -32,13 +32,13 @@ The user should provide: post topic or title, and optionally the slug, descripti
    Body content in Markdown.
    ```
 
-   Required: `title` (≤60 chars), `description` (≤155 chars), `date` (YYYY-MM-DD). Optional: `author` (defaults to `"Team"`), `tags`, `image: { src, alt }`, `draft`. See `docs/content-schemas.md` for full schema.
+   Frontmatter fields are defined in `src/content.config.ts` (the `posts` collection). Conventions: `title` ≤60 chars, `description` ≤155 chars, `date` in `YYYY-MM-DD`.
 
 4. **Write the body** in Markdown. Aim for short paragraphs (2–4 sentences), use headings (`##`, `###`) for structure, and bold for emphasis.
 
 5. **Set `draft`**: `false` to publish, `true` to keep hidden from listings.
 
-6. **Validate**: Run `npm run validate`. If unavailable, run `npm run build`.
+6. **Validate**: Run `npm run healthcheck`. If unavailable, run `npm run build`.
 
 ## Content quality guidelines
 

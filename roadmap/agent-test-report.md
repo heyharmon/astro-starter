@@ -35,7 +35,7 @@
 ## Baseline Test Findings (Round 1)
 
 ### Cross-cutting issues
-- `npm run validate` missing in worktrees — every agent hit this with no fallback
+- `npm run healthcheck` missing in worktrees — every agent hit this with no fallback
 - No file verification step — agents trusted documented paths blindly
 - Documentation/code drift on config file names caused failures
 
@@ -45,13 +45,13 @@
 - Rebrand scenario: strict "don't touch frontmatter" rule produced incoherent page (hero said "small team doing big work", body talked about AI visibility)
 - Skill duplicated SITE_GUIDE.md procedures verbatim — drift risk
 - "Match existing tone" instruction too vague
-- No fallback when validate script missing
+- No fallback when healthcheck script missing
 
 **SEO Agent (NEEDS IMPROVEMENT):**
 - Services collection missing from ownership table
 - Rendered title length not accounted for ("Title | Site Name" suffix ignored)
 - Audit checklist too shallow: 5 items, missing placeholder URL detection, duplicate description check, heading hierarchy, social link validation
-- No fallback when validate script missing
+- No fallback when healthcheck script missing
 
 **Design Agent (GOOD):**
 - Token vs component distinction worked perfectly
@@ -69,7 +69,7 @@
 ## Improvements Implemented
 
 ### P0 — Cross-cutting (all agents)
-1. **Validate fallback:** All agents now say "Run `npm run validate`. If unavailable, fall back to `npm run build`."
+1. **Healthcheck fallback:** All agents now say "Run `npm run healthcheck`. If unavailable, fall back to `npm run build`."
 2. **File verification habit:** All agents now include "verify actual filenames before editing" in Before Every Task steps.
 
 ### P1 — Content Agent

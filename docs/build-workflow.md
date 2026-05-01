@@ -1,20 +1,20 @@
 # Build Workflow
 
-When building a new client site (not doing CMS maintenance on an existing one), the project follows a stage-gate process. Each stage must be approved before moving to the next.
+When building out the site from scratch (not doing CMS maintenance on an existing one), the project follows a stage-gate process. Each stage must be approved before moving to the next.
 
 ## Stages
 
 | # | Stage | What Happens | Gate |
 |---|-------|-------------|------|
 | 1 | **Style** | Design agent applies reference aesthetic to the styleguide. Updates `global.css` tokens and `design-tokens.json`. | Human approves styleguide |
-| 2 | **Sitemap** | Orchestrator proposes page list + nav structure based on reference or client brief. | Human approves sitemap |
+| 2 | **Sitemap** | Orchestrator proposes page list + nav structure based on reference or brief. | Human approves sitemap |
 | 3 | **Content Drafts** | Content agent drafts all page copy in `src/content/pages/*.md` with `draft: true`. No layout work yet. | Human reviews copy (soft gate) |
 | 4 | **Page Building** | Build pages in cohorts of 2-3. Homepage is always cohort 1. | Human reviews after each cohort |
 | 5 | **Final Review** | Full-site visual audit (all pages, desktop + mobile). SEO optimization pass. Design compliance check. | Human final approval |
 
 ## Stage 1: Style
 
-The design agent takes a reference URL (or a brief describing the desired aesthetic) and:
+The design agent takes a reference URL or a brief describing the desired aesthetic and:
 
 1. Screenshots the reference site
 2. Extracts colors, typography, spacing patterns
@@ -28,7 +28,7 @@ The styleguide shows atomic tokens (colors, typography, buttons) and component p
 
 ## Stage 2: Sitemap
 
-Based on the reference site or client brief, the orchestrator proposes:
+Based on the reference site or brief, the orchestrator proposes:
 
 - Page list (Home, About, Services, Contact, etc.)
 - Navigation structure (`nav.json`)
@@ -42,7 +42,7 @@ The content agent creates all page content files with `draft: true`:
 
 - Writes headline, subheadline, and body copy for each page
 - Creates service entries if applicable
-- Matches tone to the client's industry and brand voice
+- Matches tone to the site's industry and brand voice
 - Does NOT create route files or do any layout work yet
 
 **Gate:** You review the copy. This is a soft gate — you can iterate on copy during page building too.
@@ -99,7 +99,7 @@ Progress is tracked in `src/data/build-state.json`:
   },
   "sitemapApproved": true,
   "styleguideApproved": true,
-  "notes": "Client: Acme Corp"
+  "notes": ""
 }
 ```
 

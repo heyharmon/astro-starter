@@ -53,7 +53,7 @@ Use the **Browser skill** (`.claude/agents/shared/browser/SKILL.md`) for all scr
 
 ### Phase 3: Verify and iterate
 
-8. **Validate.** Run `npm run validate`.
+8. **Validate.** Run `npm run healthcheck`.
 
 9. **Screenshot the updated styleguide** at desktop (1280px) and mobile (375px) using the browser skill.
 

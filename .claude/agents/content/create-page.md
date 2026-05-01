@@ -27,7 +27,7 @@ The user should provide: page topic or title, and optionally the slug, descripti
    Page body content in Markdown.
    ```
 
-   Required frontmatter: `title` (≤60 chars), `description` (≤155 chars), `headline`. Optional: `subheadline`, `featuredImage: { src, alt }`, `draft`. See `docs/content-schemas.md` if uncertain about a field.
+   Frontmatter fields are defined in `src/content.config.ts` (the `pages` collection). Conventions: `title` ≤60 chars, `description` ≤155 chars.
 
 4. **Create the route file** at `src/pages/{slug}.astro`:
 
@@ -61,7 +61,7 @@ The user should provide: page topic or title, and optionally the slug, descripti
 
 5. **Ask about navigation** — if the user wants it in the nav, read `src/data/nav.json`, add an entry with the next `order` value, and verify `href` matches the new route.
 
-6. **Validate**: Run `npm run validate`. If unavailable, run `npm run build`.
+6. **Validate**: Run `npm run healthcheck`. If unavailable, run `npm run build`.
 
 ## What the user said
 

@@ -20,7 +20,7 @@ The orchestrator should provide:
    - `src/data/build-state.json` — current build stage and notes
    - Any existing content files in `src/content/pages/` — to calibrate tone
 
-2. **Read SITE_GUIDE.md** for content schemas and formatting conventions.
+2. **Read `src/content.config.ts`** for the page schema (required and optional frontmatter fields).
 
 3. **Plan the content architecture.** For each page in the sitemap, decide:
    - What the headline and subheadline should be
@@ -38,7 +38,7 @@ The orchestrator should provide:
    - Are there redundant sentences or sections across pages?
    - Does each page have a distinct purpose, or do they blend together?
 
-6. **Validate.** Run `npm run validate`.
+6. **Validate.** Run `npm run healthcheck`.
 
 7. **Report to the orchestrator:**
    - List of all pages drafted with a one-line summary of each

@@ -2,8 +2,6 @@
 
 A static website starter managed entirely through Claude agents. No CMS dashboard, no manual editing — describe what you want in natural language.
 
-This repo serves as the **base template** for multiple client websites. Each client gets a branch and its own working directory via git worktrees.
-
 ## Quick Start
 
 ```bash
@@ -11,19 +9,16 @@ npm install
 npm run dev    # http://localhost:4321
 ```
 
-Open the project in Cursor with Claude Code. Tell Claude what you need:
+Open the project in Cursor or Visual Studio Code with Claude Code. Tell Claude what you need:
 
 - "Add a team page with bios"
 - "Change the accent color to teal"
 - "Write a blog post about web design trends"
-- "Set up a new client called Bob's Plumbing"
-- "Deploy Little Campus to Vercel"
+- "Audit the SEO across all pages"
 
 ## How It Works
 
-Six specialist agents (content, design, SEO, images, dev, deploy) handle different aspects of the site. A root orchestrator routes your requests to the right agent. See `CLAUDE.md` for routing rules.
-
-The same codebase serves multiple client websites via git branches and worktrees. The `main` branch is the shared base; `client/<slug>` branches hold client-specific content, design, and images.
+Five specialist agents (content, design, SEO, images, dev) handle different aspects of the site. A root orchestrator routes your requests to the right agent. See `CLAUDE.md` for routing rules.
 
 ## Documentation
 
@@ -31,11 +26,9 @@ The same codebase serves multiple client websites via git branches and worktrees
 |----------|---------------|
 | [Getting Started](docs/getting-started.md) | Setup, first run, how to use the system |
 | [Project Structure](docs/project-structure.md) | Directory layout, key files, architecture |
-| [Client Management](docs/client-management.md) | Multi-client workflow: branches, worktrees, concepts |
-| [Deployment](docs/deployment.md) | Vercel setup, automated deploys, concept previews |
-| [Agent System](docs/agent-system.md) | The six agents, routing rules, how they coordinate |
-| [Build Workflow](docs/build-workflow.md) | Stage-gate process for building new sites |
-| [Content Schemas](docs/content-schemas.md) | Frontmatter fields, Zod validation, content collections |
+| [Agent System](docs/agent-system.md) | Agent file structure, skill formats, how to extend the system |
+| [Build Workflow](docs/build-workflow.md) | Stage-gate process for building out the site |
+| [Content Collections](docs/content-collections.md) | Content architecture, collection purposes, editing workflow |
 | [Design System](docs/design-system.md) | Tailwind theme, tokens, colors, typography |
 
 ## Commands
@@ -43,5 +36,5 @@ The same codebase serves multiple client websites via git branches and worktrees
 ```bash
 npm run dev       # Dev server
 npm run build     # Production build
-npm run validate  # Config checks + build
+npm run healthcheck  # Config checks + build
 ```

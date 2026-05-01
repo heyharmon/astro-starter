@@ -44,7 +44,7 @@ Use the **Browser skill** (`.claude/agents/shared/browser/SKILL.md`) for all nav
 
 6. **Update frontmatter** in content files with the image paths and descriptive alt text.
 
-7. **Validate.** Run `npm run validate`.
+7. **Validate.** Run `npm run healthcheck`.
 
 ## When to use this skill vs. Unsplash
 

@@ -26,7 +26,7 @@ Tailwind CSS 4 is configured entirely in `global.css` using `@theme` blocks — 
 
 ## Color Palette
 
-### Neutral Scale (base template)
+### Neutral Scale
 
 | Token | Hex | Usage |
 |-------|-----|-------|
@@ -42,9 +42,9 @@ Tailwind CSS 4 is configured entirely in `global.css` using `@theme` blocks — 
 | `neutral-900` | `#171717` | Primary text, headings |
 | `neutral-950` | `#0a0a0a` | — |
 
-### Accent Scale (base template)
+### Accent Scale
 
-The base template uses indigo. Client branches override this with their brand color.
+The starter uses indigo. Override this with the site's brand color when needed.
 
 | Token | Hex | Usage |
 |-------|-----|-------|
@@ -52,20 +52,20 @@ The base template uses indigo. Client branches override this with their brand co
 | `indigo-600` | `#4f46e5` | Primary buttons, links, accent text |
 | `indigo-700` | `#4338ca` | Button hover state |
 
-### How Clients Override Colors
+### How to Override Colors
 
-On a client branch, the design agent replaces the accent scale in `global.css` `@theme` and updates `design-tokens.json` accordingly. The neutral scale may also change (e.g., warm grays for a preschool, cool grays for a tech company).
+To change the site's accent or neutral scale, the design agent replaces the relevant scale in `global.css` `@theme` and updates `design-tokens.json` accordingly. The neutral scale may also change (e.g., warm grays for a preschool, cool grays for a tech company).
 
 ## Typography
 
-### Fonts (base template)
+### Fonts
 
 | Role | Font | CSS Variable |
 |------|------|-------------|
 | Headings + body | Inter | `--font-sans` |
 | Code | JetBrains Mono | `--font-mono` |
 
-Fonts are loaded via the `Head.astro` component (Google Fonts links). Client branches can change fonts by updating the `@theme` font variables and the Google Fonts import.
+Fonts are loaded via the `Head.astro` component (Google Fonts links). To change fonts, update the `@theme` font variables and the Google Fonts import.
 
 ### Heading Hierarchy
 
@@ -194,4 +194,3 @@ Referenced as `/images/placeholders/hero-16x9.svg` from any page.
 2. **Token changes vs. component changes.** Identify whether the user wants a global token change (edit `@theme`) or a component-specific change (edit Tailwind classes in the `.astro` file).
 3. **Keep CSS and JSON in sync.** After changing `global.css` tokens, update `design-tokens.json`.
 4. **Verify token coverage.** Before changing tokens, check for hardcoded hex values or Tailwind arbitrary values that would bypass the theme.
-5. **On `main`, use the neutral starter palette.** Client-specific colors belong on client branches only.

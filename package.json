@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "validate": "bash scripts/validate.sh"
+    "healthcheck": "bash scripts/healthcheck.sh"
   },
   "dependencies": {
     "@astrojs/vue": "^5.0.0",

@@ -13,9 +13,10 @@ The user should specify: which page(s) to update, and what SEO changes to make.
 1. **Read the site config** (`src/data/site-meta.json`) to get the site name — you need this to calculate rendered title length.
 
 2. **Locate the content file** for the target page:
-   - Pages: `src/content/pages/{slug}.md`
+   - Pages (rendered by collection): `src/content/pages/{slug}.md`
    - Blog posts: `src/content/posts/{slug}.md`
-   - Services: `src/content/services/{slug}.md`
+   - Other collection entries: `src/content/{collection}/{slug}.md` (see `src/content.config.ts`)
+   - Inline pages: `src/pages/{slug}.astro` — `title` and `description` are passed as props to `<BaseLayout>`
    - Site-wide defaults: `src/data/site-meta.json`
 
 3. **Read the current frontmatter** to see existing values.
@@ -35,12 +36,12 @@ The user should specify: which page(s) to update, and what SEO changes to make.
    - `ogImage` — default OG image when no page-specific image is set
    - `url` — must be the real production URL (not "example.com")
 
-7. **SEO conventions** (see SITE_GUIDE.md § 7):
+7. **SEO conventions**:
    - Page title format: "Title | Site Name" (except Home = just site name)
    - Canonical URLs auto-generated from site config `url` + pathname
    - OG images should be in `public/images/`, referenced as `/images/filename.ext`
 
-8. **Validate**: Run `npm run validate`. If unavailable, run `npm run build`.
+8. **Validate**: Run `npm run healthcheck`. If unavailable, run `npm run build`.
 
 ## What the user said
 

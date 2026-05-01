@@ -4,18 +4,13 @@
 
 ```
 .
-├── CLAUDE.md                  → Agent routing rules (Claude reads this first)
-├── RESUME.md                  → Agent resume (capabilities, integration, task interface)
-├── SITE_GUIDE.md              → Condensed CMS reference for agents
+├── CLAUDE.md                  → Agent routing, ownership, content architecture, build workflow, key paths (Claude reads this first)
 ├── docs/                      → Human + agent documentation (this directory)
 ├── astro.config.mjs           → Astro 5 config (static output, Vue, Tailwind)
 ├── package.json               → Dependencies and scripts
 ├── tsconfig.json              → TypeScript config (strict mode)
 ├── scripts/
-│   ├── validate.sh            → JSON validation + Astro build
-│   ├── new-client.sh          → Create client/concept branches
-│   ├── sync-client.sh         → Merge main into client branches
-│   └── list-clients.sh        → List all client branches and worktrees
+│   └── healthcheck.sh         → JSON validation + Astro build
 ├── .claude/
 │   ├── settings.json          → Claude Code permissions
 │   └── agents/                → Agent definitions and skills
@@ -26,24 +21,18 @@
 │       ├── dev.md             → Dev agent definition
 │       ├── images.md          → Images agent definition
 │       ├── seo.md             → SEO agent definition
-│       ├── deploy.md          → Deploy agent definition
 │       ├── content/           → Content agent skills
 │       ├── design/            → Design agent skills
 │       ├── dev/               → Dev agent skills
 │       ├── images/            → Images agent skills
-│       ├── seo/               → SEO agent skills
-│       └── deploy/            → Deploy agent skills
-├── .github/
-│   └── workflows/
-│       └── deploy-client.yml  → GitHub Actions auto-deploy for client branches
+│       └── seo/               → SEO agent skills
 ├── src/
 │   ├── content.config.ts      → Content collection schemas (Zod)
 │   ├── content/
-│   │   ├── pages/             → Static page content (home, about, services, contact)
-│   │   ├── services/          → Service offerings (one .md per service)
-│   │   └── blog/              → Blog posts 
+│   │   ├── pages/             → Static page content (home, about, services, contact, etc.)
+│   │   ├── projects/          → Project showcases (one .md per project)
+│   │   └── posts/             → Blog posts
 │   ├── data/
-│   │   ├── client.json        → Client identity (base vs. client, deploy config)
 │   │   ├── nav.json           → Navigation links with sort order
 │   │   ├── footer.json        → Footer link groups
 │   │   ├── site-meta.json     → Site name, URL, SEO defaults, social links
@@ -62,6 +51,8 @@
 │   │   ├── about.astro        → /about
 │   │   ├── services.astro     → /services
 │   │   ├── contact.astro      → /contact
+│   │   ├── blog/              → /blog and /blog/[slug] (dynamic, posts collection)
+│   │   ├── projects/          → /projects and /projects/[slug] (dynamic, projects collection)
 │   │   └── styleguide.astro   → /styleguide (design system preview, noindex)
 │   └── styles/
 │       └── global.css         → Tailwind 4 theme, base styles, prose styling
@@ -98,10 +89,6 @@ Components read from `src/data/*.json` at build time. The Header reads `nav.json
 ### `astro.config.mjs`
 
 Static output mode, Vue integration via `@astrojs/vue`, Tailwind via `@tailwindcss/vite`.
-
-### `src/data/client.json`
-
-Identifies whether this workspace is the base template (`isBase: true`) or a client branch. Agents read this first to determine context. See [Client Management](client-management.md).
 
 ### `src/data/site-meta.json`
 

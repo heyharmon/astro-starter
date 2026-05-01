@@ -1,21 +1,22 @@
 ---
-description: "Edit existing content — pages, blog posts, services, or site config."
+description: "Edit existing content — pages, blog posts, collection entries, or site config."
 ---
 
 Edit existing content on this Astro site.
 
 ## Required inputs
 
-The user should specify: which page/post/service to edit, and what changes to make.
+The user should specify: which page/post/entry to edit, and what changes to make.
 
 ## Procedure
 
 1. **Locate the file**:
-   - Pages: `src/content/pages/{slug}.md`
+   - Pages (rendered by content collection): `src/content/pages/{slug}.md`
    - Blog posts: `src/content/posts/{slug}.md`
-   - Services: `src/content/services/{slug}.md`
+   - Other collection entries: `src/content/{collection}/{slug}.md` (see `src/content.config.ts` for current collections)
+   - Inline pages: `src/pages/{slug}.astro` (homepage, about, contact, services, etc. — content lives in the route file or a `src/content/pages/*.md` entry)
    - Site config: `src/data/site-meta.json`, `src/data/nav.json`, or `src/data/footer.json`
-   - If unsure, run `ls` on the target directory to confirm actual filenames.
+   - If unsure, run `ls src/content/` and `ls src/pages/` to confirm actual filenames.
 
 2. **Read the file** before making any changes.
 
@@ -33,7 +34,7 @@ The user should specify: which page/post/service to edit, and what changes to ma
    - Change the file's slug/filename unless asked
    - Edit `.astro` component files — content changes go in markdown/JSON only
 
-7. **Validate**: Run `npm run validate`. If unavailable, run `npm run build`.
+7. **Validate**: Run `npm run healthcheck`. If unavailable, run `npm run build`.
 
 ## Content quality guidelines
 

@@ -56,13 +56,13 @@ Use the **Browser skill** (`.claude/agents/shared/browser/SKILL.md`) for all scr
 
 6. **Read all target files** before making changes.
 
-7. **Make changes** following the existing design system conventions (see SITE_GUIDE.md § 6):
+7. **Make changes** following the existing design system conventions:
    - Update `@theme` tokens for palette changes
    - Update `@layer base` for typography/element defaults
    - Update Tailwind classes in components for component-specific changes
    - No inline `<style>` blocks
 
-8. **Validate.** Run `npm run validate`.
+8. **Validate.** Run `npm run healthcheck`.
 
 9. **Screenshot our site again** (using the browser skill) and compare against the reference. Check:
    - Does the overall color mood match?

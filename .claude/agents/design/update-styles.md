@@ -20,7 +20,7 @@ The user should describe: what visual change they want (colors, fonts, spacing, 
 
 3. **For token changes, verify coverage first.** Grep components for hardcoded hex colors or Tailwind arbitrary values (e.g., `text-[#xxx]`) that bypass the theme. Report any you find — they won't be affected by token changes alone.
 
-4. **Make the change** following these conventions (see SITE_GUIDE.md § 6):
+4. **Make the change** following these conventions:
    - Use standard Tailwind palette values when available (slate, gray, zinc, neutral, stone; red, orange, amber, yellow, etc.)
    - Follow existing spacing patterns (`px-6`, `py-24 sm:py-32`, `max-w-5xl`)
    - Keep typography hierarchy: h1 > h2 > h3 with consistent sizing
@@ -32,7 +32,7 @@ The user should describe: what visual change they want (colors, fonts, spacing, 
 
 7. **Describe what changed** — list 3-5 specific visual differences the user will notice.
 
-8. **Validate**: Run `npm run validate`. If unavailable, run `npm run build`.
+8. **Validate**: Run `npm run healthcheck`. If unavailable, run `npm run build`.
 
 9. **Visual verification** — use the **Browser skill** (`.claude/agents/shared/browser/SKILL.md`) to verify your changes visually. Follow the "Screenshot the Dev Server" procedure.
 

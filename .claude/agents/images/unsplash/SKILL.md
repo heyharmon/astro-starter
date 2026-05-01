@@ -83,15 +83,16 @@ python3 .claude/agents/images/unsplash/scripts/unsplash_download.py \
 After downloading, update the relevant content file's frontmatter with the image path:
 
 - **Pages:** Set `featuredImage: { src: "/images/hero/filename.jpg", alt: "descriptive alt text" }`
-- **Services:** Set `image: { src: "/images/services/filename.jpg", alt: "descriptive alt text" }`
 - **Projects:** Set `image: { src: "/images/projects/filename.jpg", alt: "descriptive alt text" }`
-- **Blog:** Set `image: { src: "/images/blog/filename.jpg", alt: "descriptive alt text" }`
+- **Blog posts:** Set `featuredImage: { src: "/images/blog/filename.jpg", alt: "descriptive alt text" }`
+
+For other collections, check the schema in `src/content.config.ts` for the correct image field name.
 
 Also update any hardcoded image `src` attributes in `.astro` route files if the image is used in a non-frontmatter context (e.g., inline hero background).
 
 ### 7. Verify
 
-Run `npm run validate` to ensure the build still passes with the new image references.
+Run `npm run healthcheck` to ensure the build still passes with the new image references.
 
 ## Scripts
 

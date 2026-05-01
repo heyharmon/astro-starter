@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -e
 
-echo "=== Site Validation ==="
+echo "=== Site Healthcheck ==="
 echo ""
 
 # 1. Check data files exist and are valid JSON
 echo "Checking data files..."
-for f in src/data/nav.json src/data/footer.json src/data/site-meta.json src/data/client.json; do
+for f in src/data/nav.json src/data/footer.json src/data/site-meta.json; do
   if [ ! -f "$f" ]; then
     echo "FAIL: $f does not exist"
     exit 1
@@ -41,4 +41,4 @@ echo "Running astro build..."
 npx astro build
 echo ""
 
-echo "=== Validation passed ==="
+echo "=== Healthcheck passed ==="

@@ -23,7 +23,7 @@ The user should specify: what navigation change to make (add link, remove link, 
    - `order` values should be sequential (1, 2, 3...) with no gaps
    - No duplicate `href` values
 
-4. **Validate**: Run `npm run validate` and report results.
+4. **Validate**: Run `npm run healthcheck` and report results.
 
 ## What the user said
 

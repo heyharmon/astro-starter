@@ -19,7 +19,7 @@ The orchestrator should provide:
 1. **Read the page files.** For each page in the cohort:
    - Read the `.astro` route file in `src/pages/` — identify all `<img>` tags, background image references, and placeholder image paths
    - Read the `.md` content file in `src/content/pages/` — check `featuredImage` and any other image fields in frontmatter
-   - Read any related collection files (e.g., `src/content/services/*.md` for a services page)
+   - Read any related collection files referenced by the page (e.g., `src/content/projects/*.md` for a projects index)
 
 2. **Read `src/data/design-tokens.json`** — check `componentPatterns` to understand what aspect ratios and image treatments each pattern expects.
 
@@ -63,7 +63,7 @@ The orchestrator should provide:
 
 8. **Update route files** if images are referenced inline (e.g., hero background `src` attributes in `.astro` files).
 
-9. **Validate.** Run `npm run validate`.
+9. **Validate.** Run `npm run healthcheck`.
 
 10. **Visual check.** Use the browser skill's "Screenshot the Dev Server" procedure to verify:
     - Images load correctly (no broken references)

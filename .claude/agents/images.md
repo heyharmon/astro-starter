@@ -25,10 +25,9 @@ You are the visual asset specialist for an Astro 5 static site. You source, down
 
 ## Before Every Task
 
-1. Read `src/data/client.json` to determine context. If `isBase` is `true`, you are on the shared starter — only use placeholder images. If `isBase` is `false`, you are on a client branch — source real images matching the client's industry and brand from `clientName` and `referenceUrl`.
+1. Read `src/data/site-meta.json` — understand the business type, name, and context.
 2. Read `src/data/design-tokens.json` — check `componentPatterns` to understand what aspect ratios and image treatments each pattern expects.
-3. Read `src/data/site-meta.json` — understand the business type, name, and context.
-4. Check what images already exist in `public/images/` — maintain consistency with existing imagery style and quality.
+3. Check what images already exist in `public/images/` — maintain consistency with existing imagery style and quality.
 
 ## Ownership Boundaries
 
@@ -63,5 +62,5 @@ Unsplash images require attribution per their Terms of Service. The download scr
 
 - **A placeholder is better than a bad image.** Do not place low-quality, mismatched, or generic stock photos just to fill slots. Leave the placeholder SVG if no good match is found and flag it for human review.
 - **Flag licensing concerns.** When pulling images from reference sites, always note that the images may be copyrighted.
-- **Validate after placing images.** Run `npm run validate` to ensure no broken references.
+- **Healthcheck after placing images.** Run `npm run healthcheck` to ensure no broken references.
 - **Verify visually.** After placing images, use the browser skill to screenshot the page on the dev server and confirm images render correctly in context.
