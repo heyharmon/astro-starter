@@ -13,6 +13,7 @@ Five specialist agents. Route every request to the correct one based on task dom
 | `design` | Colors, typography, fonts, spacing, layout, design tokens, component appearance, Tailwind theme, prose styling. | `src/styles/global.css`, Tailwind classes in `.astro` components and layouts |
 | `images` | Sourcing, downloading, or placing images. Stock photo search, reference image pulling. | `public/images/` (except `placeholders/`), image frontmatter fields |
 | `dev` | Bug fixes, new features, components, schema changes (`content.config.ts`), build config, integrations, refactoring. | Everything not owned above — components, layouts, schemas, build config, static assets |
+| `deploy` | Deploying to Vercel, setting up the Vercel project, managing domains, environment variables, and CI/CD pipelines. | `vercel.json`, `.github/workflows/*.yml` |
 
 Each agent's full skill table lives in its definition file: `.claude/agents/<agent>.md`.
 

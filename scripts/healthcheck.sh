@@ -41,4 +41,18 @@ echo "Running astro build..."
 npx astro build
 echo ""
 
+# 5. Check Vercel CLI (warning only — does not fail healthcheck)
+echo "Checking Vercel CLI..."
+if ! command -v vercel >/dev/null 2>&1; then
+  echo "  WARN: Vercel CLI not installed."
+  echo "        Install:  npm install -g vercel@latest"
+  echo "        Login:    vercel login"
+elif ! vercel whoami >/dev/null 2>&1; then
+  echo "  WARN: Vercel CLI installed but not logged in."
+  echo "        Run:      vercel login"
+else
+  echo "  OK: Vercel CLI installed and authenticated ($(vercel whoami 2>/dev/null))"
+fi
+echo ""
+
 echo "=== Healthcheck passed ==="
