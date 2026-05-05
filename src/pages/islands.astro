@@ -1,12 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ContactForm from "../components/ContactForm.vue";
+import ContactForm from "../components/ContactForm.jsx";
 import siteMeta from "../data/site-meta.json";
 ---
 
 <BaseLayout
   title="Islands"
-  description="How interactivity works in this Astro starter — when to add JavaScript, what client:* directives do, and where Vue islands fit."
+  description="How interactivity works in this Astro starter — when to add JavaScript, what client:* directives do, and where React islands fit."
 >
   <!-- Hero -->
   <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
@@ -61,7 +61,7 @@ import siteMeta from "../data/site-meta.json";
     <div class="mx-auto max-w-5xl px-6 py-24">
       <h2>Hydration directives</h2>
       <p class="mt-4 max-w-2xl text-neutral-500">
-        When you mount a Vue, React, Svelte, or Solid component in an <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">.astro</code> file, you tell Astro
+        When you mount a React, Vue, Svelte, or Solid component in an <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">.astro</code> file, you tell Astro
         <em>when</em> to send and run its JavaScript. The directive is part of the JSX-style attribute on the component.
       </p>
 
@@ -114,10 +114,10 @@ import siteMeta from "../data/site-meta.json";
   <!-- Live demo: ContactForm -->
   <section class="border-t border-neutral-200 bg-neutral-50">
     <div class="mx-auto max-w-5xl px-6 py-24">
-      <p class="text-xs uppercase tracking-wide text-neutral-500">Live demo — Vue island</p>
+      <p class="text-xs uppercase tracking-wide text-neutral-500">Live demo — React island</p>
       <h2 class="mt-2">Form submission with async state</h2>
       <p class="mt-4 max-w-2xl text-neutral-500">
-        The same <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">ContactForm.vue</code> used on the
+        The same <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">ContactForm.jsx</code> used on the
         <a href="/contact" class="underline">contact page</a>. It receives the Formspree ID as a prop from
         <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">site-meta.json</code> and handles its own loading, success, and error states.
       </p>
@@ -134,7 +134,7 @@ import siteMeta from "../data/site-meta.json";
       <p class="text-xs uppercase tracking-wide text-neutral-500">Live demo — no framework needed</p>
       <h2 class="mt-2">Plain &lt;script&gt; islands</h2>
       <p class="mt-4 max-w-2xl text-neutral-500">
-        You don't need Vue or React for everything. A plain <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">&lt;script&gt;</code> tag in an
+        You don't need React or another framework for everything. A plain <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">&lt;script&gt;</code> tag in an
         <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">.astro</code> file ships browser JavaScript scoped to that component. Astro bundles, type-checks, and
         tree-shakes it. For small interactions, this is often the right call.
       </p>
@@ -191,15 +191,15 @@ import siteMeta from "../data/site-meta.json";
         <div>
           <p class="text-sm font-medium">Framework island when state gets complex</p>
           <p class="mt-2 text-sm text-neutral-500">
-            Forms with validation, multi-step flows, anything with reactive derived state. Vue, React, Svelte, Solid — each
-            has its own integration. This starter ships Vue; <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">ContactForm.vue</code> is the only Vue component.
+            Forms with validation, multi-step flows, anything with reactive derived state. React, Vue, Svelte, Solid — each
+            has its own integration. This starter ships React; <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">ContactForm.jsx</code> is the only React component.
           </p>
         </div>
       </div>
 
       <p class="mt-12 max-w-3xl text-sm text-neutral-500">
-        The cost of an island is the framework runtime + the component's bundle, sent to every visitor of that page. A Vue island adds ~30 KB gzipped
-        for the runtime. That's fine for one or two interactive sections per page; it's not fine if you reach for Vue for static rendering tasks
+        The cost of an island is the framework runtime + the component's bundle, sent to every visitor of that page. A React island adds ~45 KB gzipped
+        for the runtime. That's fine for one or two interactive sections per page; it's not fine if you reach for React for static rendering tasks
         <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.astro</code> already handles.
       </p>
     </div>
@@ -211,22 +211,22 @@ import siteMeta from "../data/site-meta.json";
       <h2>File map</h2>
       <dl class="mt-8 grid gap-6 sm:grid-cols-2">
         <div>
-          <dt class="text-sm font-medium">Vue components</dt>
+          <dt class="text-sm font-medium">React components</dt>
           <dd class="mt-1 text-sm text-neutral-500">
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/components/*.vue</code> — currently just
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">ContactForm.vue</code>. Add a new <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.vue</code> file and import it from any route file to mount another island.
+            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/components/*.jsx</code> — currently just
+            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">ContactForm.jsx</code>. Add a new <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.jsx</code> file and import it from any route file to mount another island.
           </dd>
         </div>
         <div>
-          <dt class="text-sm font-medium">Vue integration</dt>
+          <dt class="text-sm font-medium">React integration</dt>
           <dd class="mt-1 text-sm text-neutral-500">
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">astro.config.mjs</code> — registers <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">@astrojs/vue</code>
+            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">astro.config.mjs</code> — registers <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">@astrojs/react</code>
           </dd>
         </div>
         <div>
           <dt class="text-sm font-medium">This page</dt>
           <dd class="mt-1 text-sm text-neutral-500">
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/islands.astro</code> — pure inline route, imports a Vue island and a vanilla-JS counter
+            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/islands.astro</code> — pure inline route, imports a React island and a vanilla-JS counter
           </dd>
         </div>
         <div>

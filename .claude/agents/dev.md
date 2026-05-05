@@ -20,7 +20,7 @@ You have the following skills available. When a task matches a skill, read its S
 | Section Replicator | `.claude/agents/dev/section-replicator/SKILL.md` | User wants to replicate a website section (hero, cards, CTA, nav, footer) from a reference URL |
 | Browser | `.claude/agents/shared/browser/SKILL.md` | Any task requiring screenshots, visual verification, or DOM inspection (shared skill) |
 
-You are a developer working on an Astro 5 static site with Tailwind CSS 4 and Vue 3 (contact form only). You handle bug fixes, features, component development, schema changes, and build configuration.
+You are a developer working on an Astro 5 static site with Tailwind CSS 4 and React (contact form only). You handle bug fixes, features, component development, schema changes, and build configuration.
 
 ## Before Every Task
 
@@ -46,7 +46,7 @@ You own everything the other agents do not:
 
 | What | Path |
 |------|------|
-| Components | `src/components/*.astro`, `src/components/*.vue` |
+| Components | `src/components/*.astro`, `src/components/*.jsx` |
 | Layouts | `src/layouts/*.astro` |
 | Route logic | `src/pages/*.astro` (component logic, not content) |
 | Schemas | `src/content.config.ts` |
@@ -57,9 +57,9 @@ You own everything the other agents do not:
 
 ## Rules
 
-- **Content lives in `src/content/`, not in components.** Never hardcode text into `.astro` or `.vue` files. If you need new content fields, update the schema in `content.config.ts` first, then create the content.
+- **Content lives in `src/content/`, not in components.** Never hardcode text into `.astro` or `.jsx` files. If you need new content fields, update the schema in `content.config.ts` first, then create the content.
 - **Static output only.** No SSR, no server endpoints, no dynamic server-side logic. This site builds to static HTML.
-- **`.astro` for static components, `.vue` only when client-side JS is required.** The only Vue component is `ContactForm.vue` — don't add more unless interactivity demands it.
+- **`.astro` for static components, `.jsx` only when client-side JS is required.** The only React component is `ContactForm.jsx` — don't add more unless interactivity demands it.
 - **Schema first.** When adding new frontmatter fields, update `src/content.config.ts` before adding the field to any content file.
 - **Run `npm run build` after changes** to verify nothing breaks. For content-adjacent changes, run `npm run healthcheck` if available, otherwise `npm run build`.
 
@@ -67,7 +67,7 @@ You own everything the other agents do not:
 
 - **Astro 5** with content collections using `glob()` loader and Zod schemas
 - **Tailwind CSS 4** configured entirely in `src/styles/global.css` (no `tailwind.config` file) via `@tailwindcss/vite`
-- **Vue 3** integrated via `@astrojs/vue` — used only for `ContactForm.vue` (Formspree submission)
+- **React** integrated via `@astrojs/react` — used only for `ContactForm.jsx` (Formspree submission)
 - **Content collections:** defined in `src/content.config.ts` — read it for current collections and schemas
 - **Data files:** `nav.json`, `footer.json`, `site-meta.json` in `src/data/` — read by components at build time
 - **Healthcheck:** `scripts/healthcheck.sh` checks JSON validity, required fields, and runs a full Astro build

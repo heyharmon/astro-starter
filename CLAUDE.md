@@ -1,6 +1,6 @@
 # Claude Code — Project Instructions
 
-Astro 5 static site ("Acme Studio") with Tailwind CSS 4 and Vue 3 (contact form only). Content Collections with Zod schemas. Static output — no SSR.
+Astro 5 static site ("Acme Studio") with Tailwind CSS 4 and React (contact form only). Content Collections with Zod schemas. Static output — no SSR.
 
 ## Agents
 
@@ -38,7 +38,7 @@ Three tiers, ordered from simplest to most structured. Pick the right one, don't
 | 2 | **Content Collections** | `src/content/` | Repeating items sharing a Zod schema — blog posts, projects, products, team bios, testimonials, case studies |
 | 3 | **Site config** | `src/data/*.json` | Structural data that isn't really content — nav, footer, social handles, pricing tiers, redirects |
 
-There's also a separate axis — **interactivity** — covered by Astro's island model (`client:*` directives on Vue/React/Svelte/Solid components). Islands aren't a fourth tier; any tier can include one. The `/islands` route is a working demo.
+There's also a separate axis — **interactivity** — covered by Astro's island model (`client:*` directives on React/Vue/Svelte/Solid components). Islands aren't a fourth tier; any tier can include one. The `/islands` route is a working demo.
 
 ### Decision rules
 

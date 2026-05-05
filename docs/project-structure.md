@@ -6,7 +6,7 @@
 .
 ├── CLAUDE.md                  → Agent routing, ownership, content architecture, build workflow, key paths (Claude reads this first)
 ├── docs/                      → Human + agent documentation (this directory)
-├── astro.config.mjs           → Astro 5 config (static output, Vue, Tailwind)
+├── astro.config.mjs           → Astro 5 config (static output, React, Tailwind)
 ├── package.json               → Dependencies and scripts
 ├── tsconfig.json              → TypeScript config (strict mode)
 ├── scripts/
@@ -45,7 +45,7 @@
 │   │   ├── Head.astro         → SEO meta tags (title, OG, Twitter, canonical)
 │   │   ├── Header.astro       → Navigation bar (reads nav.json)
 │   │   ├── Footer.astro       → Footer (reads site-meta.json)
-│   │   └── ContactForm.vue    → Vue 3 contact form (Formspree submission)
+│   │   └── ContactForm.jsx    → React contact form (Formspree submission)
 │   ├── pages/
 │   │   ├── index.astro        → / (homepage)
 │   │   ├── about.astro        → /about
@@ -76,9 +76,9 @@ All content lives in Markdown files with Zod-validated frontmatter. Astro's Cont
 
 Configured entirely in `src/styles/global.css` via `@theme` blocks — there is no `tailwind.config` file. The Vite plugin (`@tailwindcss/vite`) handles integration.
 
-### Vue 3 — Minimal Usage
+### React — Minimal Usage
 
-Vue is used only for `ContactForm.vue` (client-side form submission to Formspree). All other components are `.astro` files (zero client-side JavaScript). Don't add Vue components unless client-side interactivity is truly required.
+React is used only for `ContactForm.jsx` (client-side form submission to Formspree). All other components are `.astro` files (zero client-side JavaScript). Don't add React components unless client-side interactivity is truly required.
 
 ### Data-Driven Components
 
@@ -88,7 +88,7 @@ Components read from `src/data/*.json` at build time. The Header reads `nav.json
 
 ### `astro.config.mjs`
 
-Static output mode, Vue integration via `@astrojs/vue`, Tailwind via `@tailwindcss/vite`.
+Static output mode, React integration via `@astrojs/react`, Tailwind via `@tailwindcss/vite`.
 
 ### `src/data/site-meta.json`
 

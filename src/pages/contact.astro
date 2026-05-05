@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ContactForm from "../components/ContactForm.vue";
+import ContactForm from "../components/ContactForm.jsx";
 import { getEntry, render } from "astro:content";
 import siteMeta from "../data/site-meta.json";
 
@@ -73,15 +73,15 @@ const { Content } = await render(page);
     </div>
   </section>
 
-  <!-- Vue island demo -->
+  <!-- React island demo -->
   <section class="border-t border-neutral-200">
     <div class="mx-auto max-w-3xl px-6 py-24 sm:py-32">
       <p class="text-xs uppercase tracking-wide text-neutral-500">
-        Vue island — src/components/ContactForm.vue
+        React island — src/components/ContactForm.jsx
       </p>
       <h2 class="mt-4">Contact form</h2>
       <p class="mt-4 text-neutral-500">
-        The form below is a Vue island, hydrated with <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:idle</code>. It receives
+        The form below is a React island, hydrated with <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:idle</code>. It receives
         <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">formspreeId</code> as a prop from <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">site-meta.json</code>
         and handles its own submission state. For the full explanation of when to use islands and what each
         <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:*</code> directive does, see <a href="/islands" class="underline">/islands</a>.

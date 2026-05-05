@@ -1,10 +1,10 @@
 import { defineConfig } from "astro/config";
-import vue from "@astrojs/vue";
+import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   output: "static",
-  integrations: [vue()],
+  integrations: [react()],
   vite: {
     plugins: [tailwindcss()],
   },

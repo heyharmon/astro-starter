@@ -18,6 +18,6 @@ The "Live config values" panel on this page shows fields read from `src/data/sit
 - `name` — the site name (also rendered in the `<title>` tag and footer)
 - `tagline` — short positioning line
 - `social.twitter`, `social.linkedin`, `social.github` — outbound profile links
-- `formspreeId` — passed to the Vue contact form so submissions go to the right Formspree endpoint
+- `formspreeId` — passed to the React contact form so submissions go to the right Formspree endpoint
 
 Edit the JSON file and rebuild. Every page that reads it picks up the new values.
