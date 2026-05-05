@@ -24,5 +24,15 @@ const { title, description, image } = Astro.props;
       <slot />
     </main>
     <Footer />
+    <script>
+      // v2 frontend-editing spike: imports the in-iframe edit runtime as a
+      // regular client-side module so Astro bundles it into /_astro/*.js
+      // (proxy-friendly via the CMS's <base href> rewrite). Using
+      // `agenticEdit()` integration's injectScript() instead routed the
+      // import through Astro's `/@id/astro:scripts/...` virtual module,
+      // which is root-absolute and 404s through the CMS preview proxy.
+      // No-ops outside an iframe (window.parent === window).
+      import "@agentic-cms/edit-runtime";
+    </script>
   </body>
 </html>
