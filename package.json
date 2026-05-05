@@ -10,6 +10,7 @@
     "healthcheck": "bash scripts/healthcheck.sh"
   },
   "dependencies": {
+    "@agentic-cms/edit-runtime": "file:./packages/edit-runtime",
     "@astrojs/react": "^5.0.4",
     "astro": "^5.0.0",
     "react": "^19.2.5",

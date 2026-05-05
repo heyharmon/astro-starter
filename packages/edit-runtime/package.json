@@ -1,0 +1,35 @@
+{
+  "name": "@agentic-cms/edit-runtime",
+  "version": "0.0.0-spike",
+  "description": "Iframe-side runtime for Agentic CMS in-iframe editing. Spike A — zero-contract: walks the DOM for text leaves, makes them editable, posts context-rich events up to the parent CMS.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./astro": {
+      "types": "./dist/astro.d.ts",
+      "import": "./dist/astro.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "size": "gzip -9 < dist/index.js | wc -c"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.0",
+    "typescript": "^5.7.0",
+    "astro": "^5.0.0"
+  },
+  "peerDependencies": {
+    "astro": "^5.0.0"
+  }
+}
