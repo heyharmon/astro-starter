@@ -10,9 +10,18 @@ const INLINE_FORMATTING = new Set([
   'strong', 'em', 'b', 'i', 'u', 'code', 'mark', 'small', 'sub', 'sup', 'br',
 ])
 
-const HOVER_CLASS = 'agentic-editable'
-const ACTIVE_CLASS = 'agentic-editable-active'
-const STYLE_ID = 'agentic-edit-runtime-styles'
+const HOVER_CLASS = '_acE'
+const ACTIVE_CLASS = '_acE-on'
+const POP_CLASS = '_acP'
+const POP_HEADER_CLASS = '_acP-h'
+const POP_TEXTAREA_CLASS = '_acP-t'
+const POP_ACTIONS_CLASS = '_acP-a'
+const STYLE_ID = '_acE-styles'
+
+// Debounce blur→commit by 500ms per element. Click-type-click-type bursts on
+// the same element collapse into a single dispatch with the user's latest text.
+// A click on a *different* element flushes any pending dispatches immediately.
+const COMMIT_DEBOUNCE_MS = 500
 
 type BridgeState = {
   mode: Mode
@@ -24,6 +33,8 @@ type BridgeState = {
   activeBefore: string | null
 }
 
+type PendingEdit = { node: HTMLElement; before: string; timer: number }
+
 const state: BridgeState = {
   mode: 'off',
   parentOrigin: null,
@@ -34,6 +45,8 @@ const state: BridgeState = {
   activeBefore: null,
 }
 
+const pendingEdits = new Map<HTMLElement, PendingEdit>()
+
 export function mountBridge(): void {
   if (window.parent === window) return
   if ((window as any).__agenticEditBridgeMounted) return
@@ -43,6 +56,7 @@ export function mountBridge(): void {
 
   window.addEventListener('message', onParentMessage)
   window.addEventListener('beforeunload', () => {
+    flushAllPending()
     sendUp({ type: 'agentic:nav', pathname: window.location.pathname })
   })
 
@@ -83,6 +97,7 @@ function onParentMessage(e: MessageEvent): void {
 function setMode(mode: Mode): void {
   if (mode === state.mode) return
   teardownActive()
+  flushAllPending()
   removeAffordances()
   state.mode = mode
 
@@ -152,10 +167,26 @@ function onEditClick(e: Event): void {
   if (state.activeNode && state.activeNode !== node) {
     commitActive()
   }
+  // Clicking a *different* element flushes any other elements' pending edits
+  // immediately so the order user sees in chat matches the order they edited.
+  flushAllPendingExcept(node)
   if (node.isContentEditable) return
 
+  // If this element has a pending debounced commit, we're inside the burst
+  // window — take over its captured before-text instead of recapturing the
+  // current (already-typed) innerText.
+  const pending = pendingEdits.get(node)
+  let before: string
+  if (pending) {
+    clearTimeout(pending.timer)
+    pendingEdits.delete(node)
+    before = pending.before
+  } else {
+    before = node.innerText
+  }
+
   state.activeNode = node
-  state.activeBefore = node.innerText
+  state.activeBefore = before
   node.setAttribute('contenteditable', 'plaintext-only')
   node.classList.add(ACTIVE_CLASS)
   node.focus()
@@ -191,16 +222,45 @@ function commitActive(): void {
   node.removeAttribute('contenteditable')
   node.classList.remove(ACTIVE_CLASS)
 
+  // Drop a no-op blur immediately — no diff means nothing to debounce.
+  if (node.innerText === before) return
+
+  // Replace any prior pending entry for this node so the burst keeps the
+  // earliest captured before-text but rolls forward the timer.
+  const prior = pendingEdits.get(node)
+  if (prior) clearTimeout(prior.timer)
+  const timer = window.setTimeout(() => flushPending(node), COMMIT_DEBOUNCE_MS)
+  pendingEdits.set(node, { node, before, timer })
+}
+
+function flushPending(node: HTMLElement): void {
+  const pending = pendingEdits.get(node)
+  if (!pending) return
+  clearTimeout(pending.timer)
+  pendingEdits.delete(node)
+
   const after = node.innerText
-  if (after === before) return
+  if (after === pending.before) return
 
   const elementContext = buildElementContext(node)
   sendUp({
     type: 'agentic:edit_committed',
-    textBefore: before,
+    textBefore: pending.before,
     textAfter: after,
     elementContext,
   })
+}
+
+function flushAllPending(): void {
+  for (const node of Array.from(pendingEdits.keys())) {
+    flushPending(node)
+  }
+}
+
+function flushAllPendingExcept(node: HTMLElement): void {
+  for (const other of Array.from(pendingEdits.keys())) {
+    if (other !== node) flushPending(other)
+  }
 }
 
 function cancelActive(): void {
@@ -230,15 +290,14 @@ function openPopover(target: Element): void {
   const rect = target.getBoundingClientRect()
 
   const popover = document.createElement('div')
-  popover.className = 'agentic-comment-popover'
-  popover.innerHTML = `
-    <div class="agentic-comment-popover__header">Comment on this element</div>
-    <textarea class="agentic-comment-popover__textarea" placeholder="Describe the change you want here..."></textarea>
-    <div class="agentic-comment-popover__actions">
-      <button type="button" data-action="cancel">Cancel</button>
-      <button type="button" data-action="submit">Send</button>
-    </div>
-  `
+  popover.className = POP_CLASS
+  popover.innerHTML =
+    `<div class="${POP_HEADER_CLASS}">Comment on this element</div>` +
+    `<textarea class="${POP_TEXTAREA_CLASS}" placeholder="Describe the change you want here..."></textarea>` +
+    `<div class="${POP_ACTIONS_CLASS}">` +
+    `<button type="button" data-action="cancel">Cancel</button>` +
+    `<button type="button" data-action="submit">Send</button>` +
+    `</div>`
 
   document.body.appendChild(popover)
   state.popoverEl = popover
@@ -250,7 +309,7 @@ function openPopover(target: Element): void {
   popover.style.left = `${left}px`
 
   const ta = popover.querySelector(
-    '.agentic-comment-popover__textarea',
+    '.' + POP_TEXTAREA_CLASS,
   ) as HTMLTextAreaElement
   setTimeout(() => ta.focus(), 0)
 
@@ -280,7 +339,7 @@ function submitComment(): void {
   if (!popover || !target) return
 
   const ta = popover.querySelector(
-    '.agentic-comment-popover__textarea',
+    '.' + POP_TEXTAREA_CLASS,
   ) as HTMLTextAreaElement
   const comment = ta.value.trim()
   if (!comment) return
@@ -326,20 +385,25 @@ function sendUp(msg: UpMessage): void {
 
 function injectStyles(): void {
   if (document.getElementById(STYLE_ID)) return
+  const e = HOVER_CLASS
+  const a = ACTIVE_CLASS
+  const p = POP_CLASS
+  const ph = POP_HEADER_CLASS
+  const pt = POP_TEXTAREA_CLASS
+  const pa = POP_ACTIONS_CLASS
   const style = document.createElement('style')
   style.id = STYLE_ID
-  style.textContent = `
-.${HOVER_CLASS} { outline: 1px dashed transparent; outline-offset: 2px; cursor: pointer; transition: outline-color 120ms; }
-.${HOVER_CLASS}:hover { outline-color: rgb(99 102 241 / 0.7); }
-.${ACTIVE_CLASS} { outline: 2px solid rgb(99 102 241); outline-offset: 2px; cursor: text; }
-.agentic-comment-popover { position: absolute; z-index: 2147483647; min-width: 320px; max-width: 420px; background: white; border: 1px solid rgb(228 228 231); border-radius: 8px; box-shadow: 0 10px 30px rgb(0 0 0 / 0.15); padding: 12px; font: 14px/1.4 system-ui, sans-serif; color: rgb(24 24 27); }
-.agentic-comment-popover__header { font-size: 12px; color: rgb(113 113 122); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
-.agentic-comment-popover__textarea { width: 100%; min-height: 80px; box-sizing: border-box; border: 1px solid rgb(228 228 231); border-radius: 6px; padding: 8px; font: inherit; resize: vertical; outline: none; }
-.agentic-comment-popover__textarea:focus { border-color: rgb(99 102 241); box-shadow: 0 0 0 3px rgb(99 102 241 / 0.15); }
-.agentic-comment-popover__actions { display: flex; justify-content: flex-end; gap: 6px; margin-top: 8px; }
-.agentic-comment-popover__actions button { font: inherit; padding: 6px 12px; border-radius: 6px; border: 1px solid rgb(228 228 231); background: white; cursor: pointer; }
-.agentic-comment-popover__actions button[data-action="submit"] { background: rgb(99 102 241); color: white; border-color: rgb(99 102 241); }
-.agentic-comment-popover__actions button:hover { filter: brightness(1.05); }
-`.trim()
+  style.textContent =
+    `.${e}{outline:1px dashed transparent;outline-offset:2px;cursor:pointer;transition:outline-color .12s}` +
+    `.${e}:hover{outline-color:#6366f1b3}` +
+    `.${a}{outline:2px solid #6366f1;outline-offset:2px;cursor:text}` +
+    `.${p}{position:absolute;z-index:2147483647;min-width:320px;max-width:420px;background:#fff;border:1px solid #e4e4e7;border-radius:8px;box-shadow:0 10px 30px #00000026;padding:12px;font:14px/1.4 system-ui,sans-serif;color:#18181b}` +
+    `.${ph}{font-size:12px;color:#71717a;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}` +
+    `.${pt}{width:100%;min-height:80px;box-sizing:border-box;border:1px solid #e4e4e7;border-radius:6px;padding:8px;font:inherit;resize:vertical;outline:0}` +
+    `.${pt}:focus{border-color:#6366f1;box-shadow:0 0 0 3px #6366f126}` +
+    `.${pa}{display:flex;justify-content:flex-end;gap:6px;margin-top:8px}` +
+    `.${pa} button{font:inherit;padding:6px 12px;border-radius:6px;border:1px solid #e4e4e7;background:#fff;cursor:pointer}` +
+    `.${pa} button[data-action=submit]{background:#6366f1;color:#fff;border-color:#6366f1}` +
+    `.${pa} button:hover{filter:brightness(1.05)}`
   document.head.appendChild(style)
 }
