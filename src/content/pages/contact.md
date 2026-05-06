@@ -1,5 +1,5 @@
 ---
-title: "Contact this page"
+title: "Contact page"
 description: "How the contact page demonstrates a site config driven view."
 headline: "Site config, rendered live"
 subheadline: "This page reads from src/data/site-meta.json. The values rendered below are pulled directly from that file."

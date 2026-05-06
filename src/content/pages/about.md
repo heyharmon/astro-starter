@@ -1,5 +1,5 @@
 ---
-title: "About this page"
+title: "About page"
 description: "How the about page demonstrates the hybrid inline + Markdown pattern."
 headline: "Inline route, Markdown body"
 subheadline: "The route is at src/pages/about.astro. The text you're reading right now lives in src/content/pages/about.md."
