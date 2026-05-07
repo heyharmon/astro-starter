@@ -187,6 +187,15 @@ function onEditClick(e: Event): void {
 
   state.activeNode = node
   state.activeBefore = before
+  // Astro/JSX templates leave \n + indent in the boundary text nodes
+  // (e.g. `<h1>\n  This homepage…\n</h1>`). Under `white-space: normal`
+  // those collapse, but the UA stylesheet flips contenteditable to
+  // `white-space-collapse: preserve`, making the leading newline render
+  // as a visible empty line and the trailing space sit at the end —
+  // which also makes a stray click+blur diff against the (collapsed)
+  // captured `before` and fire a no-op `edit_committed`. Normalize the
+  // boundary text nodes so the editable view matches what was rendered.
+  trimBoundaryWhitespace(node)
   node.setAttribute('contenteditable', 'plaintext-only')
   node.classList.add(ACTIVE_CLASS)
   node.focus()
@@ -365,6 +374,21 @@ function closePopover(): void {
 function teardownActive(): void {
   if (state.activeNode) {
     cancelActive()
+  }
+}
+
+function trimBoundaryWhitespace(el: HTMLElement): void {
+  const first = el.firstChild
+  if (first && first.nodeType === Node.TEXT_NODE) {
+    const text = first.nodeValue ?? ''
+    const trimmed = text.replace(/^\s+/, '')
+    if (trimmed !== text) first.nodeValue = trimmed
+  }
+  const last = el.lastChild
+  if (last && last.nodeType === Node.TEXT_NODE) {
+    const text = last.nodeValue ?? ''
+    const trimmed = text.replace(/\s+$/, '')
+    if (trimmed !== text) last.nodeValue = trimmed
   }
 }
 
