@@ -16,6 +16,7 @@ const POP_CLASS = '_acP'
 const POP_HEADER_CLASS = '_acP-h'
 const POP_TEXTAREA_CLASS = '_acP-t'
 const POP_ACTIONS_CLASS = '_acP-a'
+const POP_HINT_CLASS = '_acP-k'
 const STYLE_ID = '_acE-styles'
 
 // Debounce blur→commit by 500ms per element. Click-type-click-type bursts on
@@ -304,6 +305,7 @@ function openPopover(target: Element): void {
     `<div class="${POP_HEADER_CLASS}">Comment on this element</div>` +
     `<textarea class="${POP_TEXTAREA_CLASS}" placeholder="Describe the change you want here..."></textarea>` +
     `<div class="${POP_ACTIONS_CLASS}">` +
+    `<span class="${POP_HINT_CLASS}" aria-hidden="true"><kbd>⌘</kbd><kbd>Return</kbd> to send</span>` +
     `<button type="button" data-action="cancel">Cancel</button>` +
     `<button type="button" data-action="submit">Send</button>` +
     `</div>`
@@ -415,6 +417,7 @@ function injectStyles(): void {
   const ph = POP_HEADER_CLASS
   const pt = POP_TEXTAREA_CLASS
   const pa = POP_ACTIONS_CLASS
+  const pk = POP_HINT_CLASS
   const style = document.createElement('style')
   style.id = STYLE_ID
   style.textContent =
@@ -425,9 +428,11 @@ function injectStyles(): void {
     `.${ph}{font-size:12px;color:#71717a;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}` +
     `.${pt}{width:100%;min-height:80px;box-sizing:border-box;border:1px solid #e4e4e7;border-radius:6px;padding:8px;font:inherit;resize:vertical;outline:0}` +
     `.${pt}:focus{border-color:#6366f1;box-shadow:0 0 0 3px #6366f126}` +
-    `.${pa}{display:flex;justify-content:flex-end;gap:6px;margin-top:8px}` +
+    `.${pa}{display:flex;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px}` +
     `.${pa} button{font:inherit;padding:6px 12px;border-radius:6px;border:1px solid #e4e4e7;background:#fff;cursor:pointer}` +
     `.${pa} button[data-action=submit]{background:#6366f1;color:#fff;border-color:#6366f1}` +
-    `.${pa} button:hover{filter:brightness(1.05)}`
+    `.${pa} button:hover{filter:brightness(1.05)}` +
+    `.${pk}{margin-right:auto;font-size:11px;color:#a1a1aa;display:inline-flex;align-items:center;gap:4px}` +
+    `.${pk} kbd{font:inherit;background:#f4f4f5;border:1px solid #e4e4e7;border-bottom-width:2px;border-radius:4px;padding:1px 5px;color:#52525b}`
   document.head.appendChild(style)
 }
