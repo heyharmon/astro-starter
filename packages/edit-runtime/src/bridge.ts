@@ -380,18 +380,39 @@ function teardownActive(): void {
 }
 
 function trimBoundaryWhitespace(el: HTMLElement): void {
-  const first = el.firstChild
-  if (first && first.nodeType === Node.TEXT_NODE) {
-    const text = first.nodeValue ?? ''
-    const trimmed = text.replace(/^\s+/, '')
-    if (trimmed !== text) first.nodeValue = trimmed
+  // Walk every descendant text node and collapse runs of whitespace to
+  // single spaces (matching `white-space: normal` rendering). The leading
+  // text node also has its leading whitespace trimmed; the trailing text
+  // node has its trailing whitespace trimmed.
+  //
+  // Why this is needed: Astro/JSX emits text nodes with embedded `\n  `
+  // wherever the source wraps onto a new line — including between inline
+  // children like <code>. Under `white-space: normal` those collapse to
+  // single spaces invisibly, but the UA stylesheet flips contenteditable
+  // to `white-space-collapse: preserve` and they suddenly render as
+  // mid-paragraph line breaks.
+  const textNodes: Text[] = []
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
+  let node: Node | null
+  while ((node = walker.nextNode())) textNodes.push(node as Text)
+
+  if (textNodes.length === 0) return
+
+  for (const t of textNodes) {
+    const text = t.nodeValue ?? ''
+    const collapsed = text.replace(/\s+/g, ' ')
+    if (collapsed !== text) t.nodeValue = collapsed
   }
-  const last = el.lastChild
-  if (last && last.nodeType === Node.TEXT_NODE) {
-    const text = last.nodeValue ?? ''
-    const trimmed = text.replace(/\s+$/, '')
-    if (trimmed !== text) last.nodeValue = trimmed
-  }
+
+  const first = textNodes[0]
+  const firstText = first.nodeValue ?? ''
+  const firstTrimmed = firstText.replace(/^\s+/, '')
+  if (firstTrimmed !== firstText) first.nodeValue = firstTrimmed
+
+  const last = textNodes[textNodes.length - 1]
+  const lastText = last.nodeValue ?? ''
+  const lastTrimmed = lastText.replace(/\s+$/, '')
+  if (lastTrimmed !== lastText) last.nodeValue = lastTrimmed
 }
 
 function placeCaretAtEnd(el: HTMLElement): void {
