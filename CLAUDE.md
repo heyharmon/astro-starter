@@ -77,6 +77,31 @@ For building out the site (not CMS maintenance). Read `src/data/build-state.json
 
 Update `src/data/build-state.json` after each stage transition and cohort completion. Inference fallback: styleguide.astro non-default → style done; nav.json has real pages → sitemap done; content files have body text → drafts exist.
 
+## Autonomous prospect-build mode
+
+When invoked via the `/build-prospect-site` command (Small Seats' Stage 3 — building a real
+prospect's daycare site by personalizing `maplewood-base`), the normal human approval gates above
+are **suspended**. In this mode:
+
+- **Never pause for human approval and never ask a question.** Treat every stage-gate
+  (styleguide, sitemap, cohort review, final review) as auto-approved.
+- **Run flat — the root agent does every step itself.** Do **not** use the `Task` tool to delegate to
+  the `design`/`content`/`images`/`seo`/`deploy` sub-agents. Nested headless sub-agent delegation is
+  the reason a pilot build took 5.5 hours; the command folds every specialist procedure into one
+  in-process checklist. The five interactive agents stay intact for normal (non-headless) work — this
+  is an additional fast path, not a replacement.
+- The "Human reviews" / "Human approves" gates collapse to a hard gate: `npm run healthcheck` green
+  **+** a live HTTP 200 containing the prospect's name. **No** per-build image sourcing and **no**
+  screenshot self-eval loop on the first pass (both are slow; a human eyeballs final quality).
+- This is a **transformation**, not a from-scratch build: `maplewood-base` is already styled and has
+  a full 5-page sitemap. Change tokens/content/labels to fit the prospect; do not rebuild structure.
+- The run is unattended and headless (`claude -p`). It must be **self-terminating**: always end by
+  writing a result file (`.briefs/<slug>.result.json`), success or failure. Never leave it hanging.
+- Honesty rules in the command are non-negotiable — the output is shown to the real business owner.
+
+The full procedure lives in `.claude/commands/build-prospect-site.md`; the baked deploy step is
+`scripts/deploy-prospect.sh`.
+
 ## Key Paths
 
 | What | Where |
