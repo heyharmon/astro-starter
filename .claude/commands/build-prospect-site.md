@@ -22,8 +22,9 @@ nested headless `claude -p` has severe latency — a dozen hops compound into ho
 specialists used to do; only *who executes it* changed (you, in-process, no hops).
 
 - **NEVER use the `Task` tool.** Do not spawn `design`, `content`, `images`, `seo`, or `deploy`.
-- **NO per-build image sourcing.** Do not search/download Unsplash. Keep maplewood-base's existing
-  placeholders (see Step 4). Real photos come later, after a prospect engages.
+- **NO per-build image sourcing.** Do not search/download Unsplash. `maplewood-base` already ships a
+  set of neutral, real daycare environment photos — **keep them** (see Step 4). Prospect-specific
+  photos come later, after a prospect engages.
 - **NO screenshot self-eval loop.** Do not start a browser, screenshot, or grade. Gate on
   `npm run healthcheck` green **+** a live HTTP 200 that contains the prospect's name (Step 8 does
   this). A human eyeballs final quality.
@@ -223,26 +224,34 @@ This file holds **all** page copy + the per-page SEO `pages.*.title`/`descriptio
 change and the only step that needs real writing judgment. **Edit section by section. Preserve every
 key and the structure exactly — change string VALUES only. Never delete a structural key.**
 
+**Images — critical:** `maplewood-base` ships real environment photos wired via an `image.src` on the
+hero, approach, programs, and schedule image objects. **When an image object has a `src`, KEEP its
+`src` and `ratio` byte-for-byte — only retitle its `label`** to honest prospect-appropriate alt text.
+Never delete or rewrite a `src`. Image objects with **no** `src` (founder, about-story, team members,
+contact map) are intentional placeholders — leave them without a `src` (see Step 4 / Honesty rules).
+
 Apply the **Honesty rules** to each section:
 
-- **`hero`** — headline/lead/eyebrow/CTAs in the prospect's voice + city. Update `image.label` to an
-  honest alt phrase (a real photo is NOT added — see Step 4). Keep `badge`; if its number was a made-up
+- **`hero`** — headline/lead/eyebrow/CTAs in the prospect's voice + city. Retitle `image.label` to an
+  honest alt phrase; **keep its `src` + `ratio`** (baseline ships a real hero photo). Keep `badge`; if its number was a made-up
   stat, swap to the real Google rating (e.g. `value:"5.0★"`, `label:"52 Google reviews"`) or a safe
   generic ("Now enrolling").
 - **`stats`** (4 cells) — replace invented numbers (ratios, "15 years", "120 families") with true ones
   from the brief (Google rating, # reviews) or safe non-numeric value props. Don't invent.
 - **`founder`** — if `brief.contact.name` is the owner: use it as `name`, `brief.contact.role` (or
-  "Founder & Director") as `title`, rewrite `quote`/`body` warmly in first person, update `image.label`
-  to the real name. Keep the "90% of brain develops before five" educational stat (it's a general fact,
-  not a prospect claim). If no owner name in the brief → make it non-attributed ("Our founder") and
-  generic.
-- **`approach`** — rewrite copy; update `images[].label`s to honest alts. No `src`.
+  "Founder & Director") as `title`, rewrite `quote`/`body` warmly in first person, retitle `image.label`
+  to the real name — but **leave this image without a `src`** (intentional placeholder; never a stock
+  face on a real named person). Keep the "90% of brain develops before five" educational stat (it's a
+  general fact, not a prospect claim). If no owner name in the brief → make it non-attributed
+  ("Our founder") and generic.
+- **`approach`** — rewrite copy; retitle each `images[].label` to honest alts; **keep each `src` + `ratio`**.
 - **`programsPreview`** + **`programs`** (array) — reframe to the stages the prospect plausibly serves
   (toddler / preschool / pre-K for a small in-home program; keep infants only if implied). Use stage
-  language, not exact ages you can't verify. Update each `image.label`. No `src`.
+  language, not exact ages you can't verify. Retitle each `image.label`; **keep each `src` + `ratio`**.
+  (If you drop a program entry entirely, that's fine — the remaining entries keep their photos.)
 - **`features`** — generic value props; fine as-is with light voice edits.
 - **`schedule`** — a generic warm daily rhythm is fine (don't assert exact hours you don't know).
-  Update `image.label`.
+  Retitle `image.label`; **keep its `src` + `ratio`**.
 - **`testimonials`** — **DELETE the three fabricated named quotes.** Replace with the real aggregate
   rating + non-attributed warmth. Pilot pattern:
   - `rating.text` → "Rated {rating} ★ by {reviews} {city} families on Google"
@@ -259,7 +268,8 @@ Apply the **Honesty rules** to each section:
   meta and page copy:
   - **SEO:** `title` (rendered as "Title | {name}" — keep rendered title ≤ 60 chars) and `description`
     (≤ 155 chars, unique per page, name + city + "preschool/daycare").
-  - **`pages.about.story`** — rewrite the two/three paragraphs to the prospect; update `story.image.label`.
+  - **`pages.about.story`** — rewrite the two/three paragraphs to the prospect; retitle `story.image.label`
+    but **leave it without a `src`** (intentional placeholder — it reads as a portrait of the program).
   - **`pages.about.values`** — generic promises; fine with light edits.
   - **`pages.about.team.members`** — **keep ONLY the real founder** (from `brief.contact`); DELETE the
     other fabricated educators. If no owner name → reduce to one non-named generic entry or drop names.
@@ -270,23 +280,31 @@ Apply the **Honesty rules** to each section:
     tier `name`/`age` to stages. Rewrite `faq` answers honestly (no asserted hours/ratios/ages).
   - **`pages.contact.info`** — mirror the honest `contact` values; `form.ageOptions` → stage labels.
 
-## Step 4 — Images: keep placeholders (NO sourcing)
+## Step 4 — Images: keep the baseline photos (NO sourcing)
 
-Do **not** search or download images. Keep maplewood-base's existing placeholders exactly. You only
-updated their `label`s in Step 3 (honest alt text). Do **not** add any `src` fields — maplewood-base's
-components render the gradient placeholder when there's no `src`, which is the intended first-pass look.
-Founder/team stay as gradient placeholders (never a stock face on a real named person). Real photo
-sourcing happens later, after the prospect engages.
+`maplewood-base` already ships a set of **neutral, real daycare environment photos** (hero, approach,
+program rooms, schedule) wired via `image.src`. **Keep them.** They are intentionally generic so any
+prospect fork looks finished at zero per-build cost. Concretely:
+
+- Do **not** search, download, or generate any images. No Unsplash. No per-build sourcing.
+- The environment/activity photos already carry a `src` (you only retitled their `label`s in Step 3).
+  Leave the `src` + `ratio` untouched. Do **not** swap them for prospect-specific shots this pass.
+- **Person-portrait slots stay placeholders** (no `src`): `founder.image`, `pages.about.story.image`,
+  `pages.about.team.members[].image`, `pages.contact.map.image`. Never let a stock face stand in for a
+  real named owner/staff member. The components render a tasteful gradient placeholder when there's no
+  `src`.
+
+Prospect-specific photo sourcing happens later, after the prospect engages.
 
 ## Step 5 — Write honest build notes
 
 Write `.briefs/<SLUG>.notes.md` — one honest paragraph (the deploy script puts this in the result
 file's `notes`). State plainly: what palette/fonts you chose, which honest facts you used (real
 name/city, real Google rating, real phone/email if present), what you intentionally dropped for honesty
-(fabricated staff/quotes/tuition/address), how programs were framed, that images are placeholders
-(no photos sourced this pass), and that screenshot self-eval was skipped (verified by green
-healthcheck + live HTTP 200 with the prospect's name). Be specific and truthful — a real business
-owner reads this.
+(fabricated staff/quotes/tuition/address), how programs were framed, that the site uses the baseline's
+neutral daycare photos (no prospect-specific photos sourced yet) with founder/team as placeholders,
+and that screenshot self-eval was skipped (verified by green healthcheck + live HTTP 200 with the
+prospect's name). Be specific and truthful — a real business owner reads this.
 
 ## Step 6 — Healthcheck (gate)
 
@@ -356,6 +374,7 @@ URL. Branch == Vercel-suffix == `SLUG` == `brief.id`. `.briefs/` is gitignored.
 - `npm run healthcheck` passed.
 - Dedicated Vercel project `smallseats-<SLUG>` has a live, **publicly loading** production URL.
 - `.briefs/<SLUG>.result.json` exists with `buildStatus` and (on success) a working `previewUrl`.
-- You used **zero** `Task` delegations, sourced **zero** images, and ran **zero** screenshot evals.
+- You used **zero** `Task` delegations, sourced **zero** new images (the baseline photos are kept,
+  person slots stay placeholders), and ran **zero** screenshot evals.
 
 $ARGUMENTS
