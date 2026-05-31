@@ -1,0 +1,56 @@
+---
+/**
+ * BannerCta — full-width call-to-action band on the primary-dark
+ * color (distinct from the boxed CtaBand). Used for the enrollment
+ * push on the homepage and elsewhere.
+ */
+import Eyebrow from "./Eyebrow.astro";
+import Button from "./Button.astro";
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  body: string;
+  button: { label: string; href: string };
+}
+const { eyebrow, heading, body, button } = Astro.props;
+---
+
+<section class="banner-cta">
+  <div class="wrap banner-inner">
+    {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+    <h2 class="banner-h">{heading}</h2>
+    <p class="banner-body">{body}</p>
+    <Button href={button.href} variant="invert" arrow>{button.label}</Button>
+  </div>
+</section>
+
+<style>
+  .banner-cta {
+    background: var(--color-primary-d);
+    color: #fff;
+  }
+  .banner-inner {
+    padding-block: clamp(3rem, 6vw, 5rem);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .banner-cta :global(.eyebrow) {
+    color: var(--color-accent-2);
+  }
+  .banner-h {
+    color: #fff;
+    font-size: var(--step-3);
+    max-width: 18ch;
+  }
+  .banner-body {
+    color: color-mix(in srgb, #fff 80%, transparent);
+    max-width: 52ch;
+  }
+  .banner-inner :global(.btn) {
+    margin-top: 0.6rem;
+  }
+</style>

@@ -1,11 +1,43 @@
 import { useState } from "react";
 
-export default function ContactForm({ formspreeId }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+/**
+ * Book-a-tour form (React island, hydrated client:idle).
+ * Front-end only in the demo — wire `formspreeId` (from
+ * site-meta.json) to a live Formspree form to go live. Styled via
+ * the token-driven .form-card / .field classes in global.css, so it
+ * re-skins with each theme.
+ *
+ * @param {{
+ *   formspreeId?: string,
+ *   title?: string,
+ *   submitLabel?: string,
+ *   note?: string,
+ *   successMessage?: string,
+ *   ageOptions?: string[],
+ *   startOptions?: string[],
+ * }} props
+ */
+export default function ContactForm({
+  formspreeId,
+  title = "Book a tour",
+  submitLabel = "Request my tour",
+  note = "",
+  successMessage = "Thank you! We'll be in touch within one business day.",
+  ageOptions = [],
+  startOptions = [],
+}) {
+  const [form, setForm] = useState({
+    parentName: "",
+    phone: "",
+    email: "",
+    childAge: ageOptions[0] ?? "",
+    preferredStart: startOptions[0] ?? "",
+    message: "",
+  });
   const [status, setStatus] = useState("idle");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -15,15 +47,12 @@ export default function ContactForm({ formspreeId }) {
     try {
       const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(form),
       });
 
       if (response.ok) {
         setStatus("success");
-        setName("");
-        setEmail("");
-        setMessage("");
       } else {
         setStatus("error");
         setErrorMessage("Something went wrong. Please try again.");
@@ -36,80 +65,122 @@ export default function ContactForm({ formspreeId }) {
 
   if (status === "success") {
     return (
-      <div className="rounded-xl border border-neutral-200 bg-white p-8 text-center">
-        <p className="text-lg font-medium text-neutral-900">Message sent</p>
-        <p className="mt-2 text-neutral-500">
-          Thank you for reaching out. We'll get back to you soon.
-        </p>
+      <div className="form-card">
+        <h2>Tour requested</h2>
+        <p className="form-success">{successMessage}</p>
         <button
           type="button"
-          className="mt-6 text-sm text-indigo-600 underline underline-offset-4 hover:text-indigo-700"
-          onClick={() => setStatus("idle")}
+          className="btn btn-ghost"
+          style={{ marginTop: "1.2rem" }}
+          onClick={() => {
+            setForm({
+              parentName: "",
+              phone: "",
+              email: "",
+              childAge: ageOptions[0] ?? "",
+              preferredStart: startOptions[0] ?? "",
+              message: "",
+            });
+            setStatus("idle");
+          }}
         >
-          Send another message
+          Send another request
         </button>
       </div>
     );
   }
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-neutral-900">
-          Name
-        </label>
-        <input
-          id="name"
-          type="text"
-          required
-          placeholder="Your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="mt-2 block w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-900 placeholder-neutral-400 transition-colors focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-        />
+    <form className="form-card" onSubmit={handleSubmit}>
+      <h2>{title}</h2>
+
+      <div className="field-row">
+        <div className="field">
+          <label htmlFor="parentName">Parent name</label>
+          <input
+            id="parentName"
+            type="text"
+            required
+            placeholder="Your name"
+            value={form.parentName}
+            onChange={update("parentName")}
+          />
+        </div>
+        <div className="field">
+          <label htmlFor="phone">Phone</label>
+          <input
+            id="phone"
+            type="tel"
+            placeholder="(555) 000-0000"
+            value={form.phone}
+            onChange={update("phone")}
+          />
+        </div>
       </div>
 
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-neutral-900">
-          Email
-        </label>
+      <div className="field">
+        <label htmlFor="email">Email</label>
         <input
           id="email"
           type="email"
           required
-          placeholder="you@example.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="mt-2 block w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-900 placeholder-neutral-400 transition-colors focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          placeholder="you@email.com"
+          value={form.email}
+          onChange={update("email")}
         />
       </div>
 
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-neutral-900">
-          Message
-        </label>
+      <div className="field-row">
+        <div className="field">
+          <label htmlFor="childAge">Child's age</label>
+          <select id="childAge" value={form.childAge} onChange={update("childAge")}>
+            {ageOptions.map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="field">
+          <label htmlFor="preferredStart">Preferred start</label>
+          <select
+            id="preferredStart"
+            value={form.preferredStart}
+            onChange={update("preferredStart")}
+          >
+            {startOptions.map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="field">
+        <label htmlFor="message">Anything you'd like us to know?</label>
         <textarea
           id="message"
-          required
-          rows="5"
-          placeholder="How can we help?"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          className="mt-2 block w-full resize-none rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-900 placeholder-neutral-400 transition-colors focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          rows="3"
+          placeholder="Tell us a little about your family..."
+          value={form.message}
+          onChange={update("message")}
         />
       </div>
 
-      {status === "error" && (
-        <p className="text-sm text-red-600">{errorMessage}</p>
-      )}
+      {status === "error" && <p className="form-error">{errorMessage}</p>}
 
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="btn-primary disabled:opacity-50"
+        className="btn btn-primary form-submit"
+        style={status === "submitting" ? { opacity: 0.6 } : undefined}
       >
-        {status === "submitting" ? "Sending..." : "Send message"}
+        {status === "submitting" ? "Sending…" : submitLabel}
+        <span className="arr">→</span>
       </button>
+
+      {note && <p className="form-note">{note}</p>}
     </form>
   );
 }

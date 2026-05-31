@@ -1,0 +1,25 @@
+---
+/**
+ * Placeholder — image stand-in. THE seam for real photography:
+ * in production each becomes an astro:assets <Image> at the same
+ * spot, so swapping is one edit per usage. Photo direction lives
+ * in each theme's design.md (§5 Placeholder).
+ */
+interface Props {
+  label: string;
+  ratio?: string; // e.g. "4/5", "16/10"
+  variant?: string; // "blob" for the organic frame; values may come from JSON
+  class?: string;
+}
+const { label, ratio, variant, class: className = "" } = Astro.props;
+const style = ratio ? `aspect-ratio:${ratio};` : undefined;
+---
+
+<div
+  class:list={["ph", variant === "blob" && "ph-blob", className]}
+  data-label={label}
+  style={style}
+  role="img"
+  aria-label={label}
+>
+</div>

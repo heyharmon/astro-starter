@@ -1,31 +1,20 @@
 [
   {
-    "section": "Navigation",
+    "section": "Programs",
     "links": [
-      { "label": "Home", "href": "/" },
-      { "label": "About", "href": "/about" },
-      { "label": "Blog", "href": "/blog" },
-      { "label": "Projects", "href": "/projects" },
-      { "label": "Contact", "href": "/contact" }
+      { "label": "Infants", "href": "/programs" },
+      { "label": "Toddlers", "href": "/programs" },
+      { "label": "Preschool", "href": "/programs" },
+      { "label": "Pre-K", "href": "/programs" }
     ]
   },
   {
-    "section": "Concept demos",
+    "section": "Maplewood",
     "links": [
-      { "label": "Inline content (homepage)", "href": "/" },
-      { "label": "Inline + Markdown entry (about)", "href": "/about" },
-      { "label": "Site config driven (contact)", "href": "/contact" },
-      { "label": "Posts collection (blog)", "href": "/blog" },
-      { "label": "Projects collection", "href": "/projects" },
-      { "label": "Islands (interactivity)", "href": "/islands" }
-    ]
-  },
-  {
-    "section": "Resources",
-    "links": [
-      { "label": "Style Guide", "href": "/styleguide" },
-      { "label": "Astro Docs", "href": "https://docs.astro.build" },
-      { "label": "Tailwind CSS", "href": "https://tailwindcss.com" }
+      { "label": "About us", "href": "/about" },
+      { "label": "Enrollment & Tuition", "href": "/enrollment" },
+      { "label": "Contact", "href": "/contact" },
+      { "label": "Book a tour", "href": "/contact" }
     ]
   }
 ]

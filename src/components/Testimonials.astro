@@ -1,0 +1,111 @@
+---
+/**
+ * Testimonials — 3 quote cards on a dark (primary-d) band.
+ */
+import Eyebrow from "./Eyebrow.astro";
+
+interface Props {
+  eyebrow: string;
+  heading: string;
+  rating?: { stars: string; text: string };
+  items: { quote: string; name: string; detail: string }[];
+}
+const { eyebrow, heading, rating, items } = Astro.props;
+---
+
+<section class="section quotes">
+  <div class="wrap">
+    <Eyebrow>{eyebrow}</Eyebrow>
+    <h2 class="quotes-h">{heading}</h2>
+    {rating && (
+      <p class="q-rating"><span class="q-stars">{rating.stars}</span> {rating.text}</p>
+    )}
+    <div class="q-grid">
+      {items.map((t) => (
+        <figure class="q-card">
+          <div class="qmark">&ldquo;</div>
+          <p>{t.quote}</p>
+          <figcaption class="who">
+            <span class="av"></span>
+            <span>
+              <b>{t.name}</b>
+              <span class="detail">{t.detail}</span>
+            </span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .quotes {
+    background: var(--color-primary-d);
+    color: color-mix(in srgb, #fff 92%, var(--color-primary-d));
+  }
+  .quotes :global(.eyebrow) {
+    color: var(--color-accent-2);
+  }
+  .quotes-h {
+    color: #fff;
+    font-size: var(--step-3);
+    margin: 0.9rem 0 1rem;
+  }
+  .q-rating {
+    font-size: 0.95rem;
+    color: color-mix(in srgb, #fff 80%, transparent);
+  }
+  .q-stars {
+    color: var(--color-accent-2);
+    letter-spacing: 0.1em;
+  }
+  .q-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin-top: 2.2rem;
+  }
+  .q-card {
+    margin: 0;
+    background: color-mix(in srgb, #fff 7%, transparent);
+    border: 1px solid color-mix(in srgb, #fff 14%, transparent);
+    border-radius: var(--radius-lg);
+    padding: 1.7rem;
+  }
+  .qmark {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    line-height: 0.5;
+    color: var(--color-accent-2);
+  }
+  .q-card > p {
+    margin: 0.8rem 0 1.4rem;
+    font-size: 1.12rem;
+    line-height: 1.5;
+    color: #fff;
+  }
+  .who {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.88rem;
+  }
+  .who .av {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--color-accent-2) 60%, #fff);
+    flex: none;
+  }
+  .who b {
+    display: block;
+  }
+  .who .detail {
+    color: color-mix(in srgb, #fff 70%, transparent);
+  }
+  @media (max-width: 860px) {
+    .q-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

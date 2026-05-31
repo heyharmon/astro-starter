@@ -1,0 +1,111 @@
+---
+/**
+ * TuitionTable — one pricing card per age group (name, age, monthly
+ * rate, and what's included). Figures come from site-content (they
+ * are placeholders until the client confirms real rates).
+ */
+interface Props {
+  tiers: {
+    name: string;
+    age: string;
+    price: string;
+    cadence: string;
+    includes: string[];
+  }[];
+}
+const { tiers } = Astro.props;
+---
+
+<div class="tuition-grid">
+  {tiers.map((t) => (
+    <div class="tuition-card">
+      <span class="tuition-age">{t.age}</span>
+      <h3 class="tuition-name">{t.name}</h3>
+      <p class="tuition-price">
+        <b>{t.price}</b>
+        <span>{t.cadence}</span>
+      </p>
+      <ul class="tuition-incl">
+        {t.includes.map((i) => <li>{i}</li>)}
+      </ul>
+    </div>
+  ))}
+</div>
+
+<style>
+  .tuition-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+  }
+  .tuition-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .tuition-age {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  .tuition-name {
+    font-size: var(--step-1);
+    margin: 0.3rem 0 0.8rem;
+  }
+  .tuition-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    margin-bottom: 1.1rem;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .tuition-price b {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--color-primary-d);
+  }
+  .tuition-price span {
+    font-size: 0.85rem;
+    color: var(--color-ink-soft);
+  }
+  .tuition-incl {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    font-size: 0.9rem;
+    color: var(--color-ink-soft);
+  }
+  .tuition-incl li {
+    position: relative;
+    padding-left: 1.4rem;
+  }
+  .tuition-incl li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-accent);
+  }
+  @media (max-width: 900px) {
+    .tuition-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 520px) {
+    .tuition-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

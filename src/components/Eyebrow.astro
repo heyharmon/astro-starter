@@ -1,0 +1,24 @@
+---
+/**
+ * Eyebrow — small uppercase label above headings.
+ * Optional numeric index (Beacon/Atelier use it). Styled via the
+ * shared .eyebrow class in global.css.
+ */
+interface Props {
+  index?: string;
+  class?: string;
+}
+const { index, class: className = "" } = Astro.props;
+---
+
+<span class:list={["eyebrow", className]}>
+  {index && <span class="eyebrow-idx">{index}</span>}
+  <slot />
+</span>
+
+<style>
+  .eyebrow-idx {
+    font-variant-numeric: tabular-nums;
+    color: var(--color-accent);
+  }
+</style>

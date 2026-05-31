@@ -1,0 +1,97 @@
+---
+/**
+ * Schedule — "a day at Maplewood": copy + image on the left, a
+ * vertical timeline of day waypoints on the right.
+ */
+import Eyebrow from "./Eyebrow.astro";
+import Placeholder from "./Placeholder.astro";
+
+interface Props {
+  eyebrow: string;
+  heading: string;
+  lead: string;
+  image: { label: string };
+  items: { time: string; title: string; body: string }[];
+}
+const { eyebrow, heading, lead, image, items } = Astro.props;
+---
+
+<section class="section rhythm">
+  <div class="wrap rhythm-grid">
+    <div>
+      <Eyebrow>{eyebrow}</Eyebrow>
+      <h2 class="rhythm-h">{heading}</h2>
+      <p class="rhythm-lead">{lead}</p>
+      <Placeholder label={image.label} ratio="4/3" />
+    </div>
+    <div class="timeline">
+      {items.map((it) => (
+        <div class="tl-item">
+          <span class="t">{it.time}</span>
+          <h4>{it.title}</h4>
+          <p>{it.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .rhythm-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .rhythm-h {
+    font-size: var(--step-3);
+    margin: 0.9rem 0 1rem;
+  }
+  .rhythm-lead {
+    color: var(--color-ink-soft);
+  }
+  .rhythm-grid > div > :global(.ph) {
+    margin-top: 1.8rem;
+  }
+  .timeline {
+    border-left: 2px solid var(--color-line);
+    margin-left: 0.5rem;
+  }
+  .tl-item {
+    position: relative;
+    padding: 0 0 1.6rem 2rem;
+  }
+  .tl-item:last-child {
+    padding-bottom: 0;
+  }
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: 3px solid var(--color-bg);
+  }
+  .tl-item .t {
+    font-weight: 700;
+    color: var(--color-primary-d);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+  }
+  .tl-item h4 {
+    font-size: var(--step-1);
+    margin: 0.15rem 0 0.25rem;
+  }
+  .tl-item p {
+    font-size: 0.92rem;
+    color: var(--color-ink-soft);
+  }
+  @media (max-width: 820px) {
+    .rhythm-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

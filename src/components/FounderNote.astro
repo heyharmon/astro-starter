@@ -1,0 +1,126 @@
+---
+/**
+ * FounderNote — director/founder introduction: portrait + floating
+ * name card on one side, eyebrow + heading + pull-quote + short bio +
+ * an optional highlighted stat and link on the other. Used on the
+ * homepage (with a link to /about) and on the About page (no link).
+ */
+import Eyebrow from "./Eyebrow.astro";
+import Button from "./Button.astro";
+import Placeholder from "./Placeholder.astro";
+
+interface Props {
+  eyebrow: string;
+  heading: string;
+  name: string;
+  title: string;
+  image: { label: string; ratio?: string };
+  quote: string;
+  body: string;
+  stat?: { value: string; label: string };
+  cta?: { label: string; href: string };
+}
+const { eyebrow, heading, name, title, image, quote, body, stat, cta } = Astro.props;
+---
+
+<section class="section founder">
+  <div class="wrap founder-grid">
+    <div class="founder-art">
+      <Placeholder label={image.label} ratio={image.ratio ?? "4/5"} />
+      <div class="founder-card">
+        <b>{name}</b>
+        <span>{title}</span>
+      </div>
+    </div>
+    <div class="founder-copy">
+      <Eyebrow>{eyebrow}</Eyebrow>
+      <h2 class="founder-h">{heading}</h2>
+      <p class="founder-quote">&ldquo;{quote}&rdquo;</p>
+      <p class="founder-body">{body}</p>
+      {stat && (
+        <p class="founder-stat">
+          <b>{stat.value}</b>
+          <span>{stat.label}</span>
+        </p>
+      )}
+      {cta && (
+        <Button href={cta.href} variant="ghost" arrow class="founder-cta">{cta.label}</Button>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .founder-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .founder-art {
+    position: relative;
+  }
+  .founder-art :global(.ph) {
+    box-shadow: var(--shadow-soft);
+  }
+  .founder-card {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    padding: 0.9rem 1.2rem;
+    box-shadow: var(--shadow);
+  }
+  .founder-card b {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--color-ink);
+  }
+  .founder-card span {
+    font-size: 0.82rem;
+    color: var(--color-ink-soft);
+  }
+  .founder-h {
+    font-size: var(--step-3);
+    margin: 0.9rem 0 1.3rem;
+  }
+  .founder-quote {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-style: italic;
+    color: var(--color-ink);
+    line-height: 1.4;
+  }
+  .founder-body {
+    margin-top: 1.1rem;
+    color: var(--color-ink-soft);
+  }
+  .founder-stat {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    margin-top: 1.6rem;
+    padding-left: 1.1rem;
+    border-left: 3px solid var(--color-accent);
+  }
+  .founder-stat b {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--color-primary-d);
+    line-height: 1;
+  }
+  .founder-stat span {
+    color: var(--color-ink-soft);
+  }
+  .founder-cta {
+    margin-top: 1.6rem;
+  }
+  @media (max-width: 820px) {
+    .founder-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,14 +1,16 @@
 {
-  "name": "Astro Starter",
-  "tagline": "A self-documenting Astro 5 starter — built around three content tiers",
-  "description": "An Astro 5 + Tailwind CSS 4 starter where every page demonstrates a content pattern: pure inline routes, hybrid Markdown entries, content collections, and site config driven views.",
-  "url": "https://example.com",
+  "name": "Maplewood Early Learning",
+  "shortName": "Maplewood",
+  "tagline": "Where little ones grow, play, and belong.",
+  "description": "A warm, light-filled early learning community. Thoughtful care and joyful discovery for your child's first five years.",
+  "url": "https://maplewood.example",
   "ogImage": "/images/og-default.png",
-  "copyright": "© 2026 Astro Starter. Replace this with your own copyright in src/data/site-meta.json.",
+  "footerBlurb": "Where little ones grow, play, and belong. Early learning for your child's first five years.",
+  "licenseNote": "Licensed childcare · Ages 6 weeks – 5 years",
+  "copyright": "© 2026 Maplewood Early Learning.",
   "social": {
-    "twitter": "https://twitter.com/example",
-    "linkedin": "https://linkedin.com/company/example",
-    "github": "https://github.com/example"
+    "instagram": "",
+    "facebook": ""
   },
   "formspreeId": "YOUR_FORM_ID"
 }

@@ -25,6 +25,43 @@ const { title, description, image } = Astro.props;
     </main>
     <Footer />
     <script>
+      // Scroll-reveal (progressive enhancement). Content is fully visible
+      // without JS — this only adds the .reveal → .in fade-up when JS runs,
+      // and a safety timeout guarantees nothing stays hidden. CSS honors
+      // prefers-reduced-motion. Mirrors the demo behavior.
+      (function () {
+        var els = Array.prototype.slice.call(
+          document.querySelectorAll(".section > .wrap > *")
+        );
+        if (!els.length || !("IntersectionObserver" in window)) return;
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add("in");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+        els.forEach(function (el, i) {
+          el.classList.add("reveal");
+          el.style.transitionDelay = (i % 4) * 0.06 + "s";
+          if (el.getBoundingClientRect().top < window.innerHeight) {
+            el.classList.add("in");
+          } else {
+            io.observe(el);
+          }
+        });
+        setTimeout(function () {
+          document.querySelectorAll(".reveal").forEach(function (el) {
+            el.classList.add("in");
+          });
+        }, 700);
+      })();
+    </script>
+    <script>
       // v2 frontend-editing spike: imports the in-iframe edit runtime as a
       // regular client-side module so Astro bundles it into /_astro/*.js
       // (proxy-friendly via the CMS's <base href> rewrite). Using

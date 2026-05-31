@@ -1,0 +1,43 @@
+---
+/**
+ * SectionHeading — eyebrow + heading, with an optional inline
+ * action link (e.g. "All programs →"). When an action is present
+ * the row lays out as heading-left / action-right.
+ */
+import Eyebrow from "./Eyebrow.astro";
+import Button from "./Button.astro";
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  index?: string;
+  actionHref?: string;
+  actionLabel?: string;
+  class?: string;
+}
+const { eyebrow, heading, index, actionHref, actionLabel, class: className = "" } = Astro.props;
+const hasAction = Boolean(actionHref && actionLabel);
+---
+
+<div class:list={["section-heading", hasAction && "has-action", className]}>
+  <div>
+    {eyebrow && <Eyebrow index={index}>{eyebrow}</Eyebrow>}
+    <h2 class="section-heading-h">{heading}</h2>
+  </div>
+  {hasAction && (
+    <Button href={actionHref!} variant="ghost" arrow>{actionLabel}</Button>
+  )}
+</div>
+
+<style>
+  .section-heading-h {
+    margin-top: 0.8rem;
+  }
+  .has-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+</style>

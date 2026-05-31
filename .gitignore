@@ -9,6 +9,7 @@ node_modules/
 
 # Playwright
 .playwright-mcp
+.playwright-cli/
 
 # environment variables
 .env

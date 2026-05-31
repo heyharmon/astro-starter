@@ -1,0 +1,90 @@
+---
+/**
+ * ProgramRow — programs page: alternating image + copy + 3 meta
+ * stats, hairline-divided. Even rows flip the image to the right.
+ * Rows must be rendered as direct siblings for :nth-child to work.
+ */
+import Placeholder from "./Placeholder.astro";
+
+interface Props {
+  program: {
+    age: string;
+    title: string;
+    body: string;
+    image: { label: string };
+    meta: { value: string; label: string }[];
+  };
+}
+const { program } = Astro.props;
+---
+
+<article class="prog-row">
+  <div class="prog-row-art">
+    <Placeholder label={program.image.label} ratio="4/3" />
+  </div>
+  <div>
+    <span class="age">{program.age}</span>
+    <h2>{program.title}</h2>
+    <p>{program.body}</p>
+    <div class="prog-meta">
+      {program.meta.map((m) => (
+        <div>
+          <b>{m.value}</b>
+          <span>{m.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</article>
+
+<style>
+  .prog-row {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    border-top: 1px solid var(--color-line);
+  }
+  .prog-row:nth-child(even) .prog-row-art {
+    order: 2;
+  }
+  .age {
+    color: var(--color-accent);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .prog-row h2 {
+    font-size: var(--step-2);
+    margin: 0.5rem 0 0.9rem;
+  }
+  .prog-row p {
+    color: var(--color-ink-soft);
+  }
+  .prog-meta {
+    display: flex;
+    gap: 1.8rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .prog-meta div b {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--color-primary-d);
+  }
+  .prog-meta div span {
+    font-size: 0.84rem;
+    color: var(--color-ink-soft);
+  }
+  @media (max-width: 800px) {
+    .prog-row {
+      grid-template-columns: 1fr;
+    }
+    .prog-row:nth-child(even) .prog-row-art {
+      order: -1;
+    }
+  }
+</style>

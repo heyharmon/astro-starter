@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import ProgramRow from "../components/ProgramRow.astro";
+import CtaBand from "../components/CtaBand.astro";
+import siteContent from "../data/site-content.json";
+
+const page = siteContent.pages.programs;
+const { programs } = siteContent;
+---
+
+<BaseLayout title={page.title} description={page.description}>
+  <PageHero eyebrow={page.eyebrow} headline={page.headline} lead={page.lead} />
+
+  <section class="section program-rows">
+    <div class="wrap">
+      {programs.map((p) => <ProgramRow program={p} />)}
+    </div>
+  </section>
+
+  <CtaBand heading={page.cta.heading} body={page.cta.body} button={page.cta.button} />
+</BaseLayout>
+
+<style>
+  section.program-rows {
+    padding-top: clamp(1rem, 2vw, 2rem);
+  }
+</style>

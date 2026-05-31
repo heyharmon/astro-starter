@@ -1,0 +1,60 @@
+---
+/**
+ * TeamGrid — about page: educator portrait + name + role.
+ */
+import Eyebrow from "./Eyebrow.astro";
+import Placeholder from "./Placeholder.astro";
+
+interface Props {
+  eyebrow: string;
+  heading: string;
+  members: { name: string; role: string; image: { label: string } }[];
+}
+const { eyebrow, heading, members } = Astro.props;
+---
+
+<section class="section team-sec">
+  <div class="wrap">
+    <Eyebrow>{eyebrow}</Eyebrow>
+    <h2 class="team-h">{heading}</h2>
+    <div class="team-grid">
+      {members.map((m) => (
+        <div class="member">
+          <Placeholder label={m.image.label} ratio="1/1" />
+          <b>{m.name}</b>
+          <span>{m.role}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .team-h {
+    font-size: var(--step-3);
+    margin-top: 0.8rem;
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.4rem;
+    margin-top: 2.6rem;
+  }
+  .member :global(.ph) {
+    margin-bottom: 0.9rem;
+  }
+  .member b {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+  }
+  .member span {
+    display: block;
+    color: var(--color-ink-soft);
+    font-size: 0.86rem;
+  }
+  @media (max-width: 760px) {
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

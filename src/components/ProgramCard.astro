@@ -1,0 +1,50 @@
+---
+/**
+ * ProgramCard — home-page program preview (square image + age +
+ * title + blurb). The programs page uses ProgramRow instead.
+ * Presentation varies by theme (card vs grid); API is fixed.
+ */
+import Placeholder from "./Placeholder.astro";
+
+interface Props {
+  program: {
+    ageShort: string;
+    title: string;
+    previewBlurb: string;
+    image: { label: string };
+  };
+}
+const { program } = Astro.props;
+---
+
+<article class="prog-card">
+  <Placeholder label={program.image.label} ratio="1/1" />
+  <span class="age">{program.ageShort}</span>
+  <h3>{program.title}</h3>
+  <p>{program.previewBlurb}</p>
+</article>
+
+<style>
+  .prog-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .prog-card :global(.ph) {
+    margin-bottom: 1.1rem;
+  }
+  .age {
+    color: var(--color-accent);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .prog-card h3 {
+    font-size: var(--step-1);
+    margin: 0.35rem 0 0.6rem;
+  }
+  .prog-card p {
+    font-size: 0.92rem;
+    color: var(--color-ink-soft);
+  }
+</style>

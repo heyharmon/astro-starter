@@ -1,0 +1,121 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import StepList from "../components/StepList.astro";
+import TuitionTable from "../components/TuitionTable.astro";
+import Faq from "../components/Faq.astro";
+import CtaBand from "../components/CtaBand.astro";
+import siteContent from "../data/site-content.json";
+
+const page = siteContent.pages.enrollment;
+const { steps, tuition, faq, cta } = page;
+---
+
+<BaseLayout title={page.title} description={page.description}>
+  <PageHero eyebrow={page.eyebrow} headline={page.headline} lead={page.lead} />
+
+  <!-- How enrollment works -->
+  <section class="section steps-sec">
+    <div class="wrap">
+      <span class="eyebrow">{steps.eyebrow}</span>
+      <h2 class="sec-h">{steps.heading}</h2>
+      <div class="steps-wrap">
+        <StepList items={steps.items} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Tuition -->
+  <section class="section tuition-sec">
+    <div class="wrap">
+      <span class="eyebrow">{tuition.eyebrow}</span>
+      <h2 class="sec-h">{tuition.heading}</h2>
+      <div class="tuition-wrap">
+        <TuitionTable tiers={tuition.tiers} />
+      </div>
+      <p class="tuition-note">{tuition.note}</p>
+      <div class="included">
+        <h3 class="included-h">{tuition.included.heading}</h3>
+        <ul class="included-list">
+          {tuition.included.items.map((i) => <li>{i}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq-sec">
+    <div class="wrap faq-wrap">
+      <span class="eyebrow">{faq.eyebrow}</span>
+      <h2 class="sec-h">{faq.heading}</h2>
+      <div class="faq-mount">
+        <Faq items={faq.items} />
+      </div>
+    </div>
+  </section>
+
+  <CtaBand heading={cta.heading} body={cta.body} button={cta.button} />
+</BaseLayout>
+
+<style>
+  .sec-h {
+    font-size: var(--step-3);
+    margin-top: 0.8rem;
+  }
+  .steps-wrap {
+    margin-top: 2.6rem;
+  }
+  .tuition-sec {
+    background: var(--color-surface-2);
+  }
+  .tuition-wrap {
+    margin-top: 2.6rem;
+  }
+  .tuition-note {
+    margin-top: 1.6rem;
+    font-size: 0.92rem;
+    color: var(--color-ink-soft);
+    max-width: 70ch;
+  }
+  .included {
+    margin-top: 2.6rem;
+    padding-top: 2.2rem;
+    border-top: 1px solid var(--color-line);
+  }
+  .included-h {
+    font-size: var(--step-1);
+    margin-bottom: 1.2rem;
+  }
+  .included-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem 2rem;
+  }
+  .included-list li {
+    position: relative;
+    padding-left: 1.8rem;
+    color: var(--color-ink-soft);
+  }
+  .included-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+  .faq-wrap {
+    max-width: 820px;
+  }
+  .faq-mount {
+    margin-top: 2rem;
+  }
+  @media (max-width: 640px) {
+    .included-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

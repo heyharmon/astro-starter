@@ -1,0 +1,19 @@
+---
+/**
+ * Button — token-driven link/button.
+ * variant maps to the shared .btn-* classes in global.css.
+ * Theme branches restyle .btn/.btn-primary/.btn-ghost centrally.
+ */
+interface Props {
+  href: string;
+  variant?: "primary" | "ghost" | "invert";
+  arrow?: boolean;
+  class?: string;
+}
+const { href, variant = "primary", arrow = false, class: className = "" } = Astro.props;
+---
+
+<a href={href} class:list={["btn", `btn-${variant}`, className]}>
+  <slot />
+  {arrow && <span class="arr">→</span>}
+</a>

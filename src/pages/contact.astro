@@ -1,94 +1,89 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import Placeholder from "../components/Placeholder.astro";
 import ContactForm from "../components/ContactForm.jsx";
-import { getEntry, render } from "astro:content";
 import siteMeta from "../data/site-meta.json";
+import siteContent from "../data/site-content.json";
 
-const page = (await getEntry("pages", "contact"))!;
-const { Content } = await render(page);
+const page = siteContent.pages.contact;
+const { contact } = siteContent;
+const form = page.form;
 ---
 
-<BaseLayout title={page.data.title} description={page.data.description}>
-  <!-- Hero -->
-  <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-    <p class="text-sm uppercase tracking-wide text-neutral-500">
-      Tier 3 / 3 — Site config driven
-    </p>
-    <h1 class="mt-4">{page.data.headline}</h1>
-    {page.data.subheadline && (
-      <p class="mt-6 max-w-2xl text-lg text-neutral-500">
-        {page.data.subheadline}
-      </p>
-    )}
-  </section>
+<BaseLayout title={page.title} description={page.description}>
+  <PageHero eyebrow={page.eyebrow} headline={page.headline} lead={page.lead} />
 
-  <!-- Live config panel + Markdown body -->
-  <section class="border-t border-neutral-200 bg-neutral-50">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <div class="grid gap-12 lg:grid-cols-2 items-start">
-        <div class="prose">
-          <Content />
-        </div>
+  <section class="section contact-sec" id="tour">
+    <div class="wrap contact-grid">
+      <ContactForm
+        client:idle
+        formspreeId={siteMeta.formspreeId}
+        title={form.title}
+        submitLabel={form.submitLabel}
+        note={form.note}
+        successMessage={form.successMessage}
+        ageOptions={form.ageOptions}
+        startOptions={form.startOptions}
+      />
 
-        <div class="rounded-xl border border-neutral-200 bg-white p-8">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">
-            Live values from src/data/site-meta.json
+      <div class="contact-info">
+        {
+          page.info.map((block) => (
+            <div class="info-block">
+              <h3>{block.label}</h3>
+              <p set:html={block.lines.join("<br>")} />
+            </div>
+          ))
+        }
+        <div class="info-block">
+          <h3>Talk to us</h3>
+          <p>
+            <a href={contact.phoneHref}>{contact.phone}</a><br />
+            <a href={contact.emailHref}>{contact.email}</a>
           </p>
-          <dl class="mt-6 space-y-4 text-sm">
-            <div>
-              <dt class="text-neutral-500">name</dt>
-              <dd class="mt-1 font-medium">{siteMeta.name}</dd>
-            </div>
-            <div>
-              <dt class="text-neutral-500">tagline</dt>
-              <dd class="mt-1">{siteMeta.tagline}</dd>
-            </div>
-            <div>
-              <dt class="text-neutral-500">url</dt>
-              <dd class="mt-1 font-mono text-xs">{siteMeta.url}</dd>
-            </div>
-            <div>
-              <dt class="text-neutral-500">social.twitter</dt>
-              <dd class="mt-1 font-mono text-xs"><a href={siteMeta.social.twitter} class="underline">{siteMeta.social.twitter}</a></dd>
-            </div>
-            <div>
-              <dt class="text-neutral-500">social.linkedin</dt>
-              <dd class="mt-1 font-mono text-xs"><a href={siteMeta.social.linkedin} class="underline">{siteMeta.social.linkedin}</a></dd>
-            </div>
-            <div>
-              <dt class="text-neutral-500">social.github</dt>
-              <dd class="mt-1 font-mono text-xs"><a href={siteMeta.social.github} class="underline">{siteMeta.social.github}</a></dd>
-            </div>
-            <div>
-              <dt class="text-neutral-500">formspreeId</dt>
-              <dd class="mt-1 font-mono text-xs">{siteMeta.formspreeId}</dd>
-            </div>
-            <div>
-              <dt class="text-neutral-500">copyright</dt>
-              <dd class="mt-1 text-xs">{siteMeta.copyright}</dd>
-            </div>
-          </dl>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- React island demo -->
-  <section class="border-t border-neutral-200">
-    <div class="mx-auto max-w-3xl px-6 py-24 sm:py-32">
-      <p class="text-xs uppercase tracking-wide text-neutral-500">
-        React island — src/components/ContactForm.jsx
-      </p>
-      <h2 class="mt-4">Contact form</h2>
-      <p class="mt-4 text-neutral-500">
-        The form below is a React island, hydrated with <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:idle</code>. It receives
-        <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">formspreeId</code> as a prop from <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">site-meta.json</code>
-        and handles its own submission state. For the full explanation of when to use islands and what each
-        <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:*</code> directive does, see <a href="/islands" class="underline">/islands</a>.
-      </p>
-      <div class="mt-8">
-        <ContactForm client:idle formspreeId={siteMeta.formspreeId} />
+        <Placeholder label={page.map.label} ratio={page.map.ratio} class="map-ph" />
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  section.contact-sec {
+    padding-top: clamp(1rem, 2vw, 2rem);
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 0.85fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .info-block {
+    margin-bottom: 2rem;
+  }
+  .info-block h3 {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+  .info-block p {
+    font-size: 1.05rem;
+  }
+  .info-block a {
+    color: var(--color-primary-d);
+    font-weight: 600;
+  }
+  .contact-info :global(.map-ph) {
+    margin-top: 1rem;
+  }
+  @media (max-width: 860px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

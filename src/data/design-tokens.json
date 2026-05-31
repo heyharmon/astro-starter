@@ -1,119 +1,109 @@
 {
   "meta": {
-    "version": "1.0",
-    "description": "Machine-readable design system. Agents read this as the source of truth for where and how to use design tokens."
+    "version": "2.0",
+    "description": "Machine-readable mirror of the Maplewood token contract in src/styles/global.css. Agents read this as the source of truth for which semantic tokens exist and where to use them. VALUES here are the neutral BASE values — each theme branch (Hearth, Beacon, Jubilee, Grove, Atelier) overwrites the values in global.css AND this file, but never the token NAMES, component APIs, or content.",
+    "themingRule": "A theme = (1) token values + (2) the font <link> in Head.astro + (3) per-component presentation. Components reference only these semantic tokens for color/font/radius/shadow/type — never hard-coded hex or px."
   },
   "colors": {
-    "background": {
-      "primary": "white",
-      "secondary": "neutral-50",
-      "tertiary": "neutral-100",
-      "card": "white"
+    "tokens": {
+      "bg": "#ffffff",
+      "surface": "#f7f7f5",
+      "surface-2": "#ededea",
+      "ink": "#1a1a1a",
+      "ink-soft": "#666666",
+      "primary": "#333333",
+      "primary-d": "#111111",
+      "accent": "#888888",
+      "accent-2": "#aaaaaa",
+      "line": "#e2e2dd",
+      "blue": "#888888",
+      "green": "#888888"
     },
-    "text": {
-      "primary": "neutral-900",
-      "body": "neutral-600",
-      "muted": "neutral-500",
-      "subtle": "neutral-400",
-      "accent": "indigo-600"
+    "usage": {
+      "page background": "bg",
+      "card / raised surface": "surface",
+      "sunk / alternating section panel": "surface-2",
+      "primary text / headings": "ink",
+      "secondary / body text": "ink-soft",
+      "brand + primary buttons": "primary",
+      "darker primary (footer bg, hovers)": "primary-d",
+      "highlight / accent word / eyebrow": "accent",
+      "secondary pop (dots, badges)": "accent-2",
+      "hairlines / borders": "line",
+      "extra rotating hues (Jubilee only)": "blue, green"
     },
-    "border": {
-      "default": "neutral-200",
-      "card": "neutral-200",
-      "input": "neutral-300",
-      "focus": "indigo-500"
-    },
-    "accent": {
-      "base": "indigo-600",
-      "hover": "indigo-700",
-      "light": "indigo-50",
-      "scale": ["indigo-50", "indigo-100", "indigo-200", "indigo-300", "indigo-400", "indigo-500", "indigo-600", "indigo-700", "indigo-800", "indigo-900", "indigo-950"]
-    },
-    "button": {
-      "primary": {
-        "bg": "indigo-600",
-        "text": "white",
-        "hoverBg": "indigo-700"
-      },
-      "ghost": {
-        "bg": "transparent",
-        "text": "neutral-900",
-        "border": "neutral-300",
-        "hoverBg": "neutral-900",
-        "hoverText": "white",
-        "hoverBorder": "neutral-900"
-      }
-    }
+    "tailwindUtilities": "Each token also yields utilities, e.g. bg-bg, bg-surface, text-ink, text-ink-soft, bg-primary, border-line."
   },
   "typography": {
     "fonts": {
-      "heading": "Inter",
-      "body": "Inter",
-      "mono": "JetBrains Mono"
+      "display": "system-ui stack (base) — swapped per theme via Head.astro",
+      "body": "system-ui stack (base) — swapped per theme via Head.astro"
     },
-    "headings": {
-      "h1": {
-        "classes": "font-sans font-semibold tracking-tight text-neutral-900 text-4xl sm:text-5xl",
-        "lineHeight": "1.1"
-      },
-      "h2": {
-        "classes": "font-sans font-semibold tracking-tight text-neutral-900 text-2xl sm:text-3xl",
-        "lineHeight": "1.15"
-      },
-      "h3": {
-        "classes": "font-sans font-medium text-neutral-900 text-xl",
-        "lineHeight": "1.2"
-      }
+    "tailwindUtilities": "font-display, font-body",
+    "scale": {
+      "note": "Fluid clamp scale in :root. Themes may tune the clamps but keep the names. Used via var(--step-N) or arbitrary values.",
+      "step--1": "clamp(0.82rem, 0.8rem + 0.1vw, 0.9rem)",
+      "step-0": "clamp(1rem, 0.96rem + 0.2vw, 1.12rem)",
+      "step-1": "clamp(1.2rem, 1.08rem + 0.5vw, 1.45rem)",
+      "step-2": "clamp(1.6rem, 1.4rem + 1vw, 2.25rem)",
+      "step-3": "clamp(2.1rem, 1.7rem + 2vw, 3.4rem)",
+      "step-4": "clamp(2.8rem, 2rem + 3.8vw, 5.2rem)"
     },
-    "body": {
-      "classes": "leading-relaxed text-neutral-600"
-    },
-    "small": {
-      "classes": "text-sm text-neutral-400"
-    },
-    "label": {
-      "classes": "text-sm font-medium uppercase tracking-wider text-neutral-500"
+    "headingDefaults": {
+      "family": "var(--font-display)",
+      "weight": "600",
+      "lineHeight": "1.1",
+      "letterSpacing": "-0.01em",
+      "h1": "step-4",
+      "h2": "step-3",
+      "h3": "step-1",
+      "h4": "step-0"
     }
   },
   "spacing": {
-    "sectionPadding": "py-24 sm:py-32",
-    "containerMax": "max-w-5xl",
-    "containerPx": "px-6",
-    "gridGap": "gap-8",
-    "cardPadding": "p-8"
+    "containerMax": "--maxw (1200px)",
+    "gutter": "--gutter (clamp(1.25rem, 4vw, 3rem))",
+    "sectionPadding": ".section → padding-block: clamp(4rem, 9vw, 7.5rem)"
   },
   "effects": {
     "borderRadius": {
-      "card": "rounded-xl",
-      "button": "rounded-lg",
-      "input": "rounded-lg",
-      "small": "rounded"
+      "radius": "12px",
+      "radius-lg": "20px",
+      "radius-pill": "999px"
     },
     "shadows": {
-      "subtle": "shadow-sm",
-      "note": "Use sparingly — prefer flat borders for most components"
+      "shadow": "0 24px 50px -30px rgba(0,0,0,.35)",
+      "shadow-soft": "0 14px 32px -24px rgba(0,0,0,.3)"
+    },
+    "outliers": {
+      "outline": "1px solid var(--color-line) — repointed by hairline/outline themes (Atelier, Jubilee)",
+      "pop": "var(--shadow) — repointed to a hard offset 'sticker' shadow by Jubilee"
     }
   },
+  "sharedClasses": {
+    "wrap": "max-width container + gutter",
+    "section": "fluid vertical section rhythm",
+    "eyebrow": "uppercase tracked label with leading rule, colored by accent",
+    "lead": "larger intro paragraph in ink-soft",
+    "accent": "emphasis word inside a headline (per-theme seam: italic/highlight/color)",
+    "btn / btn-primary / btn-ghost": "token-driven button system",
+    "ph / ph-blob": "image placeholder stand-in (swap to astro:assets <Image> in production)",
+    "card": "raised surface with hairline + soft shadow",
+    "site-header / nav / brand / mark / nav-links": "sticky header chrome",
+    "site-footer": "dark footer band",
+    "dots / tag": "decorative dots + pill tag",
+    "reveal / reveal.in": "scroll-reveal (progressive enhancement, honors prefers-reduced-motion)"
+  },
   "componentPatterns": {
-    "hero-text": {
-      "description": "Text-only hero with headline, subheadline, and dual CTA buttons (primary + ghost). White background.",
-      "reference": "index.astro hero section"
-    },
-    "card-grid": {
-      "description": "Grid of bordered cards (rounded-xl, border-neutral-200, p-8) with icon, title, and description. 3-column on lg, 2-column on sm.",
-      "reference": "index.astro tier-demonstrations section"
-    },
-    "cta-centered": {
-      "description": "Centered text section with heading, description, and primary button. neutral-50 or white background.",
-      "reference": "index.astro CTA section"
-    },
-    "section-2col": {
-      "description": "Two-column grid — one side text content with ghost button, other side image (aspect-4/3, rounded-xl).",
-      "reference": "index.astro about section, about.astro content"
-    },
-    "section-alternating-bg": {
-      "description": "Sections alternate between bg-white and bg-neutral-50, separated by border-t border-neutral-200.",
-      "reference": "All page sections"
-    }
+    "hero": { "description": "Two-column hero: eyebrow + headline (with accent word) + lead + dual CTA, paired with a 4:5 image placeholder + floating stat badge.", "reference": "index.astro hero + Hero usage" },
+    "stat-band": { "description": "4-cell trust strip bounded by hairlines.", "reference": "StatBand.astro" },
+    "program-card": { "description": "Home preview card: square image + age label + title + blurb.", "reference": "ProgramCard.astro" },
+    "program-row": { "description": "Programs page: alternating image + copy + 3 meta stats, hairline-divided.", "reference": "ProgramRow.astro" },
+    "feature-grid": { "description": "2x2 icon + title + body cards on a sunk panel.", "reference": "FeatureGrid.astro" },
+    "schedule": { "description": "Vertical timeline of day waypoints (time + title + body).", "reference": "Schedule.astro" },
+    "testimonials": { "description": "3 quote cards on a dark band.", "reference": "Testimonials.astro" },
+    "value-grid": { "description": "Numbered value cards (about page).", "reference": "ValueGrid.astro" },
+    "team-grid": { "description": "Member portrait + name + role.", "reference": "TeamGrid.astro" },
+    "cta-band": { "description": "Closing call-to-action box with heading, body, primary button.", "reference": "CtaBand.astro" }
   }
 }

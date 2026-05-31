@@ -1,0 +1,112 @@
+---
+/**
+ * Hero — home page hero: eyebrow + headline (with accent word) +
+ * lead + dual CTA, paired with an image placeholder and a floating
+ * stat badge. Headline accent word is data-driven (the .accent seam).
+ */
+import Button from "./Button.astro";
+import Placeholder from "./Placeholder.astro";
+
+interface Props {
+  eyebrow: string;
+  headline: { before: string; accent: string; after: string };
+  lead: string;
+  primaryCta: { label: string; href: string };
+  secondaryCta: { label: string; href: string };
+  image: { label: string; ratio: string };
+  badge: { value: string; label: string };
+}
+const { eyebrow, headline, lead, primaryCta, secondaryCta, image, badge } = Astro.props;
+---
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">{eyebrow}</span>
+      <h1>{headline.before}<em class="accent">{headline.accent}</em>{headline.after}</h1>
+      <p class="lead">{lead}</p>
+      <div class="hero-cta">
+        <Button href={primaryCta.href} variant="primary" arrow>{primaryCta.label}</Button>
+        <Button href={secondaryCta.href} variant="ghost">{secondaryCta.label}</Button>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="dots hero-dots"></div>
+      <Placeholder label={image.label} ratio={image.ratio} />
+      <div class="hero-badge">
+        <span class="num">{badge.value}</span>
+        <span class="lbl">{badge.label}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(3rem, 6vw, 5rem);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .hero h1 {
+    font-size: var(--step-4);
+    margin: 1.1rem 0 1.3rem;
+  }
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-top: 1.8rem;
+  }
+  .hero-art {
+    position: relative;
+  }
+  .hero-art :global(.ph) {
+    box-shadow: var(--shadow);
+  }
+  .hero-badge {
+    position: absolute;
+    bottom: -22px;
+    left: -22px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    max-width: 250px;
+  }
+  .hero-badge .num {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    color: var(--color-primary-d);
+    line-height: 1;
+  }
+  .hero-badge .lbl {
+    font-size: 0.84rem;
+    color: var(--color-ink-soft);
+    line-height: 1.35;
+  }
+  .hero-dots {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    top: -28px;
+    right: -10px;
+    z-index: -1;
+  }
+  @media (max-width: 880px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-art {
+      order: -1;
+    }
+  }
+</style>

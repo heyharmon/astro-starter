@@ -1,0 +1,32 @@
+---
+/**
+ * PageHero — the simple hero used on Programs / About / Contact:
+ * eyebrow + headline (with accent word) + lead.
+ */
+interface Props {
+  eyebrow: string;
+  headline: { before: string; accent: string; after: string };
+  lead: string;
+}
+const { eyebrow, headline, lead } = Astro.props;
+---
+
+<section class="wrap page-hero">
+  <span class="eyebrow">{eyebrow}</span>
+  <h1>{headline.before}<em class="accent">{headline.accent}</em>{headline.after}</h1>
+  <p class="lead">{lead}</p>
+</section>
+
+<style>
+  .page-hero {
+    padding-block: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .page-hero h1 {
+    font-size: var(--step-4);
+    margin: 1rem 0 1.1rem;
+    max-width: 15ch;
+  }
+  .page-hero .lead {
+    max-width: 54ch;
+  }
+</style>

@@ -19,10 +19,15 @@ const canonical = canonicalURL || new URL(Astro.url.pathname, siteMeta.url).href
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="generator" content={Astro.generator} />
 
-<!-- Google Fonts: Inter -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<!--
+  Fonts: the base branch ships a neutral system-font stack (set on
+  --font-display / --font-body in global.css). Each THEME branch adds
+  its Google Fonts <link> here and repoints those two tokens. Example:
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=...&display=swap" rel="stylesheet" />
+-->
+
 
 <title>{pageTitle}</title>
 <meta name="description" content={metaDescription} />

@@ -1,0 +1,68 @@
+---
+/**
+ * CtaBand — closing call-to-action box: heading + body + primary
+ * button, with a decorative dot field.
+ */
+import Button from "./Button.astro";
+
+interface Props {
+  heading: string;
+  body: string;
+  button: { label: string; href: string };
+}
+const { heading, body, button } = Astro.props;
+---
+
+<section class="section cta-band">
+  <div class="wrap">
+    <div class="box">
+      <div class="cta-copy">
+        <h2>{heading}</h2>
+        <p>{body}</p>
+      </div>
+      <Button href={button.href} variant="primary" arrow>{button.label}</Button>
+      <div class="dots cta-dots"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .box {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    padding: clamp(2.2rem, 5vw, 3.8rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    box-shadow: var(--shadow-soft);
+  }
+  .cta-copy h2 {
+    font-size: var(--step-3);
+    max-width: 16ch;
+  }
+  .cta-copy p {
+    color: var(--color-ink-soft);
+    margin-top: 0.6rem;
+  }
+  .cta-dots {
+    position: absolute;
+    inset: auto -40px -50px auto;
+    width: 200px;
+    height: 200px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .box :global(.btn) {
+    flex: none;
+  }
+  @media (max-width: 760px) {
+    .box {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

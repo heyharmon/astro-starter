@@ -1,53 +1,83 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getEntry, render } from "astro:content";
+import PageHero from "../components/PageHero.astro";
+import Placeholder from "../components/Placeholder.astro";
+import FounderNote from "../components/FounderNote.astro";
+import ValueGrid from "../components/ValueGrid.astro";
+import TeamGrid from "../components/TeamGrid.astro";
+import CtaBand from "../components/CtaBand.astro";
+import siteContent from "../data/site-content.json";
 
-const page = (await getEntry("pages", "about"))!;
-const { Content } = await render(page);
+const page = siteContent.pages.about;
+const { founder } = siteContent;
+const { story, values, team, cta } = page;
 ---
 
-<BaseLayout title={page.data.title} description={page.data.description}>
-  <!-- Hero -->
-  <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-    <p class="text-sm uppercase tracking-wide text-neutral-500">
-      Tier 1 / 3 — Inline page + Markdown entry
-    </p>
-    <h1 class="mt-4">{page.data.headline}</h1>
-    {page.data.subheadline && (
-      <p class="mt-6 max-w-2xl text-lg text-neutral-500">
-        {page.data.subheadline}
-      </p>
-    )}
-  </section>
+<BaseLayout title={page.title} description={page.description}>
+  <PageHero eyebrow={page.eyebrow} headline={page.headline} lead={page.lead} />
 
-  <!-- File map -->
-  <section class="border-t border-neutral-200 bg-neutral-50">
-    <div class="mx-auto max-w-5xl px-6 py-16">
-      <h2 class="text-lg">How this page is wired</h2>
-      <dl class="mt-6 grid gap-6 sm:grid-cols-2">
-        <div>
-          <dt class="text-sm font-medium">Route file</dt>
-          <dd class="mt-1 text-sm text-neutral-500">
-            <code class="rounded bg-white px-1.5 py-0.5">src/pages/about.astro</code> — calls
-            <code class="rounded bg-white px-1.5 py-0.5">getEntry("pages", "about")</code> and renders the body.
-          </dd>
-        </div>
-        <div>
-          <dt class="text-sm font-medium">Content file</dt>
-          <dd class="mt-1 text-sm text-neutral-500">
-            <code class="rounded bg-white px-1.5 py-0.5">src/content/pages/about.md</code> — the Markdown body and frontmatter you're reading.
-          </dd>
-        </div>
-      </dl>
-    </div>
-  </section>
-
-  <!-- Markdown body -->
-  <section class="border-t border-neutral-200">
-    <div class="mx-auto max-w-3xl px-6 py-24 sm:py-32">
-      <div class="prose">
-        <Content />
+  <!-- Story -->
+  <section class="section story-sec">
+    <div class="wrap story-grid">
+      <div>
+        <h2 class="story-h">{story.heading}</h2>
+        {story.paragraphs.map((p) => <p class="story-p">{p}</p>)}
+      </div>
+      <div class="story-art">
+        <Placeholder
+          label={story.image.label}
+          ratio={story.image.ratio}
+          variant={story.image.variant}
+        />
       </div>
     </div>
   </section>
+
+  <!-- Founder (no link — we're already on the story page) -->
+  <FounderNote
+    eyebrow={founder.eyebrow}
+    heading={founder.heading}
+    name={founder.name}
+    title={founder.title}
+    image={founder.image}
+    quote={founder.quote}
+    body={founder.body}
+    stat={founder.stat}
+  />
+
+  <ValueGrid eyebrow={values.eyebrow} heading={values.heading} items={values.items} />
+
+  <TeamGrid eyebrow={team.eyebrow} heading={team.heading} members={team.members} />
+
+  <CtaBand heading={cta.heading} body={cta.body} button={cta.button} />
 </BaseLayout>
+
+<style>
+  section.story-sec {
+    padding-top: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .story-h {
+    font-size: var(--step-2);
+    margin-bottom: 1rem;
+  }
+  .story-p {
+    color: var(--color-ink-soft);
+  }
+  .story-p + .story-p {
+    margin-top: 1rem;
+  }
+  @media (max-width: 820px) {
+    .story-grid {
+      grid-template-columns: 1fr;
+    }
+    .story-art {
+      order: -1;
+    }
+  }
+</style>
