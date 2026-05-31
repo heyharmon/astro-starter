@@ -36,16 +36,31 @@ const { items } = Astro.props;
     gap: 0.9rem;
   }
   .step-n {
-    width: 44px;
-    height: 44px;
+    position: relative;
+    width: 48px;
+    height: 48px;
     border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--color-primary) 14%, var(--color-surface));
-    color: var(--color-primary-d);
+    background: var(--color-primary);
+    color: var(--color-bg);
     font-family: var(--font-display);
     font-size: 1.2rem;
     font-weight: 600;
     display: grid;
     place-content: center;
+    z-index: 1;
+  }
+  /* Connector through the step numbers — only in the full 4-up layout */
+  @media (min-width: 821px) {
+    .step:not(:last-child) .step-n::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      width: 1.5rem;
+      height: 1.5px;
+      background: var(--color-line);
+      transform: translateY(-50%);
+    }
   }
   .step-c h3 {
     font-size: var(--step-1);

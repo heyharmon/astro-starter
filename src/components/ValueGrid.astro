@@ -1,6 +1,9 @@
 ---
 /**
- * ValueGrid — about page: numbered value cards on a sunk panel.
+ * ValueGrid — about page: the "five promises" manifesto. The section intro
+ * is the first tile of the grid, so the heading + 5 values resolve to a clean
+ * 3x2 (no orphaned card). Large ghosted numerals read as a deliberate
+ * enumerated set, not reflexive 01/02/03 scaffolding. Sits on the sunk panel.
  */
 import Eyebrow from "./Eyebrow.astro";
 
@@ -13,18 +16,18 @@ const { eyebrow, heading, items } = Astro.props;
 ---
 
 <section class="section values">
-  <div class="wrap">
-    <Eyebrow>{eyebrow}</Eyebrow>
-    <h2 class="values-h">{heading}</h2>
-    <div class="values-grid">
-      {items.map((v) => (
-        <div class="value">
-          <div class="n">{v.n}</div>
-          <h3>{v.title}</h3>
-          <p>{v.body}</p>
-        </div>
-      ))}
+  <div class="wrap values-grid">
+    <div class="values-intro">
+      <Eyebrow>{eyebrow}</Eyebrow>
+      <h2 class="values-h">{heading}</h2>
     </div>
+    {items.map((v) => (
+      <div class="value">
+        <span class="value-n">{v.n}</span>
+        <h3>{v.title}</h3>
+        <p>{v.body}</p>
+      </div>
+    ))}
   </div>
 </section>
 
@@ -32,39 +35,54 @@ const { eyebrow, heading, items } = Astro.props;
   .values {
     background: var(--color-surface-2);
   }
-  .values-h {
-    font-size: var(--step-3);
-    margin-top: 0.8rem;
-    max-width: 16ch;
-  }
   .values-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.2rem;
-    margin-top: 2.6rem;
+    gap: 0;
+    column-gap: clamp(1.5rem, 4vw, 3rem);
+  }
+  .values-intro {
+    padding-block: 0 clamp(1.5rem, 3vw, 2.4rem);
+    align-self: center;
+  }
+  .values-h {
+    font-size: var(--step-2);
+    margin-top: 0.9rem;
+    max-width: 14ch;
   }
   .value {
-    background: var(--color-surface);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-lg);
-    padding: 1.7rem;
+    padding-block: clamp(1.5rem, 3vw, 2.2rem);
+    border-top: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
   }
-  .value .n {
+  .value-n {
+    display: block;
     font-family: var(--font-display);
-    font-size: 1.5rem;
-    color: var(--color-accent);
+    font-size: 2.4rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--color-accent-2);
+    margin-bottom: 0.7rem;
   }
   .value h3 {
     font-size: var(--step-1);
-    margin: 0.5rem 0;
+    margin-bottom: 0.45rem;
   }
   .value p {
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     color: var(--color-ink-soft);
   }
-  @media (max-width: 760px) {
+  @media (max-width: 860px) {
+    .values-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .values-intro {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 560px) {
     .values-grid {
       grid-template-columns: 1fr;
     }
+    .value-n { font-size: 2rem; }
   }
 </style>

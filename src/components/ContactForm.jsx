@@ -67,7 +67,7 @@ export default function ContactForm({
     return (
       <div className="form-card">
         <h2>Tour requested</h2>
-        <p className="form-success">{successMessage}</p>
+        <p className="form-success" role="status" aria-live="polite">{successMessage}</p>
         <button
           type="button"
           className="btn btn-ghost"
@@ -168,11 +168,14 @@ export default function ContactForm({
         />
       </div>
 
-      {status === "error" && <p className="form-error">{errorMessage}</p>}
+      {status === "error" && (
+        <p className="form-error" role="alert">{errorMessage}</p>
+      )}
 
       <button
         type="submit"
         disabled={status === "submitting"}
+        aria-busy={status === "submitting"}
         className="btn btn-primary form-submit"
         style={status === "submitting" ? { opacity: 0.6 } : undefined}
       >

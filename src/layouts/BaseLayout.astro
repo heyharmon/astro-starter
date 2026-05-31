@@ -19,41 +19,76 @@ const { title, description, image } = Astro.props;
     <Head title={title} description={description} image={image} />
   </head>
   <body class="flex min-h-screen flex-col">
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <Header />
-    <main class="flex-1">
+    <main id="main-content" class="flex-1">
       <slot />
     </main>
     <Footer />
     <script>
       // Scroll-reveal (progressive enhancement). Content is fully visible
-      // without JS — this only adds the .reveal → .in fade-up when JS runs,
-      // and a safety timeout guarantees nothing stays hidden. CSS honors
-      // prefers-reduced-motion. Mirrors the demo behavior.
+      // without JS — this only adds .reveal → .in when JS runs, and a safety
+      // timeout guarantees nothing stays hidden. CSS honors prefers-reduced-
+      // motion. The entrance is tailored to what it reveals:
+      //   • framed media settles in (.reveal-media: rise + slight scale)
+      //   • text/content rises (.reveal)
+      //   • [data-stagger] grids reveal their items in sequence (.reveal-soft)
       (function () {
-        var els = Array.prototype.slice.call(
+        var blocks = Array.prototype.slice.call(
           document.querySelectorAll(".section > .wrap > *")
         );
-        if (!els.length || !("IntersectionObserver" in window)) return;
+        if (!blocks.length || !("IntersectionObserver" in window)) return;
+
+        function isMedia(el: any) {
+          if (el.classList.contains("ph")) return true;
+          return (
+            !!el.querySelector(".ph") &&
+            el.querySelectorAll("h1,h2,h3,h4,p,ul,ol").length === 0
+          );
+        }
+
+        function show(el: any) {
+          if (el._kids) {
+            el._kids.forEach(function (k: any) {
+              k.classList.add("in");
+            });
+          }
+          el.classList.add("in");
+        }
+
         var io = new IntersectionObserver(
-          function (entries) {
-            entries.forEach(function (e) {
+          function (entries: any) {
+            entries.forEach(function (e: any) {
               if (e.isIntersecting) {
-                e.target.classList.add("in");
+                show(e.target);
                 io.unobserve(e.target);
               }
             });
           },
-          { threshold: 0.1 }
+          { threshold: 0.12, rootMargin: "0px 0px -4% 0px" }
         );
-        els.forEach(function (el, i) {
-          el.classList.add("reveal");
-          el.style.transitionDelay = (i % 4) * 0.06 + "s";
+
+        blocks.forEach(function (el: any, i: number) {
+          if (el.hasAttribute("data-stagger")) {
+            // The container stays visible; its items rise in sequence.
+            el._kids = Array.prototype.slice.call(el.children);
+            el._kids.forEach(function (k: any, j: number) {
+              k.classList.add("reveal", "reveal-soft");
+              k.style.transitionDelay = Math.min(j, 8) * 0.07 + "s";
+            });
+          } else if (isMedia(el)) {
+            el.classList.add("reveal", "reveal-media");
+          } else {
+            el.classList.add("reveal");
+            el.style.transitionDelay = (i % 3) * 0.05 + "s";
+          }
           if (el.getBoundingClientRect().top < window.innerHeight) {
-            el.classList.add("in");
+            show(el);
           } else {
             io.observe(el);
           }
         });
+
         setTimeout(function () {
           document.querySelectorAll(".reveal").forEach(function (el) {
             el.classList.add("in");

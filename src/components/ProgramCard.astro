@@ -18,7 +18,9 @@ const { program } = Astro.props;
 ---
 
 <article class="prog-card">
-  <Placeholder label={program.image.label} ratio="1/1" />
+  <div class="prog-frame">
+    <Placeholder label={program.image.label} ratio="1/1" />
+  </div>
   <span class="age">{program.ageShort}</span>
   <h3>{program.title}</h3>
   <p>{program.previewBlurb}</p>
@@ -29,22 +31,44 @@ const { program } = Astro.props;
     display: flex;
     flex-direction: column;
   }
-  .prog-card :global(.ph) {
+  .prog-frame {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
     margin-bottom: 1.1rem;
   }
+  .prog-frame :global(.ph) {
+    border-radius: 0;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .prog-card:hover .prog-frame :global(.ph) {
+    transform: scale(1.04);
+  }
   .age {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
     color: var(--color-accent);
     font-weight: 700;
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+  }
+  .age::before {
+    content: "";
+    width: 18px;
+    height: 1.5px;
+    background: currentColor;
   }
   .prog-card h3 {
     font-size: var(--step-1);
-    margin: 0.35rem 0 0.6rem;
+    margin: 0.45rem 0 0.55rem;
   }
   .prog-card p {
-    font-size: 0.92rem;
+    font-size: 0.93rem;
     color: var(--color-ink-soft);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .prog-frame :global(.ph) { transition: none; }
+    .prog-card:hover .prog-frame :global(.ph) { transform: none; }
   }
 </style>

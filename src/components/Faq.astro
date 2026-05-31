@@ -39,6 +39,13 @@ const { items } = Astro.props;
     font-family: var(--font-display);
     font-size: var(--step-1);
     color: var(--color-ink);
+    transition: color var(--dur) var(--ease-out);
+  }
+  .faq-item summary:hover {
+    color: var(--color-accent);
+  }
+  .faq-item[open] summary {
+    color: var(--color-ink);
   }
   .faq-item summary::-webkit-details-marker {
     display: none;

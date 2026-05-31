@@ -7,18 +7,20 @@
   "colors": {
     "tokens": {
       "bg": "#ffffff",
-      "surface": "#f7f7f5",
-      "surface-2": "#ededea",
+      "surface": "#f5f5f5",
+      "surface-2": "#ebebeb",
       "ink": "#1a1a1a",
-      "ink-soft": "#666666",
-      "primary": "#333333",
+      "ink-soft": "#565656",
+      "primary": "#2e2e2e",
       "primary-d": "#111111",
-      "accent": "#888888",
-      "accent-2": "#aaaaaa",
-      "line": "#e2e2dd",
-      "blue": "#888888",
-      "green": "#888888"
+      "accent": "#585858",
+      "accent-2": "#a3a3a3",
+      "line": "#e4e4e4",
+      "error": "#b42318",
+      "blue": "#585858",
+      "green": "#585858"
     },
+    "note": "Base is a clean TRUE-neutral grayscale (equal RGB channels) — not a warm-tinted near-white. Contrast is tuned so ink-soft and accent read at AA on the base before any theme tints them (ink-soft #565656 = 7.0:1 on bg, accent #585858 = 7.0:1). Warmth/identity is the theme branches' job, carried by accent + fonts + imagery.",
     "usage": {
       "page background": "bg",
       "card / raised surface": "surface",
@@ -27,9 +29,10 @@
       "secondary / body text": "ink-soft",
       "brand + primary buttons": "primary",
       "darker primary (footer bg, hovers)": "primary-d",
-      "highlight / accent word / eyebrow": "accent",
-      "secondary pop (dots, badges)": "accent-2",
+      "highlight / accent word / eyebrow / labels": "accent",
+      "secondary pop (dots, badges, on-dark eyebrow)": "accent-2",
       "hairlines / borders": "line",
+      "inline / form error text": "error",
       "extra rotating hues (Jubilee only)": "blue, green"
     },
     "tailwindUtilities": "Each token also yields utilities, e.g. bg-bg, bg-surface, text-ink, text-ink-soft, bg-primary, border-line."
@@ -41,19 +44,20 @@
     },
     "tailwindUtilities": "font-display, font-body",
     "scale": {
-      "note": "Fluid clamp scale in :root. Themes may tune the clamps but keep the names. Used via var(--step-N) or arbitrary values.",
-      "step--1": "clamp(0.82rem, 0.8rem + 0.1vw, 0.9rem)",
-      "step-0": "clamp(1rem, 0.96rem + 0.2vw, 1.12rem)",
-      "step-1": "clamp(1.2rem, 1.08rem + 0.5vw, 1.45rem)",
-      "step-2": "clamp(1.6rem, 1.4rem + 1vw, 2.25rem)",
-      "step-3": "clamp(2.1rem, 1.7rem + 2vw, 3.4rem)",
-      "step-4": "clamp(2.8rem, 2rem + 3.8vw, 5.2rem)"
+      "note": "Fluid clamp scale in :root, ~1.28 ratio (confident, non-flat hierarchy). Themes may tune the clamps but keep the names. Used via var(--step-N) or arbitrary values.",
+      "step--1": "clamp(0.8rem, 0.78rem + 0.1vw, 0.875rem)",
+      "step-0": "clamp(1.02rem, 0.98rem + 0.2vw, 1.125rem)",
+      "step-1": "clamp(1.26rem, 1.13rem + 0.55vw, 1.5rem)",
+      "step-2": "clamp(1.65rem, 1.4rem + 1.15vw, 2.4rem)",
+      "step-3": "clamp(2.2rem, 1.7rem + 2.3vw, 3.7rem)",
+      "step-4": "clamp(2.9rem, 2rem + 4.3vw, 5.5rem)"
     },
     "headingDefaults": {
       "family": "var(--font-display)",
       "weight": "600",
-      "lineHeight": "1.1",
-      "letterSpacing": "-0.01em",
+      "lineHeight": "1.1 (h1 1.02, h2 1.06)",
+      "letterSpacing": "-0.02em base; tightens with size (h1 -0.035em, h2 -0.03em, h3 -0.015em)",
+      "note": "Single neutral system family on the base — hierarchy is carried by size + weight + tracking contrast (brand.md: a single committed family beats a timid display+body pair). Theme branches repoint --font-display/--font-body to introduce a display face.",
       "h1": "step-4",
       "h2": "step-3",
       "h3": "step-1",
@@ -63,7 +67,19 @@
   "spacing": {
     "containerMax": "--maxw (1200px)",
     "gutter": "--gutter (clamp(1.25rem, 4vw, 3rem))",
-    "sectionPadding": ".section → padding-block: clamp(4rem, 9vw, 7.5rem)"
+    "sectionPadding": ".section → padding-block: var(--space-section)",
+    "sectionRhythm": {
+      "--space-section": "clamp(4rem, 9vw, 7.5rem) — default",
+      "--space-section-sm": "clamp(2.5rem, 5.5vw, 4.5rem) — .section--tight, for stacked related sections",
+      "--space-section-lg": "clamp(5rem, 11vw, 9rem) — .section--lg, before a major shift"
+    }
+  },
+  "motion": {
+    "--ease-out": "cubic-bezier(0.22, 1, 0.36, 1) — ease-out only, no bounce",
+    "--dur": "0.25s — hover / micro-interactions",
+    "--dur-reveal": "0.7s — scroll-reveal entrances",
+    "revealVariants": ".reveal (default rise), .reveal-soft (shorter travel for dense grids), .reveal-media (settle + scale for framed media). All honor prefers-reduced-motion.",
+    "lift": ".lift / .lift:hover — reusable card hover (translateY -4px + shadow)"
   },
   "effects": {
     "borderRadius": {

@@ -4,7 +4,7 @@
   "hero": {
     "eyebrow": "Early learning · Ages 6 weeks–5 years",
     "headline": { "before": "Where little ones grow, play, and ", "accent": "belong.", "after": "" },
-    "lead": "A warm, light-filled early learning community in the heart of the neighborhood — thoughtful care and joyful discovery for your child's first five years.",
+    "lead": "A warm, light-filled early learning community in the heart of the neighborhood. Thoughtful care and joyful discovery through your child's first five years.",
     "primaryCta": { "label": "Book a tour", "href": "/contact" },
     "secondaryCta": { "label": "Explore programs", "href": "/programs" },
     "image": { "label": "Children at play", "ratio": "4/5" },
@@ -24,17 +24,17 @@
     "name": "Tamara Lewis",
     "title": "Founder & Director",
     "image": { "label": "Tamara, our founder", "ratio": "4/5" },
-    "quote": "I opened Maplewood because I wanted a place where children could simply be children — safe, known, and free to wonder.",
+    "quote": "I opened Maplewood because I wanted a place where children could simply be children: safe, known, and free to wonder.",
     "body": "Fifteen years and hundreds of families later, that's still the whole idea: small classes, educators who stay, and days built around play instead of pressure.",
-    "stat": { "value": "90%", "label": "of a child's brain develops before age five — we make those years count." },
+    "stat": { "value": "90%", "label": "of a child's brain develops before age five. We make those years count." },
     "cta": { "label": "Read our story", "href": "/about" }
   },
 
   "approach": {
     "eyebrow": "Our approach",
     "heading": "Childhood is not a race.",
-    "lead": "The first five years move quickly — but their impact lasts a lifetime. We give children the time, space, and gentle guidance to grow at their own pace.",
-    "body": "In small, calm classrooms, qualified educators build real bonds with every child. We follow a play-based curriculum that nurtures the whole child — heart, mind, and body — so curiosity, confidence, and kindness can take root early.",
+    "lead": "The first five years move quickly, but their impact lasts a lifetime. We give children the time, space, and gentle guidance to grow at their own pace.",
+    "body": "In small, calm classrooms, qualified educators build real bonds with every child. We follow a play-based curriculum that nurtures the whole child (heart, mind, and body) so curiosity, confidence, and kindness can take root early.",
     "cta": { "label": "Read our philosophy", "href": "/about" },
     "images": [
       { "label": "Cozy classroom", "ratio": "3/4" },
@@ -55,8 +55,8 @@
       "title": "Gentle beginnings",
       "age": "6 weeks – 18 months",
       "ageShort": "6 wks – 18 mo",
-      "previewBlurb": "Responsive, one-on-one care for our youngest — feeding, sleeping, and cuddles on your baby's own rhythm.",
-      "body": "Our infant room moves at your baby's pace — feeding, sleeping, and cuddles on their own rhythm. Responsive, one-on-one care builds the trust and security that everything else grows from. Daily notes keep you close to every milestone.",
+      "previewBlurb": "Responsive, one-on-one care for our youngest: feeding, sleeping, and cuddles on your baby's own rhythm.",
+      "body": "Our infant room moves at your baby's pace: feeding, sleeping, and cuddles on their own rhythm. Responsive, one-on-one care builds the trust and security that everything else grows from. Daily notes keep you close to every milestone.",
       "image": { "label": "Infant room", "ratio": "4/3" },
       "meta": [
         { "value": "1:4", "label": "educator ratio" },
@@ -71,7 +71,7 @@
       "age": "18 months – 2.5 years",
       "ageShort": "18 mo – 2.5 yrs",
       "previewBlurb": "First words, first friendships, and lots of movement as toddlers discover the world on their own two feet.",
-      "body": "First words, first friendships, and endless movement. Toddlers discover the world on their own two feet through sensory play, music, and lots of fresh air — with gentle support for self-help skills along the way.",
+      "body": "First words, first friendships, and endless movement. Toddlers discover the world on their own two feet through sensory play, music, and lots of fresh air, with gentle support for self-help skills along the way.",
       "image": { "label": "Toddler room", "ratio": "4/3" },
       "meta": [
         { "value": "1:6", "label": "educator ratio" },
@@ -86,7 +86,7 @@
       "age": "3 – 4 years",
       "ageShort": "3 – 4 yrs",
       "previewBlurb": "Play-based learning with early literacy, numeracy, art, and music that follows where curiosity leads.",
-      "body": "A play-based curriculum that follows where curiosity leads — early literacy and numeracy, art, music, and science woven into hands-on projects. Children learn to ask questions, work together, and take pride in their ideas.",
+      "body": "A play-based curriculum that follows where curiosity leads: early literacy and numeracy, art, music, and science woven into hands-on projects. Children learn to ask questions, work together, and take pride in their ideas.",
       "image": { "label": "Preschool room", "ratio": "4/3" },
       "meta": [
         { "value": "1:8", "label": "educator ratio" },
@@ -101,7 +101,7 @@
       "age": "4 – 5 years",
       "ageShort": "4 – 5 yrs",
       "previewBlurb": "Confidence, focus, and social skills that help children step into kindergarten with joy and ease.",
-      "body": "Our Pre-K year builds the confidence, focus, and social skills that help children step into kindergarten with joy. Children leave Maplewood not just ready for school, but ready for the world — curious, capable, and kind.",
+      "body": "Our Pre-K year builds the confidence, focus, and social skills that help children step into kindergarten with joy. Children leave Maplewood not just ready for school, but ready for the world: curious, capable, and kind.",
       "image": { "label": "Pre-K room", "ratio": "4/3" },
       "meta": [
         { "value": "1:10", "label": "educator ratio" },
@@ -125,7 +125,7 @@
   "schedule": {
     "eyebrow": "A day at Maplewood",
     "heading": "Gentle rhythm, room to wander.",
-    "lead": "Our days follow a predictable, comforting flow — with plenty of unhurried time for children to follow their own interests.",
+    "lead": "Our days follow a predictable, comforting flow, with plenty of unhurried time for children to follow their own interests.",
     "image": { "label": "Snack time", "ratio": "4/3" },
     "items": [
       { "time": "8:00", "title": "Soft landings", "body": "Warm welcomes, free play, and a calm start to the morning." },
@@ -151,7 +151,7 @@
   "enrollmentCta": {
     "eyebrow": "Enrollment",
     "heading": "The best start begins here.",
-    "body": "Spaces fill quickly — especially in our infant room. Take the first step toward your child's bright future today.",
+    "body": "Spaces fill quickly, especially in our infant room. Take the first step toward your child's bright future today.",
     "button": { "label": "Enroll today", "href": "/enrollment" }
   },
 
@@ -173,10 +173,10 @@
   "pages": {
     "programs": {
       "title": "Programs",
-      "description": "Four thoughtfully designed early-learning programs for ages 6 weeks to 5 years — infants, toddlers, preschool, and pre-K.",
+      "description": "Four thoughtfully designed early-learning programs for ages 6 weeks to 5 years: infants, toddlers, preschool, and pre-K.",
       "eyebrow": "Programs · Ages 6 weeks–5 years",
       "headline": { "before": "A room for every ", "accent": "stage", "after": " of growing up." },
-      "lead": "Four thoughtfully designed programs that grow with your child — each with its own pace, rhythm, and joys. Small classes, qualified educators, and learning that always begins with play.",
+      "lead": "Four thoughtfully designed programs that grow with your child, each with its own pace, rhythm, and joys. Small classes, qualified educators, and learning that always begins with play.",
       "cta": {
         "heading": "Find the right room for your child.",
         "body": "Book a tour and we'll walk you through each program in person.",
@@ -185,14 +185,14 @@
     },
     "about": {
       "title": "About Us",
-      "description": "Maplewood cares for the whole child — heart, mind, and body. Meet our founder, our values, and the educators who stay and truly know your child.",
+      "description": "Maplewood cares for the whole child: heart, mind, and body. Meet our founder, our values, and the educators who stay and truly know your child.",
       "eyebrow": "About us",
       "headline": { "before": "We care for the ", "accent": "whole", "after": " child." },
-      "lead": "Children don't learn in silos. Their hearts, minds, bodies, and imaginations all grow together — and so we tend to all of them, every day.",
+      "lead": "Children don't learn in silos. Their hearts, minds, bodies, and imaginations all grow together, and so we tend to all of them, every day.",
       "story": {
         "heading": "A second home, by design.",
         "paragraphs": [
-          "Maplewood began with a simple belief: that the first five years deserve more than a waiting room with toys. We set out to build a place that feels less like a facility and more like a warm, light-filled home — calm rooms at a child's scale, real green space to explore, and educators who stay.",
+          "Maplewood began with a simple belief: that the first five years deserve more than a waiting room with toys. We set out to build a place that feels less like a facility and more like a warm, light-filled home, with calm rooms at a child's scale, real green space to explore, and educators who stay.",
           "Fifteen years later, that's still our north star. We keep classes small, invest deeply in our team, and follow a play-based curriculum grounded in how young children actually learn: through wonder, repetition, relationships, and joy.",
           "We never rush childhood. Whether it's a first step, first word, or first friendship, we meet every milestone with patience instead of pressure."
         ],
@@ -202,10 +202,10 @@
         "eyebrow": "What we stand for",
         "heading": "Five things we promise every family.",
         "items": [
-          { "n": "01", "title": "Safe", "body": "Secure, nurturing spaces where children feel held — physically and emotionally — so they can be brave." },
+          { "n": "01", "title": "Safe", "body": "Secure, nurturing spaces where children feel held, physically and emotionally, so they can be brave." },
           { "n": "02", "title": "Seen", "body": "Care is never one-size-fits-all. Every child is known by name, by need, and by what makes them light up." },
           { "n": "03", "title": "Engaged", "body": "Hands-on, play-based days that follow curiosity and build real skills without ever feeling like school." },
-          { "n": "04", "title": "Healthy", "body": "Nourishing meals, daily fresh air, rest, and movement — the foundations of a growing body and mind." },
+          { "n": "04", "title": "Healthy", "body": "Nourishing meals, daily fresh air, rest, and movement: the foundations of a growing body and mind." },
           { "n": "05", "title": "Supported", "body": "An open door for families, daily updates, and a team that partners with you at every step." }
         ]
       },
@@ -230,7 +230,7 @@
       "description": "How to enroll at Maplewood Early Learning, transparent monthly tuition by age group, what's included, and answers to common questions.",
       "eyebrow": "Enrollment & Tuition",
       "headline": { "before": "Join our ", "accent": "community.", "after": "" },
-      "lead": "We've kept enrollment simple and our tuition transparent. Here's exactly how it works, what it costs, and what's included — no surprises.",
+      "lead": "We've kept enrollment simple and our tuition transparent. Here's exactly how it works, what it costs, and what's included, with no surprises.",
       "steps": {
         "eyebrow": "How it works",
         "heading": "Four steps to your child's first day.",
@@ -238,7 +238,7 @@
           { "title": "Book a tour", "body": "Come see our rooms, meet the educators, and ask us anything. Tours run weekday mornings." },
           { "title": "Apply & join the list", "body": "Submit a short application. We'll confirm availability for your child's age group, or add you to our waitlist." },
           { "title": "Reserve your spot", "body": "When a space opens, a deposit and enrollment paperwork hold your child's place." },
-          { "title": "Welcome to Maplewood", "body": "We build a gentle start plan together, so your child — and you — feel at home from day one." }
+          { "title": "Welcome to Maplewood", "body": "We build a gentle start plan together, so your child (and you) feel at home from day one." }
         ]
       },
       "tuition": {
@@ -267,12 +267,12 @@
         "eyebrow": "Good to know",
         "heading": "Questions, answered.",
         "items": [
-          { "q": "What ages do you accept?", "a": "We care for children from 6 weeks to 5 years, across four age-based programs — infants, toddlers, preschool, and pre-K." },
+          { "q": "What ages do you accept?", "a": "We care for children from 6 weeks to 5 years, across four age-based programs: infants, toddlers, preschool, and pre-K." },
           { "q": "Is there a waitlist?", "a": "Often, especially for infants. We recommend touring and applying early. We'll always be honest with you about likely timelines." },
           { "q": "What are your hours?", "a": "We're open Monday to Friday, 7:30 am to 6:00 pm, year-round, with a handful of holiday closures shared at enrollment." },
           { "q": "Do you offer part-time or accept subsidies?", "a": "Yes. We offer part-time schedules where space allows, and we accept government childcare subsidies. Just ask and we'll walk you through it." },
           { "q": "What's included in tuition?", "a": "All meals and snacks, diapers and wipes for infants and toddlers, a daily photo journal, and every learning material your child uses." },
-          { "q": "How do I get started?", "a": "Book a tour — it's the best first step. We'll show you around, answer your questions, and explain enrollment in person." }
+          { "q": "How do I get started?", "a": "Book a tour: it's the best first step. We'll show you around, answer your questions, and explain enrollment in person." }
         ]
       },
       "cta": {

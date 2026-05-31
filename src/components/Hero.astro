@@ -109,4 +109,47 @@ const { eyebrow, headline, lead, primaryCta, secondaryCta, image, badge } = Astr
       order: -1;
     }
   }
+
+  /* ---- First-load choreography ----
+     Above the fold, so it plays on load (not on scroll). Copy rises in
+     sequence, the framed image settles, the stat badge pops in last.
+     Transform + opacity only (no layout shift); disabled for reduced motion. */
+  @keyframes hero-rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes hero-settle {
+    from { opacity: 0; transform: scale(0.97); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes hero-pop {
+    from { opacity: 0; transform: translateY(12px) scale(0.95); }
+    to { opacity: 1; transform: none; }
+  }
+  .hero .eyebrow,
+  .hero h1,
+  .hero .lead,
+  .hero-cta {
+    animation: hero-rise 0.7s var(--ease-out) both;
+  }
+  .hero .eyebrow { animation-delay: 0.04s; }
+  .hero h1 { animation-delay: 0.12s; }
+  .hero .lead { animation-delay: 0.24s; }
+  .hero-cta { animation-delay: 0.34s; }
+  .hero-art :global(.ph) {
+    animation: hero-settle 0.85s var(--ease-out) 0.12s both;
+  }
+  .hero-badge {
+    animation: hero-pop 0.6s var(--ease-out) 0.62s both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero .eyebrow,
+    .hero h1,
+    .hero .lead,
+    .hero-cta,
+    .hero-art :global(.ph),
+    .hero-badge {
+      animation: none;
+    }
+  }
 </style>

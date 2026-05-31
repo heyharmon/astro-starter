@@ -101,19 +101,24 @@ const { eyebrow, heading, name, title, image, quote, body, stat, cta } = Astro.p
   .founder-stat {
     display: flex;
     align-items: baseline;
-    gap: 0.7rem;
-    margin-top: 1.6rem;
-    padding-left: 1.1rem;
-    border-left: 3px solid var(--color-accent);
+    gap: 0.9rem;
+    margin-top: 1.8rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--color-line);
+    max-width: 40ch;
   }
   .founder-stat b {
     font-family: var(--font-display);
-    font-size: 1.8rem;
-    color: var(--color-primary-d);
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--color-ink);
     line-height: 1;
+    flex: none;
   }
   .founder-stat span {
     color: var(--color-ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.4;
   }
   .founder-cta {
     margin-top: 1.6rem;

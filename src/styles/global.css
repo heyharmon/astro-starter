@@ -22,20 +22,24 @@
   --font-display: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  /* Semantic color tokens */
+  /* Semantic color tokens — a clean, true-neutral grayscale on the base.
+     Warmth/identity is the theme branches' job (color carried by accent +
+     fonts + imagery, never by a default warm-tinted body). Contrast is tuned
+     so labels/emphasis read on the base before any theme tints them. */
   --color-bg: #ffffff;          /* page background */
-  --color-surface: #f7f7f5;     /* cards / raised */
-  --color-surface-2: #ededea;   /* sunk / alt section panel */
-  --color-ink: #1a1a1a;         /* primary text */
-  --color-ink-soft: #666666;    /* secondary text */
-  --color-primary: #333333;     /* brand / primary actions */
+  --color-surface: #f5f5f5;     /* cards / raised */
+  --color-surface-2: #ebebeb;   /* sunk / alt section panel */
+  --color-ink: #1a1a1a;         /* primary text (16.9:1 on bg) */
+  --color-ink-soft: #565656;    /* secondary text (7.0:1 on bg) */
+  --color-primary: #2e2e2e;     /* brand / primary actions */
   --color-primary-d: #111111;   /* darker primary (footer, hovers) */
-  --color-accent: #888888;      /* highlight / emphasis */
-  --color-accent-2: #aaaaaa;    /* secondary pop */
-  --color-line: #e2e2dd;        /* hairlines / borders */
+  --color-accent: #585858;      /* label / emphasis (7.0:1 on bg) */
+  --color-accent-2: #a3a3a3;    /* secondary pop (decorative + on dark) */
+  --color-line: #e4e4e4;        /* hairlines / borders */
+  --color-error: #b42318;       /* form / inline error text */
   /* Extra hues — only some themes use these; declared so components are safe */
-  --color-blue: #888888;
-  --color-green: #888888;
+  --color-blue: #585858;
+  --color-green: #585858;
 }
 
 :root {
@@ -46,17 +50,29 @@
   --shadow: 0 24px 50px -30px rgba(0, 0, 0, 0.35);
   --shadow-soft: 0 14px 32px -24px rgba(0, 0, 0, 0.3);
 
-  /* Fluid type scale (themes may tune the clamps; keep the names) */
-  --step--1: clamp(0.82rem, 0.8rem + 0.1vw, 0.9rem);
-  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.12rem);
-  --step-1: clamp(1.2rem, 1.08rem + 0.5vw, 1.45rem);
-  --step-2: clamp(1.6rem, 1.4rem + 1vw, 2.25rem);
-  --step-3: clamp(2.1rem, 1.7rem + 2vw, 3.4rem);
-  --step-4: clamp(2.8rem, 2rem + 3.8vw, 5.2rem);
+  /* Fluid type scale — ~1.28 ratio for a confident, non-flat hierarchy
+     (themes may tune the clamps; keep the names). */
+  --step--1: clamp(0.8rem, 0.78rem + 0.1vw, 0.875rem);
+  --step-0: clamp(1.02rem, 0.98rem + 0.2vw, 1.125rem);
+  --step-1: clamp(1.26rem, 1.13rem + 0.55vw, 1.5rem);
+  --step-2: clamp(1.65rem, 1.4rem + 1.15vw, 2.4rem);
+  --step-3: clamp(2.2rem, 1.7rem + 2.3vw, 3.7rem);
+  --step-4: clamp(2.9rem, 2rem + 4.3vw, 5.5rem);
 
   /* Layout */
   --maxw: 1200px;
   --gutter: clamp(1.25rem, 4vw, 3rem);
+
+  /* Spacing rhythm — section verticals as tokens so layouts can vary the
+     cadence (tight between related sections, generous before a shift). */
+  --space-section: clamp(4rem, 9vw, 7.5rem);
+  --space-section-sm: clamp(2.5rem, 5.5vw, 4.5rem);
+  --space-section-lg: clamp(5rem, 11vw, 9rem);
+
+  /* Motion — shared easing + durations. Ease-out only, no bounce. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-reveal: 0.7s;
+  --dur: 0.25s;
 
   /* Optional theme outliers — aliased on base so Jubilee/Atelier
      branches repoint values rather than introduce new names. */
@@ -86,18 +102,52 @@
     font-family: var(--font-display);
     font-weight: 600;
     line-height: 1.1;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
     text-wrap: balance;
     color: var(--color-ink);
   }
-  h1 { font-size: var(--step-4); }
-  h2 { font-size: var(--step-3); }
-  h3 { font-size: var(--step-1); }
-  h4 { font-size: var(--step-0); }
+  /* Tighter tracking and leading the larger the type gets — the display
+     sizes carry the hierarchy, so commit to it. */
+  h1 { font-size: var(--step-4); line-height: 1.02; letter-spacing: -0.035em; }
+  h2 { font-size: var(--step-3); line-height: 1.06; letter-spacing: -0.03em; }
+  h3 { font-size: var(--step-1); letter-spacing: -0.015em; }
+  h4 { font-size: var(--step-0); letter-spacing: -0.01em; }
 
   p { text-wrap: pretty; }
 
   a { color: inherit; text-decoration: none; }
+
+  /* Visible keyboard focus on every interactive element (WCAG 2.4.7). */
+  :focus-visible {
+    outline: 2.5px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  /* Anchors (e.g. #tour) clear the sticky 76px header. */
+  [id] { scroll-margin-top: 96px; }
+
+  /* Skip link — first tab stop, hidden until focused (WCAG 2.4.1). */
+  .skip-link {
+    position: absolute;
+    left: 0.9rem;
+    top: 0.7rem;
+    z-index: 100;
+    transform: translateY(-180%);
+    background: var(--color-ink);
+    color: var(--color-bg);
+    padding: 0.65rem 1.1rem;
+    border-radius: var(--radius);
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: transform var(--dur) var(--ease-out);
+  }
+  .skip-link:focus-visible { transform: none; outline-offset: 2px; }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-accent) 22%, transparent);
+    color: var(--color-ink);
+  }
 }
 
 /* ============================================================
@@ -113,7 +163,23 @@
   }
 
   .section {
-    padding-block: clamp(4rem, 9vw, 7.5rem);
+    padding-block: var(--space-section);
+  }
+  /* Rhythm modifiers — vary the cadence so the page reads as a composed
+     narrative, not one module stamped repeatedly. */
+  .section--tight { padding-block: var(--space-section-sm); }
+  .section--lg { padding-block: var(--space-section-lg); }
+
+  /* Hover-lift primitive for interactive cards (paired with reduced-motion
+     fallback at the foot of this file). */
+  .lift {
+    transition: transform var(--dur) var(--ease-out),
+      box-shadow var(--dur) var(--ease-out),
+      border-color var(--dur) var(--ease-out);
+  }
+  .lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
   }
 
   .eyebrow {
@@ -159,8 +225,9 @@
     border-radius: var(--radius-pill);
     border: 1.5px solid transparent;
     cursor: pointer;
-    transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease,
-      border-color 0.25s ease;
+    transition: transform var(--dur) var(--ease-out), background var(--dur) var(--ease-out),
+      color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out),
+      box-shadow var(--dur) var(--ease-out);
     white-space: nowrap;
     text-decoration: none;
   }
@@ -184,8 +251,9 @@
   .btn-invert:hover {
     background: var(--color-surface);
   }
-  .btn .arr { transition: transform 0.25s ease; }
+  .btn .arr { transition: transform var(--dur) var(--ease-out); }
   .btn:hover .arr { transform: translateX(3px); }
+  .btn-primary:hover { box-shadow: 0 12px 24px -14px color-mix(in srgb, var(--color-primary-d) 70%, transparent); }
 
   /* ---- Header ---- */
   .site-header {
@@ -327,7 +395,8 @@
     border: 1.5px solid var(--color-line);
     border-radius: var(--radius);
     background: var(--color-bg);
-    transition: border-color 0.2s;
+    transition: border-color var(--dur) var(--ease-out),
+      box-shadow var(--dur) var(--ease-out);
   }
   .field textarea { resize: vertical; }
   .field input:focus,
@@ -335,12 +404,17 @@
   .field textarea:focus {
     outline: none;
     border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 18%, transparent);
+  }
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: color-mix(in srgb, var(--color-ink) 48%, var(--color-bg));
   }
   .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .form-submit { width: 100%; justify-content: center; }
   .form-note { font-size: 0.84rem; color: var(--color-ink-soft); margin-top: 0.8rem; }
   .form-success { color: var(--color-primary-d); font-weight: 700; margin-top: 1rem; }
-  .form-error { color: #b42318; font-size: 0.88rem; margin-top: 0.5rem; }
+  .form-error { color: var(--color-error); font-size: 0.88rem; margin-top: 0.5rem; }
   @media (max-width: 520px) {
     .field-row { grid-template-columns: 1fr; }
   }
@@ -421,16 +495,25 @@
     color: var(--color-primary-d);
   }
 
-  /* ---- Scroll reveal (progressive enhancement) ---- */
+  /* ---- Scroll reveal (progressive enhancement) ----
+     Default entrance. Section-specific variants (below) tailor the motion
+     to what it reveals; the BaseLayout observer toggles `.in` either way. */
   .reveal {
     opacity: 0;
     transform: translateY(22px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transition: opacity var(--dur-reveal) var(--ease-out),
+      transform var(--dur-reveal) var(--ease-out);
   }
   .reveal.in {
     opacity: 1;
     transform: none;
   }
+  /* Quieter rise for dense grids/lists (less travel, so staggered items
+     don't overshoot). */
+  .reveal-soft { transform: translateY(12px); }
+  /* Scale-in for framed media — the image settles rather than slides. */
+  .reveal-media { transform: translateY(16px) scale(0.985); transform-origin: center; }
+  .reveal-media.in { transform: none; }
 
   /* ---- Minimal prose (rendered markdown, if any) ---- */
   .prose {
@@ -445,13 +528,20 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .reveal,
+  .reveal-media {
     opacity: 1;
     transform: none;
+    transition: opacity 0.01ms;
   }
   .btn,
-  .btn .arr {
+  .btn .arr,
+  .lift {
     transition: none;
+  }
+  .btn:hover,
+  .lift:hover {
+    transform: none;
   }
   html { scroll-behavior: auto; }
 }

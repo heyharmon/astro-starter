@@ -26,27 +26,42 @@ const { stats } = Astro.props;
   .trust-inner {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    padding-block: 1.8rem;
+    padding-block: clamp(1.8rem, 3vw, 2.6rem);
   }
   .trust-item {
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
+    gap: 0.4rem;
+    padding-inline: clamp(1rem, 3vw, 2.2rem);
+  }
+  .trust-item:first-child { padding-left: 0; }
+  /* Hairline dividers between cells, not around boxes */
+  .trust-item + .trust-item {
+    border-left: 1px solid var(--color-line);
   }
   .trust-item b {
     font-family: var(--font-display);
-    font-size: var(--step-1);
-    color: var(--color-primary-d);
+    font-size: var(--step-2);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    line-height: 1;
   }
   .trust-item span {
-    font-size: 0.86rem;
+    font-size: 0.84rem;
+    line-height: 1.4;
     color: var(--color-ink-soft);
   }
   @media (max-width: 720px) {
     .trust-inner {
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.6rem;
+      gap: 1.8rem 0;
     }
+    .trust-item { padding-inline: clamp(1rem, 5vw, 1.6rem); }
+    .trust-item:first-child { padding-left: clamp(1rem, 5vw, 1.6rem); }
+    /* Reset desktop dividers, redraw for the 2-col grid */
+    .trust-item + .trust-item { border-left: none; }
+    .trust-item:nth-child(odd) { padding-left: 0; }
+    .trust-item:nth-child(even) { border-left: 1px solid var(--color-line); }
   }
 </style>
