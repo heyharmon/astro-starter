@@ -1,205 +1,233 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import siteMeta from "../data/site-meta.json";
+
+const projects = [
+  {
+    title: "Intermountain Hospital",
+    img: "/images/eaglepoint/project-intermountain.png",
+    desc: "Precision medical equipment installation with zero-tolerance accuracy in live hospital environment.",
+  },
+  {
+    title: "Black Desert Resort",
+    img: "/images/eaglepoint/project-black-desert.png",
+    desc: "Custom luxury stair and balcony railings with laser-cut precision posts, hidden connections and elevator structural retrofit.",
+  },
+  {
+    title: "Nyrstar Mines",
+    img: "/images/eaglepoint/project-nyrstar.png",
+    desc: "Heavy-duty mining repairs with AR-500 wear plate. Underground crusher retrofits and topside chute fabrication.",
+  },
+  {
+    title: "Entrada at Snow Canyon",
+    img: "/images/eaglepoint/project-entrada.png",
+    desc: "Architectural metalwork featuring custom railings and grand entry door. Perfection demanded and delivered.",
+  },
+  {
+    title: "DC Ranch – Ramona",
+    img: "/images/eaglepoint/project-dc-ranch.jpg",
+    desc: "Ranch buildout featuring custom entry gates, decorative signage, pipe rail corrals, and large-span equestrian shade pavilions.",
+  },
+];
+
+const services = [
+  {
+    title: "Structural & Seismic",
+    img: "/images/eaglepoint/service-structural.jpg",
+    desc: "Heavy-gauge steel fabrication and seismic retrofitting for commercial and industrial applications. We handle complex structural challenges with engineering precision and certified expertise.",
+  },
+  {
+    title: "Certified Rig/Mobile Welding",
+    img: "/images/eaglepoint/service-rig-mobile.jpg",
+    desc: "Mobile welding services bringing our expertise directly to your job site. From emergency repairs to scheduled maintenance, our certified welders deliver quality work wherever you need us.",
+  },
+  {
+    title: "Pipe Welding",
+    img: "/images/eaglepoint/service-pipe.jpg",
+    desc: "Precision pipe fabrication and installation for mechanical, industrial, and medical systems. Zero-tolerance accuracy for critical applications — fit and welded to spec, every weld passing.",
+  },
+  {
+    title: "Custom Homes",
+    img: "/images/eaglepoint/service-custom-homes.jpg",
+    desc: "Architectural metalwork that elevates luxury residences. Custom railings, grand entry doors, and decorative steel features crafted to perfection for St. George’s finest homes.",
+  },
+];
 ---
 
-<BaseLayout
-  title="Home"
-  description={siteMeta.description}
->
-  <!-- Hero -->
-  <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-    <p class="text-sm uppercase tracking-wide text-neutral-500">
-      Tier 1 / 3 — Inline content
-    </p>
-    <h1 class="mt-4 max-w-3xl">
-      This homepage is hardcoded in <code class="rounded bg-neutral-100 px-2 py-1 text-2xl">src/pages/index.astro</code>
-    </h1>
-    <p class="mt-6 max-w-2xl text-lg text-neutral-500">
-      There is no Markdown file behind it, no <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">getEntry()</code> call,
-      no content collection. Every word and section you see is written directly in the Astro file. Use this pattern for
-      genuinely one-of-a-kind pages — landing pages, marketing pages, anything you only ever need one of.
-    </p>
-    <div class="mt-8 flex flex-wrap gap-4">
-      <a href="/about" class="btn-primary">See the hybrid pattern →</a>
-      <a href="/styleguide" class="btn-ghost">Style Guide</a>
+<BaseLayout title="Home" description={siteMeta.description}>
+  <!-- ===================== HERO ===================== -->
+  <section
+    id="top"
+    class="relative flex min-h-[80vh] flex-col justify-end overflow-hidden lg:min-h-[82vh]"
+  >
+    <video
+      class="absolute inset-0 h-full w-full object-cover"
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="/images/eaglepoint/hero-poster.jpg"
+    >
+      <source src="/images/eaglepoint/hero-video.mp4" type="video/mp4" />
+    </video>
+    <div
+      class="absolute inset-0"
+      style="background-image:linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.35) 100%);"
+    >
     </div>
-  </section>
 
-  <!-- The three tiers -->
-  <section class="border-t border-neutral-200 bg-neutral-50">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <h2>Three content tiers, three working demos</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        Every page in this starter exists to demonstrate one of Astro's content patterns. Click through to see each one in action.
+    <div class="epw-container relative z-10 pt-28 pb-20 lg:pb-28">
+      <p class="eyebrow text-white/90">The Standard in Metalwork</p>
+      <h1
+        class="mt-6 max-w-[42rem] text-[3.5rem] leading-[1.02] sm:text-[4.5rem] lg:text-[5rem]"
+      >
+        St. George’s<br class="hidden sm:block" /> Certified Welders
+      </h1>
+      <p class="mt-7 max-w-xl text-[21px] leading-relaxed text-ink">
+        From hospital retrofits to luxury resorts and heavy industrial projects, we deliver
+        precision welding and fabrication that exceeds expectations. Certified, experienced, and
+        always on time.
       </p>
-
-      <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <a href="/about" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 1 — Inline (hybrid variant)</p>
-          <h3 class="mt-3">/about</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            The other shape of Tier 1: route file in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/about.astro</code> rendering a single
-            Markdown entry from <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/pages/about.md</code>.
-          </p>
-        </a>
-
-        <a href="/blog" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Posts collection</p>
-          <h3 class="mt-3">/blog</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            Every card is a Markdown file in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/posts/</code>.
-            Schema in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content.config.ts</code>. Sorted by date.
-          </p>
-        </a>
-
-        <a href="/projects" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Projects collection</p>
-          <h3 class="mt-3">/projects</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            A different schema than posts — manual <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">order</code> field
-            and a <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">featured</code> boolean. Demonstrates a non-chronological collection.
-          </p>
-        </a>
-
-        <a href="/contact" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — Site config driven</p>
-          <h3 class="mt-3">/contact</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            The page imports <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/site-meta.json</code> and renders
-            its values directly. The React contact form picks up the Formspree ID the same way.
-          </p>
-        </a>
-
-        <div class="block rounded-xl border border-dashed border-neutral-300 p-8">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — More site config</p>
-          <h3 class="mt-3">Nav &amp; Footer</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            The header and footer you see on every page also read from Tier 3 —
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/nav.json</code> and
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/footer.json</code>. Edit those files to update site-wide chrome.
-          </p>
-        </div>
-
-        <a href="/styleguide" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Design system</p>
-          <h3 class="mt-3">/styleguide</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            A live preview of design tokens, typography, components. Backed by
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/styles/global.css</code> and
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/design-tokens.json</code>.
-          </p>
-        </a>
+      <div class="mt-9">
+        <a href="#contact" class="btn-outline">Get a quote</a>
       </div>
     </div>
   </section>
 
-  <!-- Decision rules -->
-  <section class="border-t border-neutral-200">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <h2>Which tier should I use?</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        The decision tree is short. When in doubt, start inline and promote to a collection the moment you have a second one.
-      </p>
-
-      <div class="mt-12 grid gap-8 lg:grid-cols-3">
-        <div>
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 1 — Inline</p>
-          <p class="mt-2 text-sm font-medium">A genuinely unique page</p>
-          <p class="mt-2 text-sm text-neutral-500">
-            Homepage, about, contact, a one-off landing page. Write it directly in
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/*.astro</code>, or pair the route file with a single
-            entry in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/pages/</code> for Markdown editing.
-          </p>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Content collection</p>
-          <p class="mt-2 text-sm font-medium">Repeating items sharing a schema</p>
-          <p class="mt-2 text-sm text-neutral-500">
-            Blog posts, projects, products, team bios, testimonials, case studies. Define a Zod schema and add files to
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/&lt;collection&gt;/</code>.
-          </p>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — Site config</p>
-          <p class="mt-2 text-sm font-medium">Structural data, not content</p>
-          <p class="mt-2 text-sm text-neutral-500">
-            Nav links, footer groups, social handles, pricing tiers, redirects. Put it in
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/*.json</code> and import the JSON in your route or component.
-          </p>
-        </div>
+  <!-- ===================== LATEST PROJECTS ===================== -->
+  <section id="projects" class="bg-surface py-20 lg:py-28">
+    <div class="epw-container">
+      <h2>Latest projects</h2>
+      <div class="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          projects.map((p) => (
+            <article class="group flex flex-col">
+              <div class="aspect-[3/2] overflow-hidden border border-white/10 bg-black">
+                <img
+                  src={p.img}
+                  alt={p.title}
+                  loading="lazy"
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              <h3 class="mt-5">{p.title}</h3>
+              <p class="mt-3 flex-1 text-[15px] leading-relaxed text-ink">{p.desc}</p>
+              <div class="mt-5">
+                <a href="#contact" class="btn-outline btn-outline-sm">View project</a>
+              </div>
+            </article>
+          ))
+        }
       </div>
-
-      <p class="mt-12 text-sm text-neutral-500">
-        Full architecture and editing workflow: <a href="https://github.com" class="underline">docs/content-collections.md</a>.
-      </p>
     </div>
   </section>
 
-  <!-- Interactivity model — orthogonal axis -->
-  <section class="border-t border-neutral-200 bg-neutral-50">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <p class="text-sm uppercase tracking-wide text-neutral-500">
-        A separate axis — not a fourth tier
-      </p>
-      <h2 class="mt-3">Interactivity: when to add JavaScript</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        The three tiers above answer <em>where the content lives</em>. Islands answer a different question:
-        <em>does this part of the page need to run JavaScript in the browser?</em> The two are orthogonal —
-        any page (collection entry, inline route, config-driven) can include an island when interactivity demands it.
-      </p>
+  <!-- ===================== SERVICES ===================== -->
+  <section id="services" class="bg-black py-20 lg:py-28">
+    <div class="epw-container">
+      <h2>Services</h2>
+      <div class="mt-12 grid gap-6 md:grid-cols-2">
+        {
+          services.map((s) => (
+            <article class="group relative flex min-h-[420px] overflow-hidden lg:min-h-[480px]">
+              <img
+                src={s.img}
+                alt={s.title}
+                loading="lazy"
+                class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div
+                class="absolute inset-0"
+                style="background-image:linear-gradient(135deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.25) 100%);"
+              />
+              <div class="relative z-10 flex flex-col p-9 lg:p-10">
+                <h3 class="text-[2rem]">{s.title}</h3>
+                <p class="mt-4 max-w-sm text-[15px] leading-relaxed text-ink">{s.desc}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 
-      <div class="mt-12 grid gap-8 lg:grid-cols-3">
-        <a href="/islands" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400 lg:col-span-2">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Concept demo</p>
-          <h3 class="mt-3">/islands</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            Live demos of <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:load</code>,
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:idle</code>,
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:visible</code>. React and vanilla-JS examples.
-            Decision rules for when to reach for an island vs. plain <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.astro</code>.
-          </p>
-        </a>
-        <div class="rounded-xl border border-dashed border-neutral-300 p-8">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Default</p>
-          <h3 class="mt-3">Zero JS</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            Most components in this starter are <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.astro</code> — they ship as static HTML
-            with no client-side runtime. Keep it that way unless interactivity demands otherwise.
-          </p>
+  <!-- ===================== REAL PICTURES ===================== -->
+  <section class="relative overflow-hidden bg-black">
+    <img
+      src="/images/eaglepoint/real-pictures.jpg"
+      alt="Modern home with custom metal railings and stairs"
+      loading="lazy"
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+    <div class="relative epw-container py-24 lg:py-32">
+      <div class="max-w-md bg-black p-10 lg:p-12">
+        <h2>Real pictures of our work.</h2>
+        <p class="mt-5 text-[15px] leading-relaxed text-ink">
+          From healthcare to hospitality, mining &amp; pipe welding to luxury homes—see how we
+          deliver precision welding and fabrication that exceeds expectations.
+        </p>
+        <div class="mt-7">
+          <a href="#projects" class="btn-outline btn-outline-sm">Explore projects</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Lorem fill / visual weight -->
-  <section class="border-t border-neutral-200">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <div class="grid gap-12 lg:grid-cols-2 items-start">
-        <div>
-          <h2>Replace this section</h2>
-          <p class="mt-4 text-neutral-500">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.
-          </p>
-          <p class="mt-4 text-neutral-500">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-          <p class="mt-4 text-sm text-neutral-500">
-            <strong>How to remove this:</strong> open
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/index.astro</code> and delete this section.
-            The whole homepage is hardcoded — no Markdown to track down.
-          </p>
-        </div>
-        <div class="aspect-4/3 overflow-hidden rounded-xl bg-neutral-200">
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about" class="bg-surface py-20 lg:py-28">
+    <div class="epw-container grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <h2 class="max-w-md text-[2.5rem] leading-[1.05] lg:text-[3.25rem]">
+          Metal is our common ground, Welding is our expression.
+        </h2>
+        <p class="eyebrow mt-8 text-white">Nick Coleman, Owner/Operator</p>
+        <p class="mt-5 max-w-md text-[15px] leading-relaxed text-ink">
+          Eagle Point Welding brings decades of experience to Southern Utah’s most demanding
+          projects. From sterile medical environments to underground mining operations, we approach
+          every job with unwavering commitment to safety, quality, and precision. Our team thrives
+          on challenges others won’t take on.
+        </p>
+      </div>
+      <div class="relative">
+        <div class="aspect-[4/3] overflow-hidden bg-black">
           <img
-            src="/images/placeholders/landscape-4x3.svg"
-            alt="Placeholder image rendered from public/images/placeholders/landscape-4x3.svg"
+            src="/images/eaglepoint/about-welder.jpg"
+            alt="Nick Coleman welding on site"
+            loading="lazy"
             class="h-full w-full object-cover"
           />
         </div>
+        <span
+          class="absolute right-4 bottom-4 text-[13px] font-medium tracking-[1px] text-white/90 uppercase"
+        >
+          Nick Coleman
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section id="contact" class="relative overflow-hidden bg-black">
+    <img
+      src="/images/eaglepoint/cta-bg.jpg"
+      alt="Welding tools and equipment"
+      loading="lazy"
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+    <div
+      class="absolute inset-0"
+      style="background-image:linear-gradient(to bottom, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.72) 100%);"
+    >
+    </div>
+    <div class="relative epw-container py-24 text-center lg:py-28">
+      <p class="eyebrow eyebrow--center">Get in touch</p>
+      <h2 class="mt-5">What do you need to build?</h2>
+      <p class="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-ink">
+        Tell us about your project. From structural steel to custom architectural metalwork, our
+        certified team is ready to deliver — on spec and on time.
+      </p>
+      <div class="mt-9">
+        <a href="#contact" class="btn-outline">Get a quote</a>
       </div>
     </div>
   </section>

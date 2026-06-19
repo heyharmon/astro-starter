@@ -2,40 +2,83 @@
 import nav from "../data/nav.json";
 import siteMeta from "../data/site-meta.json";
 
-const pathname = Astro.url.pathname;
 const sortedNav = [...nav].sort((a, b) => a.order - b.order);
 ---
 
-<header class="border-b border-neutral-200 bg-white">
-  <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-    <a href="/" class="text-lg font-semibold tracking-tight text-neutral-900 no-underline">
-      {siteMeta.name}
+<header class="absolute inset-x-0 top-0 z-40">
+  <nav class="epw-container flex items-center justify-between py-6">
+    <a href="/" class="flex items-center" aria-label={siteMeta.name}>
+      <img
+        src="/images/eaglepoint/logo-white.svg"
+        alt={siteMeta.name}
+        class="h-6 w-auto md:h-7"
+        width="248"
+        height="28"
+      />
     </a>
 
-    <ul class="flex items-center gap-6">
+    <!-- Desktop links -->
+    <ul class="hidden items-center gap-9 md:flex">
       {
-        sortedNav.map((item) => {
-          const isActive =
-            item.href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(item.href);
-          return (
-            <li>
-              <a
-                href={item.href}
-                class:list={[
-                  "text-sm font-medium no-underline transition-colors",
-                  isActive
-                    ? "text-indigo-600"
-                    : "text-neutral-600 hover:text-neutral-900",
-                ]}
-              >
-                {item.label}
-              </a>
-            </li>
-          );
-        })
+        sortedNav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="text-[15px] capitalize tracking-[1px] text-white/85 transition-colors hover:text-white"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
       }
     </ul>
+
+    <!-- Mobile toggle -->
+    <button
+      id="epw-nav-toggle"
+      class="flex h-10 w-10 items-center justify-center text-white md:hidden"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+      aria-controls="epw-mobile-menu"
+    >
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+        <line x1="3" y1="7" x2="21" y2="7"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="17" x2="21" y2="17"></line>
+      </svg>
+    </button>
   </nav>
+
+  <!-- Mobile menu -->
+  <div
+    id="epw-mobile-menu"
+    class="hidden border-t border-white/10 bg-black/95 backdrop-blur md:hidden"
+  >
+    <ul class="epw-container flex flex-col py-3">
+      {
+        sortedNav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="block py-3 text-[15px] capitalize tracking-[1px] text-white/85"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </header>
+
+<script>
+  const btn = document.getElementById("epw-nav-toggle");
+  const menu = document.getElementById("epw-mobile-menu");
+  btn?.addEventListener("click", () => {
+    const isOpen = menu?.classList.toggle("hidden") === false;
+    btn.setAttribute("aria-expanded", String(isOpen));
+  });
+  menu?.querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", () => menu.classList.add("hidden")),
+  );
+</script>

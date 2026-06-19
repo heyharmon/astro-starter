@@ -1,9 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  /* Two fonts only: Bebas Neue (display) + Work Sans (body). Serif removed. */
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Bebas Neue", "Work Sans", sans-serif;
 
+  /* Eagle Point surfaces — monochrome, dark */
+  --color-base: #000000; /* page black */
+  --color-surface: #191919; /* alternating section */
+  --color-line: #2a2a2a; /* hairline borders */
+  --color-ink: #d6d6d6; /* body copy on dark */
+  --color-ink-dim: #9a9a9a; /* muted captions */
+  --color-btn-border: #bebdbd; /* outline buttons */
+
+  /* Neutral scale retained for generic UI */
   --color-neutral-50: #fafafa;
   --color-neutral-100: #f5f5f5;
   --color-neutral-200: #e5e5e5;
@@ -15,18 +25,6 @@
   --color-neutral-800: #262626;
   --color-neutral-900: #171717;
   --color-neutral-950: #0a0a0a;
-
-  --color-indigo-50: #eef2ff;
-  --color-indigo-100: #e0e7ff;
-  --color-indigo-200: #c7d2fe;
-  --color-indigo-300: #a5b4fc;
-  --color-indigo-400: #818cf8;
-  --color-indigo-500: #6366f1;
-  --color-indigo-600: #4f46e5;
-  --color-indigo-700: #4338ca;
-  --color-indigo-800: #3730a3;
-  --color-indigo-900: #312e81;
-  --color-indigo-950: #1e1b4b;
 }
 
 @layer base {
@@ -36,91 +34,122 @@
   }
 
   body {
-    @apply bg-white text-neutral-900 font-sans;
+    @apply bg-black font-sans;
+    color: var(--color-ink);
+  }
+
+  /* All headings use the condensed display face */
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-normal text-white;
+    letter-spacing: 0.01em;
   }
 
   h1 {
-    @apply font-sans font-semibold tracking-tight text-neutral-900 text-4xl sm:text-5xl;
-    line-height: 1.1;
+    font-size: clamp(2.75rem, 1.6rem + 5.4vw, 4.375rem); /* up to 70px */
+    line-height: 1.05;
   }
 
   h2 {
-    @apply font-sans font-semibold tracking-tight text-neutral-900 text-2xl sm:text-3xl;
-    line-height: 1.15;
+    font-size: clamp(2.25rem, 1.2rem + 4.8vw, 4rem); /* up to ~64px */
+    line-height: 1.04;
   }
 
   h3 {
-    @apply font-sans font-medium text-neutral-900 text-xl;
-    line-height: 1.2;
+    font-size: 1.875rem; /* 30px */
+    line-height: 1.1;
   }
 
   p {
-    @apply leading-relaxed text-neutral-600;
+    @apply leading-relaxed;
+    color: var(--color-ink);
   }
 
   a {
-    @apply text-indigo-600 underline-offset-4 hover:underline;
+    color: inherit;
+    text-decoration: none;
   }
 
   hr {
-    @apply border-neutral-200;
+    border-color: var(--color-line);
   }
 }
 
-/* Primary button utility */
-.btn-primary {
-  @apply inline-block rounded-lg bg-indigo-600 px-6 py-3 text-sm font-medium text-white no-underline transition-colors;
+/* ---- Components ---- */
+
+/* Eyebrow: dash + uppercase tracked label */
+.eyebrow {
+  @apply inline-flex items-center gap-3 text-[15px] font-medium uppercase;
+  letter-spacing: 1.35px;
+  color: var(--color-ink);
 }
-.btn-primary:hover {
-  @apply bg-indigo-700;
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 26px;
+  height: 1px;
+  background: currentColor;
+  flex: none;
+}
+.eyebrow--center {
+  @apply justify-center;
 }
 
-/* Ghost button utility */
-.btn-ghost {
-  @apply inline-block rounded-lg border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-900 no-underline transition-colors;
-  background: transparent;
+/* Outline button — white, square, uppercase (matches reference) */
+.btn-outline {
+  @apply inline-block bg-white text-[15px] uppercase text-black;
+  padding: 13px 29px;
+  border: 1px solid var(--color-btn-border);
+  letter-spacing: 1px;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
-.btn-ghost:hover {
-  @apply border-neutral-900 bg-neutral-900 text-white;
+.btn-outline:hover {
+  @apply bg-transparent text-white;
+  border-color: #ffffff;
 }
 
-/* Prose styling for rendered markdown content */
+/* Smaller variant for cards */
+.btn-outline-sm {
+  padding: 10px 22px;
+  font-size: 13px;
+}
+
+/* Section container */
+.epw-container {
+  @apply mx-auto w-full px-6;
+  max-width: 1200px;
+}
+
+/* Prose styling for any rendered markdown on dark surfaces */
 .prose {
   @apply max-w-none;
 }
-
 .prose h2 {
   @apply mt-12 mb-4;
 }
-
 .prose h3 {
   @apply mt-8 mb-3;
 }
-
 .prose p {
-  @apply mb-6 text-neutral-600;
+  @apply mb-6;
+  color: var(--color-ink);
 }
-
 .prose ul {
-  @apply list-disc pl-6 mb-6 space-y-2 text-neutral-600;
+  @apply mb-6 list-disc space-y-2 pl-6;
+  color: var(--color-ink);
 }
-
 .prose ol {
-  @apply list-decimal pl-6 mb-6 space-y-2 text-neutral-600;
+  @apply mb-6 list-decimal space-y-2 pl-6;
+  color: var(--color-ink);
 }
-
-.prose blockquote {
-  @apply border-l-2 border-neutral-300 pl-6 italic text-neutral-500 my-6;
-}
-
-.prose strong {
-  @apply font-semibold text-neutral-900;
-}
-
-.prose code {
-  @apply bg-neutral-100 px-1.5 py-0.5 rounded text-sm font-mono text-neutral-800;
-}
-
 .prose a {
-  @apply text-indigo-600 underline;
+  @apply underline;
+}
+.prose strong {
+  @apply font-semibold text-white;
 }

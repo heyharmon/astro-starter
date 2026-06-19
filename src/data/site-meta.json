@@ -1,14 +1,12 @@
 {
-  "name": "Astro Starter",
-  "tagline": "A self-documenting Astro 5 starter — built around three content tiers",
-  "description": "An Astro 5 + Tailwind CSS 4 starter where every page demonstrates a content pattern: pure inline routes, hybrid Markdown entries, content collections, and site config driven views.",
-  "url": "https://example.com",
-  "ogImage": "/images/og-default.png",
-  "copyright": "© 2026 Astro Starter. Replace this with your own copyright in src/data/site-meta.json.",
+  "name": "Eagle Point Welding",
+  "tagline": "Setting the Standard in Welding Excellence",
+  "description": "St. George's certified welders. From hospital retrofits to luxury resorts and heavy industrial projects, we deliver precision welding and fabrication that exceeds expectations.",
+  "url": "https://eaglepointwelding.com",
+  "ogImage": "/images/eaglepoint/hero-poster.jpg",
+  "copyright": "© 2026 Eagle Point Welding. All rights reserved.",
   "social": {
-    "twitter": "https://twitter.com/example",
-    "linkedin": "https://linkedin.com/company/example",
-    "github": "https://github.com/example"
+    "youtube": "https://www.youtube.com/@eaglepointwelding2400"
   },
   "formspreeId": "YOUR_FORM_ID"
 }

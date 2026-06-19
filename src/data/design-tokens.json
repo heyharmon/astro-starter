@@ -1,119 +1,134 @@
 {
   "meta": {
-    "version": "1.0",
-    "description": "Machine-readable design system. Agents read this as the source of truth for where and how to use design tokens."
+    "version": "2.0",
+    "name": "Eagle Point Welding",
+    "description": "Machine-readable design system. Agents read this as the source of truth for tokens and component patterns. Mirrors src/styles/global.css. Dark, monochrome, industrial. Live preview at /styleguide.",
+    "tailwindNote": "Surface/text/line tokens are exposed as Tailwind color utilities via @theme in global.css: bg-base, bg-surface, text-ink, text-ink-dim, border-line."
+  },
+  "fonts": {
+    "display": {
+      "family": "Bebas Neue",
+      "cssVar": "--font-display",
+      "utility": "font-display",
+      "use": "All headings (h1–h4) and any large display text. Glyphs are uppercase-only and condensed.",
+      "weights": [400]
+    },
+    "body": {
+      "family": "Work Sans",
+      "cssVar": "--font-sans",
+      "utility": "font-sans",
+      "use": "Body copy, UI labels, eyebrows, buttons, nav.",
+      "weights": [300, 400, 500, 600]
+    },
+    "loadedVia": "Google Fonts <link> in src/components/Head.astro",
+    "serifRemoved": "The reference site's Lora serif was intentionally dropped — never reintroduce a serif."
   },
   "colors": {
-    "background": {
-      "primary": "white",
-      "secondary": "neutral-50",
-      "tertiary": "neutral-100",
-      "card": "white"
+    "surface": {
+      "base": { "hex": "#000000", "utility": "bg-black", "use": "Primary page background and alternating sections." },
+      "alt": { "hex": "#191919", "token": "--color-surface", "utility": "bg-surface", "use": "Alternating section background (projects, about)." },
+      "panel": { "hex": "#000000", "utility": "bg-black", "use": "Solid content panel placed over a full-bleed photo (e.g. the image band)." }
     },
     "text": {
-      "primary": "neutral-900",
-      "body": "neutral-600",
-      "muted": "neutral-500",
-      "subtle": "neutral-400",
-      "accent": "indigo-600"
+      "heading": { "hex": "#ffffff", "utility": "text-white", "use": "Headings and emphasis on dark." },
+      "body": { "hex": "#d6d6d6", "token": "--color-ink", "utility": "text-ink", "use": "Default body copy on dark." },
+      "muted": { "hex": "#9a9a9a", "token": "--color-ink-dim", "utility": "text-ink-dim", "use": "Captions, copyright, fine print." }
     },
-    "border": {
-      "default": "neutral-200",
-      "card": "neutral-200",
-      "input": "neutral-300",
-      "focus": "indigo-500"
+    "line": {
+      "hairline": { "hex": "#2a2a2a", "token": "--color-line", "utility": "border-line", "use": "Section dividers / subtle borders." },
+      "imageFrame": { "value": "rgba(255,255,255,0.10)", "utility": "border-white/10", "use": "Thin frame around card imagery." }
     },
-    "accent": {
-      "base": "indigo-600",
-      "hover": "indigo-700",
-      "light": "indigo-50",
-      "scale": ["indigo-50", "indigo-100", "indigo-200", "indigo-300", "indigo-400", "indigo-500", "indigo-600", "indigo-700", "indigo-800", "indigo-900", "indigo-950"]
-    },
+    "palette": "Strictly monochrome — black, grays, white. No accent/brand color. Color comes only from photography.",
     "button": {
-      "primary": {
-        "bg": "indigo-600",
-        "text": "white",
-        "hoverBg": "indigo-700"
-      },
-      "ghost": {
-        "bg": "transparent",
-        "text": "neutral-900",
-        "border": "neutral-300",
-        "hoverBg": "neutral-900",
-        "hoverText": "white",
-        "hoverBorder": "neutral-900"
+      "outline": {
+        "bg": "#ffffff",
+        "text": "#000000",
+        "border": "#bebdbd",
+        "hoverBg": "transparent",
+        "hoverText": "#ffffff",
+        "hoverBorder": "#ffffff",
+        "radius": "0px",
+        "transform": "uppercase",
+        "utilityClass": ".btn-outline (and .btn-outline-sm for cards)"
       }
     }
   },
   "typography": {
-    "fonts": {
-      "heading": "Inter",
-      "body": "Inter",
-      "mono": "JetBrains Mono"
-    },
+    "fonts": { "display": "Bebas Neue", "body": "Work Sans" },
     "headings": {
       "h1": {
-        "classes": "font-sans font-semibold tracking-tight text-neutral-900 text-4xl sm:text-5xl",
-        "lineHeight": "1.1"
+        "font": "Bebas Neue",
+        "classes": "font-display text-white",
+        "size": "clamp(2.75rem … 4.375rem) globally; hero overrides to text-[3.5rem] sm:text-[4.5rem] lg:text-[5rem]",
+        "lineHeight": "1.02–1.05",
+        "note": "Bebas renders as caps. Force editorial line breaks with <br class='hidden sm:block'>."
       },
       "h2": {
-        "classes": "font-sans font-semibold tracking-tight text-neutral-900 text-2xl sm:text-3xl",
-        "lineHeight": "1.15"
+        "font": "Bebas Neue",
+        "classes": "font-display text-white",
+        "size": "clamp(2.25rem … 4rem)",
+        "lineHeight": "1.04",
+        "use": "Section headings (Latest projects, Services, What do you need to build?)."
       },
       "h3": {
-        "classes": "font-sans font-medium text-neutral-900 text-xl",
-        "lineHeight": "1.2"
+        "font": "Bebas Neue",
+        "classes": "font-display text-white",
+        "size": "1.875rem (30px); service tiles use text-[2rem]",
+        "lineHeight": "1.1",
+        "use": "Card and tile titles."
       }
     },
-    "body": {
-      "classes": "leading-relaxed text-neutral-600"
+    "body": { "classes": "text-ink leading-relaxed", "sizes": "hero 21px · sections 15–17px" },
+    "eyebrow": {
+      "classes": ".eyebrow (Work Sans, 15px, weight 500, uppercase, letter-spacing 1.35px, leading dash via ::before)",
+      "variant": ".eyebrow--center to center it",
+      "use": "Kicker above headlines (The Standard in Metalwork, Get in touch, Nick Coleman, Owner/Operator)."
     },
-    "small": {
-      "classes": "text-sm text-neutral-400"
-    },
-    "label": {
-      "classes": "text-sm font-medium uppercase tracking-wider text-neutral-500"
-    }
+    "link": { "classes": "color: inherit; no underline by default — links are styled as buttons or nav items." }
   },
   "spacing": {
-    "sectionPadding": "py-24 sm:py-32",
-    "containerMax": "max-w-5xl",
-    "containerPx": "px-6",
-    "gridGap": "gap-8",
-    "cardPadding": "p-8"
+    "sectionPadding": "py-20 lg:py-28",
+    "container": ".epw-container (max-width 1200px, px-6, centered)",
+    "projectGrid": "grid sm:grid-cols-2 lg:grid-cols-3, gap-x-8 gap-y-12",
+    "serviceGrid": "grid md:grid-cols-2, gap-6"
   },
   "effects": {
-    "borderRadius": {
-      "card": "rounded-xl",
-      "button": "rounded-lg",
-      "input": "rounded-lg",
-      "small": "rounded"
+    "borderRadius": { "all": "0px — everything is square. Do not add rounded corners." },
+    "shadows": "None. Depth comes from photography + dark gradient overlays, not shadows.",
+    "imageOverlay": {
+      "vertical": "linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.35) 100%) — hero/CTA over media",
+      "diagonal": "linear-gradient(135deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.25) 100%) — service tiles, keeps top-left text legible"
     },
-    "shadows": {
-      "subtle": "shadow-sm",
-      "note": "Use sparingly — prefer flat borders for most components"
+    "hover": {
+      "button": "invert (white → transparent, border + text → white)",
+      "cardImage": "scale-105 with transition-transform duration-500/700",
+      "navLink": "text-white/85 → text-white"
     }
   },
   "componentPatterns": {
-    "hero-text": {
-      "description": "Text-only hero with headline, subheadline, and dual CTA buttons (primary + ghost). White background.",
-      "reference": "index.astro hero section"
+    "hero-video": {
+      "description": "Full-bleed muted autoplay/loop background <video> (poster fallback) + vertical dark gradient. Content bottom-left: eyebrow, big Bebas headline, 21px body, outline button. Section min-h-[80vh] lg:min-h-[82vh], content justify-end.",
+      "reference": "index.astro hero"
     },
-    "card-grid": {
-      "description": "Grid of bordered cards (rounded-xl, border-neutral-200, p-8) with icon, title, and description. 3-column on lg, 2-column on sm.",
-      "reference": "index.astro tier-demonstrations section"
+    "project-card": {
+      "description": "Image (aspect-[3/2], border-white/10) with hover scale-105 → Bebas h3 title → 15px body → .btn-outline-sm 'View project'. 3-up grid on lg.",
+      "reference": "index.astro #projects"
+    },
+    "service-tile": {
+      "description": "Tall tile (min-h-[420px] lg:min-h-[480px]) with full-bleed photo + diagonal dark overlay; Bebas h3 + 15px body anchored top-left. 2-up grid.",
+      "reference": "index.astro #services"
+    },
+    "image-panel-band": {
+      "description": "Full-bleed background photo with a solid black content panel (max-w-md, p-10/12) offset to the container's left edge holding heading + body + outline button.",
+      "reference": "index.astro 'Real pictures of our work' band"
+    },
+    "about-split": {
+      "description": "Two-column on bg-surface: left = Bebas headline + eyebrow byline + body; right = photo with a small uppercase caption pinned bottom-right.",
+      "reference": "index.astro #about"
     },
     "cta-centered": {
-      "description": "Centered text section with heading, description, and primary button. neutral-50 or white background.",
-      "reference": "index.astro CTA section"
-    },
-    "section-2col": {
-      "description": "Two-column grid — one side text content with ghost button, other side image (aspect-4/3, rounded-xl).",
-      "reference": "index.astro about section, about.astro content"
-    },
-    "section-alternating-bg": {
-      "description": "Sections alternate between bg-white and bg-neutral-50, separated by border-t border-neutral-200.",
-      "reference": "All page sections"
+      "description": "Centered eyebrow + Bebas headline + body + outline button over a full-bleed photo with a vertical dark gradient.",
+      "reference": "index.astro #contact"
     }
   }
 }
