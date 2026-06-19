@@ -8,5 +8,12 @@
   "social": {
     "youtube": "https://www.youtube.com/@eaglepointwelding2400"
   },
+  "contact": {
+    "email": "eaglepointwelding@gmail.com",
+    "phone": "(760) 419-2541",
+    "phoneHref": "tel:+17604192541",
+    "location": "St. George, Utah",
+    "serviceArea": "Serving St. George & all of Southern Utah"
+  },
   "formspreeId": "YOUR_FORM_ID"
 }
