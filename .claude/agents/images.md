@@ -54,6 +54,18 @@ You do **not** own page content (text/markdown), styling (Tailwind classes), nav
 - **Brand consistency:** All images should feel like they belong together — similar color temperature, quality level, and visual style.
 - **Context fit:** Images must reinforce the page content. A daycare should have children and play spaces, not corporate stock.
 
+## Optimization & Compression
+
+Source images (especially pulled from a reference site) are usually far larger than their on-page display size. Resize to the display dimensions and compress **before committing** — large assets bloat both first paint and the git repo.
+
+- **Use ImageMagick (`magick`) with an explicit `-quality`.** It gives predictable, smaller output. Resize to ~2× the rendered width (retina), then set quality:
+  - `magick in.jpg -resize 1200x -quality 72 -strip out.jpg`
+  - Quality `70–78` for photos sitting under dark/gradient overlays; `78–85` for clean foreground photos where detail shows.
+- **Do NOT use macOS `sips` to compress.** It re-encodes above the source's quality and can make files *larger* even after downscaling. (Learned on the Eagle Point build: `sips` grew already-compressed JPGs; re-doing it with `magick` at controlled quality cut them 35–56%.)
+- **Background video:** re-encode with ffmpeg — `ffmpeg -i in.mp4 -an -c:v libx264 -crf 30 -preset medium -pix_fmt yuv420p -movflags +faststart out.mp4`. A muted hero loop under a gradient survives CRF 30 with no visible loss (a ~20 MB clip drops to ~5 MB).
+- **Always verify the output is smaller than the source** before replacing it, and screenshot the page afterward to confirm no visible quality loss.
+- For a further ~30% on photos, consider serving WebP via Astro's `<Image>` component (move the asset into `src/` and import it) — heavier lift since it touches markup.
+
 ## Attribution
 
 Unsplash images require attribution per their Terms of Service. The download script automatically generates `{filename}_attribution.txt` files alongside each downloaded image. These attribution files should be preserved in the repository.
