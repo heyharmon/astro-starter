@@ -1,52 +1,135 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getEntry, render } from "astro:content";
 
-const page = (await getEntry("pages", "about"))!;
-const { Content } = await render(page);
+const commitments = [
+  { label: "Quality", desc: "Every weld, every fit, every finish meets our highest standards." },
+  { label: "Presentation", desc: "Clean sites, clean welds, clean lines — details matter." },
+  { label: "Communication", desc: "Clear and professional collaboration from start to finish." },
+  { label: "Versatility", desc: "If it involves metal, we can build it." },
+  { label: "Precision & Trust", desc: "Certified work that's done right the first time." },
+];
+
+const description =
+  "Eagle Point Welding — certified, precise metalwork across Southern Utah. Quality, presentation, and communication on every project, led by owner/operator Nick Coleman.";
 ---
 
-<BaseLayout title={page.data.title} description={page.data.description}>
-  <!-- Hero -->
-  <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-    <p class="text-sm uppercase tracking-wide text-neutral-500">
-      Tier 1 / 3 — Inline page + Markdown entry
+<BaseLayout title="About" description={description}>
+  <!-- ===================== HERO ===================== -->
+  <section class="flex min-h-[45vh] flex-col items-center justify-center bg-black px-6 pt-28 pb-12 text-center">
+    <h1 class="max-w-[14ch] text-[2.75rem] leading-[1.04] sm:text-[3.75rem] lg:text-[4.5rem]">
+      About Eagle Point Welding
+    </h1>
+    <p class="mx-auto mt-6 max-w-2xl text-[17px] leading-relaxed text-ink">
+      We believe great metalwork is more than just strong welds — it's about quality, presentation,
+      and communication at every stage of a project.
     </p>
-    <h1 class="mt-4">{page.data.headline}</h1>
-    {page.data.subheadline && (
-      <p class="mt-6 max-w-2xl text-lg text-neutral-500">
-        {page.data.subheadline}
-      </p>
-    )}
   </section>
 
-  <!-- File map -->
-  <section class="border-t border-neutral-200 bg-neutral-50">
-    <div class="mx-auto max-w-5xl px-6 py-16">
-      <h2 class="text-lg">How this page is wired</h2>
-      <dl class="mt-6 grid gap-6 sm:grid-cols-2">
-        <div>
-          <dt class="text-sm font-medium">Route file</dt>
-          <dd class="mt-1 text-sm text-neutral-500">
-            <code class="rounded bg-white px-1.5 py-0.5">src/pages/about.astro</code> — calls
-            <code class="rounded bg-white px-1.5 py-0.5">getEntry("pages", "about")</code> and renders the body.
-          </dd>
+  <!-- ===================== ONE-TRICK-PONY (text left / image right) ===================== -->
+  <section class="bg-surface py-20 lg:py-28">
+    <div class="epw-container grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <span class="mb-6 block h-[2px] w-12 bg-white/50"></span>
+        <h2 class="max-w-md">We're not a one-trick-pony shop.</h2>
+        <div class="mt-6 space-y-5 text-[16px] leading-relaxed text-ink">
+          <p>
+            From custom railings and structural steel to precision pipe welding, our team has the
+            skillset to tackle projects across a wide range of industries.
+          </p>
+          <p>Our craftsmanship reaches far beyond the basics — if it involves metal, we can build it.</p>
+          <p>
+            While railing, structural, and pipe fabrication remain our core specialties, we also
+            thrive in architectural details, ranch builds, and complex retrofits.
+          </p>
         </div>
-        <div>
-          <dt class="text-sm font-medium">Content file</dt>
-          <dd class="mt-1 text-sm text-neutral-500">
-            <code class="rounded bg-white px-1.5 py-0.5">src/content/pages/about.md</code> — the Markdown body and frontmatter you're reading.
-          </dd>
+      </div>
+      <div class="aspect-[4/3] overflow-hidden border border-white/10 bg-black">
+        <img
+          src="/images/eaglepoint/cta-bg.jpg"
+          alt="Eagle Point Welding shop and equipment"
+          loading="lazy"
+          class="h-full w-full object-cover"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HIGHER STANDARD (image left / text right) ===================== -->
+  <section class="bg-black py-20 lg:py-28">
+    <div class="epw-container grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div class="aspect-[3/4] overflow-hidden border border-white/10 bg-black">
+        <img
+          src="/images/eaglepoint/about/welder-portrait.jpg"
+          alt="Eagle Point welder at work"
+          loading="lazy"
+          class="h-full w-full object-cover"
+        />
+      </div>
+      <div>
+        <span class="mb-6 block h-[2px] w-12 bg-white/50"></span>
+        <h2 class="max-w-lg">As a high-end contractor, we hold ourselves to a much higher standard than most.</h2>
+        <div class="mt-6 space-y-5 text-[16px] leading-relaxed text-ink">
+          <p>
+            You'll never hear us say "that's good enough" or "can't see it from my house" — those
+            words do not exist with us.
+          </p>
+          <p>Every cut, every weld, every detail is calculated, clean, and built to last.</p>
+          <p>
+            We show up prepared, keep open lines of communication with our clients and partners, and
+            maintain a polished presentation that reflects the quality of our work.
+          </p>
         </div>
+        <p class="mt-8 text-[20px] leading-snug text-white">
+          “Certified and Precise — Done Once… Not Twice.”
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== OUR COMMITMENT ===================== -->
+  <section class="bg-surface py-20 lg:py-28">
+    <div class="epw-container">
+      <span class="mb-6 block h-[2px] w-12 bg-white/50"></span>
+      <h2>Our commitment</h2>
+      <dl class="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          commitments.map((c) => (
+            <div class="border-t border-line pt-5">
+              <dt class="text-[15px] font-semibold uppercase tracking-[0.5px] text-white">{c.label}</dt>
+              <dd class="mt-2 text-[15px] leading-relaxed text-ink">{c.desc}</dd>
+            </div>
+          ))
+        }
       </dl>
     </div>
   </section>
 
-  <!-- Markdown body -->
-  <section class="border-t border-neutral-200">
-    <div class="mx-auto max-w-3xl px-6 py-24 sm:py-32">
-      <div class="prose">
-        <Content />
+  <!-- ===================== NICK COLEMAN (text left / image right) ===================== -->
+  <section class="bg-black py-20 lg:py-28">
+    <div class="epw-container grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <p class="eyebrow text-white">Owner / Operator</p>
+        <h2 class="mt-5">Nick Coleman</h2>
+        <p class="mt-6 max-w-md text-[16px] leading-relaxed text-ink">
+          Founded on hard work and expertise gained from years in the field — from large-diameter
+          industrial piping and tunnel work on high-profile jobs across the U.S. to architectural
+          metalwork and structural work locally in Southern Utah — Eagle Point Welding has built a
+          reputation for delivering on time, solving complex problems, and leaving every project
+          stronger than we found it.
+        </p>
+      </div>
+      <div class="relative">
+        <div class="aspect-[3/4] overflow-hidden border border-white/10 bg-black">
+          <img
+            src="/images/eaglepoint/about-welder.jpg"
+            alt="Nick Coleman, Owner/Operator of Eagle Point Welding"
+            loading="lazy"
+            class="h-full w-full object-cover"
+          />
+        </div>
+        <span class="absolute right-4 bottom-4 text-[13px] font-medium tracking-[1px] text-white/90 uppercase">
+          Nick Coleman
+        </span>
       </div>
     </div>
   </section>
