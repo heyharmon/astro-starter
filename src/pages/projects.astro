@@ -1,0 +1,97 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const base = "/images/eaglepoint/projects";
+
+const projects = [
+  {
+    title: "Intermountain Hospital",
+    img: `${base}/intermountain.jpg`,
+    desc: "Precision medical equipment installation with zero-tolerance accuracy in live hospital environment. Completed ahead of schedule.",
+  },
+  {
+    title: "Black Desert",
+    img: `${base}/black-desert.jpg`,
+    desc: "Custom luxury railings with laser-cut precision posts and hidden connections. Stainless cable infills for upscale resort condos.",
+  },
+  {
+    title: "Nyrstar Mines",
+    img: `${base}/nyrstar.jpg`,
+    desc: "Heavy-duty mining repairs with AR-500 wear plate. Underground crusher retrofits and topside chute fabrication. Industrial excellence.",
+  },
+  {
+    title: "Entrada",
+    img: `${base}/entrada.jpg`,
+    desc: "Architectural metalwork featuring custom radius railings and grand entry door. Perfection demanded, perfection delivered.",
+  },
+  {
+    title: "DC Ranch Ramona",
+    img: `${base}/dc-ranch.jpg`,
+    desc: "Ramona ranch buildout featuring custom entry gates, decorative signage with laser-cut horse motifs, pipe rail corrals, and large-span equestrian shade pavilions. Western craftsmanship at scale.",
+  },
+];
+
+const description =
+  "Selected welding and fabrication projects across Southern Utah — from precision medical retrofits to heavy industrial mining, luxury resorts, and custom ranch metalwork.";
+---
+
+<BaseLayout title="Projects" description={description}>
+  <!-- ===================== HERO ===================== -->
+  <section class="flex min-h-[55vh] flex-col items-center justify-center bg-black px-6 pt-28 pb-12 text-center">
+    <h1 class="text-[3.5rem] leading-[1.02] sm:text-[5rem] lg:text-[5.5rem]">Projects</h1>
+    <p class="mx-auto mt-6 max-w-2xl text-[17px] leading-relaxed text-ink">
+      From precision medical retrofits to heavy industrial mining, Eagle Point Welding delivers
+      excellence across every sector. Quality, safety, and on-time delivery guaranteed.
+    </p>
+  </section>
+
+  <!-- ===================== PROJECT ROWS ===================== -->
+  <section class="bg-black pb-16 lg:pb-24">
+    <div class="epw-container space-y-6 lg:space-y-8">
+      {
+        projects.map((p, i) => (
+          <article class="group grid items-stretch overflow-hidden bg-surface lg:grid-cols-2">
+            <div class={`aspect-square overflow-hidden bg-black ${i % 2 === 1 ? "lg:order-2" : ""}`}>
+              <img
+                src={p.img}
+                alt={p.title}
+                loading="lazy"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+            </div>
+            <div class="flex flex-col justify-center p-8 sm:p-10 lg:p-14">
+              <h2 class="text-[2.5rem] leading-[1.04] lg:text-[3.25rem]">{p.title}</h2>
+              <p class="mt-5 max-w-md text-[16px] leading-relaxed text-ink">{p.desc}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="relative overflow-hidden bg-black">
+    <img
+      src="/images/eaglepoint/cta-bg.jpg"
+      alt="Welding tools and equipment"
+      loading="lazy"
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+    <div
+      class="absolute inset-0"
+      style="background-image:linear-gradient(to bottom, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.72) 100%);"
+    >
+    </div>
+    <div class="relative epw-container py-24 text-center lg:py-28">
+      <p class="eyebrow eyebrow--center">Get in touch</p>
+      <h2 class="mt-5">Have a project in mind?</h2>
+      <p class="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-ink">
+        From structural steel to custom architectural metalwork, our certified team is ready to
+        deliver — on spec and on time.
+      </p>
+      <div class="mt-9">
+        <a href="/#contact" class="btn-outline">Get a quote</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
