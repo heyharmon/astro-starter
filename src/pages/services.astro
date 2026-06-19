@@ -1,0 +1,189 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const base = "/images/eaglepoint/services";
+
+// 3-column image-grid categories (alternating surface)
+const categories = [
+  {
+    title: "Commercial Structural & Misc Metals",
+    surface: true,
+    items: [
+      {
+        title: "Retrofits",
+        img: `${base}/svc-structural-1.jpg`,
+        desc: "Precision modifications to existing structures. Hospital ORs to industrial facilities, we integrate new systems while maintaining operations.",
+      },
+      {
+        title: "New Construction",
+        img: `${base}/svc-structural-2.jpg`,
+        desc: "Heavy-duty fabrication for manufacturing and processing facilities. Structural steel, catwalks, and platforms for demanding environments.",
+      },
+      {
+        title: "Steel Buildings",
+        img: `${base}/svc-structural-3.jpg`,
+        desc: "Complete steel building erection and modifications. Pre-engineered or custom structures. AWS certified for structural and seismic work.",
+      },
+    ],
+  },
+  {
+    title: "Residential",
+    surface: false,
+    items: [
+      {
+        title: "High-end Railing & Stairs",
+        img: `${base}/svc-residential-1.jpg`,
+        desc: "Custom stairs and safety railings for commercial and residential projects. Cable rail, glass systems, ADA compliant with architectural quality.",
+      },
+      {
+        title: "Custom Fencing",
+        img: `${base}/svc-residential-2.jpg`,
+        desc: "Security and decorative fencing solutions. Ornamental iron, industrial perimeter security. Custom designs built to last.",
+      },
+      {
+        title: "Local Homebuilders",
+        img: `${base}/svc-residential-3.jpg`,
+        desc: "Trusted partner for regional builders and contractors. Interior railings, and finish metalwork.",
+      },
+    ],
+  },
+  {
+    title: "Certified Rig Welding",
+    surface: true,
+    items: [
+      {
+        title: "Mines & Tunnels",
+        img: `${base}/svc-rig-1.jpg`,
+        desc: "Underground and surface mining support. Crusher repairs, chute fabrication, shaft reinforcement. Confined space and hazardous area expertise.",
+      },
+      {
+        title: "Pipelines",
+        img: `${base}/svc-rig-2.jpg`,
+        desc: "High-pressure pipeline welding. X-ray quality welds, hot taps, and tie-ins. AWS and ASME certified.",
+      },
+      {
+        title: "Equipment Repair",
+        img: `${base}/svc-rig-3.jpg`,
+        desc: "Emergency and scheduled repairs to minimize downtime. AR wear plate, and structural reinforcement when you need it most.",
+      },
+    ],
+  },
+];
+
+// Pipe Welding uses a distinct 2-column layout (text list + one tall image)
+const pipe = {
+  title: "Pipe Welding",
+  img: `${base}/svc-pipe.jpg`,
+  items: [
+    {
+      title: "Pipe Fabrication",
+      desc: "Custom pipe spools built to exact specs. Stainless, carbon steel, and specialty alloys. Clean room to industrial grade with certified welds.",
+    },
+    {
+      title: "Pipe Fitting",
+      desc: "Precision fitting for complex mechanical systems. Zero-tolerance accuracy for critical connections.",
+    },
+    {
+      title: "TIG, Stick & MIG",
+      desc: "Multi-process certified welders for any material. Aluminum, stainless, exotic alloys. Clean aesthetic welds or heavy structural applications.",
+    },
+  ],
+};
+
+const description =
+  "Precision welding and fabrication across Southern Utah — commercial structural steel, residential railings and stairs, certified rig welding, and pipe welding.";
+---
+
+<BaseLayout title="Services" description={description}>
+  <!-- ===================== HERO ===================== -->
+  <section class="flex min-h-[55vh] flex-col items-center justify-center bg-black px-6 pt-28 pb-12 text-center">
+    <h1 class="text-[3.5rem] leading-[1.02] sm:text-[5rem] lg:text-[5.5rem]">Services</h1>
+    <p class="mx-auto mt-6 max-w-2xl text-[17px] leading-relaxed text-ink">
+      Eagle Point Welding delivers precision fabrication and welding services across Southern Utah.
+      From structural steel to custom architectural metalwork, we bring certified expertise and
+      proven reliability to every project.
+    </p>
+  </section>
+
+  <!-- ===================== CATEGORY GRIDS ===================== -->
+  {
+    categories.map((cat) => (
+      <section class={`py-20 lg:py-28 ${cat.surface ? "bg-surface" : "bg-black"}`}>
+        <div class="epw-container">
+          <span class="mb-6 block h-[2px] w-12 bg-white/50" />
+          <h2>{cat.title}</h2>
+          <div class="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            {cat.items.map((item) => (
+              <article class="group flex flex-col">
+                <div class="aspect-[3/2] overflow-hidden border border-white/10 bg-black">
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    loading="lazy"
+                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <h3 class="mt-5">{item.title}</h3>
+                <p class="mt-3 text-[15px] leading-relaxed text-ink">{item.desc}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <!-- ===================== PIPE WELDING (2-col) ===================== -->
+  <section class="bg-black py-20 lg:py-28">
+    <div class="epw-container">
+      <span class="mb-6 block h-[2px] w-12 bg-white/50"></span>
+      <h2>{pipe.title}</h2>
+      <div class="mt-12 grid gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-16">
+        <div class="flex flex-col justify-center space-y-9">
+          {
+            pipe.items.map((item) => (
+              <div>
+                <h3>{item.title}</h3>
+                <p class="mt-3 max-w-md text-[15px] leading-relaxed text-ink">{item.desc}</p>
+              </div>
+            ))
+          }
+        </div>
+        <div class="aspect-[4/5] overflow-hidden border border-white/10 bg-black lg:aspect-auto">
+          <img
+            src={pipe.img}
+            alt="Pipe welding fabrication"
+            loading="lazy"
+            class="h-full w-full object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="relative overflow-hidden bg-black">
+    <img
+      src="/images/eaglepoint/cta-bg.jpg"
+      alt="Welding tools and equipment"
+      loading="lazy"
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+    <div
+      class="absolute inset-0"
+      style="background-image:linear-gradient(to bottom, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.72) 100%);"
+    >
+    </div>
+    <div class="relative epw-container py-24 text-center lg:py-28">
+      <p class="eyebrow eyebrow--center">Get in touch</p>
+      <h2 class="mt-5">Ready to start your project?</h2>
+      <p class="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-ink">
+        From structural steel to custom architectural metalwork, our certified team is ready to
+        deliver — on spec and on time.
+      </p>
+      <div class="mt-9">
+        <a href="/#contact" class="btn-outline">Get a quote</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
