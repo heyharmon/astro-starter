@@ -11,8 +11,35 @@ interface Props {
 const { title, description, image, canonicalURL } = Astro.props;
 const pageTitle = title === "Home" ? siteMeta.name : `${title} | ${siteMeta.name}`;
 const metaDescription = description || siteMeta.description || siteMeta.tagline;
-const ogImage = image || siteMeta.ogImage || "";
 const canonical = canonicalURL || new URL(Astro.url.pathname, siteMeta.url).href;
+
+// Resolve any path to an absolute URL. Social crawlers and structured data
+// require absolute og:image / image URLs, not site-relative paths.
+const toAbsolute = (path) =>
+  !path ? "" : path.startsWith("http") ? path : new URL(path, siteMeta.url).href;
+const ogImage = toAbsolute(image || siteMeta.ogImage || "");
+
+// LocalBusiness structured data — helps Google understand the business entity,
+// service area, and contact details for local search and the knowledge panel.
+const businessSchema = {
+  "@context": "https://schema.org",
+  "@type": "GeneralContractor",
+  name: siteMeta.name,
+  description: siteMeta.description,
+  url: siteMeta.url,
+  ...(siteMeta.contact?.phone ? { telephone: siteMeta.contact.phone } : {}),
+  ...(siteMeta.contact?.email ? { email: siteMeta.contact.email } : {}),
+  image: toAbsolute(siteMeta.ogImage),
+  logo: toAbsolute("/images/eaglepoint/logo-white.svg"),
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "St. George",
+    addressRegion: "UT",
+    addressCountry: "US",
+  },
+  ...(siteMeta.contact?.serviceArea ? { areaServed: siteMeta.contact.serviceArea } : {}),
+  ...(siteMeta.social ? { sameAs: Object.values(siteMeta.social) } : {}),
+};
 ---
 
 <meta charset="utf-8" />
@@ -44,3 +71,6 @@ const canonical = canonicalURL || new URL(Astro.url.pathname, siteMeta.url).href
 <meta name="twitter:title" content={pageTitle} />
 <meta name="twitter:description" content={metaDescription} />
 {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+<!-- Structured data: LocalBusiness -->
+<script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
