@@ -15,5 +15,15 @@
     "location": "St. George, Utah",
     "serviceArea": "Serving St. George & all of Southern Utah"
   },
+  "geo": { "lat": 37.0965, "lng": -113.5684 },
+  "serviceCities": ["St. George", "Hurricane", "Ivins", "Washington", "Santa Clara", "Cedar City"],
+  "services": [
+    "Structural steel & seismic welding",
+    "Pipe welding & fabrication",
+    "Custom railings & stairs",
+    "Certified rig & mobile welding",
+    "Ranch fencing & custom structures",
+    "Metal fabrication"
+  ],
   "formspreeId": "YOUR_FORM_ID"
 }

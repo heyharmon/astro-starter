@@ -52,7 +52,7 @@ if (p.sections.length > 0) {
 }
 ---
 
-<BaseLayout title={`${p.title} Project`} description={p.description} image={p.heroImage?.src ?? p.image?.src}>
+<BaseLayout title={p.title} description={p.description} image={p.heroImage?.src ?? p.image?.src}>
   <!-- ===================== HERO ===================== -->
   <section class="relative flex min-h-[62vh] flex-col items-center justify-center overflow-hidden bg-black px-6 pt-28 pb-16 text-center lg:min-h-[68vh]">
     {

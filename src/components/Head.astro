@@ -9,7 +9,9 @@ interface Props {
 }
 
 const { title, description, image, canonicalURL } = Astro.props;
-const pageTitle = title === "Home" ? siteMeta.name : `${title} | ${siteMeta.name}`;
+// `title` is the page-specific, keyword-rich descriptor; the brand is appended.
+// Pass title="" (or omit) only for a brand-only title.
+const pageTitle = title && title !== "Home" ? `${title} | ${siteMeta.name}` : siteMeta.name;
 const metaDescription = description || siteMeta.description || siteMeta.tagline;
 const canonical = canonicalURL || new URL(Astro.url.pathname, siteMeta.url).href;
 
@@ -24,6 +26,7 @@ const ogImage = toAbsolute(image || siteMeta.ogImage || "");
 const businessSchema = {
   "@context": "https://schema.org",
   "@type": "GeneralContractor",
+  "@id": `${siteMeta.url}/#business`,
   name: siteMeta.name,
   description: siteMeta.description,
   url: siteMeta.url,
@@ -37,7 +40,27 @@ const businessSchema = {
     addressRegion: "UT",
     addressCountry: "US",
   },
-  ...(siteMeta.contact?.serviceArea ? { areaServed: siteMeta.contact.serviceArea } : {}),
+  ...(siteMeta.geo
+    ? { geo: { "@type": "GeoCoordinates", latitude: siteMeta.geo.lat, longitude: siteMeta.geo.lng } }
+    : {}),
+  // areaServed: the Southern Utah cities served, plus the region as a whole.
+  areaServed: [
+    ...(siteMeta.serviceCities ?? []).map((c) => ({ "@type": "City", name: c })),
+    { "@type": "AdministrativeArea", name: "Southern Utah" },
+  ],
+  ...(siteMeta.services
+    ? {
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Welding & fabrication services",
+          itemListElement: siteMeta.services.map((s) => ({
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name: s },
+          })),
+        },
+        knowsAbout: siteMeta.services,
+      }
+    : {}),
   ...(siteMeta.social ? { sameAs: Object.values(siteMeta.social) } : {}),
 };
 ---
