@@ -1,0 +1,153 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = (await getCollection("projects")).filter((p) => !p.data.draft);
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const p = entry.data;
+const hero = p.heroImage ?? p.image;
+
+const meta = [
+  p.jobType ? { label: "Job Type", value: p.jobType } : null,
+  p.location ? { label: "Location", value: p.location } : null,
+  p.client ? { label: "Client", value: p.client } : null,
+].filter(Boolean);
+---
+
+<BaseLayout title={`${p.title} — Project`} description={p.description} image={p.image?.src}>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative flex min-h-[62vh] flex-col items-center justify-center overflow-hidden bg-black px-6 pt-28 pb-16 text-center lg:min-h-[68vh]">
+    {
+      hero && (
+        <img
+          src={hero.src}
+          alt={hero.alt}
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+      )
+    }
+    <div
+      class="absolute inset-0"
+      style="background-image:linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.78) 100%);"
+    >
+    </div>
+    <div class="relative">
+      <p class="eyebrow eyebrow--center">Project</p>
+      <h1 class="mt-5 text-[3rem] leading-[1.02] sm:text-[4.5rem] lg:text-[5.5rem]">{p.title}</h1>
+      {
+        p.subtitle && (
+          <p class="mt-5 text-[15px] font-medium tracking-[2px] text-ink uppercase">{p.subtitle}</p>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT THE PROJECT ===================== -->
+  <section class="bg-surface py-20 lg:py-28">
+    <div class="epw-container grid gap-12 lg:grid-cols-[1.6fr_1fr] lg:gap-20">
+      <div>
+        <p class="eyebrow">About the project</p>
+        {p.intro && <p class="mt-6 max-w-xl text-[18px] leading-relaxed text-white">{p.intro}</p>}
+        {
+          p.scope.length > 0 && (
+            <ul class="mt-8 space-y-3">
+              {p.scope.map((item) => (
+                <li class="flex gap-3 text-[16px] leading-relaxed text-ink">
+                  <span class="mt-[10px] h-[6px] w-[6px] flex-none bg-white/70" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+      {
+        meta.length > 0 && (
+          <dl class="space-y-8 lg:border-l lg:border-line lg:pl-12">
+            {meta.map((m) => (
+              <div>
+                <dt class="text-[13px] font-semibold tracking-[1.5px] text-ink-dim uppercase">{m.label}</dt>
+                <dd class="mt-2 font-display text-[2rem] leading-none text-white">{m.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- ===================== NARRATIVE SECTIONS ===================== -->
+  {
+    p.sections.length > 0 && (
+      <section class="bg-black py-20 lg:py-28">
+        <div class="epw-container max-w-3xl space-y-14">
+          {p.sections.map((s) => (
+            <div>
+              <span class="mb-6 block h-[2px] w-12 bg-white/50" />
+              <h2 class="max-w-2xl">{s.heading}</h2>
+              <p class="mt-5 text-[17px] leading-relaxed text-ink">{s.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- ===================== GALLERY ===================== -->
+  {
+    p.gallery.length > 0 && (
+      <section class="bg-surface py-20 lg:py-28">
+        <div class="epw-container">
+          <span class="mb-6 block h-[2px] w-12 bg-white/50" />
+          <h2>See the work</h2>
+          <div class="mt-12 gap-4 [column-fill:balance] sm:columns-2 lg:columns-3">
+            {p.gallery.map((g) => (
+              <div class="mb-4 overflow-hidden border border-white/10 bg-black break-inside-avoid">
+                <img
+                  src={g.src}
+                  alt={g.alt}
+                  loading="lazy"
+                  class="h-auto w-full object-cover transition-transform duration-500 hover:scale-[1.03]"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- ===================== CTA ===================== -->
+  <section class="relative overflow-hidden bg-black">
+    <img
+      src="/images/eaglepoint/cta-bg.jpg"
+      alt="Welding tools and equipment"
+      loading="lazy"
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+    <div
+      class="absolute inset-0"
+      style="background-image:linear-gradient(to bottom, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.72) 100%);"
+    >
+    </div>
+    <div class="relative epw-container py-24 text-center lg:py-28">
+      <p class="eyebrow eyebrow--center">Get in touch</p>
+      <h2 class="mt-5">Have a project in mind?</h2>
+      <p class="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-ink">
+        From structural steel to custom architectural metalwork, our certified team is ready to
+        deliver, on spec and on time.
+      </p>
+      <div class="mt-9 flex flex-wrap justify-center gap-4">
+        <a href="/contact" class="btn-outline">Get a quote</a>
+        <a href="/projects" class="btn-outline-sm">All projects</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

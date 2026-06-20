@@ -55,6 +55,14 @@ const projects = defineCollection({
     description: z
       .string()
       .describe("Short summary — shown on project cards"),
+    subtitle: z
+      .string()
+      .optional()
+      .describe("Hero subtitle on the detail page, e.g. 'Luxury Golf Village Condos'"),
+    intro: z
+      .string()
+      .optional()
+      .describe("Lead paragraph opening the 'About the project' section on the detail page"),
     client: z
       .string()
       .optional()
@@ -62,7 +70,11 @@ const projects = defineCollection({
     location: z
       .string()
       .optional()
-      .describe("Project location — shown on the project detail page"),
+      .describe("Project location — shown in the detail page meta sidebar"),
+    jobType: z
+      .string()
+      .optional()
+      .describe("Scope of work label — shown in the detail page meta sidebar, e.g. 'Stairs & Railings'"),
     image: z
       .object({
         src: z
@@ -73,7 +85,36 @@ const projects = defineCollection({
           .describe("Accessible alt text describing the image"),
       })
       .optional()
-      .describe("Project image — shown on card and detail page"),
+      .describe("Card image — shown on the index grid (may carry branding/overlay)"),
+    heroImage: z
+      .object({
+        src: z.string().describe("Path to a clean full-bleed hero image"),
+        alt: z.string().describe("Accessible alt text"),
+      })
+      .optional()
+      .describe("Detail page hero background — a clean photo with no baked-in text. Falls back to `image`."),
+    scope: z
+      .array(z.string())
+      .default([])
+      .describe("Bullet list of work performed — shown under the intro on the detail page"),
+    sections: z
+      .array(
+        z.object({
+          heading: z.string().describe("Narrative block heading"),
+          body: z.string().describe("Narrative block paragraph(s)"),
+        }),
+      )
+      .default([])
+      .describe("Narrative story blocks shown below the intro on the detail page"),
+    gallery: z
+      .array(
+        z.object({
+          src: z.string().describe("Path to gallery image"),
+          alt: z.string().describe("Accessible alt text"),
+        }),
+      )
+      .default([])
+      .describe("Photo gallery shown near the bottom of the detail page"),
     order: z
       .number()
       .describe("Sort order — lower numbers appear first"),
