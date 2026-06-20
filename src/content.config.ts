@@ -129,47 +129,4 @@ const projects = defineCollection({
   }),
 });
 
-/**
- * POSTS collection
- * Each .md file in src/content/posts/ represents a single blog post.
- * The filename (without extension) becomes the URL slug at /blog/<slug>.
- */
-const posts = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/posts" }),
-  schema: z.object({
-    title: z
-      .string()
-      .describe("Post title — used in <title> tag and as the main heading"),
-    description: z
-      .string()
-      .describe("Short summary — shown in listings and used for SEO"),
-    date: z
-      .coerce.date()
-      .describe("Publication date — used for sorting and display"),
-    author: z
-      .string()
-      .optional()
-      .describe("Author name — shown on the post detail page"),
-    tags: z
-      .array(z.string())
-      .default([])
-      .describe("Tags — used for grouping and display on the post"),
-    featuredImage: z
-      .object({
-        src: z
-          .string()
-          .describe("Path to image file, e.g. /images/blog/post.jpg"),
-        alt: z
-          .string()
-          .describe("Accessible alt text describing the image"),
-      })
-      .optional()
-      .describe("Featured image — shown on the post and used for social sharing"),
-    draft: z
-      .boolean()
-      .default(false)
-      .describe("Draft posts are hidden from production builds"),
-  }),
-});
-
-export const collections = { pages, projects, posts };
+export const collections = { pages, projects };

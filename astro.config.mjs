@@ -7,7 +7,7 @@ import tailwindcss from "@tailwindcss/vite";
 // the generated sitemap, and Open Graph image URLs. Keep it in sync with
 // src/data/site-meta.json `url`. If this launches on a different domain, update both.
 export default defineConfig({
-  site: "https://eaglepointwelding.com",
+  site: "https://eaglepoint-welding.vercel.app",
   output: "static",
   integrations: [
     react(),

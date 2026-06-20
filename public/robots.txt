@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://eaglepointwelding.com/sitemap-index.xml
+Sitemap: https://eaglepoint-welding.vercel.app/sitemap-index.xml
