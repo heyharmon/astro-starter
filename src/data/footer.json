@@ -1,31 +1,26 @@
 [
   {
-    "section": "Navigation",
+    "section": "Studio",
     "links": [
-      { "label": "Home", "href": "/" },
-      { "label": "About", "href": "/about" },
-      { "label": "Blog", "href": "/blog" },
-      { "label": "Projects", "href": "/projects" },
-      { "label": "Contact", "href": "/contact" }
+      { "label": "Work", "href": "/#work" },
+      { "label": "How it works", "href": "/#how" },
+      { "label": "Services", "href": "/#services" },
+      { "label": "About", "href": "/#studio" }
     ]
   },
   {
-    "section": "Concept demos",
+    "section": "Offer",
     "links": [
-      { "label": "Inline content (homepage)", "href": "/" },
-      { "label": "Inline + Markdown entry (about)", "href": "/about" },
-      { "label": "Site config driven (contact)", "href": "/contact" },
-      { "label": "Posts collection (blog)", "href": "/blog" },
-      { "label": "Projects collection", "href": "/projects" },
-      { "label": "Islands (interactivity)", "href": "/islands" }
+      { "label": "Pricing", "href": "/#pricing" },
+      { "label": "Start a project", "href": "/start" }
     ]
   },
   {
-    "section": "Resources",
+    "section": "Contact",
     "links": [
-      { "label": "Style Guide", "href": "/styleguide" },
-      { "label": "Astro Docs", "href": "https://docs.astro.build" },
-      { "label": "Tailwind CSS", "href": "https://tailwindcss.com" }
+      { "label": "hello@studioharmon.com", "href": "mailto:hello@studioharmon.com" },
+      { "label": "Salt Lake City, UT", "href": "/#studio" },
+      { "label": "Book a call", "href": "/book" }
     ]
   }
 ]

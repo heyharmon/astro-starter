@@ -1,8 +1,7 @@
 [
-  { "label": "About", "href": "/about", "order": 1 },
-  { "label": "Blog", "href": "/blog", "order": 2 },
-  { "label": "Projects", "href": "/projects", "order": 3 },
-  { "label": "Contact", "href": "/contact", "order": 4 },
-  { "label": "Islands", "href": "/islands", "order": 5 },
-  { "label": "Style Guide", "href": "/styleguide", "order": 6 }
+  { "label": "Work", "href": "/#work", "order": 1 },
+  { "label": "How it works", "href": "/#how", "order": 2 },
+  { "label": "Services", "href": "/#services", "order": 3 },
+  { "label": "Pricing", "href": "/#pricing", "order": 4 },
+  { "label": "Studio", "href": "/#studio", "order": 5 }
 ]

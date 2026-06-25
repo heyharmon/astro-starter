@@ -1,9 +1,14 @@
 {
-  "stage": "not-started",
-  "completedStages": [],
-  "currentCohort": 0,
-  "cohorts": {},
-  "sitemapApproved": false,
-  "styleguideApproved": false,
-  "notes": ""
+  "stage": "complete",
+  "completedStages": ["style", "sitemap", "content-drafts", "page-building", "final-review"],
+  "currentCohort": 1,
+  "cohorts": {
+    "1": {
+      "pages": ["index", "start", "book", "styleguide"],
+      "status": "built"
+    }
+  },
+  "sitemapApproved": true,
+  "styleguideApproved": true,
+  "notes": "Studio Harmon marketing site built from design_handoff_studio_harmon. Single-page home (#work/#how/#services/#pricing/#studio anchors) + /start intake form + /book scheduler + /styleguide design system. Tokens (paper/ink/clay) in global.css :root; fonts Bricolage Grotesque (display) + Hanken Grotesk (body). Forms/scheduler are client-side prototypes — wire /start to a form endpoint and /book to a real scheduler before launch. Image placeholders (3 work shots + studio photo) await real photography from the studio."
 }

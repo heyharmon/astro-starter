@@ -1,119 +1,98 @@
 {
   "meta": {
-    "version": "1.0",
-    "description": "Machine-readable design system. Agents read this as the source of truth for where and how to use design tokens."
+    "version": "2.0",
+    "description": "Machine-readable design system for Studio Harmon. CSS variables live on :root in src/styles/global.css — reference the token, never the raw hex."
   },
-  "colors": {
-    "background": {
-      "primary": "white",
-      "secondary": "neutral-50",
-      "tertiary": "neutral-100",
-      "card": "white"
-    },
-    "text": {
-      "primary": "neutral-900",
-      "body": "neutral-600",
-      "muted": "neutral-500",
-      "subtle": "neutral-400",
-      "accent": "indigo-600"
-    },
-    "border": {
-      "default": "neutral-200",
-      "card": "neutral-200",
-      "input": "neutral-300",
-      "focus": "indigo-500"
-    },
-    "accent": {
-      "base": "indigo-600",
-      "hover": "indigo-700",
-      "light": "indigo-50",
-      "scale": ["indigo-50", "indigo-100", "indigo-200", "indigo-300", "indigo-400", "indigo-500", "indigo-600", "indigo-700", "indigo-800", "indigo-900", "indigo-950"]
-    },
-    "button": {
-      "primary": {
-        "bg": "indigo-600",
-        "text": "white",
-        "hoverBg": "indigo-700"
-      },
-      "ghost": {
-        "bg": "transparent",
-        "text": "neutral-900",
-        "border": "neutral-300",
-        "hoverBg": "neutral-900",
-        "hoverText": "white",
-        "hoverBorder": "neutral-900"
-      }
-    }
+  "tokens": {
+    "--paper": { "value": "#F3EDE3", "role": "Page background (warm canvas)" },
+    "--paper-2": { "value": "#EBE3D5", "role": "Subtle alt fills, inline code" },
+    "--white": { "value": "#FBF8F2", "role": "Card / surface background" },
+    "--ink": { "value": "#1E1A14", "role": "Primary text, dark panels, ink buttons" },
+    "--ink-2": { "value": "#5C5648", "role": "Body / secondary text" },
+    "--ink-3": { "value": "#928A78", "role": "Muted labels, captions" },
+    "--line": { "value": "#DED5C4", "role": "Hairline borders, dividers" },
+    "--line-2": { "value": "#CFC4AE", "role": "Input borders, stronger lines" },
+    "--clay": { "value": "#C05A2E", "role": "Primary accent — the brand color" },
+    "--clay-2": { "value": "#A8481F", "role": "Accent hover / deeper accent text" },
+    "--maxw": { "value": "1220px", "role": "Content container width" }
   },
   "typography": {
     "fonts": {
-      "heading": "Inter",
-      "body": "Inter",
-      "mono": "JetBrains Mono"
+      "display": "Bricolage Grotesque",
+      "body": "Hanken Grotesk"
     },
-    "headings": {
-      "h1": {
-        "classes": "font-sans font-semibold tracking-tight text-neutral-900 text-4xl sm:text-5xl",
-        "lineHeight": "1.1"
-      },
-      "h2": {
-        "classes": "font-sans font-semibold tracking-tight text-neutral-900 text-2xl sm:text-3xl",
-        "lineHeight": "1.15"
-      },
-      "h3": {
-        "classes": "font-sans font-medium text-neutral-900 text-xl",
-        "lineHeight": "1.2"
-      }
+    "display": {
+      "family": "Bricolage Grotesque",
+      "weight": 800,
+      "letterSpacing": "-0.025em",
+      "lineHeight": "0.98",
+      "hero": "clamp(54px, 8.4vw, 118px)",
+      "h2": "clamp(34px, 5vw, 64px)"
     },
     "body": {
-      "classes": "leading-relaxed text-neutral-600"
+      "family": "Hanken Grotesk",
+      "size": "17px",
+      "lineHeight": "1.6",
+      "color": "--ink-2"
     },
-    "small": {
-      "classes": "text-sm text-neutral-400"
+    "eyebrow": {
+      "size": "12.5px",
+      "weight": 700,
+      "letterSpacing": "0.16em",
+      "transform": "uppercase",
+      "color": "--clay-2"
     },
-    "label": {
-      "classes": "text-sm font-medium uppercase tracking-wider text-neutral-500"
+    "accentHighlight": {
+      "note": "Wrap one or two words in <em> with .mark-clay (font-style:normal; color:var(--clay))"
     }
   },
-  "spacing": {
-    "sectionPadding": "py-24 sm:py-32",
-    "containerMax": "max-w-5xl",
-    "containerPx": "px-6",
-    "gridGap": "gap-8",
-    "cardPadding": "p-8"
-  },
-  "effects": {
-    "borderRadius": {
-      "card": "rounded-xl",
-      "button": "rounded-lg",
-      "input": "rounded-lg",
-      "small": "rounded"
+  "geometry": {
+    "radius": {
+      "button": "8px",
+      "input": "10px",
+      "pill": "999px",
+      "card": "14-16px",
+      "panel": "20-28px"
     },
-    "shadows": {
-      "subtle": "shadow-sm",
-      "note": "Use sparingly — prefer flat borders for most components"
-    }
+    "borderWeight": "1.5px",
+    "sectionPadding": "54-96px vertical",
+    "container": { "maxWidth": "1220px", "px": "32px" }
   },
+  "motion": {
+    "transition": "0.18-0.22s ease",
+    "solidButtonHover": "translateY(-1px)",
+    "arrowNudge": "translateX(3px)",
+    "cardHover": "translateY(-4px) + border-color --clay",
+    "note": "Restrained only. One subtle marquee on the home services bar. No looping/decorative animation."
+  },
+  "buttons": {
+    "btn-clay": { "bg": "--clay", "text": "#fff", "hoverBg": "--clay-2", "role": "Primary action" },
+    "btn-ink": { "bg": "--ink", "text": "--paper", "hoverBg": "#000", "role": "Secondary / dark" },
+    "btn-ghost": {
+      "bg": "transparent",
+      "border": "--line-2",
+      "text": "--ink",
+      "hoverBorder": "--ink",
+      "hoverBg": "--white",
+      "role": "Tertiary / outline"
+    },
+    "base": "inline-flex; gap:9px; font-weight:700; font-size:15px; padding:14px 24px; radius:8px; optional trailing .arr"
+  },
+  "principles": [
+    "One clay accent — no second hue, no gradients.",
+    "Friendly, plain-spoken voice. Lead with the customer benefit.",
+    "No filler or false urgency.",
+    "Generous whitespace, hairline borders, big type.",
+    "Restrained, fast motion only."
+  ],
   "componentPatterns": {
-    "hero-text": {
-      "description": "Text-only hero with headline, subheadline, and dual CTA buttons (primary + ghost). White background.",
-      "reference": "index.astro hero section"
-    },
-    "card-grid": {
-      "description": "Grid of bordered cards (rounded-xl, border-neutral-200, p-8) with icon, title, and description. 3-column on lg, 2-column on sm.",
-      "reference": "index.astro tier-demonstrations section"
-    },
-    "cta-centered": {
-      "description": "Centered text section with heading, description, and primary button. neutral-50 or white background.",
-      "reference": "index.astro CTA section"
-    },
-    "section-2col": {
-      "description": "Two-column grid — one side text content with ghost button, other side image (aspect-4/3, rounded-xl).",
-      "reference": "index.astro about section, about.astro content"
-    },
-    "section-alternating-bg": {
-      "description": "Sections alternate between bg-white and bg-neutral-50, separated by border-t border-neutral-200.",
-      "reference": "All page sections"
-    }
+    "hero": "Eyebrow + clamp display H1 with clay-marked words + sub paragraph + CTA row, followed by full-bleed ink marquee. Ref: index.astro",
+    "work-grid": "1.3fr/1fr grid: one tall feature card + two stacked. Card = image placeholder + body row (name, tag, clay stat). Hover lifts + clay border. Ref: index.astro #work",
+    "dark-panel": "Ink rounded panel (radius 28px) with clay eyebrow + H2 + numbered steps with clay pills. Ref: index.astro #how",
+    "services-list": "Bordered rows grid 46px/1.1fr/1.4fr/auto: index, title, description, clay icon. Rows indent + go --white on hover. Ref: index.astro #services",
+    "metrics": "Three --white cards with large clay Bricolage number + label. Ref: index.astro metrics",
+    "pricing": "Two-column grid; featured card inverts to ink. Ref: index.astro #pricing",
+    "cta-banner": "Full clay rounded banner, centered H2 + button row. Ref: index.astro CTA",
+    "split-form": "0.85fr/1.15fr two-column: left lede + steps/facts, right --white card. Collapses at 900px. Ref: start.astro, book.astro"
   }
 }

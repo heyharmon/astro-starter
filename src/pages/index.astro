@@ -3,203 +3,350 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import siteMeta from "../data/site-meta.json";
 ---
 
-<BaseLayout
-  title="Home"
-  description={siteMeta.description}
->
-  <!-- Hero -->
-  <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-    <p class="text-sm uppercase tracking-wide text-neutral-500">
-      Tier 1 / 3 — Inline content
-    </p>
-    <h1 class="mt-4 max-w-3xl">
-      This homepage is hardcoded in <code class="rounded bg-neutral-100 px-2 py-1 text-2xl">src/pages/index.astro</code>
-    </h1>
-    <p class="mt-6 max-w-2xl text-lg text-neutral-500">
-      There is no Markdown file behind it, no <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">getEntry()</code> call,
-      no content collection. Every word and section you see is written directly in the Astro file. Use this pattern for
-      genuinely one-of-a-kind pages — landing pages, marketing pages, anything you only ever need one of.
-    </p>
-    <div class="mt-8 flex flex-wrap gap-4">
-      <a href="/about" class="btn-primary">See the hybrid pattern →</a>
-      <a href="/styleguide" class="btn-ghost">Style Guide</a>
-    </div>
-  </section>
-
-  <!-- The three tiers -->
-  <section class="border-t border-neutral-200 bg-neutral-50">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <h2>Three content tiers, three working demos</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        Every page in this starter exists to demonstrate one of Astro's content patterns. Click through to see each one in action.
-      </p>
-
-      <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <a href="/about" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 1 — Inline (hybrid variant)</p>
-          <h3 class="mt-3">/about</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            The other shape of Tier 1: route file in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/about.astro</code> rendering a single
-            Markdown entry from <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/pages/about.md</code>.
-          </p>
-        </a>
-
-        <a href="/blog" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Posts collection</p>
-          <h3 class="mt-3">/blog</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            Every card is a Markdown file in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/posts/</code>.
-            Schema in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content.config.ts</code>. Sorted by date.
-          </p>
-        </a>
-
-        <a href="/projects" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Projects collection</p>
-          <h3 class="mt-3">/projects</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            A different schema than posts — manual <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">order</code> field
-            and a <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">featured</code> boolean. Demonstrates a non-chronological collection.
-          </p>
-        </a>
-
-        <a href="/contact" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — Site config driven</p>
-          <h3 class="mt-3">/contact</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            The page imports <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/site-meta.json</code> and renders
-            its values directly. The React contact form picks up the Formspree ID the same way.
-          </p>
-        </a>
-
-        <div class="block rounded-xl border border-dashed border-neutral-300 p-8">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — More site config</p>
-          <h3 class="mt-3">Nav &amp; Footer</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            The header and footer you see on every page also read from Tier 3 —
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/nav.json</code> and
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/footer.json</code>. Edit those files to update site-wide chrome.
-          </p>
+<BaseLayout title="Home" description={siteMeta.description}>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow" style="display:block;margin-bottom:18px"
+        >✦ &nbsp;An AI-native web studio</span
+      >
+      <h1 class="disp">
+        Websites as <span class="mark-clay">ambitious</span> as the
+        <span class="mark-clay">businesses</span> behind them.
+      </h1>
+      <div class="hero-sub-row">
+        <p class="sub">
+          We're a Salt Lake City studio building fast, modern websites
+          engineered to win customers. AI is our edge — so we deliver work that
+          rivals top agencies in days, not months. We're so efficient we'll
+          build your site first and show you the real thing — no contract to
+          sign before you see what's possible.
+        </p>
+        <div class="cta-row">
+          <a href="/start" class="btn btn-ink"
+            >Start a project <span class="arr">→</span></a
+          >
+          <a href="/#how" class="btn btn-ghost">How it works</a>
         </div>
-
-        <a href="/styleguide" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Design system</p>
-          <h3 class="mt-3">/styleguide</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            A live preview of design tokens, typography, components. Backed by
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/styles/global.css</code> and
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/design-tokens.json</code>.
-          </p>
-        </a>
+      </div>
+    </div>
+    <div class="marquee">
+      <div class="marquee-track">
+        <span>Web Design</span><span>Development</span><span>SEO + GEO</span><span
+          >ADA Compliance</span
+        ><span>Unlimited Updates</span><span>24/7 Support</span><span
+          >Hosting</span
+        >
+        <span>Web Design</span><span>Development</span><span>SEO + GEO</span><span
+          >ADA Compliance</span
+        ><span>Unlimited Updates</span><span>24/7 Support</span><span
+          >Hosting</span
+        >
       </div>
     </div>
   </section>
 
-  <!-- Decision rules -->
-  <section class="border-t border-neutral-200">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <h2>Which tier should I use?</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        The decision tree is short. When in doubt, start inline and promote to a collection the moment you have a second one.
-      </p>
-
-      <div class="mt-12 grid gap-8 lg:grid-cols-3">
-        <div>
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 1 — Inline</p>
-          <p class="mt-2 text-sm font-medium">A genuinely unique page</p>
-          <p class="mt-2 text-sm text-neutral-500">
-            Homepage, about, contact, a one-off landing page. Write it directly in
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/*.astro</code>, or pair the route file with a single
-            entry in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/pages/</code> for Markdown editing.
-          </p>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Content collection</p>
-          <p class="mt-2 text-sm font-medium">Repeating items sharing a schema</p>
-          <p class="mt-2 text-sm text-neutral-500">
-            Blog posts, projects, products, team bios, testimonials, case studies. Define a Zod schema and add files to
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/&lt;collection&gt;/</code>.
-          </p>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — Site config</p>
-          <p class="mt-2 text-sm font-medium">Structural data, not content</p>
-          <p class="mt-2 text-sm text-neutral-500">
-            Nav links, footer groups, social handles, pricing tiers, redirects. Put it in
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/*.json</code> and import the JSON in your route or component.
-          </p>
-        </div>
+  <!-- WORK -->
+  <section class="pad" id="work" style="padding-top:80px">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="disp">Recent work that paid off.</h2>
+        <p class="note">
+          Trusted by growing businesses across Utah and beyond — and the numbers
+          that followed.
+        </p>
       </div>
-
-      <p class="mt-12 text-sm text-neutral-500">
-        Full architecture and editing workflow: <a href="https://github.com" class="underline">docs/content-collections.md</a>.
-      </p>
-    </div>
-  </section>
-
-  <!-- Interactivity model — orthogonal axis -->
-  <section class="border-t border-neutral-200 bg-neutral-50">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <p class="text-sm uppercase tracking-wide text-neutral-500">
-        A separate axis — not a fourth tier
-      </p>
-      <h2 class="mt-3">Interactivity: when to add JavaScript</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        The three tiers above answer <em>where the content lives</em>. Islands answer a different question:
-        <em>does this part of the page need to run JavaScript in the browser?</em> The two are orthogonal —
-        any page (collection entry, inline route, config-driven) can include an island when interactivity demands it.
-      </p>
-
-      <div class="mt-12 grid gap-8 lg:grid-cols-3">
-        <a href="/islands" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400 lg:col-span-2">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Concept demo</p>
-          <h3 class="mt-3">/islands</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            Live demos of <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:load</code>,
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:idle</code>,
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:visible</code>. React and vanilla-JS examples.
-            Decision rules for when to reach for an island vs. plain <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.astro</code>.
-          </p>
-        </a>
-        <div class="rounded-xl border border-dashed border-neutral-300 p-8">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Default</p>
-          <h3 class="mt-3">Zero JS</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            Most components in this starter are <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.astro</code> — they ship as static HTML
-            with no client-side runtime. Keep it that way unless interactivity demands otherwise.
-          </p>
+      <div class="work">
+        <div class="wc big">
+          <div class="img-slot" style="height:420px">
+            Flagship project screenshot
+          </div>
+          <div class="wc-body">
+            <div>
+              <h3>Wasatch Dental</h3>
+              <div class="tag">Healthcare · Full redesign + SEO</div>
+            </div>
+            <div class="wc-stat"><b>+212%</b><span>booking requests</span></div>
+          </div>
+        </div>
+        <div class="wc">
+          <div class="img-slot" style="height:198px">Project screenshot</div>
+          <div class="wc-body">
+            <div><h3>Alpine Homes</h3><div class="tag">Construction</div></div>
+            <div class="wc-stat"><b>2.1s</b><span>load time</span></div>
+          </div>
+        </div>
+        <div class="wc">
+          <div class="img-slot" style="height:198px">Project screenshot</div>
+          <div class="wc-body">
+            <div>
+              <h3>Granary Coffee</h3><div class="tag">Local retail</div>
+            </div>
+            <div class="wc-stat"><b>#1</b><span>"coffee near me"</span></div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Lorem fill / visual weight -->
-  <section class="border-t border-neutral-200">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <div class="grid gap-12 lg:grid-cols-2 items-start">
-        <div>
-          <h2>Replace this section</h2>
-          <p class="mt-4 text-neutral-500">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.
+  <!-- HOW IT WORKS -->
+  <section class="wrap" id="how" style="padding:20px 32px 0">
+    <div class="how">
+      <span class="eyebrow">How it works</span>
+      <h2 class="disp">We'd rather show you than tell you.</h2>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="n">01</div>
+          <h3>We design &amp; build it</h3>
+          <p>
+            Tell us about your business. Within days you get a complete, live
+            website — the real thing, not a mockup.
           </p>
-          <p class="mt-4 text-neutral-500">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          <span class="pill">Free to start</span>
+        </div>
+        <div class="how-step">
+          <div class="n">02</div>
+          <h3>You review it</h3>
+          <p>
+            Explore every page on your own device. Want changes? We refine until
+            it's right — as many rounds as it takes.
           </p>
-          <p class="mt-4 text-sm text-neutral-500">
-            <strong>How to remove this:</strong> open
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/index.astro</code> and delete this section.
-            The whole homepage is hardcoded — no Markdown to track down.
+          <span class="pill">No commitment</span>
+        </div>
+        <div class="how-step">
+          <div class="n">03</div>
+          <h3>Launch &amp; grow</h3>
+          <p>
+            We launch on your domain and keep it fast, current, and climbing in
+            Google and AI search — unlimited updates anytime.
+          </p>
+          <span class="pill">$600 at launch</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="pad" id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="disp">Everything a modern website should be.</h2>
+        <p class="note">
+          One studio for design, build, and growth — no handoffs, no agencies of
+          agencies, no surprise invoices.
+        </p>
+      </div>
+      <div class="svc-list">
+        <div class="svc-row">
+          <span class="ix">01</span>
+          <h3>Designed to convert</h3>
+          <p>
+            Every layout, word, and detail built around one job — turning
+            visitors into customers. Beautiful on the surface, engineered
+            underneath.
+          </p>
+          <svg
+            class="ic"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            ><rect x="3" y="4" width="18" height="14" rx="2"></rect><path
+              d="M3 9h18"></path></svg
+          >
+        </div>
+        <div class="svc-row">
+          <span class="ix">02</span>
+          <h3>Fast, flawless build</h3>
+          <p>
+            Sub-2-second load times and clean code — flawless on mobile, tablet,
+            and desktop, so you never lose a visitor.
+          </p>
+          <svg
+            class="ic"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"><path d="M4 12l4 4 8-10"></path></svg
+          >
+        </div>
+        <div class="svc-row">
+          <span class="ix">03</span>
+          <h3>Found on Google — and cited by AI</h3>
+          <p>
+            SEO + GEO built into every page, then tuned by AI — so you show up
+            when customers search the old way and get cited when they ask
+            ChatGPT, Perplexity, and Google AI.
+          </p>
+          <svg
+            class="ic"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            ><circle cx="11" cy="11" r="7"></circle><path d="M16 16l5 5"
+            ></path></svg
+          >
+        </div>
+        <div class="svc-row">
+          <span class="ix">04</span>
+          <h3>ADA compliant</h3>
+          <p>
+            Accessible to every visitor and protected from compliance risk —
+            built in from day one.
+          </p>
+          <svg
+            class="ic"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            ><circle cx="12" cy="12" r="9"></circle><path d="M8 12a4 4 0 0 1 8 0"
+            ></path></svg
+          >
+        </div>
+        <div class="svc-row">
+          <span class="ix">05</span>
+          <h3>24/7 support &amp; hosting</h3>
+          <p>
+            We host, secure, and monitor everything with AI plus humans. Need a
+            change at midnight? It usually ships same day.
+          </p>
+          <svg
+            class="ic"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            ><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"
+            ></path></svg
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <section class="pad" style="padding-top:0">
+    <div class="wrap">
+      <div class="metrics">
+        <div class="sec-head">
+          <h2 class="disp">Faster, cheaper, better — because AI.</h2>
+          <p class="note">
+            What that leverage means in practice. Numbers from recent launches —
+            yours will be your own.
           </p>
         </div>
-        <div class="aspect-4/3 overflow-hidden rounded-xl bg-neutral-200">
-          <img
-            src="/images/placeholders/landscape-4x3.svg"
-            alt="Placeholder image rendered from public/images/placeholders/landscape-4x3.svg"
-            class="h-full w-full object-cover"
-          />
+        <div class="mgrid">
+          <div class="metric">
+            <b>5–7 days</b><span>to your first live preview</span>
+          </div>
+          <div class="metric">
+            <b>1/10th</b><span>of a typical agency price</span>
+          </div>
+          <div class="metric"><b>24/7</b><span>AI + human monitoring</span></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="wrap" id="pricing" style="padding:0 32px">
+    <div>
+      <div class="sec-head">
+        <h2 class="disp">Simple, honest, and a fraction of the cost.</h2>
+        <p class="note">
+          One flat build price, half off with a membership. Unlimited
+          everything. Cancel anytime.
+        </p>
+      </div>
+      <div class="price">
+        <div class="pc">
+          <span class="kicker">The build</span>
+          <div class="price-big">$1,200</div>
+          <div class="per">once, at launch — or $600 with a membership</div>
+          <h3>Your whole website</h3>
+          <p>
+            Design, build, copywriting, and launch — however many pages and
+            revisions it takes. The price never changes, and you only pay once
+            you've seen it and decided to launch.
+          </p>
+          <ul class="ul">
+            <li>Unlimited pages</li>
+            <li>Unlimited revisions</li>
+            <li>Free until you launch</li>
+          </ul>
+          <a href="/start" class="btn btn-ink"
+            >Start a project <span class="arr">→</span></a
+          >
+        </div>
+        <div class="pc feature">
+          <span class="kicker">Most popular · build 50% off</span>
+          <div class="price-big">$80<span style="font-size:20px">/mo</span></div>
+          <div class="per">ongoing membership · build drops to $600</div>
+          <h3>Ongoing</h3>
+          <p>
+            Your website, always growing. Unlimited SEO + GEO, content, and
+            changes — run by AI and tuned by our team. Join and your build is
+            half off, $600 instead of $1,200.
+          </p>
+          <ul class="ul">
+            <li>Unlimited SEO + GEO</li>
+            <li>Unlimited pages &amp; content</li>
+            <li>Unlimited revisions &amp; updates</li>
+            <li>Blog posts, new pages, anything</li>
+            <li>Build 50% off — $600</li>
+          </ul>
+          <a href="/start" class="btn btn-clay"
+            >Get started <span class="arr">→</span></a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STUDIO -->
+  <section class="pad" id="studio">
+    <div class="wrap studio">
+      <div>
+        <div class="img-slot" style="height:440px">Founder / studio photo</div>
+      </div>
+      <div>
+        <span class="eyebrow">The studio</span>
+        <p class="quote" style="margin-top:18px">
+          Small businesses deserve websites <em>as good as the big brands</em> —
+          without the price tag or the wait.
+        </p>
+        <p class="by">
+          <b>Studio Harmon</b> is a design studio in Salt Lake City, building for
+          businesses across the country. AI is our unfair advantage — it lets us
+          deliver work that rivals the big agencies, at a speed and price they
+          can't match. You work directly with us from first sketch to launch,
+          and we stay with you long after.
+        </p>
+        <a href="/start" class="btn btn-ghost" style="margin-top:26px"
+          >Meet the team <span class="arr">→</span></a
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="wrap" style="padding:0 32px">
+    <div class="cta">
+      <span class="eyebrow" style="color:#FBE7DC">Start a project</span>
+      <h2 class="disp" style="margin-top:16px">
+        Let's build something<br />worth showing off.
+      </h2>
+      <p>
+        Tell us about your business and we'll design a real, finished website. No
+        pitch, no deposit — you decide where it goes from there.
+      </p>
+      <div class="cta-row">
+        <a href="/start" class="btn btn-ink"
+          >Start a project <span class="arr">→</span></a
+        >
+        <a href="/book" class="btn btn-ghost">Book a 15-min call</a>
       </div>
     </div>
   </section>

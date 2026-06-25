@@ -2,40 +2,38 @@
 import nav from "../data/nav.json";
 import siteMeta from "../data/site-meta.json";
 
-const pathname = Astro.url.pathname;
 const sortedNav = [...nav].sort((a, b) => a.order - b.order);
 ---
 
-<header class="border-b border-neutral-200 bg-white">
-  <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-    <a href="/" class="text-lg font-semibold tracking-tight text-neutral-900 no-underline">
+<header class="site-header" id="site-header">
+  <div class="wrap nav">
+    <a href="/" class="brand">
+      <svg class="mark" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="28" height="28" rx="7" fill="#C05A2E"></rect>
+        <path
+          d="M8 21V10l7 7 7-7v11"
+          stroke="#FBF8F2"
+          stroke-width="2.1"
+          stroke-linejoin="round"
+          stroke-linecap="round"></path>
+      </svg>
       {siteMeta.name}
     </a>
 
-    <ul class="flex items-center gap-6">
-      {
-        sortedNav.map((item) => {
-          const isActive =
-            item.href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(item.href);
-          return (
-            <li>
-              <a
-                href={item.href}
-                class:list={[
-                  "text-sm font-medium no-underline transition-colors",
-                  isActive
-                    ? "text-indigo-600"
-                    : "text-neutral-600 hover:text-neutral-900",
-                ]}
-              >
-                {item.label}
-              </a>
-            </li>
-          );
-        })
-      }
-    </ul>
-  </nav>
+    <nav class="nav-links" aria-label="Primary">
+      {sortedNav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+
+    <a href="/start" class="btn btn-clay" style="padding:11px 20px">
+      Start a project <span class="arr">→</span>
+    </a>
+  </div>
 </header>
+
+<script>
+  const hdr = document.getElementById("site-header");
+  const onScroll = () =>
+    hdr?.classList.toggle("scrolled", window.scrollY > 10);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+</script>

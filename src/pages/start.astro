@@ -1,0 +1,193 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Start a project"
+  description="Tell us about your business and we'll design and build a complete, live website — and show you the real thing before you owe a cent."
+>
+  <div class="wrap">
+    <section class="split">
+      <!-- Left: pitch + steps -->
+      <div class="lede">
+        <a href="/" class="back"><span class="a">←</span> Back to home</a>
+        <span class="eyebrow">Start a project</span>
+        <h1 class="disp" style="margin-top:14px">Let's <em>build</em> it.</h1>
+        <p class="sub">
+          Tell us about your business. We'll design and build a complete, live
+          website — and show you the real thing before you owe a cent.
+        </p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="n">01</div>
+            <div>
+              <h3>We design &amp; build it</h3>
+              <p>
+                Within days you get a complete, live website — the real thing,
+                not a mockup.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="n">02</div>
+            <div>
+              <h3>You review it</h3>
+              <p>
+                Explore every page on your own device. We refine until it's
+                right — as many rounds as it takes.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="n">03</div>
+            <div>
+              <h3>Launch &amp; grow</h3>
+              <p>
+                Launch on your domain for $1,200 — or $600 with an Ongoing
+                membership.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div class="form-card" id="form">
+        <div class="form-wrap" id="formWrap">
+          <div class="ftitle">Tell us about your project</div>
+          <div class="fnote">
+            A few details to get started. No commitment — we'll take it from
+            here.
+          </div>
+          <form id="projectForm" novalidate>
+            <div class="frow">
+              <div class="field">
+                <label for="name">Your name</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Jordan Avery"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="you@business.com"
+                  required
+                />
+              </div>
+            </div>
+            <div class="frow">
+              <div class="field">
+                <label for="business">Business name</label>
+                <input
+                  id="business"
+                  name="business"
+                  type="text"
+                  placeholder="Wasatch Dental"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="site"
+                  >Current website <span class="opt">(optional)</span></label
+                >
+                <input
+                  id="site"
+                  name="site"
+                  type="text"
+                  placeholder="example.com"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label>What do you need?</label>
+              <div class="checks">
+                <label class="check"
+                  ><input type="checkbox" name="need" value="New website" /><span
+                    >New website</span
+                  ></label
+                >
+                <label class="check"
+                  ><input type="checkbox" name="need" value="Redesign" /><span
+                    >Redesign</span
+                  ></label
+                >
+                <label class="check"
+                  ><input type="checkbox" name="need" value="SEO + GEO" /><span
+                    >SEO + GEO</span
+                  ></label
+                >
+                <label class="check"
+                  ><input
+                    type="checkbox"
+                    name="need"
+                    value="Not sure yet"
+                  /><span>Not sure yet</span></label
+                >
+              </div>
+            </div>
+            <div class="field">
+              <label for="about">Tell us about your project</label>
+              <textarea
+                id="about"
+                name="about"
+                placeholder="What does your business do, who are your customers, and what would a great site help you achieve?"
+              ></textarea>
+            </div>
+            <div class="submit-row">
+              <button type="submit" class="btn btn-clay"
+                >Send project details <span class="arr">→</span></button
+              >
+              <span class="fine">We'll reply within 1 business day.</span>
+            </div>
+          </form>
+        </div>
+
+        <div class="thanks" id="thanks">
+          <div class="check-mark">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#fff"
+              stroke-width="2.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"><path d="M4 12l5 5L20 6"></path></svg
+            >
+          </div>
+          <h3>Got it — thank you!</h3>
+          <p>
+            We've received your details and we'll be in touch within one business
+            day to kick things off.
+          </p>
+          <a href="/" class="btn btn-ghost" style="margin-top:24px"
+            >Back to home</a
+          >
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  // No backend wired — swaps to an inline thank-you state on valid submit.
+  // Connect to your form endpoint/API of choice (e.g. Formspree) when ready.
+  const form = document.getElementById("projectForm") as HTMLFormElement | null;
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    document.getElementById("formWrap")?.classList.add("hide");
+    document.getElementById("thanks")?.classList.add("show");
+  });
+</script>

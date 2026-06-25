@@ -1,14 +1,18 @@
 {
-  "name": "Astro Starter",
-  "tagline": "A self-documenting Astro 5 starter — built around three content tiers",
-  "description": "An Astro 5 + Tailwind CSS 4 starter where every page demonstrates a content pattern: pure inline routes, hybrid Markdown entries, content collections, and site config driven views.",
-  "url": "https://example.com",
+  "name": "Studio Harmon",
+  "tagline": "An AI-native web studio in Salt Lake City.",
+  "description": "Studio Harmon is an AI-native web studio in Salt Lake City building fast, modern websites engineered to win customers — delivered in days, not months, at a fraction of agency prices.",
+  "url": "https://studioharmon.com",
   "ogImage": "/images/og-default.png",
-  "copyright": "© 2026 Astro Starter. Replace this with your own copyright in src/data/site-meta.json.",
+  "copyright": "© 2026 Studio Harmon. All rights reserved.",
+  "email": "hello@studioharmon.com",
+  "location": "Salt Lake City, UT",
+  "footerBlurb": "Modern websites for growing businesses. Designed, built, and cared for in Salt Lake City, Utah.",
+  "legal": ["Privacy", "Terms", "Accessibility"],
   "social": {
-    "twitter": "https://twitter.com/example",
-    "linkedin": "https://linkedin.com/company/example",
-    "github": "https://github.com/example"
+    "twitter": "",
+    "linkedin": "",
+    "github": ""
   },
   "formspreeId": "YOUR_FORM_ID"
 }
