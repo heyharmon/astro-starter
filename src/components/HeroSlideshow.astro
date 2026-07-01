@@ -17,7 +17,7 @@ const { pretitle, title, body, images } = Astro.props;
   <ul id="hero-slideshow" class="absolute inset-0 pointer-events-none">
     {
       images.map((src, i) => (
-        <li>
+        <li class="absolute inset-0 overflow-hidden">
           <span
             class="hero-slide absolute inset-0 bg-cover bg-center"
             style={`background-image:url(${src});opacity:${i === 0 ? 1 : 0};`}
@@ -37,6 +37,52 @@ const { pretitle, title, body, images } = Astro.props;
     </div>
   </div>
 </section>
+
+<style>
+  /* Subtle Ken Burns: each slide slowly drifts + zooms so there's always
+     motion between crossfades. Kept gentle (max ~6% zoom). */
+  .hero-slide {
+    will-change: transform;
+    animation: ken-burns-1 18s ease-in-out infinite alternate;
+  }
+  #hero-slideshow li:nth-child(2) .hero-slide {
+    animation-name: ken-burns-2;
+  }
+  #hero-slideshow li:nth-child(3) .hero-slide {
+    animation-name: ken-burns-3;
+  }
+
+  @keyframes ken-burns-1 {
+    from {
+      transform: scale(1) translate(0, 0);
+    }
+    to {
+      transform: scale(1.06) translate(-1.5%, -1%);
+    }
+  }
+  @keyframes ken-burns-2 {
+    from {
+      transform: scale(1.06) translate(1.5%, 1%);
+    }
+    to {
+      transform: scale(1) translate(0, 0);
+    }
+  }
+  @keyframes ken-burns-3 {
+    from {
+      transform: scale(1) translate(1%, -1%);
+    }
+    to {
+      transform: scale(1.06) translate(-1%, 1.5%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-slide {
+      animation: none;
+    }
+  }
+</style>
 
 <script>
   const slides = Array.from(
