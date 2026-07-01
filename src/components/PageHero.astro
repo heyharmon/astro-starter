@@ -1,0 +1,41 @@
+---
+interface Props {
+  theme?: "Dark" | "Neutral" | "Default";
+  pretitle?: string;
+  title: string;
+  body?: string;
+  image?: string;
+  paddingClass?: string;
+}
+
+const {
+  theme = "Default",
+  pretitle,
+  title,
+  body,
+  image,
+  paddingClass = "py-24 sm:py-32 lg:py-40",
+} = Astro.props;
+---
+
+<section
+  data-theme={theme === "Default" ? undefined : theme}
+  class:list={["theme-wrapper relative isolate overflow-hidden", paddingClass]}
+>
+  <div class="mx-auto xl:max-w-[80vw] px-8 sm:px-12 lg:px-16">
+    <div class="max-w-3xl">
+      {pretitle && <p class="mb-3 text-lg theme-pretitle">{pretitle}</p>}
+      <h1 class="theme-h1 theme-title mb-4">{title}</h1>
+      {body && <p class="text-lg theme-text">{body}</p>}
+    </div>
+  </div>
+
+  {
+    image && (
+      <div class="absolute inset-0 -z-10">
+        <img src={image} alt="" class="absolute inset-0 h-full w-full object-cover" />
+        <div aria-hidden="true" class="absolute inset-0 bg-black opacity-60" />
+      </div>
+    )
+  }
+</section>

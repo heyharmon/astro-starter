@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+
+const wrapper = "mx-auto xl:max-w-[80vw] px-8 sm:px-12 lg:px-16";
+
+// LEARN MORE points to /contact until individual service pages are built.
+const services = [
+  { title: "General Contracting", image: "/images/allied/service-general-contracting.png" },
+  { title: "Collaborative Pre-Construction", image: "/images/allied/service-pre-construction.png" },
+  { title: "Construction Management", image: "/images/allied/service-construction-management.png" },
+  { title: "Owner Representation", image: "/images/allied/service-owner-representation.png" },
+];
+
+const arrowSvg =
+  '<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="order-last ml-2 h-5 w-5" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"/></svg>';
+---
+
+<BaseLayout
+  title="Services"
+  description="Discover Allied's comprehensive services: general contracting, pre-construction, construction management, and owner representation—all executed with excellence."
+>
+  <PageHero
+    theme="Neutral"
+    title="Our services"
+    body="From general contracting to owner representation, our comprehensive services ensure your project is managed with precision, collaboration, and a commitment to excellence."
+    paddingClass="py-24 sm:py-32 lg:py-40"
+  />
+
+  <section class="theme-wrapper relative z-10 py-20 sm:py-28 lg:py-32">
+    <div class={wrapper}>
+      <div class="mx-auto grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+        {
+          services.map((s) => (
+            <article
+              data-theme="Dark"
+              class="group relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-12 pt-48 sm:px-14 sm:pb-16 sm:pt-60"
+            >
+              <img
+                src={s.image}
+                alt={s.title}
+                loading="lazy"
+                class="absolute inset-0 -z-10 h-full w-full object-cover grayscale transition-transform duration-500 group-hover:scale-105"
+              />
+              {/* Navy-slate duotone: multiply tints the grayscale photo, gradient keeps text legible */}
+              <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[#1a2740] opacity-85 mix-blend-multiply" />
+              <div
+                aria-hidden="true"
+                class="absolute inset-0 -z-10 bg-gradient-to-t from-[#0a1120]/85 via-[#1a2740]/35 to-transparent"
+              />
+              <h3 class="theme-h3 theme-title mb-6">{s.title}</h3>
+              <div>
+                <a href="/contact" class="btn btn-primary px-8 py-4 text-base">
+                  LEARN MORE<Fragment set:html={arrowSvg} />
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

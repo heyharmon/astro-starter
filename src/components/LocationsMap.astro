@@ -1,8 +1,15 @@
 ---
-// Project locations plotted on the homepage map. Coordinates approximate
-// the reference site's marker cluster (Utah/Nevada core + a few eastern
-// projects). Edit this list to change the pins.
-const locations: [number, number][] = [
+// Reusable Leaflet map. Defaults plot the homepage project-location
+// cluster (Utah/Nevada core + a few eastern projects); pass `locations`,
+// `center`, and `zoom` to reuse it elsewhere (e.g. the contact office).
+interface Props {
+  locations?: [number, number][];
+  center?: [number, number];
+  zoom?: number;
+  height?: string;
+}
+
+const defaultLocations: [number, number][] = [
   [37.1041, -113.5841], // St. George, UT — Black Desert
   [37.0805, -113.6208], // St. George, UT — Tech Ridge
   [37.1265, -113.535], // St. George, UT — Container Office
@@ -14,10 +21,24 @@ const locations: [number, number][] = [
   [39.9612, -82.9988], // Columbus, OH
   [44.4759, -73.2121], // Burlington, VT
 ];
+
+const {
+  locations = defaultLocations,
+  center = [39.5, -96.5],
+  zoom = 4,
+  height = "450px",
+} = Astro.props;
 ---
 
 <section class="relative z-10">
-  <div id="locations-map" class="h-[450px] w-full" data-locations={JSON.stringify(locations)}>
+  <div
+    id="locations-map"
+    class="w-full"
+    style={`height:${height}`}
+    data-locations={JSON.stringify(locations)}
+    data-center={JSON.stringify(center)}
+    data-zoom={zoom}
+  >
   </div>
 </section>
 
@@ -28,12 +49,14 @@ const locations: [number, number][] = [
   const el = document.getElementById("locations-map");
   if (el) {
     const locations: [number, number][] = JSON.parse(el.dataset.locations || "[]");
+    const center: [number, number] = JSON.parse(el.dataset.center || "[39.5,-96.5]");
+    const zoom = Number(el.dataset.zoom || "4");
 
     const map = L.map(el, {
       scrollWheelZoom: false,
       zoomControl: true,
       attributionControl: true,
-    }).setView([39.5, -96.5], 4);
+    }).setView(center, zoom);
 
     L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
       attribution: "&copy; OpenStreetMap &copy; CARTO",

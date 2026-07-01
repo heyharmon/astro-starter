@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+
+const wrapper = "mx-auto xl:max-w-[80vw] px-8 sm:px-12 lg:px-16";
+
+const team = [
+  {
+    name: "Johnny Hilfiker",
+    role: "Founder – Director of Construction",
+    bio: "Johnny Hilfiker brings over 18 years of construction management experience, overseeing nearly $200 million in hospitality, retail, industrial, and government projects. Before founding Allied Construction, he was a project manager at SRS Construction, WDG Construction, and Kite Realty Group, specializing in luxury hospitality and municipal developments.",
+  },
+  {
+    name: "Doug Sharpe",
+    role: "General Superintendent",
+    bio: "Doug Sharpe, Allied's General Superintendent, brings over 20 years of construction management experience with a focus on medical, food service, and special-use industrial projects. Known for his ability to drive schedules and execute plans precisely, Doug excels at finding straightforward solutions to overcome challenges and keep projects on track.",
+  },
+  {
+    name: "Tyler Kirn",
+    role: "Project Manager",
+    bio: "Tyler Kirn is a skilled Project Manager with over five years of experience overseeing projects from initiation to closeout, including subcontractor onboarding, contracting, change management, and team leadership. His background spans property management, engineering, construction, and telecommunications, where he has built strong stakeholder relationships and fostered efficient, solution-driven teams. A proactive problem solver, Tyler navigates challenges with strategic thinking and creativity. He holds multiple certifications, including PMP, Scrum Master, Scrum Product Owner, Bluebeam Certified Professional, and a remote pilot license for drones. Tyler earned his degree in Global Logistics & Supply Chain Management from the University of Alaska Anchorage.",
+  },
+  {
+    name: "Ryan Sargent",
+    role: "Project Manager",
+    bio: "Ryan Sargent is a highly skilled Project Manager with 12 years of experience leading diverse projects from inception to completion. With a strong background in project planning, budgeting, and stakeholder coordination, Ryan excels in delivering projects on time and within scope. Additionally, his hands-on experience as a Superintendent has provided him with deep insights into on-site operations, resource management, and quality control. This combination of strategic oversight and field expertise makes Ryan a dynamic leader capable of bridging the gap between project execution and management.",
+  },
+  {
+    name: "Morley Williams",
+    role: "Superintendent",
+    bio: "Morley Williams is a well-versed construction professional with deep roots in the trades. Growing up in a hands-on environment, he gained extensive field experience before transitioning into estimating, where he honed his skills in cost analysis and project planning. Now serving as a superintendent, Morley oversees job sites with a keen eye for detail, ensuring projects are completed on time, within budget, and to the highest quality standards. His well-rounded expertise, from hands-on craftsmanship to project management, makes him a highly respected leader in the industry.",
+  },
+  {
+    name: "Eryn Sargent",
+    role: "Project Coordinator",
+    bio: "Eryn Sargent is a dedicated Project Coordinator with a year of experience managing project logistics and organization. Before transitioning into project coordination, she built a strong background in retail, working as a Visual Merchandiser, Assistant Manager, and a member of the Buying Team at Böhme. Her experience in merchandising and operations has given her a keen eye for detail, organization, and teamwork. Eryn brings a strategic and creative approach to her work, ensuring projects run smoothly and efficiently.",
+  },
+];
+---
+
+<BaseLayout
+  title="Team"
+  description="Meet Allied's expert team: over 80 years of combined experience driving excellence in construction, led by seasoned professionals."
+>
+  <!-- Hero -->
+  <PageHero
+    theme="Dark"
+    title="The team"
+    body="With over 80 years of combined experience, Allied's seasoned team of construction experts brings unparalleled knowledge and dedication to every project, ensuring excellence from concept to completion."
+    image="/images/allied/expertise-bg.png"
+    paddingClass="py-28 sm:py-36 lg:py-44"
+  />
+
+  <!-- Heading band -->
+  <section data-theme="Neutral" class="theme-wrapper relative z-10 py-20 sm:py-28">
+    <div class={wrapper}>
+      <div class="max-w-3xl">
+        <h2 class="theme-h2 theme-title">Meet the Leadership Driving Allied's Success</h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- Member cards -->
+  <section class="theme-wrapper relative z-10 py-20 sm:py-28 lg:py-32">
+    <div class={wrapper}>
+      <div class="mx-auto grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 md:gap-x-24 lg:gap-x-36 lg:gap-y-20">
+        {
+          team.map((m) => (
+            <article>
+              <p class="mb-2 text-lg theme-pretitle">{m.role}</p>
+              <h3 class="theme-h4 theme-title mb-4">{m.name}</h3>
+              <p class="text-lg theme-text">{m.bio}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

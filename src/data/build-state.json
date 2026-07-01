@@ -1,15 +1,20 @@
 {
   "stage": "page-building",
   "completedStages": ["style", "sitemap"],
-  "currentCohort": 1,
+  "currentCohort": 2,
   "cohorts": {
     "1": {
       "pages": ["/"],
       "status": "built",
-      "notes": "Homepage — pixel-faithful replica of the Allied Construction reference (localhost:3000). Awaiting human review before building remaining pages."
+      "notes": "Homepage — pixel-faithful replica of the Allied Construction reference. Human-reviewed and approved."
+    },
+    "2": {
+      "pages": ["/projects", "/services", "/team", "/contact"],
+      "status": "built",
+      "notes": "Top-level pages. Left-aligned heroes (homepage hero is centered). No individual project or service detail pages yet — project cards are non-clickable and service 'LEARN MORE' points to /contact as a stand-in."
     }
   },
   "sitemapApproved": true,
   "styleguideApproved": true,
-  "notes": "Replicating the Allied Construction site. Style foundation (Syne/Albert Sans, black/white/grey theme system, teal logo) applied in global.css + design-tokens.json. Reference pages still to build: /projects, /services, /team, /contact. Reference assets in public/images/allied/. Reference HTML snapshot at /tmp/allied-ref/index.html, screenshots at /tmp/allied-ref/shots/."
+  "notes": "Replicating the Allied Construction site. Reference pages remaining: individual /projects/<slug> detail pages and /services/<slug> detail pages (deferred). Reference assets in public/images/allied/. Reference HTML snapshot at /tmp/allied-ref/*.html, screenshots at /tmp/allied-ref/shots/."
 }

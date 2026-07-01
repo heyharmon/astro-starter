@@ -1,66 +1,181 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getCollection } from "astro:content";
 
-const projects = (await getCollection("projects", ({ data }) =>
-  import.meta.env.PROD ? !data.draft : true,
-)).sort((a, b) => a.data.order - b.data.order);
+const wrapper = "mx-auto xl:max-w-[80vw] px-8 sm:px-12 lg:px-16";
+
+// Cards are non-clickable for now — individual project pages are not built yet.
+const recent = [
+  {
+    title: "Golf Village",
+    location: "St. George, UT – 2024",
+    body: "Condos at Black Desert Resort",
+    image: "/images/allied/black-desert.png",
+  },
+  {
+    title: "The Oasis",
+    location: "Ivins, UT – 2024",
+    body: "Clubhouse at Black Desert Golf Course",
+    image: "/images/allied/the-oasis.png",
+  },
+  {
+    title: "Container Office",
+    location: "St. George, UT – 2024",
+    body: "Office space at Tech Ridge",
+    image: "/images/allied/container-office.png",
+  },
+  {
+    title: "The Apex",
+    location: "Las Vegas, NV – 2023",
+    body: "Luxury Apartments",
+    image: "/images/allied/the-apex.png",
+  },
+  {
+    title: "Fort Pierce",
+    location: "St. George, UT – 2023",
+    body: "Metal office & warehouse",
+    image: "/images/allied/fort-pierce.png",
+  },
+  {
+    title: "Zonos Hangar",
+    location: "St. George, UT – 2021",
+    body: "Modern office conversion",
+    image: "/images/allied/zonos-hangar.png",
+  },
+];
+
+const past = [
+  {
+    title: "Edwin Hotel",
+    location: "Chattanooga, TN – 2018",
+    body: "Marriott Autograph Collection hotel",
+    image: "/images/allied/edwin-hotel.png",
+  },
+  {
+    title: "Cliff House",
+    location: "Ogunquit, ME – 2017",
+    body: "A luxury hotel",
+    image: "/images/allied/cliff-house.png",
+  },
+  {
+    title: "Le Meridien",
+    location: "Indianapolis, IN – 2015",
+    body: "Marriott Autograph Collection hotel",
+    image: "/images/allied/le-meridien.jpeg",
+  },
+];
 ---
 
-<BaseLayout title="Projects" description="Demonstrates a second content collection — non-chronological, manually ordered, with a featured flag.">
-  <!-- Hero -->
-  <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-    <p class="text-sm uppercase tracking-wide text-neutral-500">
-      Tier 2 / 3 — Content collection (manually ordered)
-    </p>
-    <h1 class="mt-4">Projects collection</h1>
-    <p class="mt-6 max-w-2xl text-lg text-neutral-500">
-      A second collection with a different schema than <a href="/blog" class="underline">posts</a>. No <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">date</code> field —
-      sorting uses a manual <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">order</code> integer. A <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">featured</code> boolean lets you surface specific entries elsewhere
-      (homepages, marketing pages) without filtering by date.
-    </p>
+<BaseLayout
+  title="Projects"
+  description="Explore Allied Construction's featured projects, showcasing excellence in hospitality, multifamily, industrial, and commercial builds."
+>
+  <!-- Recent projects -->
+  <section data-theme="Dark" class="theme-wrapper relative z-10 overflow-hidden py-24 sm:py-32 lg:py-40">
+    <div class={wrapper}>
+      <div class="mb-8 max-w-3xl sm:mb-12 lg:mb-14">
+        <h1 class="theme-h1 theme-title mb-4">Recent projects</h1>
+        <p class="text-lg theme-text">
+          From innovative office spaces to luxury residential developments, these projects
+          highlight our work across Utah and Nevada, completed between 2024 and 2021.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+        {
+          recent.map((p) => (
+            <div class="fade-in group">
+              <div class="mb-4 aspect-square w-full overflow-hidden rounded-lg sm:aspect-[2/3]">
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  loading="lazy"
+                  class="h-full w-full object-cover transition-all duration-500 group-hover:scale-110"
+                />
+              </div>
+              <p class="mb-3 text-lg theme-pretitle">{p.location}</p>
+              <h4 class="theme-h4 theme-title mb-4">{p.title}</h4>
+              <p class="text-lg theme-text">{p.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
   </section>
 
-  <!-- Project list -->
-  <section class="border-t border-neutral-200 bg-neutral-50">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      {projects.length === 0 ? (
-        <p class="text-neutral-500">No projects yet. Add a Markdown file to <code>src/content/projects/</code>.</p>
-      ) : (
-        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <a
-              href={`/projects/${project.id}`}
-              class="block overflow-hidden rounded-xl border border-neutral-200 bg-white transition hover:border-neutral-400"
-            >
-              {project.data.image && (
-                <div class="aspect-4/3 overflow-hidden bg-neutral-200">
-                  <img
-                    src={project.data.image.src}
-                    alt={project.data.image.alt}
-                    class="h-full w-full object-cover"
-                  />
-                </div>
-              )}
-              <div class="p-8">
-                <div class="flex items-center gap-2">
-                  <span class="font-mono text-xs text-neutral-400">order: {project.data.order}</span>
-                  {project.data.featured && (
-                    <span class="rounded-full border border-indigo-200 bg-indigo-50 px-2 py-0.5 text-xs text-indigo-700">featured</span>
-                  )}
-                </div>
-                <h3 class="mt-2">{project.data.title}</h3>
-                <p class="mt-2 text-sm text-neutral-500">
-                  {project.data.description}
-                </p>
-                <p class="mt-6 font-mono text-xs text-neutral-400">
-                  src/content/projects/{project.id}.md
-                </p>
+  <!-- Past projects -->
+  <section class="theme-wrapper relative z-10 overflow-hidden py-24 sm:py-32 lg:py-40">
+    <div class={wrapper}>
+      <div class="mb-8 max-w-3xl sm:mb-12 lg:mb-14">
+        <h2 class="theme-h2 theme-title mb-4">Past Projects</h2>
+        <p class="text-lg theme-text">
+          Over the years, our work has extended across the country, delivering exceptional
+          results for premier hospitality destinations. These projects, completed between 2018
+          and 2015, showcase our expertise in creating memorable spaces.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:grid-cols-2">
+        {
+          past.map((p) => (
+            <div class="fade-in group">
+              <div class="mb-5 aspect-[3/2] w-full overflow-hidden rounded-lg">
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  loading="lazy"
+                  class="h-full w-full object-cover transition-all duration-500 group-hover:scale-110"
+                />
               </div>
-            </a>
-          ))}
+              <p class="mb-3 text-lg theme-pretitle">{p.location}</p>
+              <h3 class="theme-h3 theme-title mb-4">{p.title}</h3>
+              <p class="text-lg theme-text">{p.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming — split -->
+  <section data-theme="Neutral" class="theme-wrapper relative z-10 overflow-hidden py-24 sm:py-32 lg:py-40">
+    <div class={wrapper}>
+      <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <p class="mb-3 text-lg theme-pretitle">Upcoming - Hamilton, Ohio</p>
+          <h2 class="theme-h2 theme-title mb-4">Municipal Building</h2>
+          <p class="text-lg theme-text">
+            Allied Construction is transforming the historic Hamilton Municipal Building at 20
+            High St. into a vibrant hotel that blends timeless architecture with modern
+            amenities.
+          </p>
         </div>
-      )}
+        <div class="aspect-[4/3] w-full overflow-hidden rounded-lg">
+          <img
+            src="/images/allied/municipal-building.jpg"
+            alt="Historic Hamilton Municipal Building"
+            loading="lazy"
+            class="h-full w-full object-cover"
+          />
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  const cards = document.querySelectorAll(".fade-in");
+  if (cards.length) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 },
+    );
+    cards.forEach((c) => io.observe(c));
+  }
+</script>
