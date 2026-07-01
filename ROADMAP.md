@@ -1,19 +1,23 @@
 # Studio Harmon — Roadmap
 
 Deferred work and known gaps for the marketing site. Ordered by leverage.
-Last updated: 2026-06-26.
+Last updated: 2026-07-01.
 
-## 1. Lead capture (deferred 2026-06-26)
+## 1. Lead capture
 
-Both conversion flows are currently **client-side prototypes** — they show a
-"thank you" / "booked" state but send nothing anywhere. Every lead is dropped.
+**Done (2026-07-01):** both `/start` and `/book` now POST to a native Vercel
+serverless function (`api/submit.js`) that records each submission as a JSON
+file in a private Vercel Blob store (`studio-harmon-leads`). No third-party
+form service. Includes a honeypot for spam and required-field validation.
+Retrieve submissions with `vercel blob list submissions/` (start/ and book/).
 
-- **`/start` form** — wire to a real backend so submissions are delivered.
-  `src/data/site-meta.json` has a `formspreeId: "YOUR_FORM_ID"` placeholder.
-  Options: Formspree (no-code, fastest), or an email API (Resend) via a Vercel
-  serverless function. Needs: backend choice + destination email.
-- **`/book` scheduler** — the day/time picker is cosmetic. Wire to a real
-  provider (Cal.com, Calendly, or Google Calendar). Needs: provider + account.
+Remaining:
+- **`/book` is not a real calendar.** It records the requested day/time but
+  doesn't check availability or create a calendar event. Wire to a real
+  provider (Cal.com, Calendly, or Google Calendar) if you want true booking.
+- **No notifications.** Submissions are dashboard/CLI-only. Add email alerts
+  (Resend) if you want a push per lead — that adds a third-party provider.
+- Remove the now-unused `formspreeId` placeholder from `site-meta.json`.
 - Add basic analytics so the funnel is measurable (Vercel Analytics is one
   toggle for this project).
 

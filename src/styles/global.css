@@ -1011,6 +1011,21 @@ form {
   font-size: 13px;
   color: var(--ink-3);
 }
+/* Honeypot — hidden from real users, catches bots */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.form-error {
+  display: none;
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--clay-2);
+}
 
 /* Success states (form + scheduler) */
 .thanks,
