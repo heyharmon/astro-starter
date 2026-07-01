@@ -1,34 +1,44 @@
 ---
+import footer from "../data/footer.json";
 import siteMeta from "../data/site-meta.json";
-
-const socialLinks = Object.entries(siteMeta.social).filter(([_, url]) => url);
 ---
 
-<footer class="border-t border-neutral-200 bg-neutral-50 py-16">
-  <div class="mx-auto max-w-5xl px-6 text-center">
-    <a href="/" class="text-xl font-semibold tracking-tight text-neutral-900 no-underline">
-      {siteMeta.name}
-    </a>
-
-    {siteMeta.tagline && (
-      <p class="mt-2 text-sm text-neutral-500">{siteMeta.tagline}</p>
-    )}
-
-    {socialLinks.length > 0 && (
-      <div class="mt-6 flex items-center justify-center gap-6">
-        {socialLinks.map(([platform, url]) => (
-          <a
-            href={url as string}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-sm capitalize text-neutral-500 no-underline transition-colors hover:text-neutral-900"
-          >
-            {platform}
-          </a>
-        ))}
+<footer class="relative bg-white" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+  <div class="mx-auto xl:max-w-[80vw] px-8 sm:px-12 lg:px-16 pb-8 pt-16 sm:pt-24 lg:pt-32">
+    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+      <!-- Brand -->
+      <div class="space-y-8">
+        <img src="/images/allied/logo-footer.svg" alt={siteMeta.name} class="h-10 w-auto" />
+        <p class="text-lg leading-6 text-neutral-500">{siteMeta.tagline}</p>
       </div>
-    )}
 
-    <p class="mt-8 text-xs text-neutral-400">{siteMeta.copyright}</p>
+      <!-- Link columns -->
+      <div class="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-3 xl:col-span-2 xl:mt-0">
+        {
+          footer.map((group) => (
+            <div>
+              <span class="text-xl theme-title uppercase">{group.section}</span>
+              <ul role="list" class="mt-6 space-y-4">
+                {group.links.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class="text-base text-neutral-600 transition-colors hover:text-neutral-900"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="mt-16 border-t border-neutral-900/10 pt-8 sm:mt-20 lg:mt-24">
+      <p class="text-xs leading-5 text-neutral-500">{siteMeta.copyright}</p>
+    </div>
   </div>
 </footer>

@@ -2,40 +2,98 @@
 import nav from "../data/nav.json";
 import siteMeta from "../data/site-meta.json";
 
-const pathname = Astro.url.pathname;
 const sortedNav = [...nav].sort((a, b) => a.order - b.order);
 ---
 
-<header class="border-b border-neutral-200 bg-white">
-  <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-    <a href="/" class="text-lg font-semibold tracking-tight text-neutral-900 no-underline">
-      {siteMeta.name}
-    </a>
+<header class="relative z-20 bg-white">
+  <nav
+    class="mx-auto flex items-center justify-between py-4 px-8 sm:px-12 lg:px-16"
+    aria-label="Global"
+  >
+    <div class="flex items-center gap-x-12">
+      <a href="/" class="shrink-0" aria-label={siteMeta.name}>
+        <img src="/images/allied/logo.svg" alt={siteMeta.name} class="h-12 w-auto" />
+      </a>
 
-    <ul class="flex items-center gap-6">
-      {
-        sortedNav.map((item) => {
-          const isActive =
-            item.href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(item.href);
-          return (
-            <li>
-              <a
-                href={item.href}
-                class:list={[
-                  "text-sm font-medium no-underline transition-colors",
-                  isActive
-                    ? "text-indigo-600"
-                    : "text-neutral-600 hover:text-neutral-900",
-                ]}
-              >
-                {item.label}
-              </a>
-            </li>
-          );
-        })
-      }
-    </ul>
+      <div class="hidden lg:flex lg:gap-x-6">
+        {
+          sortedNav.map((item) => (
+            <a href={item.href} class="flex rounded-md p-0.5">
+              <span class="nav-link inline text-lg theme-text">{item.label}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="hidden lg:flex lg:items-center lg:gap-6">
+      <a href="/contact" class="btn btn-primary px-3 py-2 text-sm">Get in touch</a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <div class="flex lg:hidden">
+      <button
+        type="button"
+        id="mobile-menu-open"
+        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-neutral-900"
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"></path>
+        </svg>
+      </button>
+    </div>
   </nav>
+
+  <!-- Mobile menu overlay -->
+  <div id="mobile-menu" class="hidden fixed inset-0 z-50 bg-white lg:hidden">
+    <div class="flex items-center justify-between py-4 px-8 sm:px-12">
+      <a href="/" class="shrink-0" aria-label={siteMeta.name}>
+        <img src="/images/allied/logo.svg" alt={siteMeta.name} class="h-10 w-auto" />
+      </a>
+      <button type="button" id="mobile-menu-close" class="-m-2.5 rounded-md p-2.5 text-neutral-700">
+        <span class="sr-only">Close menu</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="px-8 pt-4 sm:px-12">
+      <div class="flex flex-col gap-y-2">
+        {
+          sortedNav.map((item) => (
+            <a href={item.href} class="py-3 text-lg theme-text">
+              {item.label}
+            </a>
+          ))
+        }
+      </div>
+      <hr class="my-4" />
+      <a href="/contact" class="btn btn-primary w-full px-4 py-3 text-base">
+        Get in touch
+        <svg class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
 </header>
+
+<script>
+  const menu = document.getElementById("mobile-menu");
+  const openBtn = document.getElementById("mobile-menu-open");
+  const closeBtn = document.getElementById("mobile-menu-close");
+
+  const open = () => {
+    menu?.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  };
+  const close = () => {
+    menu?.classList.add("hidden");
+    document.body.style.overflow = "";
+  };
+
+  openBtn?.addEventListener("click", open);
+  closeBtn?.addEventListener("click", close);
+  menu?.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
+</script>

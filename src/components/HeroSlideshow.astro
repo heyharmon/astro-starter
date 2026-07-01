@@ -1,0 +1,54 @@
+---
+interface Props {
+  pretitle: string;
+  title: string;
+  body: string;
+  images: string[];
+}
+
+const { pretitle, title, body, images } = Astro.props;
+---
+
+<section
+  data-theme="Dark"
+  class="theme-wrapper relative isolate overflow-hidden pt-44 pb-44 sm:pt-56 sm:pb-56 sticky top-0 z-0"
+>
+  <!-- Background crossfade slideshow -->
+  <ul id="hero-slideshow" class="absolute inset-0 pointer-events-none">
+    {
+      images.map((src, i) => (
+        <li>
+          <span
+            class="hero-slide absolute inset-0 bg-cover bg-center"
+            style={`background-image:url(${src});opacity:${i === 0 ? 1 : 0};`}
+          />
+        </li>
+      ))
+    }
+    <div aria-hidden="true" class="absolute inset-0 h-full w-full bg-black opacity-60"></div>
+  </ul>
+
+  <!-- Content -->
+  <div class="relative mx-auto xl:max-w-[80vw] px-8 sm:px-12 lg:px-16">
+    <div class="m-auto max-w-3xl text-center">
+      <p class="mb-3 text-lg theme-pretitle">{pretitle}</p>
+      <h1 class="theme-h1 theme-title mb-4">{title}</h1>
+      <p class="text-lg theme-text">{body}</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const slides = Array.from(
+    document.querySelectorAll<HTMLElement>("#hero-slideshow .hero-slide"),
+  );
+  if (slides.length > 1 && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    slides.forEach((s) => (s.style.transition = "opacity 2s ease-in-out"));
+    let current = 0;
+    setInterval(() => {
+      slides[current].style.opacity = "0";
+      current = (current + 1) % slides.length;
+      slides[current].style.opacity = "1";
+    }, 5000);
+  }
+</script>

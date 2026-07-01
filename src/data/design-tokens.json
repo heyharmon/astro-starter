@@ -1,119 +1,83 @@
 {
   "meta": {
-    "version": "1.0",
-    "description": "Machine-readable design system. Agents read this as the source of truth for where and how to use design tokens."
+    "version": "2.0",
+    "description": "Machine-readable design system for the Allied Construction theme. Agents read this as the source of truth for design tokens. The CSS source of truth is src/styles/global.css. Sections opt into a color theme via data-theme=\"Dark\" | \"Neutral\" (default = light); the .theme-* utilities re-color per section from CSS variables."
   },
-  "colors": {
-    "background": {
-      "primary": "white",
-      "secondary": "neutral-50",
-      "tertiary": "neutral-100",
-      "card": "white"
-    },
-    "text": {
-      "primary": "neutral-900",
-      "body": "neutral-600",
-      "muted": "neutral-500",
-      "subtle": "neutral-400",
-      "accent": "indigo-600"
-    },
-    "border": {
-      "default": "neutral-200",
-      "card": "neutral-200",
-      "input": "neutral-300",
-      "focus": "indigo-500"
-    },
-    "accent": {
-      "base": "indigo-600",
-      "hover": "indigo-700",
-      "light": "indigo-50",
-      "scale": ["indigo-50", "indigo-100", "indigo-200", "indigo-300", "indigo-400", "indigo-500", "indigo-600", "indigo-700", "indigo-800", "indigo-900", "indigo-950"]
-    },
-    "button": {
-      "primary": {
-        "bg": "indigo-600",
-        "text": "white",
-        "hoverBg": "indigo-700"
+  "themeSystem": {
+    "attribute": "data-theme",
+    "themes": {
+      "Default": {
+        "wrapperBg": "#ffffff",
+        "titleColor": "#000000",
+        "textColor": "#000000",
+        "pretitleColor": "#000000",
+        "btnPrimaryBg": "#000000",
+        "btnPrimaryText": "#ffffff",
+        "btnSimpleText": "#000000"
       },
-      "ghost": {
-        "bg": "transparent",
-        "text": "neutral-900",
-        "border": "neutral-300",
-        "hoverBg": "neutral-900",
-        "hoverText": "white",
-        "hoverBorder": "neutral-900"
+      "Neutral": {
+        "wrapperBg": "#f2f2f2",
+        "titleColor": "#000000",
+        "textColor": "#000000",
+        "note": "Same ink as Default, grey background band."
+      },
+      "Dark": {
+        "wrapperBg": "#000000",
+        "titleColor": "#ffffff",
+        "textColor": "#ffffff",
+        "pretitleColor": "#ffffff",
+        "btnPrimaryBg": "#ffffff",
+        "btnPrimaryText": "#000000",
+        "btnSimpleText": "#ffffff"
       }
     }
+  },
+  "colors": {
+    "brand": "#00a7bd",
+    "black": "#000000",
+    "white": "#ffffff",
+    "grey": "#f2f2f2",
+    "note": "Brand teal (#00a7bd) is reserved for the logo. Sections are black / white / grey bands; text is pure black or white per theme."
   },
   "typography": {
     "fonts": {
-      "heading": "Inter",
-      "body": "Inter",
+      "display": "Syne",
+      "body": "Albert Sans",
       "mono": "JetBrains Mono"
     },
-    "headings": {
-      "h1": {
-        "classes": "font-sans font-semibold tracking-tight text-neutral-900 text-4xl sm:text-5xl",
-        "lineHeight": "1.1"
-      },
-      "h2": {
-        "classes": "font-sans font-semibold tracking-tight text-neutral-900 text-2xl sm:text-3xl",
-        "lineHeight": "1.15"
-      },
-      "h3": {
-        "classes": "font-sans font-medium text-neutral-900 text-xl",
-        "lineHeight": "1.2"
-      }
+    "displayTreatment": {
+      "note": "Titles use Syne 700, UPPERCASE. Applied via the .theme-title utility and the sized .theme-h1..h4 utilities.",
+      "h1": "clamp(3.5rem, 5.5vw, 4.5rem)",
+      "h2": "clamp(2.25rem, 4.5vw, 3.5rem)",
+      "h3": "clamp(1.75rem, 3.5vw, 2.5rem)",
+      "h4": "clamp(1.25rem, 3vw, 2rem)"
     },
     "body": {
-      "classes": "leading-relaxed text-neutral-600"
-    },
-    "small": {
-      "classes": "text-sm text-neutral-400"
-    },
-    "label": {
-      "classes": "text-sm font-medium uppercase tracking-wider text-neutral-500"
+      "font": "Albert Sans 400",
+      "base": "text-lg (18px)",
+      "note": "Body copy and pretitle labels use Albert Sans, normal case."
     }
   },
   "spacing": {
-    "sectionPadding": "py-24 sm:py-32",
-    "containerMax": "max-w-5xl",
-    "containerPx": "px-6",
-    "gridGap": "gap-8",
-    "cardPadding": "p-8"
+    "sectionPadding": "py-24 sm:py-32 lg:py-40",
+    "container": "mx-auto xl:max-w-[80vw] px-8 sm:px-12 lg:px-16",
+    "centeredIntro": "max-w-3xl text-center"
   },
   "effects": {
     "borderRadius": {
-      "card": "rounded-xl",
-      "button": "rounded-lg",
-      "input": "rounded-lg",
-      "small": "rounded"
+      "button": "rounded-md",
+      "cardImage": "rounded-lg"
     },
     "shadows": {
-      "subtle": "shadow-sm",
-      "note": "Use sparingly — prefer flat borders for most components"
+      "button": "shadow-sm"
     }
   },
-  "componentPatterns": {
-    "hero-text": {
-      "description": "Text-only hero with headline, subheadline, and dual CTA buttons (primary + ghost). White background.",
-      "reference": "index.astro hero section"
-    },
-    "card-grid": {
-      "description": "Grid of bordered cards (rounded-xl, border-neutral-200, p-8) with icon, title, and description. 3-column on lg, 2-column on sm.",
-      "reference": "index.astro tier-demonstrations section"
-    },
-    "cta-centered": {
-      "description": "Centered text section with heading, description, and primary button. neutral-50 or white background.",
-      "reference": "index.astro CTA section"
-    },
-    "section-2col": {
-      "description": "Two-column grid — one side text content with ghost button, other side image (aspect-4/3, rounded-xl).",
-      "reference": "index.astro about section, about.astro content"
-    },
-    "section-alternating-bg": {
-      "description": "Sections alternate between bg-white and bg-neutral-50, separated by border-t border-neutral-200.",
-      "reference": "All page sections"
-    }
+  "components": {
+    "btn-primary": ".btn.btn-primary — filled button, inverts per theme (black on light, white on dark). Optional trailing arrow icon.",
+    "btn-simple": ".btn.btn-simple — text-only link with trailing arrow (e.g. 'Meet Our Leadership').",
+    "nav-link": ".nav-link — animated underline that wipes in from the left on hover (2px, currentColor).",
+    "fade-in": ".fade-in / .is-visible — scroll-reveal (opacity + scale) toggled by IntersectionObserver; used on project cards.",
+    "hero-slideshow": "HeroSlideshow.astro — 3-image background crossfade, auto-advancing every 5s.",
+    "locations-map": "LocationsMap.astro — Leaflet map, CartoDB light basemap, black teardrop pins for project locations."
   }
 }

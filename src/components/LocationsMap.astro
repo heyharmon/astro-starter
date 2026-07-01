@@ -1,0 +1,63 @@
+---
+// Project locations plotted on the homepage map. Coordinates approximate
+// the reference site's marker cluster (Utah/Nevada core + a few eastern
+// projects). Edit this list to change the pins.
+const locations: [number, number][] = [
+  [37.1041, -113.5841], // St. George, UT — Black Desert
+  [37.0805, -113.6208], // St. George, UT — Tech Ridge
+  [37.1265, -113.535], // St. George, UT — Container Office
+  [36.1699, -115.1398], // Las Vegas, NV — The Apex
+  [40.7608, -111.891], // Salt Lake City, UT
+  [35.0456, -85.3097], // Chattanooga, TN — Edwin Hotel
+  [36.1627, -86.7816], // Nashville, TN
+  [39.1031, -84.512], // Cincinnati, OH
+  [39.9612, -82.9988], // Columbus, OH
+  [44.4759, -73.2121], // Burlington, VT
+];
+---
+
+<section class="relative z-10">
+  <div id="locations-map" class="h-[450px] w-full" data-locations={JSON.stringify(locations)}>
+  </div>
+</section>
+
+<script>
+  import L from "leaflet";
+  import "leaflet/dist/leaflet.css";
+
+  const el = document.getElementById("locations-map");
+  if (el) {
+    const locations: [number, number][] = JSON.parse(el.dataset.locations || "[]");
+
+    const map = L.map(el, {
+      scrollWheelZoom: false,
+      zoomControl: true,
+      attributionControl: true,
+    }).setView([39.5, -96.5], 4);
+
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+      attribution: "&copy; OpenStreetMap &copy; CARTO",
+      subdomains: "abcd",
+      maxZoom: 19,
+    }).addTo(map);
+
+    // Black teardrop pin matching the reference markers.
+    const pin = L.divIcon({
+      className: "allied-pin",
+      html: '<svg viewBox="0 0 24 24" width="30" height="30" fill="#000"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>',
+      iconSize: [30, 30],
+      iconAnchor: [15, 30],
+    });
+
+    locations.forEach(([lat, lng]) => {
+      L.marker([lat, lng], { icon: pin }).addTo(map);
+    });
+  }
+</script>
+
+<style is:global>
+  .allied-pin {
+    background: transparent;
+    border: none;
+  }
+</style>

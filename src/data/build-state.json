@@ -1,9 +1,15 @@
 {
-  "stage": "not-started",
-  "completedStages": [],
-  "currentCohort": 0,
-  "cohorts": {},
-  "sitemapApproved": false,
-  "styleguideApproved": false,
-  "notes": ""
+  "stage": "page-building",
+  "completedStages": ["style", "sitemap"],
+  "currentCohort": 1,
+  "cohorts": {
+    "1": {
+      "pages": ["/"],
+      "status": "built",
+      "notes": "Homepage — pixel-faithful replica of the Allied Construction reference (localhost:3000). Awaiting human review before building remaining pages."
+    }
+  },
+  "sitemapApproved": true,
+  "styleguideApproved": true,
+  "notes": "Replicating the Allied Construction site. Style foundation (Syne/Albert Sans, black/white/grey theme system, teal logo) applied in global.css + design-tokens.json. Reference pages still to build: /projects, /services, /team, /contact. Reference assets in public/images/allied/. Reference HTML snapshot at /tmp/allied-ref/index.html, screenshots at /tmp/allied-ref/shots/."
 }

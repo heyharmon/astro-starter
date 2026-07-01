@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  /* Allied brand fonts */
+  --font-sans: "Albert Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Allied brand palette */
+  --color-brand: #00a7bd; /* teal accent — logo only */
+  --color-grey: #f2f2f2; /* neutral section background */
 
   --color-neutral-50: #fafafa;
   --color-neutral-100: #f5f5f5;
@@ -15,51 +21,80 @@
   --color-neutral-800: #262626;
   --color-neutral-900: #171717;
   --color-neutral-950: #0a0a0a;
-
-  --color-indigo-50: #eef2ff;
-  --color-indigo-100: #e0e7ff;
-  --color-indigo-200: #c7d2fe;
-  --color-indigo-300: #a5b4fc;
-  --color-indigo-400: #818cf8;
-  --color-indigo-500: #6366f1;
-  --color-indigo-600: #4f46e5;
-  --color-indigo-700: #4338ca;
-  --color-indigo-800: #3730a3;
-  --color-indigo-900: #312e81;
-  --color-indigo-950: #1e1b4b;
 }
 
+/*
+  Section theme system (ported from the reference).
+  Each banded <section> sets data-theme="Dark" | "Neutral"; the default
+  (no attribute) is the light theme. The variables below drive the
+  .theme-* utilities so a single markup pattern re-colors per section.
+*/
 @layer base {
+  :root {
+    --wrapper-bg: #ffffff;
+    --pretitle-color: #000000;
+    --title-color: #000000;
+    --text-color: #000000;
+    --btn-primary-bg: #000000;
+    --btn-primary-text: #ffffff;
+    --btn-simple-text: #000000;
+  }
+
+  [data-theme="Neutral"] {
+    --wrapper-bg: #f2f2f2;
+  }
+
+  [data-theme="Dark"] {
+    --wrapper-bg: #000000;
+    --pretitle-color: #ffffff;
+    --title-color: #ffffff;
+    --text-color: #ffffff;
+    --btn-primary-bg: #ffffff;
+    --btn-primary-text: #000000;
+    --btn-simple-text: #ffffff;
+  }
+
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply bg-white text-neutral-900 font-sans;
+    @apply bg-white font-sans;
+    color: var(--text-color);
   }
 
-  h1 {
-    @apply font-sans font-semibold tracking-tight text-neutral-900 text-4xl sm:text-5xl;
-    line-height: 1.1;
-  }
-
-  h2 {
-    @apply font-sans font-semibold tracking-tight text-neutral-900 text-2xl sm:text-3xl;
+  /* Bare headings adopt the display face; homepage sections size them
+     explicitly via the .theme-h* utilities below. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--title-color);
     line-height: 1.15;
   }
 
+  h1 {
+    @apply text-4xl sm:text-5xl;
+    line-height: 1.05;
+  }
+  h2 {
+    @apply text-2xl sm:text-3xl;
+  }
   h3 {
-    @apply font-sans font-medium text-neutral-900 text-xl;
-    line-height: 1.2;
+    @apply text-xl;
   }
 
   p {
-    @apply leading-relaxed text-neutral-600;
+    @apply leading-relaxed;
+    color: var(--text-color);
   }
 
   a {
-    @apply text-indigo-600 underline-offset-4 hover:underline;
+    color: inherit;
+    text-decoration: none;
   }
 
   hr {
@@ -67,60 +102,149 @@
   }
 }
 
-/* Primary button utility */
+/* ---- Section theme utilities ---------------------------------------- */
+.theme-wrapper {
+  background-color: var(--wrapper-bg);
+  color: var(--text-color);
+}
+.theme-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--title-color);
+}
+.theme-text {
+  color: var(--text-color);
+}
+.theme-pretitle {
+  color: var(--pretitle-color);
+}
+
+/* Display headings — fluid clamps matching the reference */
+.theme-h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.05;
+  font-size: clamp(3.5rem, 5.5vw, 4.5rem);
+}
+.theme-h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.1;
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+}
+.theme-h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.1;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+.theme-h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.15;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+}
+
+/* ---- Buttons -------------------------------------------------------- */
+.btn {
+  @apply inline-flex items-center justify-center font-semibold rounded-md transition;
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+}
 .btn-primary {
-  @apply inline-block rounded-lg bg-indigo-600 px-6 py-3 text-sm font-medium text-white no-underline transition-colors;
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  @apply shadow-sm;
 }
 .btn-primary:hover {
-  @apply bg-indigo-700;
+  opacity: 0.85;
+}
+.btn-primary:active {
+  @apply translate-y-px;
+}
+.btn-simple {
+  color: var(--btn-simple-text);
+  @apply font-semibold;
+}
+.btn-simple:hover {
+  opacity: 0.7;
 }
 
-/* Ghost button utility */
-.btn-ghost {
-  @apply inline-block rounded-lg border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-900 no-underline transition-colors;
-  background: transparent;
+/* ---- Animated nav underline (wipe in from left) --------------------- */
+.nav-link {
+  position: relative;
 }
-.btn-ghost:hover {
-  @apply border-neutral-900 bg-neutral-900 text-white;
+.nav-link::before {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-in-out;
+}
+.nav-link:hover::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
-/* Prose styling for rendered markdown content */
+/* ---- Scroll-reveal for project cards -------------------------------- */
+.fade-in {
+  opacity: 0;
+  transform: scale(0.95);
+  transition:
+    opacity 1s ease,
+    transform 3s ease;
+}
+.fade-in.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---- Prose styling for rendered markdown content -------------------- */
 .prose {
   @apply max-w-none;
 }
-
 .prose h2 {
   @apply mt-12 mb-4;
 }
-
 .prose h3 {
   @apply mt-8 mb-3;
 }
-
 .prose p {
-  @apply mb-6 text-neutral-600;
+  @apply mb-6;
 }
-
 .prose ul {
-  @apply list-disc pl-6 mb-6 space-y-2 text-neutral-600;
+  @apply list-disc pl-6 mb-6 space-y-2;
 }
-
 .prose ol {
-  @apply list-decimal pl-6 mb-6 space-y-2 text-neutral-600;
+  @apply list-decimal pl-6 mb-6 space-y-2;
 }
-
 .prose blockquote {
   @apply border-l-2 border-neutral-300 pl-6 italic text-neutral-500 my-6;
 }
-
 .prose strong {
-  @apply font-semibold text-neutral-900;
+  @apply font-semibold;
 }
-
 .prose code {
   @apply bg-neutral-100 px-1.5 py-0.5 rounded text-sm font-mono text-neutral-800;
 }
-
 .prose a {
-  @apply text-indigo-600 underline;
+  @apply underline;
+  color: var(--color-brand);
 }

@@ -1,206 +1,262 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroSlideshow from "../components/HeroSlideshow.astro";
+import LocationsMap from "../components/LocationsMap.astro";
 import siteMeta from "../data/site-meta.json";
+
+const wrapper = "mx-auto xl:max-w-[80vw] px-8 sm:px-12 lg:px-16";
+const band = "relative z-10 theme-wrapper overflow-hidden py-24 sm:py-32 lg:py-40";
+
+const heroImages = [
+  "/images/allied/edwin-hotel.png",
+  "/images/allied/hero-2.png",
+  "/images/allied/hero-3.png",
+];
+
+const projects = [
+  {
+    title: "Black Desert – Golf Village",
+    location: "St. George, UT – 2024",
+    body: "Condos at Black Desert Resort",
+    href: "/projects/black-desert",
+    image: "/images/allied/black-desert.png",
+  },
+  {
+    title: "The Apex",
+    location: "Las Vegas, NV – 2023",
+    body: "Luxury apartments",
+    href: "/projects/apex-meadows",
+    image: "/images/allied/the-apex.png",
+  },
+  {
+    title: "Edwin Hotel",
+    location: "Chattanooga, TN – 2018",
+    body: "Marriott Autograph Collection hotel",
+    href: "/projects/the-edwin",
+    image: "/images/allied/edwin-hotel.png",
+  },
+  {
+    title: "Container Office",
+    location: "St. George, UT – 2024",
+    body: "Office space at Tech Ridge",
+    href: "/projects/tech-ridge",
+    image: "/images/allied/container-office.png",
+  },
+];
+
+const stats = [
+  {
+    title: "80+ Years",
+    body: "Over eighty years of combined experience amongst senior executives.",
+  },
+  {
+    title: "Diverse Portfolio",
+    body: "From boutique hotels to resorts and multi family, we've done it all.",
+  },
+  {
+    title: "Trusted",
+    body: "We work with renowned brands like Hyatt, Marriott and Kite Realty Group.",
+  },
+];
+
+const expertise = [
+  {
+    title: "Commercial",
+    body: "Innovative and functional commercial spaces designed to enhance operations and maximize value.",
+  },
+  {
+    title: "Hospitality",
+    body: "Creating luxurious hotels and resorts that blend stunning design with flawless functionality.",
+  },
+  {
+    title: "Multi Family",
+    body: "Developing state-of-the-art multifamily communities that balance comfort, style, and sustainability.",
+  },
+];
+
+const arrowSvg =
+  '<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="order-last ml-2 h-5 w-5" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"/></svg>';
 ---
 
-<BaseLayout
-  title="Home"
-  description={siteMeta.description}
->
-  <!-- Hero -->
-  <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-    <p class="text-sm uppercase tracking-wide text-neutral-500">
-      Tier 1 / 3 — Inline content
-    </p>
-    <h1 class="mt-4 max-w-3xl">
-      This homepage is hardcoded in <code class="rounded bg-neutral-100 px-2 py-1 text-2xl">src/pages/index.astro</code>
-    </h1>
-    <p class="mt-6 max-w-2xl text-lg text-neutral-500">
-      There is no Markdown file behind it, no <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">getEntry()</code> call,
-      no content collection. Every word and section you see is written directly in the Astro file. Use this pattern for
-      genuinely one-of-a-kind pages — landing pages, marketing pages, anything you only ever need one of.
-    </p>
-    <div class="mt-8 flex flex-wrap gap-4">
-      <a href="/about" class="btn-primary">See the hybrid pattern →</a>
-      <a href="/styleguide" class="btn-ghost">Style Guide</a>
-    </div>
-  </section>
+<BaseLayout title="Home" description={siteMeta.description} image={siteMeta.ogImage}>
+  <!-- 1. Hero -->
+  <HeroSlideshow
+    pretitle="ALLIED CONSTRUCTION"
+    title="A better way to build"
+    body="Expert craftsmanship, proven leadership, and projects delivered with precision and care."
+    images={heroImages}
+  />
 
-  <!-- The three tiers -->
-  <section class="border-t border-neutral-200 bg-neutral-50">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <h2>Three content tiers, three working demos</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        Every page in this starter exists to demonstrate one of Astro's content patterns. Click through to see each one in action.
-      </p>
-
-      <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <a href="/about" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 1 — Inline (hybrid variant)</p>
-          <h3 class="mt-3">/about</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            The other shape of Tier 1: route file in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/about.astro</code> rendering a single
-            Markdown entry from <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/pages/about.md</code>.
-          </p>
-        </a>
-
-        <a href="/blog" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Posts collection</p>
-          <h3 class="mt-3">/blog</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            Every card is a Markdown file in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/posts/</code>.
-            Schema in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content.config.ts</code>. Sorted by date.
-          </p>
-        </a>
-
-        <a href="/projects" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Projects collection</p>
-          <h3 class="mt-3">/projects</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            A different schema than posts — manual <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">order</code> field
-            and a <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">featured</code> boolean. Demonstrates a non-chronological collection.
-          </p>
-        </a>
-
-        <a href="/contact" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — Site config driven</p>
-          <h3 class="mt-3">/contact</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            The page imports <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/site-meta.json</code> and renders
-            its values directly. The React contact form picks up the Formspree ID the same way.
-          </p>
-        </a>
-
-        <div class="block rounded-xl border border-dashed border-neutral-300 p-8">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — More site config</p>
-          <h3 class="mt-3">Nav &amp; Footer</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            The header and footer you see on every page also read from Tier 3 —
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/nav.json</code> and
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/footer.json</code>. Edit those files to update site-wide chrome.
-          </p>
+  <!-- 2. Featured projects -->
+  <section data-theme="Dark" class={band}>
+    <div class={wrapper}>
+      <div class="m-auto mb-8 max-w-3xl text-center sm:mb-12 lg:mb-14">
+        <h3 class="theme-h3 theme-title mb-4">Featured projects</h3>
+        <p class="text-lg theme-text">
+          Showcasing excellence across industries—see what sets us apart.
+        </p>
+        <div class="mt-8">
+          <a href="/projects" class="btn btn-primary px-4 py-2.5">
+            Explore All Projects<Fragment set:html={arrowSvg} />
+          </a>
         </div>
+      </div>
 
-        <a href="/styleguide" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Design system</p>
-          <h3 class="mt-3">/styleguide</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            A live preview of design tokens, typography, components. Backed by
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/styles/global.css</code> and
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/design-tokens.json</code>.
-          </p>
-        </a>
+      <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        {
+          projects.map((p) => (
+            <a href={p.href} class="fade-in group">
+              <div class="mb-4 aspect-square w-full overflow-hidden rounded-lg sm:aspect-[2/3]">
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  loading="lazy"
+                  class="h-full w-full object-cover transition-all duration-500 group-hover:scale-110"
+                />
+              </div>
+              <p class="mb-3 text-lg theme-pretitle">{p.location}</p>
+              <h4 class="theme-h4 theme-title mb-4 underline-offset-8 group-hover:underline">
+                {p.title}
+              </h4>
+              <p class="text-lg theme-text">{p.body}</p>
+            </a>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <!-- Decision rules -->
-  <section class="border-t border-neutral-200">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <h2>Which tier should I use?</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        The decision tree is short. When in doubt, start inline and promote to a collection the moment you have a second one.
-      </p>
-
-      <div class="mt-12 grid gap-8 lg:grid-cols-3">
-        <div>
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 1 — Inline</p>
-          <p class="mt-2 text-sm font-medium">A genuinely unique page</p>
-          <p class="mt-2 text-sm text-neutral-500">
-            Homepage, about, contact, a one-off landing page. Write it directly in
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/*.astro</code>, or pair the route file with a single
-            entry in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/pages/</code> for Markdown editing.
-          </p>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Content collection</p>
-          <p class="mt-2 text-sm font-medium">Repeating items sharing a schema</p>
-          <p class="mt-2 text-sm text-neutral-500">
-            Blog posts, projects, products, team bios, testimonials, case studies. Define a Zod schema and add files to
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/&lt;collection&gt;/</code>.
-          </p>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — Site config</p>
-          <p class="mt-2 text-sm font-medium">Structural data, not content</p>
-          <p class="mt-2 text-sm text-neutral-500">
-            Nav links, footer groups, social handles, pricing tiers, redirects. Put it in
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/*.json</code> and import the JSON in your route or component.
-          </p>
+  <!-- 3. Built on experience -->
+  <section data-theme="Neutral" class={band}>
+    <div class={wrapper}>
+      <div class="m-auto mb-20 max-w-3xl text-center">
+        <h2 class="theme-h2 theme-title mb-4">Built on Experience</h2>
+        <p class="text-lg theme-text">
+          At Allied Construction, every project is a promise to deliver top-quality results on
+          time and on budget. Timing and quality are everything in commercial construction. We
+          prioritize proactive solutions and strong partnerships.
+        </p>
+        <div class="mt-8">
+          <a href="/about" class="btn btn-simple">
+            Meet Our Leadership<Fragment set:html={arrowSvg} />
+          </a>
         </div>
       </div>
 
-      <p class="mt-12 text-sm text-neutral-500">
-        Full architecture and editing workflow: <a href="https://github.com" class="underline">docs/content-collections.md</a>.
-      </p>
-    </div>
-  </section>
-
-  <!-- Interactivity model — orthogonal axis -->
-  <section class="border-t border-neutral-200 bg-neutral-50">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <p class="text-sm uppercase tracking-wide text-neutral-500">
-        A separate axis — not a fourth tier
-      </p>
-      <h2 class="mt-3">Interactivity: when to add JavaScript</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        The three tiers above answer <em>where the content lives</em>. Islands answer a different question:
-        <em>does this part of the page need to run JavaScript in the browser?</em> The two are orthogonal —
-        any page (collection entry, inline route, config-driven) can include an island when interactivity demands it.
-      </p>
-
-      <div class="mt-12 grid gap-8 lg:grid-cols-3">
-        <a href="/islands" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400 lg:col-span-2">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Concept demo</p>
-          <h3 class="mt-3">/islands</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            Live demos of <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:load</code>,
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:idle</code>,
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:visible</code>. React and vanilla-JS examples.
-            Decision rules for when to reach for an island vs. plain <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.astro</code>.
-          </p>
-        </a>
-        <div class="rounded-xl border border-dashed border-neutral-300 p-8">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Default</p>
-          <h3 class="mt-3">Zero JS</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            Most components in this starter are <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.astro</code> — they ship as static HTML
-            with no client-side runtime. Keep it that way unless interactivity demands otherwise.
-          </p>
-        </div>
+      <div class="mx-auto grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-3 lg:gap-x-20">
+        {
+          stats.map((s) => (
+            <article class="text-center">
+              <h4 class="theme-h4 theme-title mb-4">{s.title}</h4>
+              <p class="mx-auto max-w-xl text-lg theme-text">{s.body}</p>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <!-- Lorem fill / visual weight -->
-  <section class="border-t border-neutral-200">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <div class="grid gap-12 lg:grid-cols-2 items-start">
-        <div>
-          <h2>Replace this section</h2>
-          <p class="mt-4 text-neutral-500">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.
-          </p>
-          <p class="mt-4 text-neutral-500">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-          <p class="mt-4 text-sm text-neutral-500">
-            <strong>How to remove this:</strong> open
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/index.astro</code> and delete this section.
-            The whole homepage is hardcoded — no Markdown to track down.
-          </p>
-        </div>
-        <div class="aspect-4/3 overflow-hidden rounded-xl bg-neutral-200">
-          <img
-            src="/images/placeholders/landscape-4x3.svg"
-            alt="Placeholder image rendered from public/images/placeholders/landscape-4x3.svg"
-            class="h-full w-full object-cover"
-          />
+  <!-- 4. Testimonial -->
+  <section class="relative z-10 theme-wrapper overflow-hidden py-24 sm:py-32 lg:py-40">
+    <div class="mx-auto max-w-2xl px-8 lg:max-w-4xl">
+      <div class="flex justify-center gap-x-1 theme-title">
+        {
+          Array.from({ length: 5 }).map(() => (
+            <svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5 flex-none">
+              <path
+                fill-rule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          ))
+        }
+      </div>
+      <figure class="mt-10">
+        <blockquote class="text-center text-3xl leading-10 theme-title">
+          "Allied made our project seamless, staying on schedule and within budget while
+          delivering top-notch quality. Their professionalism were second to none."
+        </blockquote>
+        <figcaption class="mt-10 text-center">
+          <p class="text-lg theme-text">Owner, Edwin Hotel</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 5. Locations map -->
+  <LocationsMap />
+
+  <!-- 6. Our expertise -->
+  <section data-theme="Dark" class="relative z-10 isolate overflow-hidden py-24 sm:py-32 lg:py-40">
+    <div class={wrapper}>
+      <div class="m-auto mb-20 max-w-3xl text-center">
+        <h2 class="theme-h2 theme-title mb-4">Our Expertise</h2>
+      </div>
+      <div class="mx-auto grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-3 lg:gap-x-20">
+        {
+          expertise.map((e) => (
+            <article class="text-center">
+              <h4 class="theme-h4 theme-title mb-4">{e.title}</h4>
+              <p class="mx-auto max-w-xl text-lg theme-text">{e.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+    <div class="absolute inset-0 -z-10">
+      <img
+        src="/images/allied/expertise-bg.png"
+        alt=""
+        class="absolute inset-0 h-full w-full object-cover"
+      />
+      <div aria-hidden="true" class="absolute inset-0 bg-black opacity-60"></div>
+    </div>
+  </section>
+
+  <!-- 7. Let's talk -->
+  <section data-theme="Dark" class="relative z-10 isolate overflow-hidden theme-wrapper pt-32 pb-52">
+    <div
+      class="absolute top-0 h-80 w-full overflow-hidden md:right-0 md:h-full md:w-1/3 lg:w-1/2"
+    >
+      <img
+        src="/images/allied/lets-talk.png"
+        alt="Interior detail of a completed Allied project"
+        class="h-full w-full object-cover"
+      />
+    </div>
+    <div class="relative mx-auto xl:max-w-[80vw] pt-72 sm:pt-64 sm:pb-40 md:pt-32 md:pb-32 lg:pt-52 lg:px-8">
+      <div class="pl-8 pr-6 md:mr-auto md:w-2/3 md:pl-8 lg:w-1/2 lg:pr-24 lg:pl-0">
+        <h2 class="theme-h2 theme-title mb-4">Let's talk</h2>
+        <p class="text-lg theme-text">
+          Ready to bring your vision to life? Allied Construction is here to deliver unmatched
+          expertise and craftsmanship. Contact us today to discuss your next project.
+        </p>
+        <div class="mt-8">
+          <a href="/contact" class="btn btn-primary px-8 py-4 text-base">
+            Get in Touch<Fragment set:html={arrowSvg} />
+          </a>
         </div>
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  // Scroll-reveal for project cards (fade + scale in).
+  const cards = document.querySelectorAll(".fade-in");
+  if (cards.length) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 },
+    );
+    cards.forEach((c) => io.observe(c));
+  }
+</script>
