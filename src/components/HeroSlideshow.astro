@@ -39,11 +39,11 @@ const { pretitle, title, body, images } = Astro.props;
 </section>
 
 <style>
-  /* Subtle Ken Burns: each slide slowly drifts + zooms so there's always
-     motion between crossfades. Kept gentle (max ~6% zoom). */
+  /* Ken Burns: each slide slowly drifts + zooms so there's always
+     motion between crossfades (max ~13% zoom). */
   .hero-slide {
     will-change: transform;
-    animation: ken-burns-1 18s ease-in-out infinite alternate;
+    animation: ken-burns-1 16s ease-in-out infinite alternate;
   }
   #hero-slideshow li:nth-child(2) .hero-slide {
     animation-name: ken-burns-2;
@@ -54,26 +54,26 @@ const { pretitle, title, body, images } = Astro.props;
 
   @keyframes ken-burns-1 {
     from {
-      transform: scale(1) translate(0, 0);
+      transform: scale(1.02) translate(0, 0);
     }
     to {
-      transform: scale(1.06) translate(-1.5%, -1%);
+      transform: scale(1.13) translate(-3%, -2%);
     }
   }
   @keyframes ken-burns-2 {
     from {
-      transform: scale(1.06) translate(1.5%, 1%);
+      transform: scale(1.13) translate(3%, 2%);
     }
     to {
-      transform: scale(1) translate(0, 0);
+      transform: scale(1.02) translate(0, 0);
     }
   }
   @keyframes ken-burns-3 {
     from {
-      transform: scale(1) translate(1%, -1%);
+      transform: scale(1.02) translate(2%, -2%);
     }
     to {
-      transform: scale(1.06) translate(-1%, 1.5%);
+      transform: scale(1.13) translate(-2%, 3%);
     }
   }
 
