@@ -1,6 +1,15 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import siteMeta from "../data/site-meta.json";
+
+const work = [
+  { name: "Vetframe", tag: "Veterinary", url: "https://vetframe.com/", img: "/images/work/vetframe.png" },
+  { name: "Riley's Mailboxes", tag: "Home services", url: "https://www.rileysmailboxes.com/", img: "/images/work/rileys-mailboxes.png" },
+  { name: "Petstop Vet", tag: "Veterinary", url: "https://petstopvet.com/", img: "/images/work/petstop-vet.png" },
+  { name: "Eagle Point Welding", tag: "Welding & fabrication", url: "https://eaglepointwelding.com/", img: "/images/work/eagle-point-welding.png" },
+  { name: "Western Quality Builds", tag: "Construction", url: "https://westernqualitybuilds.com/", img: "/images/work/western-quality-builds.png" },
+  { name: "Small Seats", tag: "Childcare", url: "https://smallseats.co/", img: "/images/work/small-seats.png" },
+];
 ---
 
 <BaseLayout title="Home" description={siteMeta.description}>
@@ -48,41 +57,33 @@ import siteMeta from "../data/site-meta.json";
   <section class="pad" id="work">
     <div class="wrap">
       <div class="sec-head">
-        <h2 class="disp">Recent work that paid off.</h2>
+        <h2 class="disp">Recent work.</h2>
         <p class="note">
-          Trusted by growing businesses across Utah and beyond — and the numbers
-          that followed.
+          A range of businesses we've designed, built, and launched — across
+          Utah and beyond.
         </p>
       </div>
       <div class="work">
-        <div class="wc big">
-          <div class="img-slot" style="height:420px">
-            Flagship project screenshot
-          </div>
-          <div class="wc-body">
-            <div>
-              <h3>Wasatch Dental</h3>
-              <div class="tag">Healthcare · Full redesign + SEO</div>
-            </div>
-            <div class="wc-stat"><b>+212%</b><span>booking requests</span></div>
-          </div>
-        </div>
-        <div class="wc">
-          <div class="img-slot" style="height:198px">Project screenshot</div>
-          <div class="wc-body">
-            <div><h3>Alpine Homes</h3><div class="tag">Construction</div></div>
-            <div class="wc-stat"><b>2.1s</b><span>load time</span></div>
-          </div>
-        </div>
-        <div class="wc">
-          <div class="img-slot" style="height:198px">Project screenshot</div>
-          <div class="wc-body">
-            <div>
-              <h3>Granary Coffee</h3><div class="tag">Local retail</div>
-            </div>
-            <div class="wc-stat"><b>#1</b><span>"coffee near me"</span></div>
-          </div>
-        </div>
+        {
+          work.map((p) => (
+            <a class="wc" href={p.url} target="_blank" rel="noopener">
+              <img
+                class="wc-shot"
+                src={p.img}
+                alt={`${p.name} website`}
+                width="1440"
+                height="900"
+                loading="lazy"
+              />
+              <div class="wc-body">
+                <div>
+                  <h3>{p.name}</h3>
+                  <div class="tag">{p.tag}</div>
+                </div>
+              </div>
+            </a>
+          ))
+        }
       </div>
     </div>
   </section>
