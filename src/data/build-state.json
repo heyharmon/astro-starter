@@ -16,5 +16,5 @@
   },
   "sitemapApproved": true,
   "styleguideApproved": true,
-  "notes": "Replicating the Allied Construction site. Reference pages remaining: individual /projects/<slug> detail pages and /services/<slug> detail pages (deferred). Reference assets in public/images/allied/. Reference HTML snapshot at /tmp/allied-ref/*.html, screenshots at /tmp/allied-ref/shots/."
+  "notes": "Replicating the Allied Construction site. Project detail template built as a content collection + dynamic route (src/pages/projects/[...slug].astro reads src/content/projects/*.md via the schema in content.config.ts). One entry so far: black-desert (Golf Village). Adding more projects = drop in another .md file. Remaining: more /projects/<slug> entries and /services/<slug> detail pages (deferred). Reference project HTML at /tmp/allied-ref/project-*.html. Reference assets in public/images/allied/."
 }

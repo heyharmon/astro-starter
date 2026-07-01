@@ -10,6 +10,7 @@ const recent = [
     location: "St. George, UT – 2024",
     body: "Condos at Black Desert Resort",
     image: "/images/allied/black-desert.png",
+    href: "/projects/black-desert",
   },
   {
     title: "The Oasis",
@@ -82,21 +83,26 @@ const past = [
 
       <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
         {
-          recent.map((p) => (
-            <div class="fade-in group">
-              <div class="mb-4 aspect-square w-full overflow-hidden rounded-lg sm:aspect-[2/3]">
-                <img
-                  src={p.image}
-                  alt={p.title}
-                  loading="lazy"
-                  class="h-full w-full object-cover transition-all duration-500 group-hover:scale-110"
-                />
-              </div>
-              <p class="mb-3 text-lg theme-pretitle">{p.location}</p>
-              <h4 class="theme-h4 theme-title mb-4">{p.title}</h4>
-              <p class="text-lg theme-text">{p.body}</p>
-            </div>
-          ))
+          recent.map((p) => {
+            const Tag = p.href ? "a" : "div";
+            return (
+              <Tag href={p.href} class="fade-in group block">
+                <div class="mb-4 aspect-square w-full overflow-hidden rounded-lg sm:aspect-[2/3]">
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    loading="lazy"
+                    class="h-full w-full object-cover transition-all duration-500 group-hover:scale-110"
+                  />
+                </div>
+                <p class="mb-3 text-lg theme-pretitle">{p.location}</p>
+                <h4 class:list={["theme-h4 theme-title mb-4", p.href && "underline-offset-8 group-hover:underline"]}>
+                  {p.title}
+                </h4>
+                <p class="text-lg theme-text">{p.body}</p>
+              </Tag>
+            );
+          })
         }
       </div>
     </div>

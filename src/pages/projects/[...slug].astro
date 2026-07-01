@@ -1,11 +1,11 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
+// One page per project entry. Add a .md file to src/content/projects/ and it
+// gets its own page here — no code changes needed.
 export async function getStaticPaths() {
-  const projects = await getCollection("projects", ({ data }) =>
-    import.meta.env.PROD ? !data.draft : true,
-  );
+  const projects = await getCollection("projects", ({ data }) => !data.draft);
   return projects.map((project) => ({
     params: { slug: project.id },
     props: { project },
@@ -13,60 +13,92 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
+const { data } = project;
 const { Content } = await render(project);
+
+const wrapper = "mx-auto xl:max-w-[80vw] px-8 sm:px-12 lg:px-16";
 ---
 
-<BaseLayout
-  title={project.data.title}
-  description={project.data.description}
-  image={project.data.image?.src}
->
-  <article class="mx-auto max-w-3xl px-6 py-24 sm:py-32">
-    <header>
-      <p class="font-mono text-xs text-neutral-400">
-        src/content/projects/{project.id}.md
-      </p>
-      <h1 class="mt-4">{project.data.title}</h1>
-      <p class="mt-4 text-lg text-neutral-500">{project.data.description}</p>
-      <dl class="mt-8 grid grid-cols-2 gap-6 border-t border-neutral-200 pt-8 text-sm sm:grid-cols-4">
-        {project.data.client && (
-          <div>
-            <dt class="text-neutral-500">Client</dt>
-            <dd class="mt-1">{project.data.client}</dd>
-          </div>
-        )}
-        {project.data.location && (
-          <div>
-            <dt class="text-neutral-500">Location</dt>
-            <dd class="mt-1">{project.data.location}</dd>
-          </div>
-        )}
-        <div>
-          <dt class="text-neutral-500">Order</dt>
-          <dd class="mt-1 font-mono">{project.data.order}</dd>
-        </div>
-        <div>
-          <dt class="text-neutral-500">Featured</dt>
-          <dd class="mt-1 font-mono">{project.data.featured ? "true" : "false"}</dd>
-        </div>
-      </dl>
-      {project.data.image && (
-        <div class="mt-10 aspect-video overflow-hidden rounded-xl bg-neutral-200">
+<BaseLayout title={data.title} description={data.description} image={data.heroImage?.src}>
+  <!-- Hero -->
+  <section data-theme="Dark" class="theme-wrapper relative z-10 isolate overflow-hidden pt-28 pb-16 sm:pt-32 lg:pt-40">
+    {
+      data.heroImage && (
+        <div class="absolute inset-0 -z-10" aria-hidden="true">
           <img
-            src={project.data.image.src}
-            alt={project.data.image.alt}
-            class="h-full w-full object-cover"
+            src={data.heroImage.src}
+            alt=""
+            class="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl"
           />
+          <div class="absolute inset-0 bg-black/65" />
         </div>
-      )}
-    </header>
+      )
+    }
+    <div class={wrapper}>
+      <div class="max-w-3xl">
+        {data.location && <p class="mb-3 text-lg theme-pretitle">{data.location}</p>}
+        <h1 class="theme-h1 theme-title mb-4">{data.title}</h1>
+        <p class="text-lg theme-text">{data.description}</p>
+      </div>
 
-    <div class="prose mt-12">
-      <Content />
+      {
+        data.heroImage && (
+          <div class="mt-10 aspect-[16/9] w-full overflow-hidden rounded-2xl sm:mt-14">
+            <img
+              src={data.heroImage.src}
+              alt={data.heroImage.alt}
+              class="h-full w-full object-cover"
+            />
+          </div>
+        )
+      }
     </div>
+  </section>
 
-    <footer class="mt-16 border-t border-neutral-200 pt-8">
-      <a href="/projects" class="text-sm underline">← Back to all projects</a>
-    </footer>
-  </article>
+  <!-- Stats band -->
+  {
+    data.stats.length > 0 && (
+      <section class="theme-wrapper relative z-10 pt-16 pb-10 sm:pt-24 sm:pb-16">
+        <div class={wrapper}>
+          <dl class="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+            {data.stats.map((stat) => (
+              <div>
+                <dt class="mb-2 text-sm theme-pretitle">{stat.label}</dt>
+                <dd class="theme-h4 theme-title">{stat.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- About + gallery -->
+  <section class="theme-wrapper relative z-10 overflow-hidden py-20 sm:py-28 lg:py-32">
+    <div class={wrapper}>
+      <div class="max-w-3xl">
+        <h3 class="theme-h3 theme-title mb-4">About the project</h3>
+        <div class="prose text-lg theme-text">
+          <Content />
+        </div>
+      </div>
+
+      {
+        data.gallery.length > 0 && (
+          <div class="mt-14 grid grid-cols-2 gap-4 sm:mt-20">
+            {data.gallery.map((img) => (
+              <div
+                class:list={[
+                  "overflow-hidden rounded-lg",
+                  img.wide ? "col-span-2 aspect-[16/9]" : "aspect-square",
+                ]}
+              >
+                <img src={img.src} alt={img.alt} loading="lazy" class="h-full w-full object-cover" />
+              </div>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
 </BaseLayout>
