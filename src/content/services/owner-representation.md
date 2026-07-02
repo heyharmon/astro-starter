@@ -3,7 +3,7 @@ title: "Owner Representation"
 tagline: "From planning to completion, Allied advocates for your vision and protects your investment every step of the way."
 description: "Allied Construction: Trusted owner representation to safeguard your vision, manage budgets, and ensure quality at every project stage. Start your project today!"
 heroImage:
-  src: /images/allied/services/owner-representation/hero.png
+  src: /images/allied/services/owner-representation/hero.webp
   alt: "Owner Representation"
 ctaLabel: "Start Your Project"
 intro:
@@ -13,17 +13,17 @@ features:
   - heading: "Advocating for your vision"
     body: "Allied serves as your dedicated advocate, aligning the entire project team to your goals and objectives. We act as your eyes and ears on the ground, ensuring every decision and action reflects your vision and priorities."
     image:
-      src: /images/allied/services/owner-representation/feature-1.png
+      src: /images/allied/services/owner-representation/feature-1.webp
       alt: "Advocating for your vision"
   - heading: "Budget, schedule, and risk management"
     body: "We keep your project on track by carefully managing budgets, timelines, and potential risks. Allied maximizes the value of your investment by identifying issues early and implementing effective solutions to keep progress steady and efficient."
     image:
-      src: /images/allied/services/owner-representation/feature-2.png
+      src: /images/allied/services/owner-representation/feature-2.webp
       alt: "Budget, schedule, and risk management"
   - heading: "Streamlined communication and quality assurance"
     body: "With Allied at the helm, communication between all stakeholders is seamless and transparent. We establish clear guidelines, monitor progress, and enforce contracts to ensure quality standards and regulatory requirements are consistently met."
     image:
-      src: /images/allied/services/owner-representation/feature-3.png
+      src: /images/allied/services/owner-representation/feature-3.webp
       alt: "Streamlined communication and quality assurance"
 why:
   heading: "Allied’s Difference"

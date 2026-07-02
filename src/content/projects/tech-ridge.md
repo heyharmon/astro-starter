@@ -3,7 +3,7 @@ title: "Tech Ridge Container Offices"
 location: "St George, Utah"
 description: "Explore Tech Ridge Container Offices in St. George, Utah: a 15,000 sq. ft. modern office space crafted from 56 shipping containers. Completed in 2024."
 heroImage:
-  src: /images/allied/projects/tech-ridge/hero.png
+  src: /images/allied/projects/tech-ridge/hero.webp
   alt: "Tech Ridge Container Offices"
 stats:
   - { label: "Completed", value: "2024" }

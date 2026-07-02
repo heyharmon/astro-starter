@@ -3,7 +3,7 @@ title: "Black Desert – Golf Village"
 location: "Ivins, Utah"
 description: "Discover Black Desert – Golf Village in Ivins, Utah: 90 luxury condos on the PGA tour's Black Desert Golf Course. Opening Fall 2024."
 heroImage:
-  src: /images/allied/projects/black-desert/hero.png
+  src: /images/allied/projects/black-desert/hero.webp
   alt: "Black Desert – Golf Village condos overlooking the golf course"
 stats:
   - { label: "Completed", value: "2024" }
@@ -13,16 +13,16 @@ stats:
   - { label: "Condos", value: "90" }
   - { label: "Buildings", value: "5" }
 gallery:
-  - { src: /images/allied/projects/black-desert/gallery-1.png, alt: "Black Desert – Golf Village exterior" }
-  - { src: /images/allied/projects/black-desert/gallery-2.png, alt: "Condo building at Black Desert" }
-  - { src: /images/allied/projects/black-desert/gallery-3.png, alt: "Golf Village architecture detail" }
-  - { src: /images/allied/projects/black-desert/gallery-4.png, alt: "Black Desert Resort grounds" }
-  - { src: /images/allied/projects/black-desert/gallery-5.png, alt: "Condo overlooking the putting green" }
-  - { src: /images/allied/projects/black-desert/gallery-6.png, alt: "Golf course views from the residences" }
-  - { src: /images/allied/projects/black-desert/gallery-7.png, alt: "Black Desert Golf Village at dusk" }
-  - { src: /images/allied/projects/black-desert/gallery-8.png, alt: "Interior of a Golf Village condo" }
-  - { src: /images/allied/projects/black-desert/gallery-9.png, alt: "Driving range and residences" }
-  - { src: /images/allied/projects/black-desert/hero.png, alt: "Aerial view of Black Desert – Golf Village" }
+  - { src: /images/allied/projects/black-desert/gallery-1.webp, alt: "Black Desert – Golf Village exterior" }
+  - { src: /images/allied/projects/black-desert/gallery-2.webp, alt: "Condo building at Black Desert" }
+  - { src: /images/allied/projects/black-desert/gallery-3.webp, alt: "Golf Village architecture detail" }
+  - { src: /images/allied/projects/black-desert/gallery-4.webp, alt: "Black Desert Resort grounds" }
+  - { src: /images/allied/projects/black-desert/gallery-5.webp, alt: "Condo overlooking the putting green" }
+  - { src: /images/allied/projects/black-desert/gallery-6.webp, alt: "Golf course views from the residences" }
+  - { src: /images/allied/projects/black-desert/gallery-7.webp, alt: "Black Desert Golf Village at dusk" }
+  - { src: /images/allied/projects/black-desert/gallery-8.webp, alt: "Interior of a Golf Village condo" }
+  - { src: /images/allied/projects/black-desert/gallery-9.webp, alt: "Driving range and residences" }
+  - { src: /images/allied/projects/black-desert/hero.webp, alt: "Aerial view of Black Desert – Golf Village" }
 order: 1
 featured: true
 ---

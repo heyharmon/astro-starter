@@ -3,6 +3,16 @@
 All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2026-07-02] — Performance & contact form
+
+### Changed
+- Converted all 71 site photos from oversized PNG/JPEG to WebP (max 1920w, quality 78, stripped metadata) and repointed every reference. Images directory dropped ~125 MB → 9.9 MB (~92%); homepage image payload ~15.7 MB → ~1.05 MB.
+- Hero slideshow now preloads only the first (LCP) image and defers slides 2–3 to `requestIdleCallback` instead of loading all three up front. Added `loading="lazy"` to the below-fold expertise and let's-talk background images.
+- OG image is now an 88 KB 1200×630 JPG (`og-default.jpg`), kept raster for social scrapers.
+
+### Fixed
+- Contact form now posts to the Basin endpoint (`usebasin.com/f/2778b289d634`) instead of the Formspree placeholder; verified end-to-end.
+
 ## [2026-07-02] — Allied Construction replica
 
 Near-pixel replica of the Allied Construction reference site, built the Astro way with all assets stored locally.

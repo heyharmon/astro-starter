@@ -3,7 +3,7 @@ title: "Construction Management"
 tagline: "Streamlined processes, clear communication, and exceptional results—all led by Allied’s seasoned experts."
 description: "Allied Construction: Expert construction management services delivering projects on time, within budget, and to the highest standards. Schedule your consultation today."
 heroImage:
-  src: /images/allied/services/construction-management/hero.png
+  src: /images/allied/services/construction-management/hero.webp
   alt: "Construction Management"
 ctaLabel: "Schedule a Consultation"
 intro:
@@ -13,17 +13,17 @@ features:
   - heading: "Comprehensive project oversight"
     body: "Allied coordinates every aspect of your project—schedules, budgets, and teams—so you can focus on your business. Our proactive approach ensures no detail is overlooked."
     image:
-      src: /images/allied/services/construction-management/feature-1.png
+      src: /images/allied/services/construction-management/feature-1.webp
       alt: "Comprehensive project oversight"
   - heading: "Transparent communication"
     body: "Stay informed at every stage. Our team provides regular updates and works closely with all stakeholders to address challenges promptly."
     image:
-      src: /images/allied/services/construction-management/feature-2.png
+      src: /images/allied/services/construction-management/feature-2.webp
       alt: "Transparent communication"
   - heading: "Proven problem-solving"
     body: "Led by industry veterans, our team brings decades of experience in overcoming construction challenges, ensuring smooth progress even in complex builds."
     image:
-      src: /images/allied/services/construction-management/feature-3.png
+      src: /images/allied/services/construction-management/feature-3.webp
       alt: "Proven problem-solving"
 steps:
   heading: "Turning plans into reality"

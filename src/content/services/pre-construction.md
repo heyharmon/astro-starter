@@ -3,7 +3,7 @@ title: "Pre-Construction"
 tagline: "Expertise, efficiency, and transparency—Allied's pre-construction process gets it right from the start."
 description: "Allied Construction: Seamless pre-construction services with expert budgeting, scheduling, and design collaboration. Build your project on a solid foundation with Allied."
 heroImage:
-  src: /images/allied/services/pre-construction/hero.png
+  src: /images/allied/services/pre-construction/hero.webp
   alt: "Pre-Construction"
 ctaLabel: "Start Your Project"
 intro:
@@ -13,17 +13,17 @@ features:
   - heading: "Budgeting and Cost Management"
     body: "Allied’s experienced team develops clear, detailed budgets to maximize your investment. We evaluate material costs, labor, and potential risks upfront to keep your project on track financially."
     image:
-      src: /images/allied/services/pre-construction/feature-1.png
+      src: /images/allied/services/pre-construction/feature-1.webp
       alt: "Budgeting and Cost Management"
   - heading: "Comprehensive Scheduling"
     body: "Timelines are non-negotiable. We use advanced tools and decades of expertise to create realistic schedules that guide every phase of your project, ensuring it’s delivered on time."
     image:
-      src: /images/allied/services/pre-construction/feature-2.png
+      src: /images/allied/services/pre-construction/feature-2.webp
       alt: "Comprehensive Scheduling"
   - heading: "Collaborative Design Assistance"
     body: "We work closely with architects and engineers to refine designs and ensure every plan is both innovative and constructible. This collaborative approach safeguards your vision while optimizing feasibility."
     image:
-      src: /images/allied/services/pre-construction/feature-3.png
+      src: /images/allied/services/pre-construction/feature-3.webp
       alt: "Collaborative Design Assistance"
 why:
   heading: "Allied’s Difference"

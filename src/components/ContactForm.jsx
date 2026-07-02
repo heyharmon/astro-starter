@@ -4,7 +4,7 @@ const FIELD_CLASS =
   "mt-2 block w-full rounded-md border border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-900 placeholder-neutral-400 transition-colors focus:border-neutral-900 focus:outline-none focus:ring-1 focus:ring-neutral-900";
 const LABEL_CLASS = "block text-sm font-semibold text-neutral-900";
 
-export default function ContactForm({ formspreeId }) {
+export default function ContactForm({ basinFormId }) {
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
@@ -23,9 +23,11 @@ export default function ContactForm({ formspreeId }) {
     setErrorMessage("");
 
     try {
-      const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+      // Basin (usebasin.com) headless form endpoint. Accept: application/json
+      // makes Basin return a JSON result instead of a redirect for AJAX posts.
+      const response = await fetch(`https://usebasin.com/f/${basinFormId}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(values),
       });
 

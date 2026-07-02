@@ -9,18 +9,25 @@ interface Props {
 const { pretitle, title, body, images } = Astro.props;
 ---
 
+<!-- Preload the first (LCP) hero image so it starts loading immediately
+     rather than being discovered late via CSS background-image. -->
+{images[0] && <link rel="preload" as="image" href={images[0]} fetchpriority="high" />}
+
 <section
   data-theme="Dark"
   class="theme-wrapper relative isolate overflow-hidden pt-44 pb-44 sm:pt-56 sm:pb-56 sticky top-0 z-0"
 >
-  <!-- Background crossfade slideshow -->
+  <!-- Background crossfade slideshow. Only the first slide sets its
+       background inline (LCP); the rest carry data-bg and are assigned
+       on idle so they don't compete with the critical render. -->
   <ul id="hero-slideshow" class="absolute inset-0 pointer-events-none">
     {
       images.map((src, i) => (
         <li class="absolute inset-0 overflow-hidden">
           <span
             class="hero-slide absolute inset-0 bg-cover bg-center"
-            style={`background-image:url(${src});opacity:${i === 0 ? 1 : 0};`}
+            data-bg={i === 0 ? undefined : src}
+            style={i === 0 ? `background-image:url(${src});opacity:1;` : "opacity:0;"}
           />
         </li>
       ))
@@ -88,6 +95,21 @@ const { pretitle, title, body, images } = Astro.props;
   const slides = Array.from(
     document.querySelectorAll<HTMLElement>("#hero-slideshow .hero-slide"),
   );
+
+  // Assign the deferred slide backgrounds once the page is idle so they
+  // load shortly after first paint, off the critical path.
+  const loadDeferred = () => {
+    slides.forEach((s) => {
+      const bg = s.dataset.bg;
+      if (bg && !s.style.backgroundImage) s.style.backgroundImage = `url(${bg})`;
+    });
+  };
+  if ("requestIdleCallback" in window) {
+    (window as any).requestIdleCallback(loadDeferred, { timeout: 2000 });
+  } else {
+    setTimeout(loadDeferred, 500);
+  }
+
   if (slides.length > 1 && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     slides.forEach((s) => (s.style.transition = "opacity 2s ease-in-out"));
     let current = 0;

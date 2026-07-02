@@ -3,15 +3,15 @@ title: "Black Desert – The Oasis"
 location: "Ivins, Utah"
 description: "Experience Black Desert – The Oasis in Ivins, Utah: a 6,000 sq. ft. restaurant with rooftop dining and breathtaking views on the PGA Black Desert Golf Course."
 heroImage:
-  src: /images/allied/projects/the-oasis/hero.jpg
+  src: /images/allied/projects/the-oasis/hero.webp
   alt: "Black Desert – The Oasis"
 stats:
   - { label: "Completed", value: "2024" }
   - { label: "Project Cost", value: "$2.1M" }
   - { label: "Square Feet", value: "6,000" }
 gallery:
-  - { src: /images/allied/projects/the-oasis/gallery-1.png, alt: "Black Desert – The Oasis image 1" }
-  - { src: /images/allied/projects/the-oasis/hero.jpg, alt: "Black Desert – The Oasis image 2" }
+  - { src: /images/allied/projects/the-oasis/gallery-1.webp, alt: "Black Desert – The Oasis image 1" }
+  - { src: /images/allied/projects/the-oasis/hero.webp, alt: "Black Desert – The Oasis image 2" }
 order: 2
 featured: false
 ---

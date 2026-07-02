@@ -3,7 +3,7 @@ title: "General Contracting"
 tagline: "Trusted general contracting for commercial success."
 description: "Allied Construction: Trusted general contracting services delivering quality builds on time and within budget. Experience precision, craftsmanship, and proven success."
 heroImage:
-  src: /images/allied/services/general-contracting/hero.png
+  src: /images/allied/services/general-contracting/hero.webp
   alt: "General Contracting"
 ctaLabel: "Partner With Us"
 intro:
@@ -13,17 +13,17 @@ features:
   - heading: "Seamless Project Management"
     body: "From groundbreaking to completion, Allied oversees every aspect of your project. Our team coordinates trades, manages timelines, and keeps construction on track to deliver results without delays."
     image:
-      src: /images/allied/services/general-contracting/feature-1.png
+      src: /images/allied/services/general-contracting/feature-1.webp
       alt: "Seamless Project Management"
   - heading: "Quality Craftsmanship"
     body: "We partner with trusted subcontractors and utilize industry-leading practices to ensure your build meets the highest standards. Quality is non-negotiable in every project we handle."
     image:
-      src: /images/allied/services/general-contracting/feature-2.png
+      src: /images/allied/services/general-contracting/feature-2.webp
       alt: "Quality Craftsmanship"
   - heading: "Comprehensive Oversight"
     body: "Our team is committed to keeping your project running smoothly. From safety protocols to daily task coordination, we ensure every phase is executed with precision."
     image:
-      src: /images/allied/services/general-contracting/feature-3.png
+      src: /images/allied/services/general-contracting/feature-3.webp
       alt: "Comprehensive Oversight"
 why:
   heading: "Why Allied?"
