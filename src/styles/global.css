@@ -112,6 +112,10 @@
   font-weight: 700;
   text-transform: uppercase;
   color: var(--title-color);
+  /* Long uppercase words must break instead of overflowing narrow
+     containers (service tiles, mobile heroes) rather than clipping. */
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 .theme-text {
   color: var(--text-color);
@@ -126,7 +130,9 @@
   font-weight: 700;
   text-transform: uppercase;
   line-height: 1.05;
-  font-size: clamp(3.5rem, 5.5vw, 4.5rem);
+  /* Lower minimum so long single words fit a 375px viewport; vw drives
+     it back up to 4.5rem on larger screens. */
+  font-size: clamp(2.25rem, 5.5vw, 4.5rem);
 }
 .theme-h2 {
   font-family: var(--font-display);

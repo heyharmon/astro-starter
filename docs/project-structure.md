@@ -29,9 +29,8 @@
 ├── src/
 │   ├── content.config.ts      → Content collection schemas (Zod)
 │   ├── content/
-│   │   ├── pages/             → Static page content (home, about, services, contact, etc.)
 │   │   ├── projects/          → Project showcases (one .md per project)
-│   │   └── posts/             → Blog posts
+│   │   └── services/          → Service pages (one .md per service)
 │   ├── data/
 │   │   ├── nav.json           → Navigation links with sort order
 │   │   ├── footer.json        → Footer link groups
@@ -48,10 +47,10 @@
 │   │   └── ContactForm.jsx    → React contact form (Formspree submission)
 │   ├── pages/
 │   │   ├── index.astro        → / (homepage)
-│   │   ├── about.astro        → /about
-│   │   ├── services.astro     → /services
+│   │   ├── services.astro     → /services (listing; tiles link to detail pages)
+│   │   ├── services/[...slug].astro → /services/[slug] (dynamic, services collection)
+│   │   ├── team.astro         → /team
 │   │   ├── contact.astro      → /contact
-│   │   ├── blog/              → /blog and /blog/[slug] (dynamic, posts collection)
 │   │   ├── projects/          → /projects and /projects/[slug] (dynamic, projects collection)
 │   │   └── styleguide.astro   → /styleguide (design system preview, noindex)
 │   └── styles/

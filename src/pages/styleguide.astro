@@ -1,19 +1,39 @@
 ---
 /**
- * Styleguide — Design System Preview
+ * Styleguide — Allied Construction Design System Preview
  *
- * Development-only page for reviewing the visual design system.
- * Not included in navigation. Renders all design atoms and component patterns
- * using the same tokens and styles as the live site.
+ * Development-only page (noindex) for reviewing the visual design system.
+ * Not included in navigation. Renders the real Allied tokens and component
+ * patterns using the same global.css and theme utilities as the live site.
  *
- * Layer 1: Atomic tokens (colors, typography, buttons, forms, effects)
- * Layer 2: Component patterns (hero, cards, CTA, sections, nav, footer)
+ * Source of truth: src/styles/global.css (CSS) + src/data/design-tokens.json
+ * (machine-readable). Sections opt into a colour theme via
+ * data-theme="Dark" | "Neutral" (default = light); the .theme-* utilities
+ * re-colour per section.
  *
- * Agents: When adding new component patterns during page building,
- * append a new section above the "NEW PATTERNS BELOW" comment at the bottom.
+ * Layer 1: Tokens (palette, theme system, typography, buttons, effects)
+ * Layer 2: Component patterns (hero, cards, stats, CTA, nav, footer)
  */
 import Header from "../components/Header.astro";
 import "../styles/global.css";
+
+const wrapper = "mx-auto xl:max-w-[80vw] px-8 sm:px-12 lg:px-16";
+
+const arrowSvg =
+  '<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="order-last ml-2 h-5 w-5" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"/></svg>';
+
+const swatches = [
+  { name: "Brand teal — logo only", value: "#00a7bd", var: "--color-brand", ink: "#ffffff" },
+  { name: "Black — ink & dark bands", value: "#000000", var: "black", ink: "#ffffff" },
+  { name: "White — light bands", value: "#ffffff", var: "white", ink: "#000000", border: true },
+  { name: "Grey — neutral bands", value: "#f2f2f2", var: "--color-grey", ink: "#000000", border: true },
+];
+
+const themes = [
+  { label: "Default (light)", attr: undefined, note: "White band, black ink." },
+  { label: "Neutral", attr: "Neutral", note: "Grey (#f2f2f2) band, black ink." },
+  { label: "Dark", attr: "Dark", note: "Black band, white ink, inverted button." },
+];
 ---
 
 <!doctype html>
@@ -22,245 +42,205 @@ import "../styles/global.css";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Styleguide — Design System</title>
+    <title>Styleguide — Allied Construction Design System</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
     <Header />
 
+    <!-- Intro -->
+    <section class="theme-wrapper py-20 sm:py-28">
+      <div class={wrapper}>
+        <p class="mb-3 text-lg theme-pretitle">Styleguide</p>
+        <h1 class="theme-h1 theme-title mb-4">Design System</h1>
+        <p class="max-w-2xl text-lg theme-text">
+          The live Allied Construction design system. This page uses the same
+          <code class="bg-neutral-100 px-1.5 py-0.5 font-mono text-sm">global.css</code> and
+          <code class="bg-neutral-100 px-1.5 py-0.5 font-mono text-sm">.theme-*</code> utilities as
+          every other page. Fonts: Syne (display, uppercase) and Albert Sans (body).
+        </p>
+      </div>
+    </section>
+
     <!-- ============================================ -->
-    <!-- LAYER 1: ATOMIC TOKENS                       -->
+    <!-- LAYER 1: TOKENS                              -->
     <!-- ============================================ -->
 
-    <div class="mx-auto max-w-5xl px-6 py-16">
-      <p class="text-sm font-medium uppercase tracking-wider text-neutral-400 mb-2">Styleguide</p>
-      <h1>Design System</h1>
-      <p class="mt-4 max-w-2xl">
-        This page previews all design tokens and component patterns used across the site.
-        It imports the same <code class="bg-neutral-100 px-1.5 py-0.5 rounded text-sm font-mono text-neutral-800">global.css</code> as every other page.
-      </p>
-    </div>
+    <!-- PALETTE -->
+    <section class="theme-wrapper border-t border-neutral-200 py-16 sm:py-20">
+      <div class={wrapper}>
+        <p class="mb-2 text-lg theme-pretitle">Layer 1 — Tokens</p>
+        <h2 class="theme-h2 theme-title mb-4">Colour palette</h2>
+        <p class="mb-10 max-w-2xl text-lg theme-text">
+          Black, white and grey bands carry the whole site. Teal is reserved for the logo only —
+          never for section backgrounds or body text.
+        </p>
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {
+            swatches.map((s) => (
+              <div>
+                <div
+                  class:list={["flex h-24 items-end rounded-lg p-3", s.border && "border border-neutral-200"]}
+                  style={`background:${s.value};color:${s.ink}`}
+                >
+                  <span class="text-xs font-medium">{s.value}</span>
+                </div>
+                <p class="mt-2 text-sm theme-text">{s.name}</p>
+              </div>
+            ))
+          }
+        </div>
 
-    <!-- COLORS -->
-    <section class="mx-auto max-w-5xl px-6 py-16 border-t border-neutral-200">
-      <p class="text-sm font-medium uppercase tracking-wider text-neutral-400 mb-2">Layer 1</p>
-      <h2 class="mb-12">Color Palette</h2>
-
-      <h3 class="mb-6">Neutral Scale</h3>
-      <div class="grid grid-cols-5 sm:grid-cols-11 gap-2 mb-12">
-        <div>
-          <div class="h-16 rounded border border-neutral-200 bg-neutral-50"></div>
-          <p class="mt-2 text-xs text-neutral-400">50</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-neutral-100"></div>
-          <p class="mt-2 text-xs text-neutral-400">100</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-neutral-200"></div>
-          <p class="mt-2 text-xs text-neutral-400">200</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-neutral-300"></div>
-          <p class="mt-2 text-xs text-neutral-400">300</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-neutral-400"></div>
-          <p class="mt-2 text-xs text-neutral-400">400</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-neutral-500"></div>
-          <p class="mt-2 text-xs text-neutral-400">500</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-neutral-600"></div>
-          <p class="mt-2 text-xs text-neutral-400">600</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-neutral-700"></div>
-          <p class="mt-2 text-xs text-neutral-400">700</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-neutral-800"></div>
-          <p class="mt-2 text-xs text-neutral-400">800</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-neutral-900"></div>
-          <p class="mt-2 text-xs text-neutral-400">900</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-neutral-950"></div>
-          <p class="mt-2 text-xs text-neutral-400">950</p>
+        <h3 class="theme-h4 theme-title mb-4 mt-14">Neutral scale</h3>
+        <p class="mb-6 max-w-2xl text-lg theme-text">
+          Supporting greys for borders, dividers, muted text and code — not section bands.
+        </p>
+        <div class="grid grid-cols-5 gap-2 sm:grid-cols-11">
+          {
+            [
+              { n: "50", c: "h-14 rounded border border-neutral-200 bg-neutral-50" },
+              { n: "100", c: "h-14 rounded bg-neutral-100" },
+              { n: "200", c: "h-14 rounded bg-neutral-200" },
+              { n: "300", c: "h-14 rounded bg-neutral-300" },
+              { n: "400", c: "h-14 rounded bg-neutral-400" },
+              { n: "500", c: "h-14 rounded bg-neutral-500" },
+              { n: "600", c: "h-14 rounded bg-neutral-600" },
+              { n: "700", c: "h-14 rounded bg-neutral-700" },
+              { n: "800", c: "h-14 rounded bg-neutral-800" },
+              { n: "900", c: "h-14 rounded bg-neutral-900" },
+              { n: "950", c: "h-14 rounded bg-neutral-950" },
+            ].map((s) => (
+              <div>
+                <div class={s.c} />
+                <p class="mt-2 text-xs text-neutral-500">{s.n}</p>
+              </div>
+            ))
+          }
         </div>
       </div>
+    </section>
 
-      <h3 class="mb-6">Indigo Accent</h3>
-      <div class="grid grid-cols-5 sm:grid-cols-11 gap-2 mb-12">
-        <div>
-          <div class="h-16 rounded bg-indigo-50"></div>
-          <p class="mt-2 text-xs text-neutral-400">50</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-indigo-100"></div>
-          <p class="mt-2 text-xs text-neutral-400">100</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-indigo-200"></div>
-          <p class="mt-2 text-xs text-neutral-400">200</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-indigo-300"></div>
-          <p class="mt-2 text-xs text-neutral-400">300</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-indigo-400"></div>
-          <p class="mt-2 text-xs text-neutral-400">400</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-indigo-500"></div>
-          <p class="mt-2 text-xs text-neutral-400">500</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-indigo-600"></div>
-          <p class="mt-2 text-xs text-neutral-400">600</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-indigo-700"></div>
-          <p class="mt-2 text-xs text-neutral-400">700</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-indigo-800"></div>
-          <p class="mt-2 text-xs text-neutral-400">800</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-indigo-900"></div>
-          <p class="mt-2 text-xs text-neutral-400">900</p>
-        </div>
-        <div>
-          <div class="h-16 rounded bg-indigo-950"></div>
-          <p class="mt-2 text-xs text-neutral-400">950</p>
-        </div>
+    <!-- THEME SYSTEM -->
+    <section class="theme-wrapper border-t border-neutral-200 py-16 sm:py-20">
+      <div class={wrapper}>
+        <h2 class="theme-h2 theme-title mb-4">Section theme system</h2>
+        <p class="mb-10 max-w-2xl text-lg theme-text">
+          Every banded <code class="bg-neutral-100 px-1.5 py-0.5 font-mono text-sm">&lt;section&gt;</code>
+          sets <code class="bg-neutral-100 px-1.5 py-0.5 font-mono text-sm">data-theme</code>. The
+          same markup re-colours per theme via CSS variables.
+        </p>
       </div>
-
-      <h3 class="mb-6">Backgrounds</h3>
-      <div class="grid gap-4 sm:grid-cols-3 mb-12">
-        <div class="p-6 bg-white border border-neutral-200 rounded-xl">
-          <p class="text-xs text-neutral-400">Primary — white</p>
-        </div>
-        <div class="p-6 bg-neutral-50 border border-neutral-200 rounded-xl">
-          <p class="text-xs text-neutral-400">Secondary — neutral-50</p>
-        </div>
-        <div class="p-6 bg-neutral-100 border border-neutral-200 rounded-xl">
-          <p class="text-xs text-neutral-400">Tertiary — neutral-100</p>
-        </div>
-      </div>
-
-      <h3 class="mb-6">Text Colors</h3>
-      <div class="space-y-3">
-        <p class="text-neutral-900 font-medium">Primary — neutral-900</p>
-        <p class="text-neutral-600">Body — neutral-600</p>
-        <p class="text-neutral-500">Muted — neutral-500</p>
-        <p class="text-neutral-400">Subtle — neutral-400</p>
-        <p class="text-indigo-600 font-medium">Accent — indigo-600</p>
+      <div class="space-y-0">
+        {
+          themes.map((t) => (
+            <div data-theme={t.attr} class="theme-wrapper border-t border-neutral-200/40">
+              <div class:list={[wrapper, "py-12"]}>
+                <p class="mb-2 text-lg theme-pretitle">{t.label}</p>
+                <h3 class="theme-h3 theme-title mb-3">The way we build</h3>
+                <p class="mb-6 max-w-xl text-lg theme-text">{t.note}</p>
+                <div class="flex flex-wrap items-center gap-6">
+                  <a href="#0" class="btn btn-primary px-8 py-4 text-base">
+                    Get in touch<Fragment set:html={arrowSvg} />
+                  </a>
+                  <a href="#0" class="btn btn-simple text-base">
+                    Learn more<Fragment set:html={arrowSvg} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))
+        }
       </div>
     </section>
 
     <!-- TYPOGRAPHY -->
-    <section class="mx-auto max-w-5xl px-6 py-16 border-t border-neutral-200">
-      <h2 class="mb-12">Typography</h2>
-
-      <div class="space-y-8 mb-12">
-        <div>
-          <p class="text-xs text-neutral-400 mb-2">H1 — Inter / font-semibold / text-4xl sm:text-5xl</p>
-          <h1>The quick brown fox</h1>
+    <section class="theme-wrapper border-t border-neutral-200 py-16 sm:py-20">
+      <div class={wrapper}>
+        <h2 class="theme-h2 theme-title mb-4">Typography</h2>
+        <p class="mb-10 max-w-2xl text-lg theme-text">
+          Display headings are Syne 700, uppercase, fluid-clamped. Body copy and pretitle labels are
+          Albert Sans, normal case.
+        </p>
+        <div class="space-y-8">
+          <div>
+            <p class="mb-2 text-xs text-neutral-500">.theme-h1 — Syne 700 / clamp(3.5rem, 5.5vw, 4.5rem)</p>
+            <p class="theme-h1 theme-title">Built to last</p>
+          </div>
+          <div>
+            <p class="mb-2 text-xs text-neutral-500">.theme-h2 — clamp(2.25rem, 4.5vw, 3.5rem)</p>
+            <p class="theme-h2 theme-title">A better way to build</p>
+          </div>
+          <div>
+            <p class="mb-2 text-xs text-neutral-500">.theme-h3 — clamp(1.75rem, 3.5vw, 2.5rem)</p>
+            <p class="theme-h3 theme-title">Recent projects</p>
+          </div>
+          <div>
+            <p class="mb-2 text-xs text-neutral-500">.theme-h4 — clamp(1.25rem, 3vw, 2rem)</p>
+            <p class="theme-h4 theme-title">Quality craftsmanship</p>
+          </div>
         </div>
-        <div>
-          <p class="text-xs text-neutral-400 mb-2">H2 — Inter / font-semibold / text-2xl sm:text-3xl</p>
-          <h2>The quick brown fox jumps over</h2>
-        </div>
-        <div>
-          <p class="text-xs text-neutral-400 mb-2">H3 — Inter / font-medium / text-xl</p>
-          <h3>The quick brown fox jumps over the lazy dog</h3>
-        </div>
-      </div>
-
-      <div class="space-y-6 max-w-2xl">
-        <div>
-          <p class="text-xs text-neutral-400 mb-2">Body — Inter / text-neutral-600</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-        </div>
-        <div>
-          <p class="text-xs text-neutral-400 mb-2">Small / Label — text-sm / uppercase / tracking-wider</p>
-          <p class="text-sm font-medium uppercase tracking-wider text-neutral-500">Section label text</p>
-        </div>
-        <div>
-          <p class="text-xs text-neutral-400 mb-2">Link</p>
-          <a href="#0">This is a text link with hover underline</a>
+        <div class="mt-12 max-w-2xl space-y-6">
+          <div>
+            <p class="mb-2 text-xs text-neutral-500">.theme-pretitle — Albert Sans, label above titles</p>
+            <p class="text-lg theme-pretitle">St. George, Utah</p>
+          </div>
+          <div>
+            <p class="mb-2 text-xs text-neutral-500">Body — Albert Sans 400 / text-lg</p>
+            <p class="text-lg theme-text">
+              At Allied Construction, every project is a promise to deliver top-quality results on
+              time and on budget. Timing and quality are everything in commercial construction.
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- BUTTONS -->
-    <section class="mx-auto max-w-5xl px-6 py-16 border-t border-neutral-200">
-      <h2 class="mb-12">Buttons</h2>
-
-      <div class="flex flex-wrap gap-6 items-center">
-        <a href="#0" class="btn-primary">Primary Button</a>
-        <a href="#0" class="btn-ghost">Ghost Button</a>
-        <a href="#0" class="btn-primary opacity-50 pointer-events-none">Primary Disabled</a>
-        <a href="#0" class="btn-ghost opacity-50 pointer-events-none">Ghost Disabled</a>
-      </div>
-    </section>
-
-    <!-- FORM INPUTS -->
-    <section class="mx-auto max-w-5xl px-6 py-16 border-t border-neutral-200">
-      <h2 class="mb-12">Form Inputs</h2>
-
-      <div class="max-w-md space-y-6">
-        <div>
-          <label class="mb-2 block text-sm font-medium text-neutral-900">Text Input</label>
-          <input
-            type="text"
-            placeholder="Placeholder text"
-            class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-neutral-900 placeholder-neutral-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-          />
-        </div>
-        <div>
-          <label class="mb-2 block text-sm font-medium text-neutral-900">Textarea</label>
-          <textarea
-            rows="4"
-            placeholder="Placeholder text"
-            class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-neutral-900 placeholder-neutral-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-          ></textarea>
-        </div>
-        <button type="button" class="btn-primary">Submit</button>
-      </div>
-    </section>
-
-    <!-- BORDERS & EFFECTS -->
-    <section class="mx-auto max-w-5xl px-6 py-16 border-t border-neutral-200">
-      <h2 class="mb-12">Borders & Effects</h2>
-
-      <div class="space-y-6">
-        <div>
-          <p class="text-xs text-neutral-400 mb-3">Divider — border-neutral-200</p>
-          <hr />
-        </div>
-        <div>
-          <p class="text-xs text-neutral-400 mb-3">Card — rounded-xl border-neutral-200</p>
-          <div class="rounded-xl border border-neutral-200 p-6">
-            <p class="text-sm text-neutral-600">Container with card styling</p>
+    <section class="theme-wrapper border-t border-neutral-200 py-16 sm:py-20">
+      <div class={wrapper}>
+        <h2 class="theme-h2 theme-title mb-4">Buttons</h2>
+        <p class="mb-10 max-w-2xl text-lg theme-text">
+          <code class="bg-neutral-100 px-1.5 py-0.5 font-mono text-sm">.btn.btn-primary</code> is a
+          filled button that inverts per theme (black on light, white on dark).
+          <code class="bg-neutral-100 px-1.5 py-0.5 font-mono text-sm">.btn.btn-simple</code> is a
+          text link with a trailing arrow.
+        </p>
+        <div class="grid gap-0 sm:grid-cols-2">
+          <div class="theme-wrapper flex flex-wrap items-center gap-6 p-10">
+            <a href="#0" class="btn btn-primary px-8 py-4 text-base">Primary<Fragment set:html={arrowSvg} /></a>
+            <a href="#0" class="btn btn-simple text-base">Simple<Fragment set:html={arrowSvg} /></a>
+          </div>
+          <div data-theme="Dark" class="theme-wrapper flex flex-wrap items-center gap-6 p-10">
+            <a href="#0" class="btn btn-primary px-8 py-4 text-base">Primary<Fragment set:html={arrowSvg} /></a>
+            <a href="#0" class="btn btn-simple text-base">Simple<Fragment set:html={arrowSvg} /></a>
           </div>
         </div>
-        <div>
-          <p class="text-xs text-neutral-400 mb-3">Elevated card — rounded-xl shadow-sm</p>
-          <div class="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
-            <p class="text-sm text-neutral-600">Container with subtle shadow</p>
+      </div>
+    </section>
+
+    <!-- EFFECTS -->
+    <section class="theme-wrapper border-t border-neutral-200 py-16 sm:py-20">
+      <div class={wrapper}>
+        <h2 class="theme-h2 theme-title mb-4">Effects</h2>
+        <div class="grid gap-8 sm:grid-cols-3">
+          <div>
+            <p class="mb-3 text-xs text-neutral-500">Card image — rounded-lg, hover zoom</p>
+            <div class="group aspect-[3/2] overflow-hidden rounded-lg bg-neutral-200">
+              <div class="h-full w-full bg-neutral-300 transition-transform duration-500 group-hover:scale-110" />
+            </div>
+          </div>
+          <div>
+            <p class="mb-3 text-xs text-neutral-500">Nav underline — wipes in from left</p>
+            <a href="#0" class="nav-link text-lg font-semibold">Hover me</a>
+          </div>
+          <div>
+            <p class="mb-3 text-xs text-neutral-500">Divider — border-neutral-200</p>
+            <hr />
           </div>
         </div>
       </div>
@@ -270,139 +250,94 @@ import "../styles/global.css";
     <!-- LAYER 2: COMPONENT PATTERNS                  -->
     <!-- ============================================ -->
 
-    <div class="mx-auto max-w-5xl px-6 py-16 border-t border-neutral-200">
-      <p class="text-sm font-medium uppercase tracking-wider text-neutral-400 mb-2">Layer 2</p>
-      <h2>Component Patterns</h2>
-      <p class="mt-4 max-w-2xl">Reusable section patterns used across the site. This section grows as new page layouts introduce new patterns.</p>
-    </div>
+    <section class="theme-wrapper border-t border-neutral-200 py-16 sm:py-20">
+      <div class={wrapper}>
+        <p class="mb-2 text-lg theme-pretitle">Layer 2 — Patterns</p>
+        <h2 class="theme-h2 theme-title mb-4">Component patterns</h2>
+        <p class="max-w-2xl text-lg theme-text">Reusable section patterns used across the site.</p>
+      </div>
+    </section>
 
-    <!-- PATTERN: hero-text -->
-    <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32 border-t border-neutral-200">
-      <p class="text-xs text-neutral-400 mb-4">PATTERN: hero-text</p>
-      <h1 class="max-w-3xl">Text-Only Hero Headline</h1>
-      <p class="mt-6 max-w-2xl text-lg text-neutral-500">
-        Supporting text that describes the hero section. This goes below the headline.
-      </p>
-      <div class="mt-8 flex gap-4">
-        <a href="#0" class="btn-primary">Primary CTA</a>
-        <a href="#0" class="btn-ghost">Secondary CTA</a>
+    <!-- PATTERN: hero-centered -->
+    <section data-theme="Dark" class="theme-wrapper border-t border-neutral-200 py-24 sm:py-32">
+      <div class={wrapper}>
+        <p class="mb-4 text-xs opacity-60">PATTERN: hero-centered (homepage)</p>
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="mb-3 text-lg theme-pretitle">Allied Construction</p>
+          <h2 class="theme-h1 theme-title mb-6">A better way to build</h2>
+          <p class="mx-auto mb-8 max-w-xl text-lg theme-text">
+            Commercial construction delivered with precision, collaboration, and a commitment to
+            excellence.
+          </p>
+          <a href="#0" class="btn btn-primary px-8 py-4 text-base">Get in touch<Fragment set:html={arrowSvg} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PATTERN: hero-left -->
+    <section class="theme-wrapper border-t border-neutral-200 py-24 sm:py-32">
+      <div class={wrapper}>
+        <p class="mb-4 text-xs text-neutral-500">PATTERN: hero-left (inner pages)</p>
+        <div class="max-w-3xl">
+          <p class="mb-3 text-lg theme-pretitle">Our services</p>
+          <h2 class="theme-h1 theme-title mb-4">Built on experience</h2>
+          <p class="text-lg theme-text">Left-aligned hero used on every inner page.</p>
+        </div>
       </div>
     </section>
 
     <!-- PATTERN: card-grid -->
-    <section class="mx-auto max-w-5xl px-6 py-24 border-t border-neutral-200">
-      <p class="text-xs text-neutral-400 mb-4">PATTERN: card-grid</p>
-      <h2 class="mb-8">Cards — Feature Grid</h2>
-      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <div class="rounded-xl border border-neutral-200 p-8">
-          <div class="text-2xl">&#9670;</div>
-          <h3 class="mt-4">Card Title</h3>
-          <p class="mt-2 text-sm">Short description of this feature or service.</p>
-        </div>
-        <div class="rounded-xl border border-neutral-200 p-8">
-          <div class="text-2xl">&#9650;</div>
-          <h3 class="mt-4">Card Title</h3>
-          <p class="mt-2 text-sm">Short description of this feature or service.</p>
-        </div>
-        <div class="rounded-xl border border-neutral-200 p-8">
-          <div class="text-2xl">&#9679;</div>
-          <h3 class="mt-4">Card Title</h3>
-          <p class="mt-2 text-sm">Short description of this feature or service.</p>
+    <section class="theme-wrapper border-t border-neutral-200 py-16 sm:py-20">
+      <div class={wrapper}>
+        <p class="mb-4 text-xs text-neutral-500">PATTERN: card-grid (projects)</p>
+        <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            [1, 2, 3].map((i) => (
+              <a href="#0" class="group block">
+                <div class="mb-4 aspect-square w-full overflow-hidden rounded-lg bg-neutral-200 sm:aspect-[2/3]">
+                  <div class="h-full w-full bg-neutral-300 transition-transform duration-500 group-hover:scale-110" />
+                </div>
+                <p class="mb-3 text-lg theme-pretitle">St. George, UT — 2024</p>
+                <h4 class="theme-h4 theme-title mb-4 underline-offset-8 group-hover:underline">Project {i}</h4>
+                <p class="text-lg theme-text">Short project description.</p>
+              </a>
+            ))
+          }
         </div>
       </div>
     </section>
 
-    <!-- PATTERN: cta-centered -->
-    <section class="bg-neutral-50 border-t border-neutral-200">
-      <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32 text-center">
-        <p class="text-xs text-neutral-400 mb-4">PATTERN: cta-centered</p>
-        <h2>Call to Action Headline</h2>
-        <p class="mx-auto mt-4 max-w-xl text-neutral-500">
-          Supporting text that motivates the visitor to take action.
-        </p>
-        <div class="mt-8">
-          <a href="#0" class="btn-primary">Get Started</a>
+    <!-- PATTERN: stats-row -->
+    <section data-theme="Neutral" class="theme-wrapper border-t border-neutral-200 py-16 sm:py-20">
+      <div class={wrapper}>
+        <p class="mb-8 text-xs opacity-60">PATTERN: stats-row</p>
+        <dl class="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-3">
+          {
+            [
+              { l: "Completed", v: "2024" },
+              { l: "Project Cost", v: "$41.8M" },
+              { l: "Square Feet", v: "160,000" },
+            ].map((s) => (
+              <div>
+                <dt class="mb-2 text-sm theme-pretitle">{s.l}</dt>
+                <dd class="theme-h4 theme-title">{s.v}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </section>
+
+    <!-- PATTERN: cta-band -->
+    <section data-theme="Dark" class="theme-wrapper border-t border-neutral-200 py-24 sm:py-32">
+      <div class={wrapper}>
+        <p class="mb-4 text-xs opacity-60">PATTERN: cta-band</p>
+        <div class="max-w-3xl">
+          <h2 class="theme-h2 theme-title mb-4">Let's build something great</h2>
+          <p class="mb-8 text-lg theme-text">Partner with Allied Construction for your next project.</p>
+          <a href="#0" class="btn btn-primary px-8 py-4 text-base">Contact us today<Fragment set:html={arrowSvg} /></a>
         </div>
       </div>
     </section>
-
-    <!-- PATTERN: section-2col -->
-    <section class="mx-auto max-w-5xl px-6 py-24 border-t border-neutral-200">
-      <p class="text-xs text-neutral-400 mb-4">PATTERN: section-2col</p>
-      <h2 class="mb-8">Two-Column Section</h2>
-      <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
-        <div>
-          <h3 class="mb-4">Section Heading</h3>
-          <p class="mb-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-          <p>
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
-          <a href="#0" class="btn-ghost mt-8">Learn More</a>
-        </div>
-        <div class="aspect-[4/3] overflow-hidden rounded-xl bg-neutral-200">
-          <img
-            src="/images/placeholders/landscape-4x3.svg"
-            alt="Placeholder"
-            class="h-full w-full object-cover"
-          />
-        </div>
-      </div>
-    </section>
-
-    <!-- PATTERN: section-alternating-bg -->
-    <section class="bg-neutral-50 border-t border-neutral-200">
-      <div class="mx-auto max-w-5xl px-6 py-24">
-        <p class="text-xs text-neutral-400 mb-4">PATTERN: section-alternating-bg</p>
-        <h2 class="mb-4">Alternating Background Section</h2>
-        <p class="max-w-2xl">
-          Sections alternate between white and neutral-50 backgrounds. Separated by border-neutral-200 dividers.
-        </p>
-      </div>
-    </section>
-
-    <!-- PATTERN: nav-preview -->
-    <section class="mx-auto max-w-5xl px-6 py-24 border-t border-neutral-200">
-      <p class="text-xs text-neutral-400 mb-4">PATTERN: nav-preview</p>
-      <h2 class="mb-8">Navigation</h2>
-      <div class="rounded-xl border border-neutral-200">
-        <nav class="flex items-center justify-between px-6 py-4">
-          <a href="#0" class="text-lg font-semibold tracking-tight text-neutral-900 no-underline">
-            Site Name
-          </a>
-          <ul class="flex items-center gap-6">
-            <li><a href="#0" class="text-sm font-medium text-indigo-600 no-underline">Active</a></li>
-            <li><a href="#0" class="text-sm font-medium text-neutral-600 no-underline hover:text-neutral-900">Link</a></li>
-            <li><a href="#0" class="text-sm font-medium text-neutral-600 no-underline hover:text-neutral-900">Link</a></li>
-            <li><a href="#0" class="text-sm font-medium text-neutral-600 no-underline hover:text-neutral-900">Contact</a></li>
-          </ul>
-        </nav>
-      </div>
-    </section>
-
-    <!-- PATTERN: footer-preview -->
-    <section class="mx-auto max-w-5xl px-6 py-24 border-t border-neutral-200">
-      <p class="text-xs text-neutral-400 mb-4">PATTERN: footer-preview</p>
-      <h2 class="mb-8">Footer</h2>
-      <div class="rounded-xl border border-neutral-200 overflow-hidden">
-        <div class="border-t border-neutral-200 bg-neutral-50 py-16">
-          <div class="text-center">
-            <a href="#0" class="text-xl font-semibold tracking-tight text-neutral-900 no-underline">
-              Site Name
-            </a>
-            <p class="mt-2 text-sm text-neutral-500">Your tagline goes here</p>
-            <div class="mt-6 flex items-center justify-center gap-6">
-              <a href="#0" class="text-sm text-neutral-500 no-underline hover:text-neutral-900">Social</a>
-              <a href="#0" class="text-sm text-neutral-500 no-underline hover:text-neutral-900">Social</a>
-            </div>
-            <p class="mt-8 text-xs text-neutral-400">&copy; 2026 Company Name. All rights reserved.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- NEW PATTERNS BELOW -->
-
   </body>
 </html>

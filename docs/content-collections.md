@@ -45,16 +45,15 @@ Defined in [`src/content.config.ts`](../src/content.config.ts). Read the schema 
 
 | Collection | Path | URL surface | Notes |
 |------------|------|-------------|-------|
-| `pages` | `src/content/pages/*.md` | Rendered by route files in `src/pages/` (e.g. `home.md` → `/`, `about.md` → `/about`). Filename = entry ID for `getEntry("pages", id)`. | One entry per unique page. Not a listing. |
-| `projects` | `src/content/projects/*.md` | `/projects/<slug>` (slug = filename). Listed on `/projects`, sorted by `order`. `featured: true` surfaces on homepage. | Repeating showcase items. |
-| `posts` | `src/content/posts/*.md` | `/blog/<slug>` (slug = filename). Listed on `/blog`, sorted by `date` descending. | Standard blog posts. |
+| `projects` | `src/content/projects/*.md` | `/projects/<slug>` (slug = filename), rendered by `src/pages/projects/[...slug].astro`. Listed on `/projects`, sorted by `order`. `featured: true` surfaces on homepage. | Repeating showcase items. Body markdown = "About the project" copy. |
+| `services` | `src/content/services/*.md` | `/services/<slug>` (slug = filename), rendered by `src/pages/services/[...slug].astro`. Tiles on `/services` link to each. | Repeating service pages. All section content (hero, intro, features, optional steps, why-us, CTA) lives in frontmatter; the markdown body is unused. |
 
-Services are **inline**, not a collection — `/services` is a unique page rendered from `src/content/pages/services.md` plus its route file.
+Unique pages (`/`, `/team`, `/contact`, and the `/projects` + `/services` listings) are **inline** in their `src/pages/*.astro` route files — there is no `pages` content collection. The starter's `pages` and `posts` collections, and the `/about`, `/blog`, and `/islands` demo routes, were removed during the Allied build.
 
 ## Editing content
 
-- Collection entries: edit the `.md`/`.mdx` file in `src/content/`. Don't touch the rendering template unless layout is changing.
-- Unique pages: edit the `.astro` file directly, or its single `src/content/pages/*.md` entry if the route renders one.
+- Collection entries: edit the `.md` file in `src/content/`. Don't touch the rendering template unless layout is changing.
+- Unique pages: edit the `.astro` file directly in `src/pages/`.
 - Nav / footer / config: edit the relevant JSON in `src/data/`.
 
 ## Adding new fields to a schema

@@ -39,7 +39,7 @@ steps:
       body: "Our experienced supervisors oversee every aspect of construction on the ground, ensuring work meets Allied’s high standards. From managing teams to inspecting finished work, we maintain the quality your project deserves."
 why:
   heading: "The Allied difference"
-  intro: "When you choose Allied as your General Contractor, you’re getting more than a service—you’re getting a partner. Our process is built on:"
+  intro: "When you choose Allied to manage your build, you’re getting more than a service—you’re getting a partner. Our process is built on:"
   items:
     - heading: "Decades of Experience"
       body: "With over 80 years of combined leadership experience, Allied’s team delivers expertise in hospitality, multifamily, industrial, and more."
@@ -49,7 +49,7 @@ why:
       body: "From boutique hotels to industrial warehouses, Allied has a portfolio of successful projects that speak for themselves."
 cta:
   heading: "Let’s Build Something Great"
-  body: "Partner with Allied Construction for reliable General Contracting services that ensure your project’s success. Experience a team that prioritizes quality, communication, and results."
+  body: "Partner with Allied Construction for reliable construction management that ensures your project’s success. Experience a team that prioritizes quality, communication, and results."
   label: "Contact Us Today"
 order: 3
 ---
