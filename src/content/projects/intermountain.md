@@ -33,16 +33,36 @@ gallery:
   - src: /images/eaglepoint/projects/intermountain/gallery-4.jpg
     alt: Mounted medical booms and utility connections
   - src: /images/eaglepoint/projects/intermountain/gallery-5.jpg
-    alt: Mechanical piping run for new OR utilities
+    alt: Equipment plate alignment detail
   - src: /images/eaglepoint/projects/intermountain/gallery-6.jpg
     alt: Containment and welding setup in the live hospital
   - src: /images/eaglepoint/projects/intermountain/gallery-7.jpg
-    alt: Equipment plate alignment detail
+    alt: Ceiling-mounted surgical boom in the operating room
   - src: /images/eaglepoint/projects/intermountain/gallery-8.jpg
-    alt: Finished surgical equipment mounting
+    alt: Equipment plate mounted flush to the OR ceiling
   - src: /images/eaglepoint/projects/intermountain/gallery-9.jpg
-    alt: Pipe fabrication tie-in to existing systems
+    alt: Welded mounting hardware for surgical equipment
   - src: /images/eaglepoint/projects/intermountain/gallery-10.jpg
+    alt: Finished surgical equipment mounting detail
+  - src: /images/eaglepoint/projects/intermountain/gallery-11.jpg
+    alt: Mechanical piping run for new OR utilities
+  - src: /images/eaglepoint/projects/intermountain/gallery-12.jpg
+    alt: Pipe fabrication tie-in to existing systems
+  - src: /images/eaglepoint/projects/intermountain/gallery-13.jpg
+    alt: Piping run routed from the upper floors into the OR
+  - src: /images/eaglepoint/projects/intermountain/gallery-14.jpg
+    alt: Welded pipe joints for the new hospital utilities
+  - src: /images/eaglepoint/projects/intermountain/gallery-15.jpg
+    alt: Mechanical piping fit-up inside the retrofitted room
+  - src: /images/eaglepoint/projects/intermountain/gallery-16.jpg
+    alt: Overhead utility piping and support hangers
+  - src: /images/eaglepoint/projects/intermountain/gallery-17.jpg
+    alt: Pipe welding in progress in the live hospital
+  - src: /images/eaglepoint/projects/intermountain/gallery-18.jpg
+    alt: Completed piping tie-in to existing hospital systems
+  - src: /images/eaglepoint/projects/intermountain/gallery-19.jpg
+    alt: Finished mechanical piping for the OR retrofit
+  - src: /images/eaglepoint/projects/intermountain/gallery-20.jpg
     alt: Completed operating-room retrofit
 order: 1
 featured: true

@@ -20,10 +20,10 @@ const meta = [
   p.client ? { label: "Client", value: p.client } : null,
 ].filter(Boolean);
 
-// Weave the gallery through the narrative: split the photos into one lead
-// cluster plus one cluster after each section, so the page reads
-// images → text → images → text … instead of a wall of text then a wall of
-// photos. Distribution stays even and adapts to any photo/section count.
+// Weave the gallery through the narrative: each section's heading + copy comes
+// FIRST, followed by its own cluster of photos, so the page reads
+// text → images → text → images … (matching the source site's project pages).
+// Photos are distributed evenly, one cluster per section.
 function splitInto(arr, k) {
   if (k <= 0) return [arr];
   const res = [];
@@ -41,15 +41,16 @@ function splitInto(arr, k) {
 
 const story = [];
 if (p.sections.length > 0) {
-  const chunks = splitInto(p.gallery, p.sections.length + 1);
-  if (chunks[0]?.length) story.push({ type: "images", images: chunks[0] });
+  const chunks = splitInto(p.gallery, p.sections.length);
   p.sections.forEach((section, i) => {
     story.push({ type: "text", section });
-    if (chunks[i + 1]?.length) story.push({ type: "images", images: chunks[i + 1] });
+    if (chunks[i]?.length) story.push({ type: "images", images: chunks[i], group: i });
   });
 } else if (p.gallery.length > 0) {
-  story.push({ type: "images", images: p.gallery });
+  story.push({ type: "images", images: p.gallery, group: 0 });
 }
+
+const hasGallery = story.some((b) => b.type === "images");
 ---
 
 <BaseLayout title={p.title} description={p.description} image={p.heroImage?.src ?? p.image?.src}>
@@ -75,6 +76,13 @@ if (p.sections.length > 0) {
       {
         p.subtitle && (
           <p class="mt-5 text-[15px] font-medium tracking-[2px] text-ink uppercase">{p.subtitle}</p>
+        )
+      }
+      {
+        hasGallery && (
+          <div class="mt-9 flex justify-center">
+            <a href="#work" class="btn-outline">See the work</a>
+          </div>
         )
       }
     </div>
@@ -117,7 +125,7 @@ if (p.sections.length > 0) {
   <!-- ===================== STORY: TEXT WOVEN THROUGH GALLERY ===================== -->
   {
     story.length > 0 && (
-      <section class="bg-black py-20 lg:py-28">
+      <section id="work" class="bg-black py-20 scroll-mt-24 lg:py-28">
         <div class="epw-container space-y-16 lg:space-y-24">
           {story.map((block) =>
             block.type === "text" ? (
@@ -134,14 +142,21 @@ if (p.sections.length > 0) {
                 style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));"
               >
                 {block.images.map((g) => (
-                  <div class="group overflow-hidden border border-white/10 bg-surface">
+                  <button
+                    type="button"
+                    class="epw-lightbox-trigger group block cursor-zoom-in overflow-hidden border border-white/10 bg-surface"
+                    data-src={g.src}
+                    data-alt={g.alt}
+                    data-group={block.group}
+                    aria-label={`Enlarge photo: ${g.alt}`}
+                  >
                     <img
                       src={g.src}
                       alt={g.alt}
                       loading="lazy"
                       class="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-[1.04] lg:h-80"
                     />
-                  </div>
+                  </button>
                 ))}
               </div>
             ),
@@ -177,4 +192,112 @@ if (p.sections.length > 0) {
       </div>
     </div>
   </section>
+
+  <!-- ===================== LIGHTBOX ===================== -->
+  {
+    hasGallery && (
+      <div
+        id="epw-lightbox"
+        class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/92 p-4 sm:p-8"
+        aria-hidden="true"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Photo viewer"
+      >
+        <button
+          type="button"
+          data-lb-close
+          class="absolute top-4 right-5 text-4xl leading-none text-white/70 transition-colors hover:text-white"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+        <button
+          type="button"
+          data-lb-prev
+          class="absolute left-3 text-5xl leading-none text-white/60 transition-colors hover:text-white sm:left-8"
+          aria-label="Previous photo"
+        >
+          &#8249;
+        </button>
+        <img
+          data-lb-img
+          src=""
+          alt=""
+          class="max-h-[88vh] max-w-[92vw] object-contain shadow-2xl"
+        />
+        <button
+          type="button"
+          data-lb-next
+          class="absolute right-3 text-5xl leading-none text-white/60 transition-colors hover:text-white sm:right-8"
+          aria-label="Next photo"
+        >
+          &#8250;
+        </button>
+      </div>
+    )
+  }
 </BaseLayout>
+
+<script>
+  const lb = document.getElementById("epw-lightbox");
+  if (lb) {
+    const imgEl = lb.querySelector("[data-lb-img]");
+    const triggers = Array.from(document.querySelectorAll(".epw-lightbox-trigger"));
+
+    // Group photos so prev/next cycles within the same photo set.
+    const groups = {};
+    triggers.forEach((t) => {
+      const g = t.dataset.group ?? "0";
+      (groups[g] ||= []).push(t);
+    });
+
+    let current = [];
+    let index = 0;
+
+    const show = () => {
+      const t = current[index];
+      if (!t) return;
+      imgEl.setAttribute("src", t.dataset.src);
+      imgEl.setAttribute("alt", t.dataset.alt || "");
+    };
+
+    const open = (t) => {
+      const g = t.dataset.group ?? "0";
+      current = groups[g];
+      index = current.indexOf(t);
+      show();
+      lb.classList.remove("hidden");
+      lb.classList.add("flex");
+      lb.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    };
+
+    const close = () => {
+      lb.classList.add("hidden");
+      lb.classList.remove("flex");
+      lb.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    };
+
+    const step = (dir) => {
+      if (!current.length) return;
+      index = (index + dir + current.length) % current.length;
+      show();
+    };
+
+    triggers.forEach((t) => t.addEventListener("click", () => open(t)));
+    lb.querySelector("[data-lb-close]").addEventListener("click", close);
+    lb.querySelector("[data-lb-prev]").addEventListener("click", () => step(-1));
+    lb.querySelector("[data-lb-next]").addEventListener("click", () => step(1));
+    lb.addEventListener("click", (e) => {
+      if (e.target === lb) close();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (lb.classList.contains("hidden")) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowLeft") step(-1);
+      else if (e.key === "ArrowRight") step(1);
+    });
+  }
+</script>
