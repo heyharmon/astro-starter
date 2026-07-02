@@ -3,7 +3,6 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const wrapper = "mx-auto xl:max-w-[80vw] px-8 sm:px-12 lg:px-16";
 
-// Cards are non-clickable for now — individual project pages are not built yet.
 const recent = [
   {
     title: "Golf Village",
@@ -17,30 +16,35 @@ const recent = [
     location: "Ivins, UT – 2024",
     body: "Clubhouse at Black Desert Golf Course",
     image: "/images/allied/the-oasis.png",
+    href: "/projects/the-oasis",
   },
   {
     title: "Container Office",
     location: "St. George, UT – 2024",
     body: "Office space at Tech Ridge",
     image: "/images/allied/container-office.png",
+    href: "/projects/tech-ridge",
   },
   {
     title: "The Apex",
     location: "Las Vegas, NV – 2023",
     body: "Luxury Apartments",
     image: "/images/allied/the-apex.png",
+    href: "/projects/apex-meadows",
   },
   {
     title: "Fort Pierce",
     location: "St. George, UT – 2023",
     body: "Metal office & warehouse",
     image: "/images/allied/fort-pierce.png",
+    href: "/projects/fort-pierce",
   },
   {
     title: "Zonos Hangar",
     location: "St. George, UT – 2021",
     body: "Modern office conversion",
     image: "/images/allied/zonos-hangar.png",
+    href: "/projects/zonos-hangar",
   },
 ];
 
@@ -50,6 +54,7 @@ const past = [
     location: "Chattanooga, TN – 2018",
     body: "Marriott Autograph Collection hotel",
     image: "/images/allied/edwin-hotel.png",
+    href: "/projects/the-edwin",
   },
   {
     title: "Cliff House",
@@ -122,21 +127,26 @@ const past = [
 
       <div class="grid grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:grid-cols-2">
         {
-          past.map((p) => (
-            <div class="fade-in group">
-              <div class="mb-5 aspect-[3/2] w-full overflow-hidden rounded-lg">
-                <img
-                  src={p.image}
-                  alt={p.title}
-                  loading="lazy"
-                  class="h-full w-full object-cover transition-all duration-500 group-hover:scale-110"
-                />
-              </div>
-              <p class="mb-3 text-lg theme-pretitle">{p.location}</p>
-              <h3 class="theme-h3 theme-title mb-4">{p.title}</h3>
-              <p class="text-lg theme-text">{p.body}</p>
-            </div>
-          ))
+          past.map((p) => {
+            const Tag = p.href ? "a" : "div";
+            return (
+              <Tag href={p.href} class="fade-in group block">
+                <div class="mb-5 aspect-[3/2] w-full overflow-hidden rounded-lg">
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    loading="lazy"
+                    class="h-full w-full object-cover transition-all duration-500 group-hover:scale-110"
+                  />
+                </div>
+                <p class="mb-3 text-lg theme-pretitle">{p.location}</p>
+                <h3 class:list={["theme-h3 theme-title mb-4", p.href && "underline-offset-8 group-hover:underline"]}>
+                  {p.title}
+                </h3>
+                <p class="text-lg theme-text">{p.body}</p>
+              </Tag>
+            );
+          })
         }
       </div>
     </div>

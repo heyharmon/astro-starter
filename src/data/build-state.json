@@ -1,7 +1,7 @@
 {
   "stage": "page-building",
   "completedStages": ["style", "sitemap"],
-  "currentCohort": 2,
+  "currentCohort": 3,
   "cohorts": {
     "1": {
       "pages": ["/"],
@@ -11,10 +11,15 @@
     "2": {
       "pages": ["/projects", "/services", "/team", "/contact"],
       "status": "built",
-      "notes": "Top-level pages. Left-aligned heroes (homepage hero is centered). No individual project or service detail pages yet — project cards are non-clickable and service 'LEARN MORE' points to /contact as a stand-in."
+      "notes": "Top-level pages. Left-aligned heroes (homepage hero is centered). Service 'LEARN MORE' points to /contact as a stand-in until /services/<slug> pages are built."
+    },
+    "3": {
+      "pages": ["/projects/apex-meadows", "/projects/the-edwin", "/projects/tech-ridge", "/projects/the-oasis", "/projects/fort-pierce", "/projects/zonos-hangar"],
+      "status": "built",
+      "notes": "All 7 project detail pages now exist (black-desert + these 6). Each is a src/content/projects/<slug>.md entry rendered by the shared [...slug].astro template. Content, stats, about copy, hero + gallery images pulled from reference /tmp/allied-ref/project-*.html and CDN. tech-ridge has hero + stats + about only (reference has no gallery for it). /projects listing cards (recent + past) now link to their slugs; homepage featured cards were already wired."
     }
   },
   "sitemapApproved": true,
   "styleguideApproved": true,
-  "notes": "Replicating the Allied Construction site. Project detail template built as a content collection + dynamic route (src/pages/projects/[...slug].astro reads src/content/projects/*.md via the schema in content.config.ts). One entry so far: black-desert (Golf Village). Adding more projects = drop in another .md file. Remaining: more /projects/<slug> entries and /services/<slug> detail pages (deferred). Reference project HTML at /tmp/allied-ref/project-*.html. Reference assets in public/images/allied/."
+  "notes": "Replicating the Allied Construction site. Project detail template = content collection + dynamic route (src/pages/projects/[...slug].astro reads src/content/projects/*.md via the schema in content.config.ts). All 7 projects built. Remaining: /services/<slug> detail pages (deferred). Reference project HTML at /tmp/allied-ref/project-*.html. Reference assets in public/images/allied/."
 }
