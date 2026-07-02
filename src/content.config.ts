@@ -102,6 +102,24 @@ const projects = defineCollection({
         z.object({
           heading: z.string().describe("Narrative block heading"),
           body: z.string().describe("Narrative block paragraph(s)"),
+          images: z
+            .array(
+              z.object({
+                src: z.string().describe("Path to a photo shown under this section"),
+                alt: z.string().describe("Accessible alt text"),
+              }),
+            )
+            .optional()
+            .describe(
+              "Photos shown directly after this section's copy. When present, these override the auto-split of the top-level `gallery` for this section, letting each section own an uneven number of photos (matching the source site's per-heading groups).",
+            ),
+          video: z
+            .object({
+              src: z.string().describe("Path to a self-hosted video, e.g. /images/eaglepoint/hero-video.mp4"),
+              poster: z.string().optional().describe("Poster image shown before the video plays"),
+            })
+            .optional()
+            .describe("Optional autoplay/looping muted clip shown after this section's copy, before its photos"),
         }),
       )
       .default([])

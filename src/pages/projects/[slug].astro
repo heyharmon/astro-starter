@@ -39,12 +39,19 @@ function splitInto(arr, k) {
   return res;
 }
 
+// If any section carries its own `images`, sections own their photos directly
+// (uneven groups, matching the source). Otherwise fall back to splitting the
+// flat `gallery` evenly, one cluster per section.
+const sectionsOwnImages = p.sections.some((s) => s.images?.length);
+
 const story = [];
 if (p.sections.length > 0) {
-  const chunks = splitInto(p.gallery, p.sections.length);
+  const chunks = sectionsOwnImages ? null : splitInto(p.gallery, p.sections.length);
   p.sections.forEach((section, i) => {
     story.push({ type: "text", section });
-    if (chunks[i]?.length) story.push({ type: "images", images: chunks[i], group: i });
+    if (section.video) story.push({ type: "video", video: section.video });
+    const imgs = section.images?.length ? section.images : chunks?.[i];
+    if (imgs?.length) story.push({ type: "images", images: imgs, group: i });
   });
 } else if (p.gallery.length > 0) {
   story.push({ type: "images", images: p.gallery, group: 0 });
@@ -133,8 +140,25 @@ const hasGallery = story.some((b) => b.type === "images");
                 <span class="mb-6 block h-[2px] w-12 bg-white/50" />
                 <h2 class="max-w-2xl">{block.section.heading}</h2>
                 <div class="mt-5 space-y-5 text-[17px] leading-relaxed text-ink">
-                  {block.section.body.split(/\n\n+/).map((par) => <p>{par}</p>)}
+                  {block.section.body
+                    .split(/\n\n+/)
+                    .map((par) => par.trim())
+                    .filter(Boolean)
+                    .map((par) => <p>{par}</p>)}
                 </div>
+              </div>
+            ) : block.type === "video" ? (
+              <div class="overflow-hidden border border-white/10 bg-surface">
+                <video
+                  src={block.video.src}
+                  poster={block.video.poster}
+                  class="h-auto w-full object-cover"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                />
               </div>
             ) : (
               <div
