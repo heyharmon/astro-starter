@@ -1,7 +1,7 @@
 {
   "stage": "page-building",
   "completedStages": ["style", "sitemap"],
-  "currentCohort": 3,
+  "currentCohort": 4,
   "cohorts": {
     "1": {
       "pages": ["/"],
@@ -17,9 +17,14 @@
       "pages": ["/projects/apex-meadows", "/projects/the-edwin", "/projects/tech-ridge", "/projects/the-oasis", "/projects/fort-pierce", "/projects/zonos-hangar"],
       "status": "built",
       "notes": "All 7 project detail pages now exist (black-desert + these 6). Each is a src/content/projects/<slug>.md entry rendered by the shared [...slug].astro template. Content, stats, about copy, hero + gallery images pulled from reference /tmp/allied-ref/project-*.html and CDN. tech-ridge has hero + stats + about only (reference has no gallery for it). /projects listing cards (recent + past) now link to their slugs; homepage featured cards were already wired."
+    },
+    "4": {
+      "pages": ["/services/general-contracting", "/services/pre-construction", "/services/construction-management", "/services/owner-representation"],
+      "status": "built",
+      "notes": "All 4 service detail pages built as a new `services` content collection + shared src/pages/services/[...slug].astro template. Sections: hero (eyebrow + tagline + CTA), intro, feature blocks (alternating image/text), optional steps list, 'why us' block, closing CTA. construction-management's reference accordion ('Turning plans into reality') is rendered as a static steps list (~90% fidelity, no interactive island). /services tiles now link to their detail pages instead of /contact. Reference HTML at /tmp/allied-ref/service-*.html."
     }
   },
   "sitemapApproved": true,
   "styleguideApproved": true,
-  "notes": "Replicating the Allied Construction site. Project detail template = content collection + dynamic route (src/pages/projects/[...slug].astro reads src/content/projects/*.md via the schema in content.config.ts). All 7 projects built. Remaining: /services/<slug> detail pages (deferred). Reference project HTML at /tmp/allied-ref/project-*.html. Reference assets in public/images/allied/."
+  "notes": "Replicating the Allied Construction site. Detail templates = content collections + dynamic routes (projects and services each have src/pages/<type>/[...slug].astro reading src/content/<type>/*.md via schemas in content.config.ts). All 7 projects + 4 services built. Remaining: optional cleanup of leftover starter demo pages (/about, /blog, /islands, /styleguide). Reference HTML at /tmp/allied-ref/. Reference assets in public/images/allied/."
 }

@@ -4,12 +4,11 @@ import PageHero from "../components/PageHero.astro";
 
 const wrapper = "mx-auto xl:max-w-[80vw] px-8 sm:px-12 lg:px-16";
 
-// LEARN MORE points to /contact until individual service pages are built.
 const services = [
-  { title: "General Contracting", image: "/images/allied/service-general-contracting.png" },
-  { title: "Collaborative Pre-Construction", image: "/images/allied/service-pre-construction.png" },
-  { title: "Construction Management", image: "/images/allied/service-construction-management.png" },
-  { title: "Owner Representation", image: "/images/allied/service-owner-representation.png" },
+  { title: "General Contracting", image: "/images/allied/service-general-contracting.png", href: "/services/general-contracting" },
+  { title: "Collaborative Pre-Construction", image: "/images/allied/service-pre-construction.png", href: "/services/pre-construction" },
+  { title: "Construction Management", image: "/images/allied/service-construction-management.png", href: "/services/construction-management" },
+  { title: "Owner Representation", image: "/images/allied/service-owner-representation.png", href: "/services/owner-representation" },
 ];
 
 const arrowSvg =
@@ -50,7 +49,7 @@ const arrowSvg =
               />
               <h3 class="theme-h3 theme-title mb-6">{s.title}</h3>
               <div>
-                <a href="/contact" class="btn btn-primary px-8 py-4 text-base">
+                <a href={s.href} class="btn btn-primary px-8 py-4 text-base">
                   LEARN MORE<Fragment set:html={arrowSvg} />
                 </a>
               </div>

@@ -107,6 +107,63 @@ const projects = defineCollection({
 });
 
 /**
+ * SERVICES collection
+ * Each .md file in src/content/services/ is one service. The filename (without
+ * extension) becomes the URL slug at /services/<slug>. The shared template in
+ * src/pages/services/[...slug].astro renders every section from frontmatter, so
+ * adding a service is just adding another .md file. Sections: hero, intro, a
+ * grid of feature blocks, an optional "steps" list, a "why us" block, and a
+ * closing CTA.
+ */
+const services = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/services" }),
+  schema: z.object({
+    title: z.string().describe("Eyebrow label above the hero tagline, e.g. 'General Contracting'"),
+    tagline: z.string().describe("Large hero headline"),
+    description: z.string().describe("Meta description — used for SEO and social sharing"),
+    heroImage: z
+      .object({ src: z.string(), alt: z.string() })
+      .optional()
+      .describe("Full-bleed hero background image"),
+    ctaLabel: z.string().default("Get in touch").describe("Hero button label — links to /contact"),
+    intro: z
+      .object({ heading: z.string(), body: z.string() })
+      .describe("Intro block below the hero — heading + paragraph"),
+    features: z
+      .array(
+        z.object({
+          heading: z.string(),
+          body: z.string(),
+          image: z.object({ src: z.string(), alt: z.string() }).optional(),
+        }),
+      )
+      .default([])
+      .describe("Feature blocks — alternating image + heading + body"),
+    steps: z
+      .object({
+        heading: z.string(),
+        intro: z.string().optional(),
+        items: z.array(z.object({ title: z.string(), body: z.string() })),
+      })
+      .optional()
+      .describe("Optional numbered process list (heading + intro + items)"),
+    why: z
+      .object({
+        heading: z.string(),
+        intro: z.string().optional(),
+        items: z.array(z.object({ heading: z.string(), body: z.string() })),
+      })
+      .optional()
+      .describe("'Why us' block — heading + intro + labelled items"),
+    cta: z
+      .object({ heading: z.string(), body: z.string().optional(), label: z.string().default("Get in touch") })
+      .describe("Closing call-to-action band — links to /contact"),
+    order: z.number().default(0).describe("Sort order — lower numbers appear first"),
+    draft: z.boolean().default(false).describe("Draft services are hidden from production builds"),
+  }),
+});
+
+/**
  * POSTS collection
  * Each .md file in src/content/posts/ represents a single blog post.
  * The filename (without extension) becomes the URL slug at /blog/<slug>.
@@ -149,4 +206,4 @@ const posts = defineCollection({
   }),
 });
 
-export const collections = { pages, projects, posts };
+export const collections = { pages, projects, services, posts };

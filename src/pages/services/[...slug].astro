@@ -1,0 +1,137 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// One page per service entry. Add a .md file to src/content/services/ and it
+// gets its own page here — no code changes needed.
+export async function getStaticPaths() {
+  const services = await getCollection("services", ({ data }) => !data.draft);
+  return services.map((service) => ({
+    params: { slug: service.id },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const { data } = service;
+
+const wrapper = "mx-auto xl:max-w-[80vw] px-8 sm:px-12 lg:px-16";
+
+const arrowSvg =
+  '<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="order-last ml-2 h-5 w-5" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"/></svg>';
+---
+
+<BaseLayout title={`${data.title} Services`} description={data.description} image={data.heroImage?.src}>
+  <!-- Hero -->
+  <section data-theme="Dark" class="theme-wrapper relative z-10 isolate overflow-hidden py-28 sm:py-36 lg:py-44">
+    {
+      data.heroImage && (
+        <div class="absolute inset-0 -z-10" aria-hidden="true">
+          <img src={data.heroImage.src} alt="" class="absolute inset-0 h-full w-full object-cover" />
+          <div class="absolute inset-0 bg-black/65" />
+        </div>
+      )
+    }
+    <div class={wrapper}>
+      <div class="max-w-3xl">
+        <p class="mb-3 text-lg theme-pretitle">{data.title}</p>
+        <h1 class="theme-h1 theme-title mb-8">{data.tagline}</h1>
+        <a href="/contact" class="btn btn-primary px-8 py-4 text-base">
+          {data.ctaLabel}<Fragment set:html={arrowSvg} />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section data-theme="Dark" class="theme-wrapper relative z-10 overflow-hidden pb-20 sm:pb-28 lg:pb-32">
+    <div class={wrapper}>
+      <div class="max-w-3xl">
+        <h2 class="theme-h2 theme-title mb-4">{data.intro.heading}</h2>
+        <p class="text-lg theme-text">{data.intro.body}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature blocks (alternating) -->
+  {
+    data.features.length > 0 && (
+      <section class="theme-wrapper relative z-10 overflow-hidden py-20 sm:py-28 lg:py-32">
+        <div class={wrapper}>
+          <div class="flex flex-col gap-20 sm:gap-28">
+            {data.features.map((f, i) => (
+              <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+                {f.image && (
+                  <div class:list={["aspect-[4/3] w-full overflow-hidden rounded-2xl", i % 2 === 1 && "lg:order-last"]}>
+                    <img src={f.image.src} alt={f.image.alt} loading="lazy" class="h-full w-full object-cover" />
+                  </div>
+                )}
+                <div class={!f.image ? "lg:col-span-2 max-w-3xl" : ""}>
+                  <h3 class="theme-h3 theme-title mb-4">{f.heading}</h3>
+                  <p class="text-lg theme-text">{f.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Steps / process list -->
+  {
+    data.steps && (
+      <section data-theme="Neutral" class="theme-wrapper relative z-10 overflow-hidden py-24 sm:py-32 lg:py-40">
+        <div class={wrapper}>
+          <div class="mb-10 max-w-3xl sm:mb-14">
+            <h2 class="theme-h2 theme-title mb-4">{data.steps.heading}</h2>
+            {data.steps.intro && <p class="text-lg theme-text">{data.steps.intro}</p>}
+          </div>
+          <dl class="grid grid-cols-1 gap-x-12 gap-y-10 lg:grid-cols-2">
+            {data.steps.items.map((s) => (
+              <div>
+                <dt class="theme-h4 theme-title mb-2">{s.title}</dt>
+                <dd class="text-lg theme-text">{s.body}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Why us -->
+  {
+    data.why && (
+      <section data-theme="Neutral" class="theme-wrapper relative z-10 overflow-hidden py-24 sm:py-32 lg:py-40">
+        <div class={wrapper}>
+          <div class="mb-10 max-w-3xl sm:mb-14">
+            <h2 class="theme-h2 theme-title mb-4">{data.why.heading}</h2>
+            {data.why.intro && <p class="text-lg theme-text">{data.why.intro}</p>}
+          </div>
+          <div class="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-3">
+            {data.why.items.map((it) => (
+              <div>
+                <h4 class="theme-h4 theme-title mb-3">{it.heading}</h4>
+                <p class="text-lg theme-text">{it.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Closing CTA -->
+  <section data-theme="Dark" class="theme-wrapper relative z-10 overflow-hidden py-24 sm:py-32 lg:py-40">
+    <div class={wrapper}>
+      <div class="max-w-3xl">
+        <h2 class="theme-h2 theme-title mb-4">{data.cta.heading}</h2>
+        {data.cta.body && <p class="mb-8 text-lg theme-text">{data.cta.body}</p>}
+        <a href="/contact" class="btn btn-primary px-8 py-4 text-base">
+          {data.cta.label}<Fragment set:html={arrowSvg} />
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
