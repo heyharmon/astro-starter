@@ -18,6 +18,9 @@ Near-pixel replica of the Allied Construction reference site, built the Astro wa
 ### Removed
 - Starter demo pages `/about`, `/blog` (+ `blog/[...slug]`), and `/islands`, plus the unused `pages` and `posts` content collections and their entries.
 
+### Deployed
+- Live on Vercel project `allied-construction` at https://builtbyallied.com (apex; www redirects to apex). `src/data/site-meta.json` `url` set to the production domain.
+
 ### Notes
 - `construction-management`'s reference accordion ("Turning plans into reality") is rendered as a static steps list (no interactive island).
-- `src/data/site-meta.json` `url` and `formspreeId` are placeholders pending the production domain and the real Formspree form ID.
+- `src/data/site-meta.json` `formspreeId` is still a placeholder (`YOUR_FORM_ID`) — the contact form won't submit until the real Formspree form ID is set.
