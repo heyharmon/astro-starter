@@ -1,34 +1,75 @@
 ---
 import siteMeta from "../data/site-meta.json";
+import footer from "../data/footer.json";
 
-const socialLinks = Object.entries(siteMeta.social).filter(([_, url]) => url);
+const socialLinks = Object.entries(siteMeta.social).filter(([, url]) => url);
+const address = siteMeta.address ?? [];
 ---
 
-<footer class="border-t border-neutral-200 bg-neutral-50 py-16">
-  <div class="mx-auto max-w-5xl px-6 text-center">
-    <a href="/" class="text-xl font-semibold tracking-tight text-neutral-900 no-underline">
-      {siteMeta.name}
-    </a>
-
-    {siteMeta.tagline && (
-      <p class="mt-2 text-sm text-neutral-500">{siteMeta.tagline}</p>
-    )}
-
-    {socialLinks.length > 0 && (
-      <div class="mt-6 flex items-center justify-center gap-6">
-        {socialLinks.map(([platform, url]) => (
-          <a
-            href={url as string}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-sm capitalize text-neutral-500 no-underline transition-colors hover:text-neutral-900"
-          >
-            {platform}
-          </a>
-        ))}
+<footer class="border-t border-white/[0.07] bg-ink-deep">
+  <div class="mx-auto max-w-[1320px] px-6 pb-10 pt-[72px] sm:px-10 lg:px-14">
+    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <!-- brand blurb -->
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span class="text-[22px] font-extrabold tracking-[0.34em] text-cream">{siteMeta.name}</span>
+          {siteMeta.locality && (
+            <span class="mt-0.5 self-start font-mono text-[10px] tracking-[0.2em] text-accent">
+              {siteMeta.locality}
+            </span>
+          )}
+        </div>
+        {siteMeta.tagline && (
+          <p class="mt-5 max-w-[320px] text-sm leading-[1.7] text-mute-4">{siteMeta.tagline}</p>
+        )}
       </div>
-    )}
 
-    <p class="mt-8 text-xs text-neutral-400">{siteMeta.copyright}</p>
+      <!-- link columns -->
+      {
+        footer.map((col) => (
+          <div>
+            <div class="mb-[18px] font-mono text-[11px] uppercase tracking-[0.16em] text-mute-5">
+              {col.section}
+            </div>
+            <div class="flex flex-col gap-3 text-sm text-mute-1">
+              {col.links.map((link) => (
+                <a href={link.href} class="navlink w-fit transition-colors hover:text-cream">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+
+      <!-- visit -->
+      <div>
+        <div class="mb-[18px] font-mono text-[11px] uppercase tracking-[0.16em] text-mute-5">Visit</div>
+        <div class="text-sm leading-[1.8] text-mute-1">
+          {address.map((line) => (<Fragment>{line}<br /></Fragment>))}
+          {siteMeta.phone}
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-14 flex flex-wrap items-center justify-between gap-3.5 border-t border-white/[0.07] pt-7">
+      <span class="font-mono text-[11px] tracking-[0.1em] text-mute-5">{siteMeta.copyright}</span>
+      {
+        socialLinks.length > 0 && (
+          <div class="flex gap-[26px] font-mono text-[11px] uppercase tracking-[0.12em] text-mute-4">
+            {socialLinks.map(([platform, url]) => (
+              <a
+                href={url as string}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="capitalize transition-colors hover:text-cream"
+              >
+                {platform}
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
   </div>
 </footer>

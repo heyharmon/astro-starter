@@ -1,8 +1,7 @@
 [
-  { "label": "About", "href": "/about", "order": 1 },
-  { "label": "Blog", "href": "/blog", "order": 2 },
-  { "label": "Projects", "href": "/projects", "order": 3 },
-  { "label": "Contact", "href": "/contact", "order": 4 },
-  { "label": "Islands", "href": "/islands", "order": 5 },
-  { "label": "Style Guide", "href": "/styleguide", "order": 6 }
+  { "label": "Protection", "href": "#services", "order": 1 },
+  { "label": "Ceramic", "href": "#services", "order": 2 },
+  { "label": "Tint", "href": "#services", "order": 3 },
+  { "label": "Work", "href": "#work", "order": 4 },
+  { "label": "Process", "href": "#process", "order": 5 }
 ]

@@ -1,206 +1,348 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import siteMeta from "../data/site-meta.json";
+
+const wrapper = "mx-auto max-w-[1320px] px-6 sm:px-10 lg:px-14";
+
+const heroImages = [
+  "/images/luxe/hero-services.jpg",
+  "/images/luxe/ppf-photo.jpg",
+  "/images/luxe/hero-detail.jpg",
+  "/images/luxe/team-shot.jpg",
+];
+
+const trustBrands = ["Modesta", "Llumar", "XPEL", "SunTek", "Gtechniq"];
+
+const introStats = [
+  { value: "12+", label: "Years protecting Utah cars" },
+  { value: "3.5k", label: "Vehicles transformed" },
+];
+
+const work = [
+  {
+    title: "Porsche 911 GTS",
+    tag: "FULL-BODY PPF",
+    image: "/images/luxe/work-porsche.jpg",
+    span: "lg:col-span-7",
+  },
+  {
+    title: "Tesla Model S Plaid",
+    tag: "MODESTA",
+    image: "/images/luxe/work-tesla.jpg",
+    span: "lg:col-span-5",
+  },
+  {
+    title: "Custom Lifted Truck",
+    tag: "PPF + TINT",
+    image: "/images/luxe/work-truck.jpg",
+    span: "lg:col-span-5",
+  },
+  {
+    title: "Mercedes-AMG GT",
+    tag: "CERAMIC TINT",
+    image: "/images/luxe/work-amg.jpg",
+    span: "lg:col-span-7",
+  },
+];
+
+const services = [
+  {
+    n: "01",
+    title: "Paint Protection Film",
+    body: "Self-healing film that takes the rock chips so your paint never does.",
+  },
+  {
+    n: "02",
+    title: "Modesta Ceramic Coating",
+    body: "Glass-hard, hydrophobic gloss — the deepest shine money can buy.",
+  },
+  {
+    n: "03",
+    title: "Ceramic Window Tint",
+    body: "Llumar & ceramic films — heat rejection, UV protection, clean lines.",
+  },
+  {
+    n: "04",
+    title: "Vinyl Wraps",
+    body: "Full colour changes and accents, finished like it left the factory.",
+  },
+];
+
+const process = [
+  {
+    n: "STEP 01",
+    title: "Consult",
+    body: "We walk the car together and map a protection plan to how you actually drive it.",
+  },
+  {
+    n: "STEP 02",
+    title: "Prep",
+    body: "Full decontamination and paint correction so protection goes over a flawless surface.",
+  },
+  {
+    n: "STEP 03",
+    title: "Install",
+    body: "Computer-cut film and lab-grade coatings, applied in a dedicated, dust-controlled bay.",
+  },
+  {
+    n: "STEP 04",
+    title: "Reveal",
+    body: "Documented, warrantied and detailed — handed back better than the dealer delivered it.",
+  },
+];
+
+const proof = [
+  { value: "10yr", label: "Manufacturer-backed PPF warranty" },
+  { value: "9H+", label: "Modesta coating hardness rating" },
+  { value: "88%", label: "Infrared heat rejection on ceramic tint" },
+  { value: "5.0", label: "Average rating across 400+ reviews" },
+];
 ---
 
-<BaseLayout
-  title="Home"
-  description={siteMeta.description}
->
+<BaseLayout title="Home" description={siteMeta.description} image={siteMeta.ogImage}>
   <!-- Hero -->
-  <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-    <p class="text-sm uppercase tracking-wide text-neutral-500">
-      Tier 1 / 3 — Inline content
-    </p>
-    <h1 class="mt-4 max-w-3xl">
-      This homepage is hardcoded in <code class="rounded bg-neutral-100 px-2 py-1 text-2xl">src/pages/index.astro</code>
-    </h1>
-    <p class="mt-6 max-w-2xl text-lg text-neutral-500">
-      There is no Markdown file behind it, no <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">getEntry()</code> call,
-      no content collection. Every word and section you see is written directly in the Astro file. Use this pattern for
-      genuinely one-of-a-kind pages — landing pages, marketing pages, anything you only ever need one of.
-    </p>
-    <div class="mt-8 flex flex-wrap gap-4">
-      <a href="/about" class="btn-primary">See the hybrid pattern →</a>
-      <a href="/styleguide" class="btn-ghost">Style Guide</a>
+  <section class="relative h-[88vh] max-h-[920px] min-h-[680px] overflow-hidden bg-ink">
+    <div class="absolute inset-0">
+      {
+        heroImages.map((src) => (
+          <div class="hero-slide">
+            <img src={src} alt="" />
+          </div>
+        ))
+      }
     </div>
-  </section>
-
-  <!-- The three tiers -->
-  <section class="border-t border-neutral-200 bg-neutral-50">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <h2>Three content tiers, three working demos</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        Every page in this starter exists to demonstrate one of Astro's content patterns. Click through to see each one in action.
-      </p>
-
-      <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <a href="/about" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 1 — Inline (hybrid variant)</p>
-          <h3 class="mt-3">/about</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            The other shape of Tier 1: route file in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/about.astro</code> rendering a single
-            Markdown entry from <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/pages/about.md</code>.
-          </p>
-        </a>
-
-        <a href="/blog" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Posts collection</p>
-          <h3 class="mt-3">/blog</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            Every card is a Markdown file in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/posts/</code>.
-            Schema in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content.config.ts</code>. Sorted by date.
-          </p>
-        </a>
-
-        <a href="/projects" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Projects collection</p>
-          <h3 class="mt-3">/projects</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            A different schema than posts — manual <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">order</code> field
-            and a <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">featured</code> boolean. Demonstrates a non-chronological collection.
-          </p>
-        </a>
-
-        <a href="/contact" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — Site config driven</p>
-          <h3 class="mt-3">/contact</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            The page imports <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/site-meta.json</code> and renders
-            its values directly. The React contact form picks up the Formspree ID the same way.
-          </p>
-        </a>
-
-        <div class="block rounded-xl border border-dashed border-neutral-300 p-8">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — More site config</p>
-          <h3 class="mt-3">Nav &amp; Footer</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            The header and footer you see on every page also read from Tier 3 —
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/nav.json</code> and
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/footer.json</code>. Edit those files to update site-wide chrome.
-          </p>
-        </div>
-
-        <a href="/styleguide" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Design system</p>
-          <h3 class="mt-3">/styleguide</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            A live preview of design tokens, typography, components. Backed by
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/styles/global.css</code> and
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/design-tokens.json</code>.
-          </p>
-        </a>
-      </div>
+    <div
+      class="absolute inset-0"
+      style="background:linear-gradient(180deg, rgba(8,8,8,0.66) 0%, rgba(8,8,8,0.42) 38%, rgba(8,8,8,0.97) 100%);"
+    >
     </div>
-  </section>
-
-  <!-- Decision rules -->
-  <section class="border-t border-neutral-200">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <h2>Which tier should I use?</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        The decision tree is short. When in doubt, start inline and promote to a collection the moment you have a second one.
-      </p>
-
-      <div class="mt-12 grid gap-8 lg:grid-cols-3">
-        <div>
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 1 — Inline</p>
-          <p class="mt-2 text-sm font-medium">A genuinely unique page</p>
-          <p class="mt-2 text-sm text-neutral-500">
-            Homepage, about, contact, a one-off landing page. Write it directly in
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/*.astro</code>, or pair the route file with a single
-            entry in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/pages/</code> for Markdown editing.
-          </p>
+    <div class="absolute inset-x-0 bottom-0">
+      <div class={`${wrapper} pb-20 sm:pb-[84px]`}>
+        <div class="eyebrow mb-6 text-accent-glow [text-shadow:0_1px_14px_rgba(0,0,0,0.65)]">
+          Salt Lake City · Park City · Lehi
         </div>
-        <div>
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Content collection</p>
-          <p class="mt-2 text-sm font-medium">Repeating items sharing a schema</p>
-          <p class="mt-2 text-sm text-neutral-500">
-            Blog posts, projects, products, team bios, testimonials, case studies. Define a Zod schema and add files to
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/&lt;collection&gt;/</code>.
-          </p>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — Site config</p>
-          <p class="mt-2 text-sm font-medium">Structural data, not content</p>
-          <p class="mt-2 text-sm text-neutral-500">
-            Nav links, footer groups, social handles, pricing tiers, redirects. Put it in
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/*.json</code> and import the JSON in your route or component.
-          </p>
-        </div>
-      </div>
-
-      <p class="mt-12 text-sm text-neutral-500">
-        Full architecture and editing workflow: <a href="https://github.com" class="underline">docs/content-collections.md</a>.
-      </p>
-    </div>
-  </section>
-
-  <!-- Interactivity model — orthogonal axis -->
-  <section class="border-t border-neutral-200 bg-neutral-50">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <p class="text-sm uppercase tracking-wide text-neutral-500">
-        A separate axis — not a fourth tier
-      </p>
-      <h2 class="mt-3">Interactivity: when to add JavaScript</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        The three tiers above answer <em>where the content lives</em>. Islands answer a different question:
-        <em>does this part of the page need to run JavaScript in the browser?</em> The two are orthogonal —
-        any page (collection entry, inline route, config-driven) can include an island when interactivity demands it.
-      </p>
-
-      <div class="mt-12 grid gap-8 lg:grid-cols-3">
-        <a href="/islands" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400 lg:col-span-2">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Concept demo</p>
-          <h3 class="mt-3">/islands</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            Live demos of <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:load</code>,
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:idle</code>,
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:visible</code>. React and vanilla-JS examples.
-            Decision rules for when to reach for an island vs. plain <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.astro</code>.
-          </p>
-        </a>
-        <div class="rounded-xl border border-dashed border-neutral-300 p-8">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Default</p>
-          <h3 class="mt-3">Zero JS</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            Most components in this starter are <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.astro</code> — they ship as static HTML
-            with no client-side runtime. Keep it that way unless interactivity demands otherwise.
-          </p>
+        <h1
+          class="max-w-[24ch] font-display text-[clamp(2.75rem,6.6vw,5.5rem)] font-medium leading-[0.98] tracking-[-0.015em] md:whitespace-nowrap"
+        >
+          Driven by detail,<br />
+          <span class="italic text-accent-light">finished to perfection.</span>
+        </h1>
+        <p
+          class="mt-[30px] max-w-[520px] text-[17px] leading-[1.65] text-cream-soft [text-shadow:0_1px_14px_rgba(0,0,0,0.6)]"
+        >
+          Utah's most trusted studio for paint protection, ceramic coating and tint — entrusted
+          with Porsche, Tesla and one-off custom builds.
+        </p>
+        <div class="mt-10 flex flex-wrap items-center gap-7">
+          <a href="#reserve" class="cta-solid px-[38px] py-[18px] text-[13px]">Book Your Build</a>
+          <a href="#work" class="flex items-center gap-3 text-sm text-cream-soft">
+            <span
+              class="flex h-[38px] w-[38px] items-center justify-center rounded-full border border-white/30 text-xs"
+              >▸</span
+            >
+            See the work
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Lorem fill / visual weight -->
-  <section class="border-t border-neutral-200">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <div class="grid gap-12 lg:grid-cols-2 items-start">
-        <div>
-          <h2>Replace this section</h2>
-          <p class="mt-4 text-neutral-500">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.
-          </p>
-          <p class="mt-4 text-neutral-500">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-          <p class="mt-4 text-sm text-neutral-500">
-            <strong>How to remove this:</strong> open
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/index.astro</code> and delete this section.
-            The whole homepage is hardcoded — no Markdown to track down.
-          </p>
-        </div>
-        <div class="aspect-4/3 overflow-hidden rounded-xl bg-neutral-200">
-          <img
-            src="/images/placeholders/landscape-4x3.svg"
-            alt="Placeholder image rendered from public/images/placeholders/landscape-4x3.svg"
-            class="h-full w-full object-cover"
-          />
-        </div>
+  <!-- Trust strip -->
+  <div class="border-b border-white/[0.07]">
+    <div class={`${wrapper} flex flex-wrap items-center justify-between gap-6 py-[30px]`}>
+      <span class="font-mono text-[11px] uppercase tracking-[0.16em] text-mute-4">
+        Authorized &amp; trusted
+      </span>
+      <div
+        class="flex flex-wrap items-center gap-x-11 gap-y-3 text-[15px] font-semibold uppercase tracking-[0.18em] text-mute-1"
+      >
+        {trustBrands.map((brand) => <span>{brand}</span>)}
       </div>
     </div>
-  </section>
+  </div>
+
+  <!-- Intro statement -->
+  <div class={`${wrapper} py-[110px]`}>
+    <div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-[1.3fr_1fr] lg:gap-20">
+      <div>
+        <div class="eyebrow mb-6">Who we are</div>
+        <h2 class="font-display text-[clamp(2.125rem,4.2vw,3.5rem)] font-medium leading-[1.1]">
+          A studio built by enthusiasts, for the cars that deserve more than a car wash.
+        </h2>
+        <p class="mt-[30px] max-w-[560px] text-base leading-[1.8] text-mute-2">
+          We don't volume-detail. Every vehicle gets a dedicated bay, a documented plan and an
+          installer who treats it like their own. From a daily-driven Model S to a numbers-matching
+          collector, the standard never moves.
+        </p>
+        <div class="mt-12 flex gap-14">
+          {
+            introStats.map((s) => (
+              <div>
+                <div class="font-display text-[54px] leading-none text-accent">{s.value}</div>
+                <div class="mt-2 text-[13px] tracking-[0.06em] text-mute-4">{s.label}</div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      <div class="h-[420px] overflow-hidden lg:h-[560px]">
+        <img
+          src="/images/luxe/vinyl-wraps.jpg"
+          alt="Detailer applying a vinyl wrap in the LUXE studio"
+          class="h-full w-full object-cover"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Selected work -->
+  <div id="work" class={`${wrapper} pb-[110px]`}>
+    <div class="mb-12 flex items-end justify-between">
+      <div>
+        <div class="eyebrow mb-3.5">Selected work</div>
+        <h2 class="font-display text-[clamp(2.25rem,4.5vw,3.625rem)] font-medium leading-none">
+          Recent builds
+        </h2>
+      </div>
+      <a
+        href="#work"
+        class="navlink hidden pb-1.5 font-mono text-xs uppercase tracking-[0.14em] text-mute-1 sm:block"
+      >
+        View all work →
+      </a>
+    </div>
+    <div class="grid grid-cols-1 gap-5 lg:grid-cols-12">
+      {
+        work.map((item) => (
+          <div class={`work-card ${item.span}`}>
+            <div class="h-[380px] overflow-hidden sm:h-[520px]">
+              <img src={item.image} alt={item.title} class="h-full w-full object-cover" />
+            </div>
+            <div class="mt-[18px] flex items-baseline justify-between">
+              <span class="text-lg font-semibold text-cream">{item.title}</span>
+              <span class="font-mono text-[11px] tracking-[0.1em] text-accent">{item.tag}</span>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Services index -->
+  <div id="services" class="border-y border-white/[0.08]">
+    <div class={`${wrapper} py-24`}>
+      <div class="mb-12 font-mono text-xs uppercase tracking-[0.2em] text-mute-4">What we do</div>
+      <div class="border-t border-white/10">
+        {
+          services.map((s) => (
+            <a
+              href="#reserve"
+              class="svc-row flex items-center justify-between gap-6 border-b border-white/10 py-[34px]"
+            >
+              <div class="flex items-baseline gap-6 sm:gap-[34px]">
+                <span class="font-mono text-sm text-accent">{s.n}</span>
+                <span class="font-display text-[clamp(1.5rem,3.6vw,2.875rem)]">{s.title}</span>
+              </div>
+              <div class="flex items-center gap-6 sm:gap-10">
+                <span class="hidden max-w-[380px] text-right text-sm text-mute-3 md:block">
+                  {s.body}
+                </span>
+                <span class="svc-arrow text-[22px] text-accent">→</span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Process -->
+  <div id="process" class={`${wrapper} py-[110px]`}>
+    <div class="mb-14 flex flex-wrap items-end justify-between gap-5">
+      <h2 class="font-display text-[clamp(2.25rem,4.5vw,3.625rem)] font-medium leading-none">
+        How a build works
+      </h2>
+      <p class="max-w-[420px] text-[15px] leading-[1.6] text-mute-3">
+        No surprises, no upsells. A clear plan and a single point of contact from first call to
+        final reveal.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        process.map((step, i) => (
+          <div class={`border-t pt-6 ${i === 0 ? "border-accent" : "border-white/[0.18]"}`}>
+            <div class="font-mono text-xs tracking-[0.12em] text-accent">{step.n}</div>
+            <h3 class="my-3.5 font-display text-[30px]">{step.title}</h3>
+            <p class="text-sm leading-[1.65] text-mute-3">{step.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Proof band -->
+  <div class="border-t border-white/[0.08]">
+    <div class={`${wrapper} py-24`}>
+      <div class="grid grid-cols-2 gap-x-0 gap-y-12 lg:grid-cols-4">
+        {
+          proof.map((p, i) => (
+            <div class={`px-6 sm:px-10 ${i !== 0 ? "lg:border-l lg:border-white/10" : ""}`}>
+              <div class="font-display text-[52px] leading-none text-accent sm:text-[64px]">
+                {p.value}
+              </div>
+              <div class="mt-2.5 text-[13.5px] leading-[1.5] text-mute-3">{p.label}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonial -->
+  <div class="border-t border-white/[0.08]">
+    <div class="mx-auto max-w-[1060px] px-6 py-[120px] text-center sm:px-10 lg:px-14">
+      <div class="eyebrow mb-8">From our clients</div>
+      <blockquote
+        class="font-display text-[clamp(1.875rem,3.6vw,2.875rem)] font-medium italic leading-[1.3] tracking-[-0.005em] text-cream"
+      >
+        "They treated my Turbo S like it was their own. The finish is better than the day I picked it
+        up from the dealer — and it still beads water two winters later."
+      </blockquote>
+      <div class="mt-8 font-mono text-xs uppercase tracking-[0.14em] text-mute-4">
+        — M. Reyes · Porsche 911 Turbo S
+      </div>
+    </div>
+  </div>
+
+  <!-- Reserve CTA -->
+  <div id="reserve" class="relative">
+    <img
+      src="/images/luxe/ppf-photo.jpg"
+      alt=""
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+    <div
+      class="absolute inset-0"
+      style="background:linear-gradient(90deg, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.7) 55%, rgba(10,10,10,0.4) 100%);"
+    >
+    </div>
+    <div class={`relative ${wrapper} py-[130px]`}>
+      <div class="eyebrow mb-6">Reserve your slot</div>
+      <h2
+        class="max-w-[14ch] font-display text-[clamp(2.5rem,5.5vw,4.5rem)] font-medium leading-[1.02] tracking-[-0.015em]"
+      >
+        Your car deserves the LUXE standard.
+      </h2>
+      <p class="mt-[26px] max-w-[480px] text-base leading-[1.7] text-cream-soft">
+        Tell us about your vehicle and goals. We'll build a protection plan and a precise quote —
+        usually within a day.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center gap-7">
+        <a href="#reserve" class="cta-solid px-10 py-[18px] text-[13px]">Request a Quote</a>
+        <span class="font-display text-[22px] italic text-cream-soft">
+          or call {siteMeta.phone}
+        </span>
+      </div>
+    </div>
+  </div>
 </BaseLayout>

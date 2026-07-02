@@ -1,31 +1,19 @@
 [
   {
-    "section": "Navigation",
+    "section": "Services",
     "links": [
-      { "label": "Home", "href": "/" },
-      { "label": "About", "href": "/about" },
-      { "label": "Blog", "href": "/blog" },
-      { "label": "Projects", "href": "/projects" },
-      { "label": "Contact", "href": "/contact" }
+      { "label": "Paint Protection", "href": "#services" },
+      { "label": "Ceramic Coating", "href": "#services" },
+      { "label": "Window Tint", "href": "#services" },
+      { "label": "Vinyl Wraps", "href": "#services" }
     ]
   },
   {
-    "section": "Concept demos",
+    "section": "Studio",
     "links": [
-      { "label": "Inline content (homepage)", "href": "/" },
-      { "label": "Inline + Markdown entry (about)", "href": "/about" },
-      { "label": "Site config driven (contact)", "href": "/contact" },
-      { "label": "Posts collection (blog)", "href": "/blog" },
-      { "label": "Projects collection", "href": "/projects" },
-      { "label": "Islands (interactivity)", "href": "/islands" }
-    ]
-  },
-  {
-    "section": "Resources",
-    "links": [
-      { "label": "Style Guide", "href": "/styleguide" },
-      { "label": "Astro Docs", "href": "https://docs.astro.build" },
-      { "label": "Tailwind CSS", "href": "https://tailwindcss.com" }
+      { "label": "Our Work", "href": "#work" },
+      { "label": "Process", "href": "#process" },
+      { "label": "Book a Slot", "href": "#reserve" }
     ]
   }
 ]

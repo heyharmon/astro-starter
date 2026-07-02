@@ -2,40 +2,44 @@
 import nav from "../data/nav.json";
 import siteMeta from "../data/site-meta.json";
 
-const pathname = Astro.url.pathname;
 const sortedNav = [...nav].sort((a, b) => a.order - b.order);
+const cta = siteMeta.cta ?? { label: "Request a Quote", href: "#reserve" };
 ---
 
-<header class="border-b border-neutral-200 bg-white">
-  <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-    <a href="/" class="text-lg font-semibold tracking-tight text-neutral-900 no-underline">
-      {siteMeta.name}
+{
+  siteMeta.announcement && (
+    <div class="border-b border-white/[0.06] bg-ink-deep px-5 py-2.5 text-center font-mono text-[11.5px] uppercase tracking-[0.16em] text-accent">
+      {siteMeta.announcement}
+    </div>
+  )
+}
+
+<header class="sticky top-0 z-30 border-b border-white/[0.07] bg-ink/[0.72] backdrop-blur-md">
+  <nav class="mx-auto flex max-w-[1320px] items-center justify-between px-6 py-5 sm:px-10 lg:px-14">
+    <a href="/" class="flex items-center gap-2.5">
+      <span class="text-[21px] font-extrabold tracking-[0.34em] text-cream">{siteMeta.name}</span>
+      {siteMeta.locality && (
+        <span class="mt-0.5 self-start font-mono text-[10px] tracking-[0.2em] text-accent">
+          {siteMeta.locality}
+        </span>
+      )}
     </a>
 
-    <ul class="flex items-center gap-6">
+    <div class="hidden items-center gap-10 text-[12.5px] uppercase tracking-[0.1em] text-mute-1 md:flex">
       {
-        sortedNav.map((item) => {
-          const isActive =
-            item.href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(item.href);
-          return (
-            <li>
-              <a
-                href={item.href}
-                class:list={[
-                  "text-sm font-medium no-underline transition-colors",
-                  isActive
-                    ? "text-indigo-600"
-                    : "text-neutral-600 hover:text-neutral-900",
-                ]}
-              >
-                {item.label}
-              </a>
-            </li>
-          );
-        })
+        sortedNav.map((item) => (
+          <a href={item.href} class="navlink transition-colors hover:text-cream">
+            {item.label}
+          </a>
+        ))
       }
-    </ul>
+    </div>
+
+    <a
+      href={cta.href}
+      class="cta-ghost px-5 py-2.5 text-[11.5px] sm:px-[22px] sm:py-[11px]"
+    >
+      {cta.label}
+    </a>
   </nav>
 </header>

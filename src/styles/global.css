@@ -1,8 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  /* LUXE brand fonts */
+  --font-sans: "Archivo", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+
+  /* LUXE dark palette */
+  --color-ink: #0a0a0a; /* page background */
+  --color-ink-deep: #060606; /* announcement bar + footer */
+  --color-accent: #b08d57; /* gold accent */
+  --color-accent-light: #cbb189; /* lighter gold (italics, hero) */
+  --color-accent-glow: #e3c79b; /* brightest gold (hero eyebrow) */
+  --color-cream: #f2efe9; /* primary text */
+  --color-cream-soft: #ece8df; /* hero paragraph */
+  --color-mute-1: #bdb8af; /* nav / footer links */
+  --color-mute-2: #a8a39a; /* body copy */
+  --color-mute-3: #9a958c; /* secondary copy */
+  --color-mute-4: #7a756c; /* captions / labels */
+  --color-mute-5: #5c5850; /* footer headings */
 
   --color-neutral-50: #fafafa;
   --color-neutral-100: #f5f5f5;
@@ -15,112 +31,287 @@
   --color-neutral-800: #262626;
   --color-neutral-900: #171717;
   --color-neutral-950: #0a0a0a;
-
-  --color-indigo-50: #eef2ff;
-  --color-indigo-100: #e0e7ff;
-  --color-indigo-200: #c7d2fe;
-  --color-indigo-300: #a5b4fc;
-  --color-indigo-400: #818cf8;
-  --color-indigo-500: #6366f1;
-  --color-indigo-600: #4f46e5;
-  --color-indigo-700: #4338ca;
-  --color-indigo-800: #3730a3;
-  --color-indigo-900: #312e81;
-  --color-indigo-950: #1e1b4b;
 }
 
 @layer base {
   html {
+    scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply bg-white text-neutral-900 font-sans;
+    @apply bg-ink font-sans text-cream;
+    overflow-x: hidden;
   }
 
-  h1 {
-    @apply font-sans font-semibold tracking-tight text-neutral-900 text-4xl sm:text-5xl;
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-ink);
+  }
+
+  /* Serif display headings by default; sections size them explicitly. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    color: var(--color-cream);
     line-height: 1.1;
-  }
-
-  h2 {
-    @apply font-sans font-semibold tracking-tight text-neutral-900 text-2xl sm:text-3xl;
-    line-height: 1.15;
-  }
-
-  h3 {
-    @apply font-sans font-medium text-neutral-900 text-xl;
-    line-height: 1.2;
+    letter-spacing: -0.01em;
   }
 
   p {
-    @apply leading-relaxed text-neutral-600;
+    @apply leading-relaxed;
+    color: var(--color-mute-2);
   }
 
   a {
-    @apply text-indigo-600 underline-offset-4 hover:underline;
+    color: inherit;
+    text-decoration: none;
   }
 
   hr {
-    @apply border-neutral-200;
+    border-color: rgba(255, 255, 255, 0.08);
   }
 }
 
-/* Primary button utility */
-.btn-primary {
-  @apply inline-block rounded-lg bg-indigo-600 px-6 py-3 text-sm font-medium text-white no-underline transition-colors;
-}
-.btn-primary:hover {
-  @apply bg-indigo-700;
-}
-
-/* Ghost button utility */
-.btn-ghost {
-  @apply inline-block rounded-lg border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-900 no-underline transition-colors;
-  background: transparent;
-}
-.btn-ghost:hover {
-  @apply border-neutral-900 bg-neutral-900 text-white;
+/* ---- Shared eyebrow / mono label ------------------------------------ */
+.eyebrow {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  color: var(--color-accent);
 }
 
-/* Prose styling for rendered markdown content */
+/* ---- Buttons -------------------------------------------------------- */
+.cta-solid {
+  @apply inline-block font-bold uppercase;
+  background: var(--color-accent);
+  color: var(--color-ink);
+  letter-spacing: 0.12em;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+.cta-solid:hover {
+  transform: translateY(-2px);
+}
+
+.cta-ghost {
+  @apply inline-block uppercase;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  letter-spacing: 0.14em;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+.cta-ghost:hover {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+
+/* ---- Animated nav underline ----------------------------------------- */
+.navlink {
+  position: relative;
+}
+.navlink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 1px;
+  background: var(--color-accent);
+  transition: width 0.3s ease;
+}
+.navlink:hover::after {
+  width: 100%;
+}
+
+/* ---- Services index rows -------------------------------------------- */
+.svc-row {
+  transition:
+    padding-left 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+    background 0.35s ease;
+}
+.svc-row:hover {
+  padding-left: 18px;
+  background: rgba(255, 255, 255, 0.02);
+}
+.svc-row:hover .svc-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+.svc-arrow {
+  opacity: 0;
+  transform: translateX(-12px);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+/* ---- Work cards ----------------------------------------------------- */
+.work-card img {
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.work-card:hover img {
+  transform: scale(1.05);
+}
+
+/* ---- Cinematic hero slideshow --------------------------------------- */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  will-change: opacity;
+  animation: heroFade 32s linear infinite;
+}
+.hero-slide img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+.hero-slide:nth-child(1) {
+  animation-delay: 0s;
+}
+.hero-slide:nth-child(2) {
+  animation-delay: 8s;
+}
+.hero-slide:nth-child(3) {
+  animation-delay: 16s;
+}
+.hero-slide:nth-child(4) {
+  animation-delay: 24s;
+}
+.hero-slide:nth-child(1) img {
+  animation: heroPanA 32s ease-in-out infinite;
+}
+.hero-slide:nth-child(2) img {
+  animation: heroPanB 32s ease-in-out infinite;
+  animation-delay: 8s;
+}
+.hero-slide:nth-child(3) img {
+  animation: heroPanC 32s ease-in-out infinite;
+  animation-delay: 16s;
+}
+.hero-slide:nth-child(4) img {
+  animation: heroPanD 32s ease-in-out infinite;
+  animation-delay: 24s;
+}
+@keyframes heroFade {
+  0% {
+    opacity: 0;
+  }
+  3% {
+    opacity: 1;
+  }
+  22% {
+    opacity: 1;
+  }
+  26% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes heroPanA {
+  0% {
+    transform: scale(1.06) translate(0, 0);
+  }
+  26% {
+    transform: scale(1.16) translate(-2%, -1.5%);
+  }
+  100% {
+    transform: scale(1.2) translate(-2.5%, -2%);
+  }
+}
+@keyframes heroPanB {
+  0% {
+    transform: scale(1.18) translate(-2%, -1.5%);
+  }
+  26% {
+    transform: scale(1.1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.06) translate(1.5%, 0);
+  }
+}
+@keyframes heroPanC {
+  0% {
+    transform: scale(1.05) translate(2%, 0);
+  }
+  26% {
+    transform: scale(1.14) translate(0.5%, -1.5%);
+  }
+  100% {
+    transform: scale(1.2) translate(-1.5%, -2%);
+  }
+}
+@keyframes heroPanD {
+  0% {
+    transform: scale(1.2) translate(-1.5%, -2%);
+  }
+  26% {
+    transform: scale(1.1) translate(0, -0.5%);
+  }
+  100% {
+    transform: scale(1.04) translate(1.5%, 1%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide,
+  .hero-slide img {
+    animation: none;
+  }
+  .hero-slide:nth-child(1) {
+    opacity: 1;
+  }
+}
+
+/* ---- Prose styling for rendered markdown content -------------------- */
 .prose {
   @apply max-w-none;
 }
-
 .prose h2 {
   @apply mt-12 mb-4;
 }
-
 .prose h3 {
   @apply mt-8 mb-3;
 }
-
 .prose p {
-  @apply mb-6 text-neutral-600;
+  @apply mb-6;
+  color: var(--color-mute-2);
 }
-
 .prose ul {
-  @apply list-disc pl-6 mb-6 space-y-2 text-neutral-600;
+  @apply list-disc pl-6 mb-6 space-y-2;
+  color: var(--color-mute-2);
 }
-
 .prose ol {
-  @apply list-decimal pl-6 mb-6 space-y-2 text-neutral-600;
+  @apply list-decimal pl-6 mb-6 space-y-2;
+  color: var(--color-mute-2);
 }
-
 .prose blockquote {
-  @apply border-l-2 border-neutral-300 pl-6 italic text-neutral-500 my-6;
+  @apply border-l-2 pl-6 italic my-6;
+  border-color: var(--color-accent);
+  color: var(--color-mute-3);
 }
-
 .prose strong {
-  @apply font-semibold text-neutral-900;
+  @apply font-semibold text-cream;
 }
-
 .prose code {
-  @apply bg-neutral-100 px-1.5 py-0.5 rounded text-sm font-mono text-neutral-800;
+  @apply px-1.5 py-0.5 rounded text-sm font-mono;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-cream);
 }
-
 .prose a {
-  @apply text-indigo-600 underline;
+  @apply underline;
+  color: var(--color-accent);
 }

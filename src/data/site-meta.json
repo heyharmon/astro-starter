@@ -1,14 +1,19 @@
 {
-  "name": "Astro Starter",
-  "tagline": "A self-documenting Astro 5 starter — built around three content tiers",
-  "description": "An Astro 5 + Tailwind CSS 4 starter where every page demonstrates a content pattern: pure inline routes, hybrid Markdown entries, content collections, and site config driven views.",
+  "name": "LUXE",
+  "locality": "SLC",
+  "tagline": "Paint protection, ceramic coating and tint for Utah's most-cared-for cars.",
+  "description": "Salt Lake City's premier studio for paint protection film, Modesta ceramic coating and ceramic window tint — trusted with Porsche, Tesla and one-off custom builds.",
   "url": "https://example.com",
-  "ogImage": "/images/og-default.png",
-  "copyright": "© 2026 Astro Starter. Replace this with your own copyright in src/data/site-meta.json.",
+  "ogImage": "/images/luxe/hero-services.jpg",
+  "copyright": "© 2026 LUXE Automotive · Salt Lake City",
+  "announcement": "Now booking Summer 2026 — limited install calendar · Salt Lake City",
+  "phone": "(801) 555-0192",
+  "address": ["1240 S Main St", "Salt Lake City, UT"],
+  "cta": { "label": "Request a Quote", "href": "#reserve" },
   "social": {
-    "twitter": "https://twitter.com/example",
-    "linkedin": "https://linkedin.com/company/example",
-    "github": "https://github.com/example"
+    "instagram": "https://instagram.com/example",
+    "youtube": "https://youtube.com/@example",
+    "google": "https://google.com/example"
   },
   "formspreeId": "YOUR_FORM_ID"
 }
