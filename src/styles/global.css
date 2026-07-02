@@ -414,6 +414,19 @@ section {
   border-radius: 16px;
   border: 1.5px solid var(--line);
 }
+.studio-photo {
+  display: block;
+  width: 100%;
+  height: 440px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1.5px solid var(--line);
+}
+@media (max-width: 760px) {
+  .studio-photo {
+    height: 300px;
+  }
+}
 
 /* ===== How it works ===== */
 .how {
