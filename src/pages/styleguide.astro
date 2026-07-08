@@ -7,35 +7,36 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const tokens = [
-  ["--paper", "#F3EDE3", "Page background (warm canvas)"],
-  ["--paper-2", "#EBE3D5", "Subtle alt fills, inline code"],
-  ["--white", "#FBF8F2", "Card / surface background"],
-  ["--ink", "#1E1A14", "Primary text, dark panels, ink buttons"],
-  ["--ink-2", "#5C5648", "Body / secondary text"],
-  ["--ink-3", "#928A78", "Muted labels, captions"],
-  ["--line", "#DED5C4", "Hairline borders, dividers"],
-  ["--line-2", "#CFC4AE", "Input borders, stronger lines"],
-  ["--clay", "#C05A2E", "Primary accent — the brand color"],
-  ["--clay-2", "#A8481F", "Accent hover / deeper accent text"],
+  ["--bg", "#0B0C0E", "Page background (near-black)"],
+  ["--bg-2", "#111316", "Raised surface / hover"],
+  ["--card", "#0F1114", "Cards, frames, panels"],
+  ["--ink", "#EEF0F2", "Primary text + headings"],
+  ["--ink-2", "#9AA1A9", "Body / secondary text"],
+  ["--ink-3", "#666D75", "Muted labels, captions, meta"],
+  ["--line", "rgba(238,240,242,.10)", "Hairline borders, dividers"],
+  ["--line-2", "rgba(238,240,242,.20)", "Stronger borders, outlines"],
+  ["--ember", "#EE9A17", "Accent — CTAs, logo, markers, glow"],
+  ["--ember-2", "#F1AC41", "Accent hover / lightened"],
+  ["--on-accent", "#0B0C0E", "Text/icon on an accent fill"],
   ["--maxw", "1220px", "Content container width"],
 ];
 
 const swatches = [
-  ["Clay", "--clay", "#C05A2E"],
-  ["Clay deep", "--clay-2", "#A8481F"],
-  ["Ink", "--ink", "#1E1A14"],
-  ["Paper", "--paper", "#F3EDE3"],
-  ["Surface", "--white", "#FBF8F2"],
-  ["Line", "--line", "#DED5C4"],
+  ["Ember", "--ember", "#EE9A17"],
+  ["Ember hover", "--ember-2", "#F1AC41"],
+  ["Background", "--bg", "#0B0C0E"],
+  ["Card", "--card", "#0F1114"],
+  ["Raised", "--bg-2", "#111316"],
+  ["Ink", "--ink", "#EEF0F2"],
 ];
 
 const geometry = [
-  ["Border radius — buttons", "8px", "All .btn"],
-  ["Border radius — inputs / pills", "10px / 999px", "Fields; pill toggles & chips"],
-  ["Border radius — cards", "14–16px", "Surfaces, pricing, metrics"],
-  ["Border radius — panels", "20–28px", 'Form card, dark "How it works", CTA'],
-  ["Border weight", "1.5px", "Borders & dividers throughout"],
-  ["Section padding", "54–96px vertical", "Top-level sections"],
+  ["Border radius — buttons / inputs", "4px", "All .btn; form fields"],
+  ["Border radius — tags / chips", "3px", "Mono tags, pill toggles, badges"],
+  ["Border radius — cards / panels", "6px", "Surfaces, pricing, metrics, forms"],
+  ["Border radius — CTA panel", "8px", "Home CTA banner"],
+  ["Border weight", "1px", "Hairline borders & dividers throughout"],
+  ["Section padding", "70–96px vertical", "Top-level sections"],
   ["Container width", "1220px", ".wrap max-width"],
 ];
 ---
@@ -94,7 +95,8 @@ const geometry = [
       <div class="sec-label">
         <span class="num">02</span><h2>Color</h2>
         <span class="desc"
-          >Warm paper + ink, one confident clay accent. No second accent hue.</span
+          >Near-black industrial surface, cool steel-grey text, one locked ember
+          accent. No second accent hue.</span
         >
       </div>
       <div class="swatches">
@@ -120,21 +122,21 @@ const geometry = [
       <div class="sec-label">
         <span class="num">03</span><h2>Typography</h2>
         <span class="desc"
-          >Two families only. Bricolage for display, Hanken for everything
-          readable.</span
+          >Two families. Archivo for display + body, IBM Plex Mono for the label
+          voice.</span
         >
       </div>
       <div class="specimen">
         <div class="fam bric">
           <div class="big">Ag</div>
-          <div class="name">Bricolage Grotesque</div>
-          <div class="use">Display &amp; headings · 800 / 700</div>
+          <div class="name">Archivo</div>
+          <div class="use">Display, body &amp; UI · 400–800</div>
           <div class="glyphs">ABCDEFGabcdefg 0123456789</div>
         </div>
         <div class="fam hank">
           <div class="big">Ag</div>
-          <div class="name">Hanken Grotesk</div>
-          <div class="use">Body, UI &amp; labels · 400–700</div>
+          <div class="name">IBM Plex Mono</div>
+          <div class="use">Eyebrows, tags &amp; labels · 400–600</div>
           <div class="glyphs">ABCDEFGabcdefg 0123456789</div>
         </div>
       </div>
@@ -152,11 +154,11 @@ const geometry = [
           </div>
         </div>
         <div class="type-row">
-          <div class="lbl"><b>Eyebrow</b>12.5px · 700 · .16em · caps</div>
+          <div class="lbl"><b>Eyebrow</b>12px · 500 · .14em · caps · mono</div>
           <div><span class="eyebrow">Start a project</span></div>
         </div>
         <div class="type-row">
-          <div class="lbl"><b>Body</b>17px · 1.6 · Hanken</div>
+          <div class="lbl"><b>Body</b>17px · 1.6 · Archivo</div>
           <div style="color:var(--ink-2);max-width:48ch">
             We design and build a complete, live website — then show you the real
             thing before you owe a cent.
@@ -164,8 +166,8 @@ const geometry = [
         </div>
         <div class="type-row">
           <div class="lbl"><b>Accent highlight</b><code>em</code> / <code>.mark-clay</code></div>
-          <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:26px">
-            Let's <em style="font-style:normal;color:var(--clay)">build</em> it.
+          <div style="font-family:'Archivo';font-weight:800;font-size:26px">
+            Let's <em style="font-style:normal;color:var(--ember)">build</em> it.
           </div>
         </div>
       </div>
@@ -199,8 +201,8 @@ const geometry = [
       <div class="sec-label">
         <span class="num">05</span><h2>Form controls</h2>
         <span class="desc"
-          >Inputs sit on paper with a clay focus ring. Multi-select uses pill
-          toggles, not checkboxes.</span
+          >Inputs sit on a raised surface with an ember focus ring. Multi-select
+          uses mono tag toggles, not checkboxes.</span
         >
       </div>
       <div class="card" style="display:flex;gap:40px;flex-wrap:wrap">
@@ -226,8 +228,8 @@ const geometry = [
       <div class="sec-label">
         <span class="num">06</span><h2>Surfaces &amp; cards</h2>
         <span class="desc"
-          >16px radius, 1.5px line border, <code>--white</code> fill. The
-          featured card inverts to ink.</span
+          >6px radius, 1px line border, <code>--card</code> fill. The featured
+          card gets a 3px ember top bar.</span
         >
       </div>
       <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
@@ -258,8 +260,8 @@ const geometry = [
         <span class="desc">The rules that keep new work on-system.</span>
       </div>
       <div class="principles">
-        <div class="pr do"><div class="tag">Do</div><h4>One clay accent</h4><p>Clay is the only accent. Use it for primary actions, highlighted words, and key numbers — sparingly, so it stays loud.</p></div>
-        <div class="pr dont"><div class="tag">Don't</div><h4>No new hues or gradients</h4><p>Don't introduce a second accent color or gradient backgrounds. Warmth comes from the paper/ink/clay trio alone.</p></div>
+        <div class="pr do"><div class="tag">Do</div><h4>One ember accent</h4><p>Ember is the only accent. Use it for primary actions, highlighted words, square markers, and key numbers — sparingly, so it stays loud.</p></div>
+        <div class="pr dont"><div class="tag">Don't</div><h4>No new hues or gradients</h4><p>Don't introduce a second accent color or decorative gradients beyond the hero and CTA glow. The look comes from the bg/ink/ember trio alone.</p></div>
         <div class="pr do"><div class="tag">Do</div><h4>Friendly, plain-spoken voice</h4><p>Short, confident, human. Contractions welcome. Lead with the customer's benefit, not jargon.</p></div>
         <div class="pr dont"><div class="tag">Don't</div><h4>No filler or false urgency</h4><p>No countdown timers, no fake scarcity, no padding sections to fill space. Every element earns its place.</p></div>
         <div class="pr do"><div class="tag">Do</div><h4>Generous whitespace</h4><p>Big type, calm spacing, hairline borders. Sections breathe with ~54–96px vertical padding.</p></div>
@@ -325,10 +327,10 @@ const geometry = [
     margin-bottom: 34px;
   }
   .sec-label .num {
-    font-family: "Bricolage Grotesque", system-ui, sans-serif;
-    font-weight: 800;
-    font-size: 15px;
-    color: var(--clay);
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ember);
   }
   .sec-label h2 {
     font-size: clamp(26px, 3.4vw, 38px);
@@ -432,11 +434,11 @@ const geometry = [
     letter-spacing: -0.02em;
   }
   .specimen .fam.bric .big {
-    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-family: "Archivo", system-ui, sans-serif;
     font-weight: 800;
   }
   .specimen .fam.hank .big {
-    font-family: "Hanken Grotesk", system-ui, sans-serif;
+    font-family: "IBM Plex Mono", monospace;
     font-weight: 600;
   }
   .specimen .fam .name {

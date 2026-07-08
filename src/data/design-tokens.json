@@ -1,98 +1,126 @@
 {
   "meta": {
-    "version": "2.0",
-    "description": "Machine-readable design system for Studio Harmon. CSS variables live on :root in src/styles/global.css — reference the token, never the raw hex."
+    "version": "3.0",
+    "description": "Machine-readable design system for Studio Harmon — 'Forge' aesthetic (dark, industrial, for the trades). CSS variables live on :root in src/styles/global.css — reference the token, never the raw hex. Legacy names (--paper, --white, --clay) remain as aliases pointing at the Forge tokens."
   },
   "tokens": {
-    "--paper": { "value": "#F3EDE3", "role": "Page background (warm canvas)" },
-    "--paper-2": { "value": "#EBE3D5", "role": "Subtle alt fills, inline code" },
-    "--white": { "value": "#FBF8F2", "role": "Card / surface background" },
-    "--ink": { "value": "#1E1A14", "role": "Primary text, dark panels, ink buttons" },
-    "--ink-2": { "value": "#5C5648", "role": "Body / secondary text" },
-    "--ink-3": { "value": "#928A78", "role": "Muted labels, captions" },
-    "--line": { "value": "#DED5C4", "role": "Hairline borders, dividers" },
-    "--line-2": { "value": "#CFC4AE", "role": "Input borders, stronger lines" },
-    "--clay": { "value": "#C05A2E", "role": "Primary accent — the brand color" },
-    "--clay-2": { "value": "#A8481F", "role": "Accent hover / deeper accent text" },
-    "--maxw": { "value": "1220px", "role": "Content container width" }
+    "--bg": { "value": "#0B0C0E", "role": "Page background (near-black)" },
+    "--bg-2": { "value": "#111316", "role": "Raised surface / hover" },
+    "--card": { "value": "#0F1114", "role": "Cards, frames, panels" },
+    "--ink": { "value": "#EEF0F2", "role": "Primary text + headings" },
+    "--ink-2": { "value": "#9AA1A9", "role": "Body / secondary text" },
+    "--ink-3": { "value": "#666D75", "role": "Muted: captions, footer meta, tertiary" },
+    "--line": { "value": "rgba(238,240,242,.10)", "role": "Hairline borders, dividers" },
+    "--line-2": { "value": "rgba(238,240,242,.20)", "role": "Stronger borders, outlines" },
+    "--ember": { "value": "#EE9A17", "role": "Accent base (LOCKED yellow-gold) — CTAs, logo, markers, glow" },
+    "--ember-2": { "value": "#F1AC41", "role": "Accent hover (lightened)" },
+    "--glow": { "value": "rgba(238,154,23,.17)", "role": "Accent radial-glow wash" },
+    "--on-accent": { "value": "#0B0C0E", "role": "Text/icon color on an accent fill" },
+    "--maxw": { "value": "1220px", "role": "Content container width" },
+    "aliases": {
+      "note": "Legacy names kept so existing var() references keep resolving.",
+      "--paper": "--bg",
+      "--paper-2": "--bg-2",
+      "--white": "--card",
+      "--clay": "--ember",
+      "--clay-2": "--ember-2"
+    }
   },
   "typography": {
     "fonts": {
-      "display": "Bricolage Grotesque",
-      "body": "Hanken Grotesk"
+      "display": "Archivo",
+      "body": "Archivo",
+      "mono": "IBM Plex Mono"
     },
     "display": {
-      "family": "Bricolage Grotesque",
+      "family": "Archivo",
       "weight": 800,
-      "letterSpacing": "-0.025em",
-      "lineHeight": "0.98",
+      "letterSpacing": "-0.03em",
+      "lineHeight": "1.02",
       "hero": "clamp(54px, 8.4vw, 118px)",
       "h2": "clamp(34px, 5vw, 64px)"
     },
     "body": {
-      "family": "Hanken Grotesk",
+      "family": "Archivo",
       "size": "17px",
       "lineHeight": "1.6",
       "color": "--ink-2"
     },
     "eyebrow": {
-      "size": "12.5px",
-      "weight": 700,
-      "letterSpacing": "0.16em",
+      "family": "IBM Plex Mono",
+      "size": "12px",
+      "weight": 500,
+      "letterSpacing": "0.14em",
       "transform": "uppercase",
-      "color": "--clay-2"
+      "color": "--ember",
+      "note": "Leading 22px hairline rule via ::before."
+    },
+    "labelVoice": {
+      "family": "IBM Plex Mono",
+      "note": "Mono uppercase for eyebrows, nav links, tags, badges, step numbers, footer headings, footer meta, form labels, metric labels."
+    },
+    "capitalization": {
+      "h1": "UPPERCASE (hero + subpage lede)",
+      "h3": "UPPERCASE (card titles, feature titles, step titles)",
+      "h2": "sentence case (section titles)",
+      "pullQuote": "sentence case",
+      "labels": "uppercase (label style, not a heading)"
     },
     "accentHighlight": {
-      "note": "Wrap one or two words in <em> with .mark-clay (font-style:normal; color:var(--clay))"
+      "note": "Wrap one or two words in <em> with .mark-clay (font-style:normal; color:var(--ember))"
     }
   },
   "geometry": {
     "radius": {
-      "button": "8px",
-      "input": "10px",
-      "pill": "999px",
-      "card": "14-16px",
-      "panel": "20-28px"
+      "button": "4px",
+      "input": "4px",
+      "tag": "3px",
+      "card": "6px",
+      "ctaPanel": "8px"
     },
-    "borderWeight": "1.5px",
-    "sectionPadding": "54-96px vertical",
+    "borderWeight": "1px",
+    "sectionPadding": "70-96px vertical",
     "container": { "maxWidth": "1220px", "px": "32px" }
   },
+  "texture": {
+    "heroGlow": "radial-gradient(90% 70% at 85% -20%, var(--glow), transparent 55%) via .hero::after",
+    "heroBlueprint": "Layered grid via .hero::before — bold lines every 100px at rgba(238,240,242,.10), fine lines every 25px at rgba(238,240,242,.04); masked to fade out toward the bottom (88%)."
+  },
   "motion": {
-    "transition": "0.18-0.22s ease",
-    "solidButtonHover": "translateY(-1px)",
+    "transition": "0.2s ease",
+    "solidButtonHover": "translateY(-1px) + lighten to --ember-2",
     "arrowNudge": "translateX(3px)",
-    "cardHover": "translateY(-4px) + border-color --clay",
+    "cardHover": "translateY(-4px) + border-color --ember",
     "note": "Restrained only. One subtle marquee on the home services bar. No looping/decorative animation."
   },
   "buttons": {
-    "btn-clay": { "bg": "--clay", "text": "#fff", "hoverBg": "--clay-2", "role": "Primary action" },
-    "btn-ink": { "bg": "--ink", "text": "--paper", "hoverBg": "#000", "role": "Secondary / dark" },
+    "btn-clay": { "bg": "--ember", "text": "--on-accent", "hoverBg": "--ember-2", "role": "Primary action" },
+    "btn-ink": { "bg": "--ember", "text": "--on-accent", "hoverBg": "--ember-2", "role": "Primary CTA (maps to the same ember fill as btn-clay)" },
     "btn-ghost": {
       "bg": "transparent",
       "border": "--line-2",
       "text": "--ink",
       "hoverBorder": "--ink",
-      "hoverBg": "--white",
-      "role": "Tertiary / outline"
+      "hoverBg": "rgba(238,240,242,.05)",
+      "role": "Secondary / outline"
     },
-    "base": "inline-flex; gap:9px; font-weight:700; font-size:15px; padding:14px 24px; radius:8px; optional trailing .arr"
+    "base": "inline-flex; gap:9px; font-weight:600; font-size:15px; padding:14px 24px; radius:4px; uppercase; letter-spacing:.04em; optional trailing .arr"
   },
   "principles": [
-    "One clay accent — no second hue, no gradients.",
-    "Friendly, plain-spoken voice. Lead with the customer benefit.",
-    "No filler or false urgency.",
-    "Generous whitespace, hairline borders, big type.",
-    "Restrained, fast motion only."
+    "One ember accent — no second hue, no gradients beyond the hero/CTA glow.",
+    "Accent used sparingly: CTAs, logo mark, square markers, key highlights.",
+    "Spec-sheet voice: uppercase display headings paired with a monospace label voice.",
+    "Hairline borders, small radii, blueprint grid texture in the hero.",
+    "Restrained, fast motion only. Masculine and modern, not loud."
   ],
   "componentPatterns": {
-    "hero": "Eyebrow + clamp display H1 with clay-marked words + sub paragraph + CTA row, followed by full-bleed ink marquee. Ref: index.astro",
-    "work-grid": "1.3fr/1fr grid: one tall feature card + two stacked. Card = image placeholder + body row (name, tag, clay stat). Hover lifts + clay border. Ref: index.astro #work",
-    "dark-panel": "Ink rounded panel (radius 28px) with clay eyebrow + H2 + numbered steps with clay pills. Ref: index.astro #how",
-    "services-list": "Bordered rows grid 46px/1.1fr/1.4fr/auto: index, title, description, clay icon. Rows indent + go --white on hover. Ref: index.astro #services",
-    "metrics": "Three --white cards with large clay Bricolage number + label. Ref: index.astro metrics",
-    "pricing": "Two-column grid; featured card inverts to ink. Ref: index.astro #pricing",
-    "cta-banner": "Full clay rounded banner, centered H2 + button row. Ref: index.astro CTA",
-    "split-form": "0.85fr/1.15fr two-column: left lede + steps/facts, right --white card. Collapses at 900px. Ref: start.astro, book.astro"
+    "hero": "Eyebrow + clamp UPPERCASE display H1 with ember-marked words + sub paragraph + CTA row, over a blueprint grid + warm glow, followed by full-bleed marquee. Ref: index.astro",
+    "work-grid": "2-col grid of dark cards (--card, 1px --line, 6px radius): image + body row (uppercase name, mono tag). Hover lifts + ember border. Ref: index.astro #work",
+    "dark-panel": "Card panel (radius 6px) with ember eyebrow + H2 + numbered steps with ember numerals + mono tag pills. Ref: index.astro #how",
+    "services-list": "Bordered rows grid 46px/1.1fr/1.4fr/auto: mono ember index, uppercase title, description, ember icon. Rows indent + go --bg-2 on hover. Ref: index.astro #services",
+    "metrics": "Three --card panels with large light Archivo number + mono label. Ref: index.astro metrics",
+    "pricing": "Two-column grid; featured card gets --line-2 outline + 3px ember top bar. Square ember list markers. Ref: index.astro #pricing",
+    "cta-banner": "--card panel, --line-2 outline, 8px radius, centered H2 + button row, bottom radial ember glow. Ref: index.astro CTA",
+    "split-form": "0.85fr/1.15fr two-column: left lede + steps/facts, right --card panel with mono labels + dark inputs. Collapses at 900px. Ref: start.astro, book.astro"
   }
 }
