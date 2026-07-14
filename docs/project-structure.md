@@ -45,7 +45,7 @@
 │   │   ├── Head.astro         → SEO meta tags (title, OG, Twitter, canonical)
 │   │   ├── Header.astro       → Navigation bar (reads nav.json)
 │   │   ├── Footer.astro       → Footer (reads site-meta.json)
-│   │   └── ContactForm.jsx    → React contact form (Formspree submission)
+│   │   └── ContactForm.jsx    → React contact form (POSTs to `formEndpoint`)
 │   ├── pages/
 │   │   ├── index.astro        → / (homepage)
 │   │   ├── about.astro        → /about
@@ -78,7 +78,7 @@ Configured entirely in `src/styles/global.css` via `@theme` blocks — there is 
 
 ### React — Minimal Usage
 
-React is used only for `ContactForm.jsx` (client-side form submission to Formspree). All other components are `.astro` files (zero client-side JavaScript). Don't add React components unless client-side interactivity is truly required.
+React is used only for `ContactForm.jsx` (client-side form submission to the handler URL in `site-meta.json`'s `formEndpoint` — currently a Basin form). All other components are `.astro` files (zero client-side JavaScript). Don't add React components unless client-side interactivity is truly required.
 
 ### Data-Driven Components
 
@@ -92,7 +92,7 @@ Static output mode, React integration via `@astrojs/react`, Tailwind via `@tailw
 
 ### `src/data/site-meta.json`
 
-Site-wide identity: name, tagline, description, production URL, OG image default, copyright text, social links, Formspree ID.
+Site-wide identity: name, tagline, description, production URL, OG image default, copyright text, social links, and `formEndpoint` (the contact form's handler URL).
 
 ### `src/data/nav.json`
 
