@@ -97,6 +97,20 @@
   @apply justify-center;
 }
 
+/* Heading rule: 70px hairline sitting below a heading (matches the reference,
+   where the line always sits under the h2/h3, flush with its left edge). */
+.heading-rule::after {
+  content: "";
+  display: block;
+  width: 70px;
+  margin-top: 21px;
+  border-top: 1px solid #d6d6d6;
+}
+.heading-rule--center::after {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Outline button — white, square, uppercase (matches reference) */
 .btn-outline {
   @apply inline-block bg-white text-[15px] uppercase text-black;

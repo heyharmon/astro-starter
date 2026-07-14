@@ -15,7 +15,7 @@ const fieldClass =
   "mt-2 block w-full border border-white/20 bg-white/5 px-4 py-3 text-[15px] text-white placeholder-white/40 transition-colors focus:border-white focus:outline-none";
 const labelClass = "block text-[13px] font-medium uppercase tracking-[0.5px] text-ink";
 
-export default function ContactForm({ formspreeId }) {
+export default function ContactForm({ endpoint }) {
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -38,7 +38,7 @@ export default function ContactForm({ formspreeId }) {
     setErrorMessage("");
 
     try {
-      const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({

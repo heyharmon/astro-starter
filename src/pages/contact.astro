@@ -23,8 +23,7 @@ const description =
     <div class="epw-container grid gap-14 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
       <!-- Contact info -->
       <div>
-        <span class="mb-6 block h-[2px] w-12 bg-white/50"></span>
-        <h2>Contact info</h2>
+        <h2 class="heading-rule">Contact info</h2>
 
         <dl class="mt-8 space-y-7">
           <div class="flex items-start gap-4">
@@ -85,10 +84,9 @@ const description =
 
       <!-- Form -->
       <div>
-        <span class="mb-6 block h-[2px] w-12 bg-white/50"></span>
-        <h2>Send a message</h2>
+        <h2 class="heading-rule">Send a message</h2>
         <div class="mt-8">
-          <ContactForm client:idle formspreeId={siteMeta.formspreeId} />
+          <ContactForm client:idle endpoint={siteMeta.formEndpoint} />
         </div>
       </div>
     </div>

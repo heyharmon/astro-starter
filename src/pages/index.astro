@@ -105,7 +105,7 @@ const services = [
   <!-- ===================== LATEST PROJECTS ===================== -->
   <section id="projects" class="bg-surface py-20 lg:py-28">
     <div class="epw-container">
-      <h2>Latest projects</h2>
+      <h2 class="heading-rule">Latest projects</h2>
       <div class="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
         {
           projects.map((p) => (
@@ -134,7 +134,7 @@ const services = [
   <!-- ===================== SERVICES ===================== -->
   <section id="services" class="bg-black py-20 lg:py-28">
     <div class="epw-container">
-      <h2>Services</h2>
+      <h2 class="heading-rule">Services</h2>
       <div class="mt-12 grid gap-6 md:grid-cols-2">
         {
           services.map((s) => (
@@ -147,11 +147,13 @@ const services = [
               />
               <div
                 class="absolute inset-0"
-                style="background-image:linear-gradient(135deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.25) 100%);"
+                style="background-image:linear-gradient(135deg, rgba(0,0,0,0.93) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.45) 100%);"
               />
-              <div class="relative z-10 flex flex-col p-9 lg:p-10">
-                <h3 class="text-[2rem]">{s.title}</h3>
-                <p class="mt-4 max-w-sm text-[15px] leading-relaxed text-ink">{s.desc}</p>
+              <div class="relative z-10 flex flex-col p-10 lg:p-16">
+                <h3 class="heading-rule text-[2.5rem] leading-[1.1] lg:text-[3.5rem]">{s.title}</h3>
+                <p class="mt-6 max-w-sm text-[17px] leading-[1.75] text-white lg:text-[19px]">
+                  {s.desc}
+                </p>
               </div>
             </article>
           ))
@@ -170,7 +172,7 @@ const services = [
     />
     <div class="relative epw-container py-24 lg:py-32">
       <div class="max-w-md bg-black p-10 lg:p-12">
-        <h2>Real pictures of our work.</h2>
+        <h2 class="heading-rule">Real pictures of our work.</h2>
         <p class="mt-5 text-[15px] leading-relaxed text-ink">
           From healthcare to hospitality, mining &amp; pipe welding to luxury homes—see how we
           deliver precision welding and fabrication that exceeds expectations.

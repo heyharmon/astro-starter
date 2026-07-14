@@ -110,8 +110,7 @@ const description =
     categories.map((cat) => (
       <section class={`py-20 lg:py-28 ${cat.surface ? "bg-surface" : "bg-black"}`}>
         <div class="epw-container">
-          <span class="mb-6 block h-[2px] w-12 bg-white/50" />
-          <h2>{cat.title}</h2>
+          <h2 class="heading-rule">{cat.title}</h2>
           <div class="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {cat.items.map((item) => (
               <article class="group flex flex-col">
@@ -136,8 +135,7 @@ const description =
   <!-- ===================== PIPE WELDING (2-col) ===================== -->
   <section class="bg-black py-20 lg:py-28">
     <div class="epw-container">
-      <span class="mb-6 block h-[2px] w-12 bg-white/50"></span>
-      <h2>{pipe.title}</h2>
+      <h2 class="heading-rule">{pipe.title}</h2>
       <div class="mt-12 grid gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-16">
         <div class="flex flex-col justify-center space-y-9">
           {

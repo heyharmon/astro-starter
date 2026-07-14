@@ -11,20 +11,20 @@ const sortedNav = [...nav].sort((a, b) => a.order - b.order);
       <img
         src="/images/eaglepoint/logo-white.svg"
         alt={siteMeta.name}
-        class="h-6 w-auto md:h-7"
+        class="h-7 w-auto"
         width="248"
         height="28"
       />
     </a>
 
     <!-- Desktop links -->
-    <ul class="hidden items-center gap-9 md:flex">
+    <ul class="hidden items-center gap-[45px] md:flex">
       {
         sortedNav.map((item) => (
           <li>
             <a
               href={item.href}
-              class="text-[15px] capitalize tracking-[1px] text-white/85 transition-colors hover:text-white"
+              class="text-[15px] uppercase tracking-[1px] text-white transition-opacity hover:opacity-70"
             >
               {item.label}
             </a>
@@ -60,7 +60,7 @@ const sortedNav = [...nav].sort((a, b) => a.order - b.order);
           <li>
             <a
               href={item.href}
-              class="block py-3 text-[15px] capitalize tracking-[1px] text-white/85"
+              class="block py-3 text-[15px] uppercase tracking-[1px] text-white"
             >
               {item.label}
             </a>
