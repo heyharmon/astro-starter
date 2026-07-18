@@ -45,11 +45,23 @@ Defined in [`src/content.config.ts`](../src/content.config.ts). Read the schema 
 
 | Collection | Path | URL surface | Notes |
 |------------|------|-------------|-------|
-| `pages` | `src/content/pages/*.md` | Rendered by route files in `src/pages/` (e.g. `home.md` → `/`, `about.md` → `/about`). Filename = entry ID for `getEntry("pages", id)`. | One entry per unique page. Not a listing. |
-| `projects` | `src/content/projects/*.md` | `/projects/<slug>` (slug = filename). Listed on `/projects`, sorted by `order`. `featured: true` surfaces on homepage. | Repeating showcase items. |
-| `posts` | `src/content/posts/*.md` | `/blog/<slug>` (slug = filename). Listed on `/blog`, sorted by `date` descending. | Standard blog posts. |
+| `pages` | `src/content/pages/*.md` | Rendered by route files in `src/pages/`. Filename = entry ID for `getEntry("pages", id)`. | One entry per unique page. Not a listing. Currently unused — the homepage and estimate page are inline. |
+| `posts` | `src/content/posts/*.md` | **`/<slug>` at the site root** (slug = filename), via `src/pages/[slug].astro`. Listed on `/the-mold-academy`, sorted by `date` descending. | The Mold Academy articles. |
+| `locations` | `src/content/locations/*.md` | `/locations/<slug>` (slug = filename), via `src/pages/locations/[slug].astro`. | City / region service-area pages. |
 
-Services are **inline**, not a collection — `/services` is a unique page rendered from `src/content/pages/services.md` plus its route file.
+Two rules specific to this site:
+
+- **Articles sit at the site root, not under `/blog`.** That mirrors the original WordPress
+  permalinks (e.g. `/does-black-mold-smell`). Moving them would break existing inbound links and
+  rankings.
+- **Location pages are entirely schema-driven.** Every section on `/locations/<slug>` — hero
+  bullets, how-it-works steps, pricing, areas served, local mold signs with their 🔎/🏡 callouts,
+  value cards, the trust card, FAQs, mold types, and the closing CTA — comes from frontmatter, and
+  each section renders only when its field is present. **Adding a city should be a new `.md` file
+  and nothing else.** If a new city seems to need template changes, add an optional field rather
+  than special-casing that city.
+
+The `projects` collection from the starter has been removed; there is no `/projects` surface.
 
 ## Editing content
 
@@ -80,14 +92,14 @@ Never remove or rename existing fields without updating all content files that u
 ---
 import { getEntry, getCollection, render } from "astro:content";
 
-const page = await getEntry("pages", "home");
-const { Content } = await render(page);
+const entry = await getEntry("locations", "salt-lake-city-mold-inspection");
+const { Content } = await render(entry);
 
-const projects = await getCollection("projects");
-const sorted = projects.sort((a, b) => a.data.order - b.data.order);
+const posts = await getCollection("posts", ({ data }) => !data.draft);
+const recent = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<h1>{page.data.headline}</h1>
+<h1>{entry.data.headline}</h1>
 <Content />
 ```
 

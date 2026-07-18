@@ -1,34 +1,46 @@
 ---
 import siteMeta from "../data/site-meta.json";
-
-const socialLinks = Object.entries(siteMeta.social).filter(([_, url]) => url);
+import footer from "../data/footer.json";
 ---
 
-<footer class="border-t border-neutral-200 bg-neutral-50 py-16">
-  <div class="mx-auto max-w-5xl px-6 text-center">
-    <a href="/" class="text-xl font-semibold tracking-tight text-neutral-900 no-underline">
-      {siteMeta.name}
-    </a>
+<footer class="bg-teal-800 text-white">
+  <!-- Site-wide CTA -->
+  <div class="mx-auto max-w-6xl px-6 pt-20 pb-16 sm:pt-28">
+    <p class="max-w-4xl text-4xl font-semibold leading-tight text-white sm:text-6xl">
+      Defeat mold.{" "}
+      <a
+        href="/request-free-estimate"
+        class="text-white underline decoration-2 underline-offset-8 transition-opacity hover:opacity-80"
+      >Get a free estimate.</a>
+    </p>
+  </div>
 
-    {siteMeta.tagline && (
-      <p class="mt-2 text-sm text-neutral-500">{siteMeta.tagline}</p>
-    )}
+  <div class="mx-auto max-w-6xl px-6 pb-16">
+    <img src={siteMeta.logoIconWhite} alt="" class="h-12 w-auto" />
 
-    {socialLinks.length > 0 && (
-      <div class="mt-6 flex items-center justify-center gap-6">
-        {socialLinks.map(([platform, url]) => (
-          <a
-            href={url as string}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-sm capitalize text-neutral-500 no-underline transition-colors hover:text-neutral-900"
-          >
-            {platform}
-          </a>
-        ))}
-      </div>
-    )}
+    <div class="mt-8 space-y-1 text-sm text-white/90">
+      <p class="text-white/90">
+        <a href={`mailto:${siteMeta.contact.email}`} class="text-white no-underline hover:underline">
+          {siteMeta.contact.email}
+        </a>
+      </p>
+      <p class="text-white/90">
+        Call us:{" "}
+        <a href={siteMeta.contact.phoneHref} class="text-white no-underline hover:underline">
+          {siteMeta.contact.phone}
+        </a>
+      </p>
+    </div>
 
-    <p class="mt-8 text-xs text-neutral-400">{siteMeta.copyright}</p>
+    <div class="mt-8 flex flex-wrap gap-x-8 gap-y-2">
+      {footer.flatMap((section) => section.links).map((link) => (
+        <a href={link.href} class="text-xs text-white/70 no-underline hover:text-white">
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <hr class="mt-10 border-white/20" />
+    <p class="mt-6 text-xs text-white/70">{siteMeta.copyright}</p>
   </div>
 </footer>

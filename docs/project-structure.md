@@ -29,9 +29,9 @@
 ├── src/
 │   ├── content.config.ts      → Content collection schemas (Zod)
 │   ├── content/
-│   │   ├── pages/             → Static page content (home, about, services, contact, etc.)
-│   │   ├── projects/          → Project showcases (one .md per project)
-│   │   └── posts/             → Blog posts
+│   │   ├── pages/             → Static page content (unused — unique pages are inline)
+│   │   ├── posts/             → The Mold Academy articles
+│   │   └── locations/         → Service-area pages (one .md per city/region)
 │   ├── data/
 │   │   ├── nav.json           → Navigation links with sort order
 │   │   ├── footer.json        → Footer link groups
@@ -45,14 +45,14 @@
 │   │   ├── Head.astro         → SEO meta tags (title, OG, Twitter, canonical)
 │   │   ├── Header.astro       → Navigation bar (reads nav.json)
 │   │   ├── Footer.astro       → Footer (reads site-meta.json)
-│   │   └── ContactForm.jsx    → React contact form (Formspree submission)
+│   │   └── EstimateForm.jsx   → React estimate form (Formspree submission)
 │   ├── pages/
 │   │   ├── index.astro        → / (homepage)
-│   │   ├── about.astro        → /about
-│   │   ├── services.astro     → /services
-│   │   ├── contact.astro      → /contact
-│   │   ├── blog/              → /blog and /blog/[slug] (dynamic, posts collection)
-│   │   ├── projects/          → /projects and /projects/[slug] (dynamic, projects collection)
+│   │   ├── the-mold-academy.astro → /the-mold-academy (article index)
+│   │   ├── request-free-estimate.astro → /request-free-estimate
+│   │   ├── [slug].astro       → /<slug> articles at the root (posts collection,
+│   │   │                        matching the original WordPress permalinks)
+│   │   ├── locations/[slug].astro → /locations/<slug> (locations collection)
 │   │   └── styleguide.astro   → /styleguide (design system preview, noindex)
 │   └── styles/
 │       └── global.css         → Tailwind 4 theme, base styles, prose styling
@@ -78,7 +78,7 @@ Configured entirely in `src/styles/global.css` via `@theme` blocks — there is 
 
 ### React — Minimal Usage
 
-React is used only for `ContactForm.jsx` (client-side form submission to Formspree). All other components are `.astro` files (zero client-side JavaScript). Don't add React components unless client-side interactivity is truly required.
+React is used only for `EstimateForm.jsx` (client-side form submission to Formspree). All other components are `.astro` files (zero client-side JavaScript). Don't add React components unless client-side interactivity is truly required.
 
 ### Data-Driven Components
 

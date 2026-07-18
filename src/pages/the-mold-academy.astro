@@ -1,0 +1,61 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout
+  title="The Mold Academy"
+  description="Expert insights, practical tips, and essential guides to help you understand mold, its effects, and how to protect your home."
+>
+  <!-- Intro header -->
+  <section class="bg-white">
+    <div class="mx-auto grid max-w-6xl gap-10 px-6 pt-20 pb-12 sm:pt-28 lg:grid-cols-2">
+      <div>
+        <h1>The Mold Academy</h1>
+        <p class="mt-4 text-lg font-semibold">Your Resource for a Healthier, Mold-Free Home</p>
+      </div>
+      <div class="flex items-end">
+        <p>
+          Explore expert insights, practical tips, and essential guides to help you understand
+          mold, its effects, and how to protect your home. From costs to crawl spaces, The Mold
+          Academy is your go-to source for unbiased, actionable information.
+        </p>
+      </div>
+    </div>
+    <div class="mx-auto max-w-6xl px-6"><hr /></div>
+  </section>
+
+  <!-- Post grid -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+      <div class="grid gap-x-12 gap-y-16 sm:grid-cols-2">
+        {posts.map((post) => (
+          <article>
+            <a href={`/${post.id}`} class="block no-underline">
+              {post.data.featuredImage && (
+                <img
+                  src={post.data.featuredImage.src}
+                  alt={post.data.featuredImage.alt}
+                  class="aspect-[3/2] w-full rounded-xl object-cover"
+                  loading="lazy"
+                />
+              )}
+              <h2 class="mt-6 text-2xl sm:text-3xl">{post.data.title}</h2>
+            </a>
+            <p class="mt-3">{post.data.description}</p>
+            <a
+              href={`/${post.id}`}
+              class="mt-4 inline-block text-sm font-semibold text-copper no-underline hover:underline"
+            >
+              Continue reading
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

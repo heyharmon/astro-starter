@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import EstimateForm from "../components/EstimateForm.jsx";
+import siteMeta from "../data/site-meta.json";
+---
+
+<BaseLayout
+  title="Request Free Estimate"
+  description="Request a free mold testing estimate. Complete the form and we will contact you to schedule a date and time."
+>
+  <section class="bg-white">
+    <div class="mx-auto grid max-w-6xl gap-16 px-6 py-20 sm:py-28 lg:grid-cols-2">
+      <div>
+        <h1>Free estimate</h1>
+        <div class="mt-10">
+          <EstimateForm client:idle formspreeId={siteMeta.formspreeId} />
+        </div>
+      </div>
+
+      <div class="lg:pt-4">
+        <p class="text-sm font-semibold uppercase tracking-[3px] text-copper">What's next?</p>
+        <p class="mt-4">Complete this form and we will contact you to schedule a date and time.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

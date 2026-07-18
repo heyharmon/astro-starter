@@ -1,8 +1,13 @@
 [
-  { "label": "About", "href": "/about", "order": 1 },
-  { "label": "Blog", "href": "/blog", "order": 2 },
-  { "label": "Projects", "href": "/projects", "order": 3 },
-  { "label": "Contact", "href": "/contact", "order": 4 },
-  { "label": "Islands", "href": "/islands", "order": 5 },
-  { "label": "Style Guide", "href": "/styleguide", "order": 6 }
+  {
+    "label": "Service Areas",
+    "href": "/locations/utah-mold-testing",
+    "order": 1,
+    "children": [
+      { "label": "Utah Mold Testing", "href": "/locations/utah-mold-testing" },
+      { "label": "Salt Lake City Mold Inspection", "href": "/locations/salt-lake-city-mold-inspection" }
+    ]
+  },
+  { "label": "The Mold Academy", "href": "/the-mold-academy", "order": 2 },
+  { "label": "Free Estimate", "href": "/request-free-estimate", "order": 3 }
 ]

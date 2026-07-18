@@ -4,38 +4,132 @@ import siteMeta from "../data/site-meta.json";
 
 const pathname = Astro.url.pathname;
 const sortedNav = [...nav].sort((a, b) => a.order - b.order);
+// Last nav item ("Free Estimate") renders as the solid CTA button, per reference
+const links = sortedNav.slice(0, -1);
+const cta = sortedNav[sortedNav.length - 1];
+
+const isCurrent = (href: string) =>
+  href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+// A parent is active when it or any of its children matches the current path
+const isActive = (item: (typeof links)[number]) =>
+  isCurrent(item.href) || (item.children ?? []).some((child) => isCurrent(child.href));
 ---
 
-<header class="border-b border-neutral-200 bg-white">
-  <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-    <a href="/" class="text-lg font-semibold tracking-tight text-neutral-900 no-underline">
-      {siteMeta.name}
+<header class="sticky top-0 z-40 bg-white">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
+    <a href="/" class="no-underline hover:opacity-80">
+      <img src={siteMeta.logo} alt={siteMeta.name} class="h-7 w-auto" />
     </a>
 
-    <ul class="flex items-center gap-6">
-      {
-        sortedNav.map((item) => {
-          const isActive =
-            item.href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(item.href);
-          return (
-            <li>
+    <div class="flex items-center gap-8">
+      <ul class="hidden items-center gap-8 sm:flex">
+        {
+          links.map((item) => (
+            <li class="group relative">
               <a
                 href={item.href}
                 class:list={[
-                  "text-sm font-medium no-underline transition-colors",
-                  isActive
-                    ? "text-indigo-600"
-                    : "text-neutral-600 hover:text-neutral-900",
+                  "inline-flex items-center gap-1 text-sm no-underline transition-colors",
+                  isActive(item)
+                    ? "text-teal-800 underline decoration-copper decoration-2 underline-offset-8"
+                    : "text-teal-800 hover:text-teal-500",
                 ]}
               >
                 {item.label}
+                {item.children && (
+                  <svg
+                    class="h-3 w-3 transition-transform group-hover:rotate-180"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M2.5 4.5 6 8l3.5-3.5"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                )}
               </a>
+
+              {item.children && (
+                <ul class="invisible absolute left-0 top-full z-50 w-64 rounded-lg border border-neutral-200 bg-white py-2 opacity-0 shadow-lg transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        href={child.href}
+                        class:list={[
+                          "block px-4 py-2 text-sm no-underline transition-colors hover:bg-cream",
+                          isCurrent(child.href)
+                            ? "text-teal-500"
+                            : "text-teal-800 hover:text-teal-500",
+                        ]}
+                      >
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </li>
-          );
-        })
-      }
-    </ul>
+          ))
+        }
+      </ul>
+
+      <a href={cta.href} class="btn-primary hidden sm:inline-block">{cta.label}</a>
+
+      <!-- Mobile menu — <details> keeps this working without client JS -->
+      <details class="relative sm:hidden [&[open]_svg.chevron]:rotate-180">
+        <summary
+          class="flex cursor-pointer list-none items-center text-teal-800 [&::-webkit-details-marker]:hidden"
+          aria-label="Menu"
+        >
+          <svg class="chevron h-6 w-6 transition-transform" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M4 7h16M4 12h16M4 17h16"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+            />
+          </svg>
+        </summary>
+        <ul
+          class="absolute right-0 top-full z-50 mt-3 w-64 rounded-lg border border-neutral-200 bg-white py-2 shadow-lg"
+        >
+          {
+            links.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="block px-4 py-2 text-sm text-teal-800 no-underline hover:bg-cream"
+                >
+                  {item.label}
+                </a>
+                {item.children && (
+                  <ul>
+                    {item.children.map((child) => (
+                      <li>
+                        <a
+                          href={child.href}
+                          class="block py-2 pl-8 pr-4 text-sm text-teal-800 no-underline hover:bg-cream"
+                        >
+                          {child.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))
+          }
+          <li class="mt-2 border-t border-neutral-200 px-4 pt-3 pb-1">
+            <a href={cta.href} class="btn-primary w-full text-center">{cta.label}</a>
+          </li>
+        </ul>
+      </details>
+    </div>
   </nav>
 </header>

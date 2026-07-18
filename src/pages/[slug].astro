@@ -1,0 +1,92 @@
+---
+// Article detail pages live at the site root (e.g. /does-black-mold-smell)
+// to preserve the original WordPress URL structure for SEO.
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { data } = post;
+const { Content } = await render(post);
+
+const related = (await getCollection("posts", ({ data: d }) => !d.draft))
+  .filter((p) => p.id !== post.id)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout title={data.title} description={data.description} image={data.featuredImage?.src}>
+  <article>
+    <header class="bg-white">
+      <div class="mx-auto max-w-3xl px-6 pt-20 sm:pt-28">
+        <h1 class="text-3xl sm:text-5xl">{data.title}</h1>
+        <p class="mt-6 text-sm text-slate">
+          <time datetime={data.date.toISOString()}>
+            {data.date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+          </time>
+          {data.author && <span> • {data.author}</span>}
+        </p>
+      </div>
+      {data.featuredImage && (
+        <div class="mx-auto max-w-4xl px-6 pt-10">
+          <img
+            src={data.featuredImage.src}
+            alt={data.featuredImage.alt}
+            class="w-full rounded-xl object-cover"
+          />
+        </div>
+      )}
+    </header>
+
+    <div class="mx-auto max-w-3xl px-6 py-12 sm:py-16">
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  <!-- Inline CTA -->
+  <section class="bg-cream">
+    <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+      <h2 class="text-3xl sm:text-4xl">Get a simple, unbiased mold inspection.</h2>
+      <p class="mt-4 max-w-2xl">
+        Need a test? We provide unbiased mold testing services. Unlike other companies, we have no
+        financial interest in mold remediation. Our focus is informing you.
+      </p>
+      <div class="mt-8">
+        <a href="/request-free-estimate" class="btn-primary">Request a Free Estimate</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- More mold help -->
+  {related.length > 0 && (
+    <section class="bg-white">
+      <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+        <h2 class="text-2xl sm:text-3xl">More mold help</h2>
+        <div class="mt-8 grid gap-8 sm:grid-cols-3">
+          {related.map((p) => (
+            <a href={`/${p.id}`} class="block no-underline">
+              {p.data.featuredImage && (
+                <img
+                  src={p.data.featuredImage.src}
+                  alt={p.data.featuredImage.alt}
+                  class="aspect-[3/2] w-full rounded-xl object-cover"
+                  loading="lazy"
+                />
+              )}
+              <h3 class="mt-4 text-lg">{p.data.title}</h3>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>

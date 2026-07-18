@@ -1,6 +1,15 @@
 # Claude Code — Project Instructions
 
-Astro 5 static site ("Acme Studio") with Tailwind CSS 4 and React (contact form only). Content Collections with Zod schemas. Static output — no SSR.
+Astro 5 static site for **Mold Catchers** (moldcatchers.com) with Tailwind CSS 4 and React (estimate
+form only). Content Collections with Zod schemas. Static output — no SSR.
+
+This branch is an Astro replica of the original WordPress/Avada site. Two things follow from that:
+
+- **URLs must match the original.** Articles live at the site root (`/does-black-mold-smell`), not
+  under `/blog`, to preserve the WordPress permalinks. Don't "tidy" these into a nested route.
+- **Location pages are the growth surface.** `/locations/<slug>` is driven entirely by frontmatter
+  in `src/content/locations/*.md` against one template. Adding a city is a content add, not a
+  layout job — the planned multi-city SEO/GEO expansion depends on keeping it that way.
 
 ## Agents
 
@@ -8,7 +17,7 @@ Five specialist agents. Route every request to the correct one based on task dom
 
 | Agent | When to use | Owns |
 |-------|-------------|------|
-| `content` | Creating, editing, or removing pages, blog posts, projects, and other collection entries. Markdown body and frontmatter edits. Managing nav, footer, and site config. | `src/content/`, `src/data/`, `src/pages/` (route files for new pages only) |
+| `content` | Creating, editing, or removing pages, articles, location pages, and other collection entries. Markdown body and frontmatter edits. Managing nav, footer, and site config. | `src/content/`, `src/data/`, `src/pages/` (route files for new pages only) |
 | `seo` | SEO audits, meta titles/descriptions, OG images, keyword research, competitor and SERP analysis. | SEO frontmatter fields (`title`, `description`, `featuredImage`/`image`, `tags`) and `src/data/site-meta.json` (SEO fields only) |
 | `design` | Colors, typography, fonts, spacing, layout, design tokens, component appearance, Tailwind theme, prose styling. | `src/styles/global.css`, Tailwind classes in `.astro` components and layouts |
 | `images` | Sourcing, downloading, or placing images. Stock photo search, reference image pulling. | `public/images/` (except `placeholders/`), image frontmatter fields |
@@ -35,11 +44,11 @@ Three tiers, ordered from simplest to most structured. Pick the right one, don't
 
 | # | Tier | Path | Use for |
 |---|------|------|---------|
-| 1 | **Inline content** | `src/pages/*.astro` (optionally paired with a single entry in `src/content/pages/*.md`) | Genuinely unique pages — homepage, about, contact, bespoke landing pages |
-| 2 | **Content Collections** | `src/content/` | Repeating items sharing a Zod schema — blog posts, projects, products, team bios, testimonials, case studies |
+| 1 | **Inline content** | `src/pages/*.astro` (optionally paired with a single entry in `src/content/pages/*.md`) | Genuinely unique pages — homepage, the estimate page, bespoke landing pages |
+| 2 | **Content Collections** | `src/content/` | Repeating items sharing a Zod schema — articles (`posts`), city pages (`locations`) |
 | 3 | **Site config** | `src/data/*.json` | Structural data that isn't really content — nav, footer, social handles, pricing tiers, redirects |
 
-There's also a separate axis — **interactivity** — covered by Astro's island model (`client:*` directives on React/Vue/Svelte/Solid components). Islands aren't a fourth tier; any tier can include one. The `/islands` route is a working demo.
+There's also a separate axis — **interactivity** — covered by Astro's island model (`client:*` directives on React/Vue/Svelte/Solid components). Islands aren't a fourth tier; any tier can include one. `EstimateForm.jsx` on `/request-free-estimate` is the only island on this site.
 
 ### Decision rules
 
@@ -106,7 +115,9 @@ The full procedure lives in `.claude/commands/build-prospect-site.md`; the baked
 
 | What | Where |
 |------|-------|
-| Content | `src/content/{pages,projects,posts}/*.md` (services are inline) |
+| Content | `src/content/{posts,locations}/*.md` (homepage + estimate page are inline) |
+| Article routes | `src/pages/[slug].astro` — root-level URLs, matching the original WordPress permalinks |
+| Location routes | `src/pages/locations/[slug].astro` — one template, all sections schema-driven |
 | Schemas | `src/content.config.ts` |
 | Site config | `src/data/site-meta.json` (name, URL, description, OG image, social, formspreeId) |
 | Navigation | `src/data/nav.json` — `[{ label, href, order }]` |

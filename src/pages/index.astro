@@ -1,204 +1,156 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import siteMeta from "../data/site-meta.json";
+
+const reasons = [
+  {
+    title: "Health Symptoms",
+    text: "Dealing with allergies, breathing problems, or headaches that seem worse when you're at home? Mold might be to blame, and testing can help you figure it out.",
+  },
+  {
+    title: "Musty Odors",
+    text: "Noticing a musty smell that won't go away? It could be mold growing in places like the basement, crawlspace, or behind the walls.",
+  },
+  {
+    title: "Visible Mold Growth",
+    text: "Seeing black spots, weird stains, or patches of discoloration on your walls or ceilings? That's a big red flag for mold, and there could be more hiding where you can't see.",
+  },
+  {
+    title: "Water Damage",
+    text: "Had a leak, flood, or condensation recently? Even if things look dry, leftover moisture can lead to hidden mold. Testing makes sure nothing's growing out of sight.",
+  },
+];
+
+const steps = [
+  { title: "1. Schedule", text: "Contact us to set up a convenient time for your mold inspection." },
+  { title: "2. Test", text: "Our experts use advanced tools to thoroughly evaluate your property." },
+  { title: "3. Get results", text: "Receive a detailed report explaining the findings and next steps." },
+];
 ---
 
-<BaseLayout
-  title="Home"
-  description={siteMeta.description}
->
-  <!-- Hero -->
-  <section class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-    <p class="text-sm uppercase tracking-wide text-neutral-500">
-      Tier 1 / 3 — Inline content
-    </p>
-    <h1 class="mt-4 max-w-3xl">
-      This homepage is hardcoded in <code class="rounded bg-neutral-100 px-2 py-1 text-2xl">src/pages/index.astro</code>
-    </h1>
-    <p class="mt-6 max-w-2xl text-lg text-neutral-500">
-      There is no Markdown file behind it, no <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-base">getEntry()</code> call,
-      no content collection. Every word and section you see is written directly in the Astro file. Use this pattern for
-      genuinely one-of-a-kind pages — landing pages, marketing pages, anything you only ever need one of.
-    </p>
-    <div class="mt-8 flex flex-wrap gap-4">
-      <a href="/about" class="btn-primary">See the hybrid pattern →</a>
-      <a href="/styleguide" class="btn-ghost">Style Guide</a>
+<BaseLayout title="Home" description={siteMeta.description}>
+  <!-- Hero: split ice-blue panel + photo -->
+  <section class="grid lg:grid-cols-2">
+    <div class="order-2 flex items-center bg-ice lg:order-1">
+      <div class="w-full px-6 py-20 sm:px-12 sm:py-32 lg:pl-[max(1.5rem,calc((100vw-72rem)/2))] lg:pr-16">
+        <h1>Trusted, simple mold testing</h1>
+        <p class="mt-6 max-w-md text-lg">
+          We provide unbiased mold testing services. Unlike other companies, we have no financial
+          interest in mold remediation. Our focus is informing you.
+        </p>
+        <div class="mt-8">
+          <a href="/request-free-estimate" class="btn-primary">Free Estimate</a>
+        </div>
+      </div>
+    </div>
+    <div class="order-1 min-h-[320px] lg:order-2 lg:min-h-[720px]">
+      <img
+        src="/images/moldcatchers/brooke-cagle-XmWV_lQq6_c-unsplash-scaled.jpg"
+        alt="Father and daughter relaxing in a bright, healthy home"
+        class="h-full w-full object-cover"
+      />
     </div>
   </section>
 
-  <!-- The three tiers -->
-  <section class="border-t border-neutral-200 bg-neutral-50">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <h2>Three content tiers, three working demos</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        Every page in this starter exists to demonstrate one of Astro's content patterns. Click through to see each one in action.
-      </p>
-
-      <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <a href="/about" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 1 — Inline (hybrid variant)</p>
-          <h3 class="mt-3">/about</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            The other shape of Tier 1: route file in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/about.astro</code> rendering a single
-            Markdown entry from <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/pages/about.md</code>.
-          </p>
-        </a>
-
-        <a href="/blog" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Posts collection</p>
-          <h3 class="mt-3">/blog</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            Every card is a Markdown file in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/posts/</code>.
-            Schema in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content.config.ts</code>. Sorted by date.
-          </p>
-        </a>
-
-        <a href="/projects" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Projects collection</p>
-          <h3 class="mt-3">/projects</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            A different schema than posts — manual <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">order</code> field
-            and a <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">featured</code> boolean. Demonstrates a non-chronological collection.
-          </p>
-        </a>
-
-        <a href="/contact" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — Site config driven</p>
-          <h3 class="mt-3">/contact</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            The page imports <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/site-meta.json</code> and renders
-            its values directly. The React contact form picks up the Formspree ID the same way.
-          </p>
-        </a>
-
-        <div class="block rounded-xl border border-dashed border-neutral-300 p-8">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — More site config</p>
-          <h3 class="mt-3">Nav &amp; Footer</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            The header and footer you see on every page also read from Tier 3 —
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/nav.json</code> and
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/footer.json</code>. Edit those files to update site-wide chrome.
-          </p>
-        </div>
-
-        <a href="/styleguide" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Design system</p>
-          <h3 class="mt-3">/styleguide</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            A live preview of design tokens, typography, components. Backed by
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/styles/global.css</code> and
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/design-tokens.json</code>.
-          </p>
-        </a>
+  <!-- Do you need mold testing? — solid teal band -->
+  <section class="bg-teal-800">
+    <div class="mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:py-28 lg:grid-cols-3">
+      <div>
+        <h2 class="text-white">Do you need mold testing?</h2>
+        <p class="mt-4 text-white/85">
+          Consider a home mold test if you are experiencing any of the following:
+        </p>
+      </div>
+      <div class="grid gap-10 sm:grid-cols-2 lg:col-span-2">
+        {reasons.map((reason) => (
+          <div>
+            <h3 class="text-white">{reason.title}</h3>
+            <p class="mt-3 text-white/85">{reason.text}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- Decision rules -->
-  <section class="border-t border-neutral-200">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <h2>Which tier should I use?</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        The decision tree is short. When in doubt, start inline and promote to a collection the moment you have a second one.
-      </p>
-
-      <div class="mt-12 grid gap-8 lg:grid-cols-3">
-        <div>
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 1 — Inline</p>
-          <p class="mt-2 text-sm font-medium">A genuinely unique page</p>
-          <p class="mt-2 text-sm text-neutral-500">
-            Homepage, about, contact, a one-off landing page. Write it directly in
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/*.astro</code>, or pair the route file with a single
-            entry in <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/pages/</code> for Markdown editing.
-          </p>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 2 — Content collection</p>
-          <p class="mt-2 text-sm font-medium">Repeating items sharing a schema</p>
-          <p class="mt-2 text-sm text-neutral-500">
-            Blog posts, projects, products, team bios, testimonials, case studies. Define a Zod schema and add files to
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/content/&lt;collection&gt;/</code>.
-          </p>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Tier 3 — Site config</p>
-          <p class="mt-2 text-sm font-medium">Structural data, not content</p>
-          <p class="mt-2 text-sm text-neutral-500">
-            Nav links, footer groups, social handles, pricing tiers, redirects. Put it in
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/data/*.json</code> and import the JSON in your route or component.
-          </p>
-        </div>
+  <!-- Peace of mind — cream band with collage -->
+  <section class="bg-cream">
+    <div class="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 sm:py-28 lg:grid-cols-2">
+      <div>
+        <img
+          src="/images/moldcatchers/feature-homepage.png"
+          alt="Collage of a healthy family home and mold sample imagery"
+          class="w-full"
+        />
       </div>
-
-      <p class="mt-12 text-sm text-neutral-500">
-        Full architecture and editing workflow: <a href="https://github.com" class="underline">docs/content-collections.md</a>.
-      </p>
-    </div>
-  </section>
-
-  <!-- Interactivity model — orthogonal axis -->
-  <section class="border-t border-neutral-200 bg-neutral-50">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <p class="text-sm uppercase tracking-wide text-neutral-500">
-        A separate axis — not a fourth tier
-      </p>
-      <h2 class="mt-3">Interactivity: when to add JavaScript</h2>
-      <p class="mt-4 max-w-2xl text-neutral-500">
-        The three tiers above answer <em>where the content lives</em>. Islands answer a different question:
-        <em>does this part of the page need to run JavaScript in the browser?</em> The two are orthogonal —
-        any page (collection entry, inline route, config-driven) can include an island when interactivity demands it.
-      </p>
-
-      <div class="mt-12 grid gap-8 lg:grid-cols-3">
-        <a href="/islands" class="block rounded-xl border border-neutral-200 bg-white p-8 transition hover:border-neutral-400 lg:col-span-2">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Concept demo</p>
-          <h3 class="mt-3">/islands</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            Live demos of <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:load</code>,
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:idle</code>,
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">client:visible</code>. React and vanilla-JS examples.
-            Decision rules for when to reach for an island vs. plain <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.astro</code>.
-          </p>
-        </a>
-        <div class="rounded-xl border border-dashed border-neutral-300 p-8">
-          <p class="text-xs uppercase tracking-wide text-neutral-500">Default</p>
-          <h3 class="mt-3">Zero JS</h3>
-          <p class="mt-2 text-sm text-neutral-500">
-            Most components in this starter are <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">.astro</code> — they ship as static HTML
-            with no client-side runtime. Keep it that way unless interactivity demands otherwise.
-          </p>
+      <div class="lg:px-8">
+        <h2>Testing is about peace of mind</h2>
+        <p class="mt-6">
+          We offer honest, conflict-free mold inspections using advanced tools to detect hidden
+          mold, with certified experts specializing in Northern Utah's unique needs.
+        </p>
+        <div class="mt-8">
+          <a href="/request-free-estimate" class="btn-ghost">Pricing</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Lorem fill / visual weight -->
-  <section class="border-t border-neutral-200">
-    <div class="mx-auto max-w-5xl px-6 py-24 sm:py-32">
-      <div class="grid gap-12 lg:grid-cols-2 items-start">
-        <div>
-          <h2>Replace this section</h2>
-          <p class="mt-4 text-neutral-500">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.
-          </p>
-          <p class="mt-4 text-neutral-500">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-          <p class="mt-4 text-sm text-neutral-500">
-            <strong>How to remove this:</strong> open
-            <code class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">src/pages/index.astro</code> and delete this section.
-            The whole homepage is hardcoded — no Markdown to track down.
-          </p>
+  <!-- Independent tester — full-bleed photo with floating card -->
+  <section
+    class="bg-cover bg-center"
+    style="background-image: url('/images/moldcatchers/patrick-perkins-3wylDrjxH-E-unsplash-scaled.jpg');"
+  >
+    <div class="mx-auto max-w-6xl px-6 py-24 sm:py-36">
+      <div class="max-w-xl rounded-xl bg-white p-8 shadow-lg sm:p-12">
+        <h2 class="text-3xl sm:text-4xl">The key is hiring an independent mold tester</h2>
+        <p class="mt-6">
+          Not all mold testing services are the same. Many companies that offer inspections also
+          handle remediation, creating a conflict of interest. At Mold Catchers, we're different.
+          Our sole focus is providing reliable, unbiased testing with no hidden agenda. Since we
+          don't sell remediation services, you can trust our assessments are honest and designed
+          to help you make informed decisions.
+        </p>
+        <div class="mt-8">
+          <a href="/request-free-estimate" class="btn-primary">Free Estimate</a>
         </div>
-        <div class="aspect-4/3 overflow-hidden rounded-xl bg-neutral-200">
-          <img
-            src="/images/placeholders/landscape-4x3.svg"
-            alt="Placeholder image rendered from public/images/placeholders/landscape-4x3.svg"
-            class="h-full w-full object-cover"
-          />
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works — cream band, 3 cards -->
+  <section class="bg-cream">
+    <div class="mx-auto max-w-6xl px-6 py-20 sm:py-28">
+      <h2>How it works</h2>
+      <div class="mt-12 grid gap-8 sm:grid-cols-3">
+        {steps.map((step) => (
+          <div class="rounded-lg bg-white p-8 shadow-sm">
+            <h3>{step.title}</h3>
+            <p class="mt-3">{step.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Book your test — white band with collage -->
+  <section class="bg-white">
+    <div class="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 sm:py-28 lg:grid-cols-2">
+      <div>
+        <img
+          src="/images/moldcatchers/feature-global-cta.png"
+          alt="Collage of home interiors and a petri dish mold sample"
+          class="w-full"
+        />
+      </div>
+      <div class="lg:px-8">
+        <h2>Book your mold test today</h2>
+        <p class="mt-6">
+          Don't let mold turn into a bigger issue. Contact us for a free estimate or click below
+          to schedule your appointment. Take the first step toward a healthier, mold-free home
+          with our expert help.
+        </p>
+        <div class="mt-8">
+          <a href="/request-free-estimate" class="btn-ghost">Pricing</a>
         </div>
       </div>
     </div>

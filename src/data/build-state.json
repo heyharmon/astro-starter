@@ -1,9 +1,19 @@
 {
-  "stage": "not-started",
-  "completedStages": [],
-  "currentCohort": 0,
-  "cohorts": {},
-  "sitemapApproved": false,
-  "styleguideApproved": false,
-  "notes": ""
+  "stage": "final-review",
+  "completedStages": ["style", "sitemap", "content-drafts", "page-building"],
+  "currentCohort": 2,
+  "cohorts": {
+    "1": { "pages": ["/", "/the-mold-academy"], "status": "complete" },
+    "2": {
+      "pages": [
+        "/locations/utah-mold-testing",
+        "/locations/salt-lake-city-mold-inspection",
+        "/request-free-estimate"
+      ],
+      "status": "complete"
+    }
+  },
+  "sitemapApproved": true,
+  "styleguideApproved": true,
+  "notes": "Replica of moldcatchers.com (WordPress/Avada) in Astro. Reference screenshots and side-by-side tiles live in .reference/ (untracked). All 5 articles moved to root-level URLs via src/pages/[slug].astro to preserve the original WordPress permalinks. Location pages are fully schema-driven (src/content/locations/) so new cities are pure content adds — that is the surface for the planned multi-city SEO/GEO expansion. Still open: sitemap.xml, JSON-LD (LocalBusiness + FAQPage), per-page OG images, and Formspree ID (site-meta.json still has the YOUR_FORM_ID placeholder)."
 }

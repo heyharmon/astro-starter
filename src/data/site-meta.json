@@ -1,14 +1,17 @@
 {
-  "name": "Astro Starter",
-  "tagline": "A self-documenting Astro 5 starter — built around three content tiers",
-  "description": "An Astro 5 + Tailwind CSS 4 starter where every page demonstrates a content pattern: pure inline routes, hybrid Markdown entries, content collections, and site config driven views.",
-  "url": "https://example.com",
-  "ogImage": "/images/og-default.png",
-  "copyright": "© 2026 Astro Starter. Replace this with your own copyright in src/data/site-meta.json.",
-  "social": {
-    "twitter": "https://twitter.com/example",
-    "linkedin": "https://linkedin.com/company/example",
-    "github": "https://github.com/example"
+  "name": "Mold Catchers",
+  "tagline": "Trusted, simple mold testing",
+  "description": "Unbiased mold testing services in Northern Utah. Unlike other companies, we have no financial interest in mold remediation. Our focus is informing you.",
+  "url": "https://moldcatchers.com",
+  "ogImage": "/images/moldcatchers/feature-homepage.png",
+  "logo": "/images/moldcatchers/mold-catchers-logo.png",
+  "logoIconWhite": "/images/moldcatchers/icon-white.png",
+  "copyright": "© 2026 • Mold Catchers, a Harmon Family Ventures LLC company. All rights reserved.",
+  "contact": {
+    "email": "info@moldcatchers.com",
+    "phone": "(801) 515-3331",
+    "phoneHref": "tel:+18015153331"
   },
+  "social": {},
   "formspreeId": "YOUR_FORM_ID"
 }

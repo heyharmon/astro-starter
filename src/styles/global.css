@@ -1,12 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: "Manrope", Arial, Helvetica, ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Brand palette — extracted from moldcatchers.com (Avada theme globals) */
+  --color-teal-50: #e6f2f2;
+  --color-teal-100: #cce6e6;
+  --color-teal-300: #66aaaa;
+  --color-teal-500: #008787; /* link hover */
+  --color-teal-700: #006352; /* button hover */
+  --color-teal-800: #004c4c; /* primary brand — text, buttons, footer */
+  --color-teal-900: #003838;
+
+  --color-cream: #fbf7f3;    /* warm section background */
+  --color-ice: #f5f8f8;      /* hero panel background */
+  --color-surface: #f2f3f5;  /* cool section background */
+  --color-copper: #a66d3f;   /* accent */
+  --color-slate: #4a4e57;    /* secondary text */
+  --color-ink: #212934;      /* darkest */
 
   --color-neutral-50: #fafafa;
   --color-neutral-100: #f5f5f5;
-  --color-neutral-200: #e5e5e5;
+  --color-neutral-200: #e2e2e2;
   --color-neutral-300: #d4d4d4;
   --color-neutral-400: #a3a3a3;
   --color-neutral-500: #737373;
@@ -15,18 +31,6 @@
   --color-neutral-800: #262626;
   --color-neutral-900: #171717;
   --color-neutral-950: #0a0a0a;
-
-  --color-indigo-50: #eef2ff;
-  --color-indigo-100: #e0e7ff;
-  --color-indigo-200: #c7d2fe;
-  --color-indigo-300: #a5b4fc;
-  --color-indigo-400: #818cf8;
-  --color-indigo-500: #6366f1;
-  --color-indigo-600: #4f46e5;
-  --color-indigo-700: #4338ca;
-  --color-indigo-800: #3730a3;
-  --color-indigo-900: #312e81;
-  --color-indigo-950: #1e1b4b;
 }
 
 @layer base {
@@ -36,30 +40,33 @@
   }
 
   body {
-    @apply bg-white text-neutral-900 font-sans;
+    @apply bg-white text-teal-800 font-sans;
+    font-size: 17px;
+    line-height: 1.9;
   }
 
   h1 {
-    @apply font-sans font-semibold tracking-tight text-neutral-900 text-4xl sm:text-5xl;
-    line-height: 1.1;
-  }
-
-  h2 {
-    @apply font-sans font-semibold tracking-tight text-neutral-900 text-2xl sm:text-3xl;
+    @apply font-sans font-semibold tracking-tight text-teal-800 text-4xl sm:text-7xl;
     line-height: 1.15;
   }
 
-  h3 {
-    @apply font-sans font-medium text-neutral-900 text-xl;
+  h2 {
+    @apply font-sans font-semibold tracking-tight text-teal-800 text-3xl sm:text-5xl;
     line-height: 1.2;
   }
 
+  h3 {
+    @apply font-sans font-semibold text-teal-800 text-xl sm:text-2xl;
+    line-height: 1.3;
+  }
+
   p {
-    @apply leading-relaxed text-neutral-600;
+    @apply text-teal-800/90;
+    line-height: 1.9;
   }
 
   a {
-    @apply text-indigo-600 underline-offset-4 hover:underline;
+    @apply text-teal-800 underline-offset-4 hover:text-teal-500;
   }
 
   hr {
@@ -67,21 +74,32 @@
   }
 }
 
-/* Primary button utility */
-.btn-primary {
-  @apply inline-block rounded-lg bg-indigo-600 px-6 py-3 text-sm font-medium text-white no-underline transition-colors;
-}
-.btn-primary:hover {
-  @apply bg-indigo-700;
-}
+/* Buttons live in the components layer so plain utilities (hidden, w-full,
+   text-center, ...) can override them at the call site. */
+@layer components {
+  /* Primary button utility — solid teal, 5px radius per reference site */
+  .btn-primary {
+    @apply inline-block rounded-[5px] bg-teal-800 px-6 py-3 text-sm font-semibold text-white no-underline transition-colors;
+  }
+  .btn-primary:hover {
+    @apply bg-teal-700 text-white;
+  }
 
-/* Ghost button utility */
-.btn-ghost {
-  @apply inline-block rounded-lg border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-900 no-underline transition-colors;
-  background: transparent;
-}
-.btn-ghost:hover {
-  @apply border-neutral-900 bg-neutral-900 text-white;
+  /* Ghost button utility — copper outline, per reference secondary buttons */
+  .btn-ghost {
+    @apply inline-block rounded-[5px] border border-copper bg-white px-6 py-3 text-sm font-semibold text-copper no-underline transition-colors;
+  }
+  .btn-ghost:hover {
+    @apply bg-copper text-white;
+  }
+
+  /* Inverted button — for use on teal backgrounds */
+  .btn-inverse {
+    @apply inline-block rounded-[5px] bg-white px-6 py-3 text-sm font-semibold text-teal-800 no-underline transition-colors;
+  }
+  .btn-inverse:hover {
+    @apply bg-cream text-teal-800;
+  }
 }
 
 /* Prose styling for rendered markdown content */
@@ -90,37 +108,37 @@
 }
 
 .prose h2 {
-  @apply mt-12 mb-4;
+  @apply mt-12 mb-4 text-2xl sm:text-3xl;
 }
 
 .prose h3 {
-  @apply mt-8 mb-3;
+  @apply mt-8 mb-3 text-xl sm:text-2xl;
 }
 
 .prose p {
-  @apply mb-6 text-neutral-600;
+  @apply mb-6 text-teal-800/90;
 }
 
 .prose ul {
-  @apply list-disc pl-6 mb-6 space-y-2 text-neutral-600;
+  @apply list-disc pl-6 mb-6 space-y-2 text-teal-800/90;
 }
 
 .prose ol {
-  @apply list-decimal pl-6 mb-6 space-y-2 text-neutral-600;
+  @apply list-decimal pl-6 mb-6 space-y-2 text-teal-800/90;
 }
 
 .prose blockquote {
-  @apply border-l-2 border-neutral-300 pl-6 italic text-neutral-500 my-6;
+  @apply border-l-2 border-teal-300 pl-6 italic text-slate my-6;
 }
 
 .prose strong {
-  @apply font-semibold text-neutral-900;
+  @apply font-semibold text-teal-800;
 }
 
 .prose code {
-  @apply bg-neutral-100 px-1.5 py-0.5 rounded text-sm font-mono text-neutral-800;
+  @apply bg-surface px-1.5 py-0.5 rounded text-sm font-mono text-ink;
 }
 
 .prose a {
-  @apply text-indigo-600 underline;
+  @apply text-teal-500 underline;
 }
