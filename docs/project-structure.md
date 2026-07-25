@@ -36,9 +36,7 @@
 │   │   ├── nav.json           → Navigation links with sort order
 │   │   ├── footer.json        → Footer link groups
 │   │   ├── site-meta.json     → Site name, URL, SEO defaults, social links
-│   │   ├── design-tokens.json → Machine-readable design system for agents
-│   │   ├── build-state.json   → Stage-gate build progress
-│   │   └── evaluation-criteria.md → Grading rubric for page evaluation
+│   │   └── design-tokens.json → Machine-readable design system for agents
 │   ├── layouts/
 │   │   └── BaseLayout.astro   → Page wrapper (Head, Header, Footer, slot)
 │   ├── components/
@@ -105,7 +103,3 @@ Array of link groups: `{ section, links: [{ label, href }] }`. Rendered as colum
 ### `src/data/design-tokens.json`
 
 Machine-readable design system. Agents reference this as the source of truth for which Tailwind classes to use for backgrounds, text, borders, buttons, spacing, and component patterns. See [Design System](design-system.md).
-
-### `src/data/build-state.json`
-
-Tracks progress through the stage-gate build workflow. Includes current stage, completed stages, cohort assignments, and approval status. See [Build Workflow](build-workflow.md).

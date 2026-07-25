@@ -11,7 +11,6 @@ Procedural how-tos for agents live in `.claude/agents/<agent>/*.md` (skills), no
 | [Getting Started](getting-started.md) | Setup, first run, how to talk to the system |
 | [Project Structure](project-structure.md) | Directory layout, key files, architecture overview |
 | [Agent System](agent-system.md) | Agent file structure, skill formats, how to extend the system |
-| [Build Workflow](build-workflow.md) | Stage-gate process for building out the site |
 | [Content Collections](content-collections.md) | Content architecture, collection purposes, editing workflow |
 | [Design System](design-system.md) | Tailwind theme, design tokens, styleguide, typography, color palette |
 

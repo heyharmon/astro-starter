@@ -53,55 +53,6 @@ There's also a separate axis — **interactivity** — covered by Astro's island
 
 Schemas are defined in `src/content.config.ts`. Architecture details and editing workflow: `docs/content-collections.md`.
 
-## Site Build Workflow (Stage-Gate)
-
-For building out the site (not CMS maintenance). Read `src/data/build-state.json` for current progress; if missing, infer state from the codebase and create it.
-
-| # | Stage | What | Gate |
-|---|-------|------|------|
-| 1 | **Style** | Design agent applies reference aesthetic to the styleguide. Updates `global.css` tokens and `design-tokens.json`. | Human approves styleguide |
-| 2 | **Sitemap** | Orchestrator proposes page list + nav structure. | Human approves sitemap |
-| 3 | **Content Drafts** | Content agent drafts all page copy in `src/content/pages/*.md` with `draft: true`. No layout work yet. | Human reviews copy (soft gate) |
-| 4 | **Page Building** | Build pages in cohorts of 2–3. Homepage is always cohort 1. | Human reviews after each cohort |
-| 5 | **Final Review** | Full-site visual audit (desktop + mobile). SEO pass. Design compliance check. | Human final approval |
-
-### Per-Cohort Sequence (Stage 4)
-
-1. **Dev** — structural layout (sections, grids, HTML in `.astro` route files)
-2. **Content** — places drafted copy into layout, flips `draft: false`
-3. **Design** — styles new component patterns, updates styleguide + `design-tokens.json`
-4. **Images** — sources and places images via `source-page-images` skill
-5. **Polish** — Design agent runs `polish-page` skill. Compares the built page section-by-section against the reference (or against the approved homepage + styleguide if no reference). Reaches 90–95% quality.
-6. **Evaluate** — screenshots at 1280px + 375px, grades against `src/data/evaluation-criteria.md`
-7. **Report** — presents screenshots, scores, flagged issues to human
-
-Update `src/data/build-state.json` after each stage transition and cohort completion. Inference fallback: styleguide.astro non-default → style done; nav.json has real pages → sitemap done; content files have body text → drafts exist.
-
-## Autonomous prospect-build mode
-
-When invoked via the `/build-prospect-site` command (Small Seats' Stage 3 — building a real
-prospect's daycare site by personalizing `maplewood-base`), the normal human approval gates above
-are **suspended**. In this mode:
-
-- **Never pause for human approval and never ask a question.** Treat every stage-gate
-  (styleguide, sitemap, cohort review, final review) as auto-approved.
-- **Run flat — the root agent does every step itself.** Do **not** use the `Task` tool to delegate to
-  the `design`/`content`/`images`/`seo`/`deploy` sub-agents. Nested headless sub-agent delegation is
-  the reason a pilot build took 5.5 hours; the command folds every specialist procedure into one
-  in-process checklist. The five interactive agents stay intact for normal (non-headless) work — this
-  is an additional fast path, not a replacement.
-- The "Human reviews" / "Human approves" gates collapse to a hard gate: `npm run healthcheck` green
-  **+** a live HTTP 200 containing the prospect's name. **No** per-build image sourcing and **no**
-  screenshot self-eval loop on the first pass (both are slow; a human eyeballs final quality).
-- This is a **transformation**, not a from-scratch build: `maplewood-base` is already styled and has
-  a full 5-page sitemap. Change tokens/content/labels to fit the prospect; do not rebuild structure.
-- The run is unattended and headless (`claude -p`). It must be **self-terminating**: always end by
-  writing a result file (`.briefs/<slug>.result.json`), success or failure. Never leave it hanging.
-- Honesty rules in the command are non-negotiable — the output is shown to the real business owner.
-
-The full procedure lives in `.claude/commands/build-prospect-site.md`; the baked deploy step is
-`scripts/deploy-prospect.sh`.
-
 ## Key Paths
 
 | What | Where |
@@ -112,14 +63,12 @@ The full procedure lives in `.claude/commands/build-prospect-site.md`; the baked
 | Navigation | `src/data/nav.json` — `[{ label, href, order }]` |
 | Footer | `src/data/footer.json` — `[{ section, links: [{ label, href }] }]` |
 | Design tokens | `src/data/design-tokens.json` (machine-readable) + `src/styles/global.css` (CSS source of truth) |
-| Build state | `src/data/build-state.json` |
-| Eval criteria | `src/data/evaluation-criteria.md` |
 | Components | `src/components/` |
 | Layouts | `src/layouts/BaseLayout.astro` |
 | Routes | `src/pages/` |
 | Placeholders | `public/images/placeholders/` |
 
-For deeper context, see [`docs/`](docs/): `project-structure.md`, `content-collections.md`, `design-system.md`, `agent-system.md`, `build-workflow.md`.
+For deeper context, see [`docs/`](docs/): `project-structure.md`, `content-collections.md`, `design-system.md`, `agent-system.md`.
 
 ## Healthcheck
 

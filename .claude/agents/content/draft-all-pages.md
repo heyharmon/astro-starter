@@ -7,7 +7,7 @@ Draft copy for all pages in the approved sitemap, creating markdown files with `
 ## Required inputs
 
 The orchestrator should provide:
-- The approved sitemap (which pages to create, from `build-state.json` or `nav.json`)
+- The approved sitemap (which pages to create, from `nav.json`)
 - The business context (from `site-meta.json` — name, tagline, description)
 - Any reference site content (extracted via WebFetch) for tone and messaging guidance
 - Any specific direction from the human about messaging, tone, or what to include/exclude
@@ -17,7 +17,6 @@ The orchestrator should provide:
 1. **Read context files:**
    - `src/data/site-meta.json` — business name, tagline, description
    - `src/data/nav.json` — approved page list and navigation order
-   - `src/data/build-state.json` — current build stage and notes
    - Any existing content files in `src/content/pages/` — to calibrate tone
 
 2. **Read `src/content.config.ts`** for the page schema (required and optional frontmatter fields).

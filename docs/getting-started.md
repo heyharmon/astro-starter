@@ -44,4 +44,3 @@ Claude reads `CLAUDE.md` to understand the project, routes your request to the r
 
 - [Project Structure](project-structure.md) — understand the directory layout
 - [Agent System](agent-system.md) — how the specialist agents work
-- [Build Workflow](build-workflow.md) — stage-gate process for building out the site

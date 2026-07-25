@@ -54,7 +54,6 @@ See `CLAUDE.md` for routing rules and the full agent capability table.
 | [Getting Started](docs/getting-started.md) | Setup, first run, how to use the system |
 | [Project Structure](docs/project-structure.md) | Directory layout, key files, architecture |
 | [Agent System](docs/agent-system.md) | Agent file structure, skill formats, how to extend the system |
-| [Build Workflow](docs/build-workflow.md) | Stage-gate process for building out the site |
 | [Content Collections](docs/content-collections.md) | Content architecture, collection purposes, editing workflow |
 | [Design System](docs/design-system.md) | Tailwind theme, tokens, colors, typography |
 

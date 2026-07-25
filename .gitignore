@@ -28,6 +28,3 @@ node_modules/
 # OS
 .DS_Store
 Thumbs.db
-
-# Small Seats prospect-build handoff artifacts (brief in, notes + result out)
-.briefs/
